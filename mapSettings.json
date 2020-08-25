@@ -1,5 +1,5 @@
 {
-  "urlMapTile": "https://api.mapbox.com/styles/v1/mguellsegarra/cke5wh6jb2jlm19lqj1uvkifu/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWd1ZWxsc2VnYXJyYSIsImEiOiJjajNpdGU4a2gwMDJqMnhvNzk3YWx5NG4zIn0.rws1hiWTdnnNMPAS1FFkZw",
+  "urlMapTile": "https://api.mapbox.com/styles/v1/mguellsegarra/cke5wh6jb2jlm19lqj1uvkifu/tiles/512/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWd1ZWxsc2VnYXJyYSIsImEiOiJjajNpdGU4a2gwMDJqMnhvNzk3YWx5NG4zIn0.rws1hiWTdnnNMPAS1FFkZw",
   "mapStyle": [
     {
       "elementType": "labels",

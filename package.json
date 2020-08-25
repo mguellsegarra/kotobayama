@@ -7,7 +7,8 @@
     "ios": "react-native run-ios",
     "start": "react-native start",
     "test": "jest",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "build:apk": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release/ && open . && cd ../../../.."
   },
   "dependencies": {
     "flow-bin": "^0.122.0",
