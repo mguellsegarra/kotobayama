@@ -18,11 +18,15 @@ const App: () => React$Node = () => {
         <MapView
           style={styles.map}
           provider={PROVIDER_GOOGLE}
-          initialRegion={{
-            latitude: 42.6053217,
-            longitude: 0.8774010999999999,
-            latitudeDelta: 0.0922,
-            longitudeDelta: 0.0421,
+          initialCamera={{
+            center: {
+              latitude: 42.6053217,
+              longitude: 0.8774010999999999,
+            },
+            pitch: 0,
+            heading: 0,
+            altitude: 1000,
+            zoom: 15,
           }}
           mapType={'standard'}
           rotateEnabled={false}
