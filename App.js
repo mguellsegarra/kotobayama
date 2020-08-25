@@ -9,56 +9,7 @@
 import React from 'react';
 import MapView, {PROVIDER_GOOGLE, MapTypes, UrlTile} from 'react-native-maps';
 import {StyleSheet, View} from 'react-native';
-const mapStyle = [
-  {
-    elementType: 'labels',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    elementType: 'labels.icon',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'administrative',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'poi',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'road',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-  {
-    featureType: 'transit',
-    stylers: [
-      {
-        visibility: 'off',
-      },
-    ],
-  },
-];
+import MapSettings from './mapSettings.json';
 
 const App: () => React$Node = () => {
   return (
@@ -76,14 +27,8 @@ const App: () => React$Node = () => {
           mapType={'standard'}
           rotateEnabled={false}
           pitchEnabled={false}
-          customMapStyle={mapStyle}>
-          <UrlTile
-            urlTemplate={
-              'https://api.mapbox.com/styles/v1/mguellsegarra/cke5wh6jb2jlm19lqj1uvkifu/tiles/256/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWd1ZWxsc2VnYXJyYSIsImEiOiJjajNpdGU4a2gwMDJqMnhvNzk3YWx5NG4zIn0.rws1hiWTdnnNMPAS1FFkZw'
-            }
-            // maximumZ={19}
-            flipY={false}
-          />
+          customMapStyle={MapSettings.mapStyle}>
+          <UrlTile urlTemplate={MapSettings.urlMapTile} />
         </MapView>
       </View>
     </>
