@@ -1,0 +1,6 @@
+module Pods_tegami_rn_p_tegami_rn_pTests {
+  umbrella header "Pods-tegami_rn_p-tegami_rn_pTests-umbrella.h"
+
+  export *
+  module * { export * }
+}
