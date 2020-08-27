@@ -47,6 +47,9 @@ const App: () => React$Node = () => {
     allIds.push(level.id.toString());
   });
 
+  // {markers}
+  // <UrlTile urlTemplate={MapSettings.urlMapTile} />
+
   return (
     <>
       <View style={styles.container}>
@@ -64,18 +67,15 @@ const App: () => React$Node = () => {
             pitch: 0,
             heading: 0,
             altitude: 1000,
-            zoom: 0,
+            zoom: 15,
           }}
-          mapType={'standard'}
+          mapType={'satellite'}
           rotateEnabled={false}
           pitchEnabled={false}
           customMapStyle={MapSettings.mapStyle}
           onMapReady={() => {
-            this.map.fitToSuppliedMarkers(allIds, fitMarkersMapOptions);
-          }}>
-          <UrlTile urlTemplate={MapSettings.urlMapTile} />
-          {markers}
-        </MapView>
+            // this.map.fitToSuppliedMarkers(allIds, fitMarkersMapOptions);
+          }}></MapView>
       </View>
     </>
   );

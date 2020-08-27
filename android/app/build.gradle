@@ -129,7 +129,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.tegami_rn_p"
+        applicationId "dev.ondori.games.tegami_mountains"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1

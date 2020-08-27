@@ -1,6 +1,0 @@
-module Pods_tegami_rn_p {
-  umbrella header "Pods-tegami_rn_p-umbrella.h"
-
-  export *
-  module * { export * }
-}

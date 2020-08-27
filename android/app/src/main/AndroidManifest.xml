@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-  package="com.tegami_rn_p">
+  package="dev.ondori.games.tegami_mountains">
 
     <uses-permission android:name="android.permission.INTERNET" />
 

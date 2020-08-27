@@ -3,20 +3,15 @@ require_relative '../node_modules/@react-native-community/cli-platform-ios/nativ
 
 platform :ios, '10.0'
 
-target 'tegami_rn_p' do
-  # React Native Maps dependencies
+target 'tegami_mountains' do
+    # React Native Maps dependencies
   rn_maps_path = '../node_modules/react-native-maps'
   pod 'react-native-google-maps', :path => rn_maps_path
   pod 'GoogleMaps'
-  pod 'Google-Maps-iOS-Utils'
+  pod 'Google-Maps-iOS-Utils'  
   config = use_native_modules!
 
   use_react_native!(:path => config["reactNativePath"])
-
-  target 'tegami_rn_pTests' do
-    inherit! :complete
-    # Pods for testing
-  end
 
   # Enables Flipper.
   #
@@ -25,14 +20,5 @@ target 'tegami_rn_p' do
   use_flipper!
   post_install do |installer|
     flipper_post_install(installer)
-  end
-end
-
-target 'tegami_rn_p-tvOS' do
-  # Pods for tegami_rn_p-tvOS
-
-  target 'tegami_rn_p-tvOSTests' do
-    inherit! :search_paths
-    # Pods for testing
   end
 end
