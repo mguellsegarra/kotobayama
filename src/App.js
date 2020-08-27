@@ -17,8 +17,20 @@ const App = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName="Splash" headerMode="none">
-        <Stack.Screen name="Splash" component={Splash} />
-        <Stack.Screen name="LevelMap" component={LevelMap} />
+        <Stack.Screen
+          name="Splash"
+          component={Splash}
+          options={{
+            animationEnabled: false,
+          }}
+        />
+        <Stack.Screen
+          name="LevelMap"
+          component={LevelMap}
+          options={{
+            animationEnabled: false,
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
