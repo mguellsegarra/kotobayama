@@ -8,13 +8,20 @@ import {
 
 const getStyles = () => {
   const navbarHeight = hp('7%');
-  const titleHeight = hp('12%');
   const bottomHeight = hp('30%');
 
-  const titleBannerWidth = 300;
-  const topButtonSize = 40;
-  const playButtonHeight = 50;
-  const playButtonWidth = 160;
+  const titleBannerWidth = hp('42%');
+  const titleBannerConstant = 0.2922;
+  const titleHeight = titleBannerWidth * titleBannerConstant;
+
+  const topButtonSize = hp('5%');
+  const buttonMargin = hp('1%');
+
+  const playButtonWidth = 180;
+  const playButtonConstant = 0.3525;
+  const playButtonHeight = playButtonWidth * playButtonConstant;
+
+  const playButtonOverlayBottomMargin = hp('2%');
 
   return StyleSheet.create({
     container: {
@@ -25,46 +32,60 @@ const getStyles = () => {
     map: {
       ...StyleSheet.absoluteFillObject,
     },
-    titleOverlay: {
+    disableMapOverlay: {
       position: 'absolute',
       top: 0,
-      width: titleBannerWidth,
-      marginTop: navbarHeight,
-      height: titleHeight,
-      backgroundColor: 'blue',
+      width: wp('100%'),
+      height: hp('100%'),
     },
     bottomOverlay: {
       position: 'absolute',
       bottom: 0,
       width: wp('100%'),
       height: bottomHeight,
-      backgroundColor: 'yellow',
+      backgroundColor: 'black',
+    },
+    titleOverlay: {
+      position: 'absolute',
+      top: 0,
+      width: titleBannerWidth,
+      marginTop: navbarHeight,
+      height: titleHeight,
+    },
+    mapTitleContainerImage: {
+      flex: 1,
+      width: titleBannerWidth,
     },
     leftButtonOverlay: {
       position: 'absolute',
       width: topButtonSize,
       height: topButtonSize,
-      backgroundColor: 'pink',
       top: 0,
       left: 0,
-      margin: 10,
+      margin: buttonMargin,
+    },
+    topButtonImage: {
+      flex: 1,
+      width: topButtonSize,
     },
     rightButtonOverlay: {
       position: 'absolute',
       width: topButtonSize,
       height: topButtonSize,
-      backgroundColor: 'green',
       top: 0,
       right: 0,
-      margin: 10,
+      margin: buttonMargin,
     },
     playButtonOverlay: {
       position: 'absolute',
       width: playButtonWidth,
       height: playButtonHeight,
-      backgroundColor: 'orange',
-      marginBottom: bottomHeight + 20,
+      marginBottom: bottomHeight + playButtonOverlayBottomMargin,
       bottom: 0,
+    },
+    playButtonImage: {
+      flex: 1,
+      width: playButtonWidth,
     },
   });
 };

@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import MapView, {PROVIDER_GOOGLE, UrlTile, Marker} from 'react-native-maps';
-import {View, TouchableOpacity} from 'react-native';
+import {View, TouchableOpacity, Image} from 'react-native';
 import MapSettings from '../../assets/mapSettings.json';
 import Levels from '../../assets/levels.json';
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
+import ImageService from '../../services/imageService';
 
 const getCoordinateFromLatLonString = (latLonString) => {
   const splitted = latLonString.split(',');
@@ -87,11 +88,37 @@ export default class LevelMap extends Component<> {
       <NoNotchView>
         <View style={this.styles.container}>
           {this.getMapView()}
-          <View style={this.styles.leftButtonOverlay} />
-          <View style={this.styles.rightButtonOverlay} />
-          <View style={this.styles.titleOverlay} />
+          <View style={this.styles.disableMapOverlay} />
+          <View style={this.styles.leftButtonOverlay}>
+            <Image
+              source={ImageService.getImage('backButton')}
+              style={this.styles.topButtonImage}
+              resizeMode="contain"
+            />
+          </View>
+          <View style={this.styles.rightButtonOverlay}>
+            <Image
+              source={ImageService.getImage('mapButton')}
+              style={this.styles.topButtonImage}
+              resizeMode="contain"
+            />
+          </View>
+
+          <View style={this.styles.titleOverlay}>
+            <Image
+              source={ImageService.getImage('mapTitleContainer')}
+              style={this.styles.mapTitleContainerImage}
+              resizeMode="contain"
+            />
+          </View>
           <View style={this.styles.bottomOverlay} />
-          <View style={this.styles.playButtonOverlay} />
+          <View style={this.styles.playButtonOverlay}>
+            <Image
+              source={ImageService.getImage('buttonYellow')}
+              style={this.styles.playButtonImage}
+              resizeMode="contain"
+            />
+          </View>
         </View>
       </NoNotchView>
     );
