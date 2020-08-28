@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import colors from '../../styles/colors.style';
+import {isTablet} from 'react-native-device-info';
 
 import {
   widthPercentageToDP as wp,
@@ -17,11 +18,14 @@ const getStyles = () => {
   const topButtonSize = hp('5%');
   const buttonMargin = hp('1%');
 
-  const playButtonWidth = 180;
+  const playButtonWidth = isTablet() ? wp('30%') : wp('42%');
   const playButtonConstant = 0.3525;
   const playButtonHeight = playButtonWidth * playButtonConstant;
-
+  const playButtonShadowBottomConstant = 0.063063063063063;
+  const playButtonTextMarginBottom =
+    playButtonHeight * playButtonShadowBottomConstant;
   const playButtonOverlayBottomMargin = hp('2%');
+  const playButtonTextFontSize = hp('3%');
 
   return StyleSheet.create({
     container: {
@@ -31,12 +35,6 @@ const getStyles = () => {
     },
     map: {
       ...StyleSheet.absoluteFillObject,
-    },
-    disableMapOverlay: {
-      position: 'absolute',
-      top: 0,
-      width: wp('100%'),
-      height: hp('100%'),
     },
     bottomOverlay: {
       position: 'absolute',
@@ -85,7 +83,16 @@ const getStyles = () => {
     },
     playButtonImage: {
       flex: 1,
+      flexDirection: 'column',
       width: playButtonWidth,
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    playButtonText: {
+      marginBottom: playButtonTextMarginBottom,
+      fontFamily: 'LilitaOne',
+      fontSize: playButtonTextFontSize,
+      color: colors.yellowButtonText,
     },
   });
 };

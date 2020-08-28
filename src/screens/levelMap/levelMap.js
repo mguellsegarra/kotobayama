@@ -1,6 +1,12 @@
 import React, {Component} from 'react';
 import MapView, {PROVIDER_GOOGLE, UrlTile, Marker} from 'react-native-maps';
-import {View, TouchableOpacity, Image} from 'react-native';
+import {
+  View,
+  TouchableOpacity,
+  Image,
+  ImageBackground,
+  Text,
+} from 'react-native';
 import MapSettings from '../../assets/mapSettings.json';
 import Levels from '../../assets/levels.json';
 import {getStyles} from './levelMap.style';
@@ -74,6 +80,8 @@ export default class LevelMap extends Component<> {
         mapType={'satellite'}
         rotateEnabled={false}
         pitchEnabled={false}
+        scrollEnabled={false}
+        zoomEnabled={false}
         customMapStyle={MapSettings.mapStyle}
         onMapReady={() => {
           // this.map.fitToSuppliedMarkers(allIds, fitMarkersMapOptions);
@@ -88,7 +96,6 @@ export default class LevelMap extends Component<> {
       <NoNotchView>
         <View style={this.styles.container}>
           {this.getMapView()}
-          <View style={this.styles.disableMapOverlay} />
           <View style={this.styles.leftButtonOverlay}>
             <Image
               source={ImageService.getImage('backButton')}
@@ -113,11 +120,12 @@ export default class LevelMap extends Component<> {
           </View>
           <View style={this.styles.bottomOverlay} />
           <View style={this.styles.playButtonOverlay}>
-            <Image
+            <ImageBackground
               source={ImageService.getImage('buttonYellow')}
               style={this.styles.playButtonImage}
-              resizeMode="contain"
-            />
+              resizeMode="contain">
+              <Text style={this.styles.playButtonText}>Hola</Text>
+            </ImageBackground>
           </View>
         </View>
       </NoNotchView>
