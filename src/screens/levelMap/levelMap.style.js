@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
-import colors from '../../styles/colors.style';
+import Colors from '../../styles/colors.style';
+import Fonts from '../../styles/fonts.style';
 import {isTablet} from 'react-native-device-info';
 
 import {
@@ -14,6 +15,11 @@ const getStyles = () => {
   const titleBannerWidth = hp('42%');
   const titleBannerConstant = 0.2922;
   const titleHeight = titleBannerWidth * titleBannerConstant;
+  const titleFont = titleHeight * 0.15;
+  const titleMarginBottomConstant = 0.0;
+  const titleMarginBottom = titleHeight * titleMarginBottomConstant;
+  const titleMarginSides = titleBannerWidth * 0.05;
+  const titleLineHeight = titleHeight * 0.3;
 
   const topButtonSize = hp('5%');
   const buttonMargin = hp('1%');
@@ -52,7 +58,20 @@ const getStyles = () => {
     },
     mapTitleContainerImage: {
       flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
       width: titleBannerWidth,
+    },
+    mapTitleText: {
+      fontFamily: Fonts.league,
+      fontSize: titleFont,
+      color: 'white',
+      textAlign: 'center',
+      marginLeft: titleMarginSides,
+      marginRight: titleMarginSides,
+      marginBottom: titleMarginBottom,
+      lineHeight: titleLineHeight,
     },
     leftButtonOverlay: {
       position: 'absolute',
@@ -90,9 +109,9 @@ const getStyles = () => {
     },
     playButtonText: {
       marginBottom: playButtonTextMarginBottom,
-      fontFamily: 'LilitaOne',
+      fontFamily: Fonts.lilita,
       fontSize: playButtonTextFontSize,
-      color: colors.yellowButtonText,
+      color: Colors.yellowButtonText,
     },
   });
 };

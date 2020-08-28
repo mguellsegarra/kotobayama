@@ -1,12 +1,8 @@
 import React, {Component} from 'react';
-import MapView, {PROVIDER_GOOGLE, UrlTile, Marker} from 'react-native-maps';
-import {
-  View,
-  TouchableOpacity,
-  Image,
-  ImageBackground,
-  Text,
-} from 'react-native';
+import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import {View, Image, ImageBackground, Text} from 'react-native';
+import TouchableScale from 'react-native-touchable-scale';
+
 import MapSettings from '../../assets/mapSettings.json';
 import Levels from '../../assets/levels.json';
 import {getStyles} from './levelMap.style';
@@ -24,16 +20,6 @@ const getCoordinateFromLatLonString = (latLonString) => {
 const CreateMarker = ({id, coord}) => {
   return <Marker key={id} identifier={id} coordinate={coord} />;
 };
-
-// const fitMarkersMapOptions = {
-//   edgePadding: {
-//     top: 50,
-//     right: 50,
-//     bottom: 50,
-//     left: 50,
-//   },
-//   animated: true,
-// };
 
 export default class LevelMap extends Component<> {
   allIds: Array;
@@ -97,35 +83,56 @@ export default class LevelMap extends Component<> {
         <View style={this.styles.container}>
           {this.getMapView()}
           <View style={this.styles.leftButtonOverlay}>
-            <Image
-              source={ImageService.getImage('backButton')}
+            <TouchableScale
               style={this.styles.topButtonImage}
-              resizeMode="contain"
-            />
+              onPress={() => {
+                console.log('press!');
+              }}>
+              <Image
+                source={ImageService.getImage('backButton')}
+                style={this.styles.topButtonImage}
+                resizeMode="contain"
+              />
+            </TouchableScale>
           </View>
           <View style={this.styles.rightButtonOverlay}>
-            <Image
-              source={ImageService.getImage('mapButton')}
+            <TouchableScale
               style={this.styles.topButtonImage}
-              resizeMode="contain"
-            />
+              onPress={() => {
+                console.log('press!');
+              }}>
+              <Image
+                source={ImageService.getImage('mapButton')}
+                style={this.styles.topButtonImage}
+                resizeMode="contain"
+              />
+            </TouchableScale>
           </View>
 
           <View style={this.styles.titleOverlay}>
-            <Image
+            <ImageBackground
               source={ImageService.getImage('mapTitleContainer')}
               style={this.styles.mapTitleContainerImage}
-              resizeMode="contain"
-            />
+              resizeMode="contain">
+              <Text style={this.styles.mapTitleText}>
+                Parc Nacional d'Aigüestortes i llac de Sant Maurici
+              </Text>
+            </ImageBackground>
           </View>
           <View style={this.styles.bottomOverlay} />
           <View style={this.styles.playButtonOverlay}>
-            <ImageBackground
-              source={ImageService.getImage('buttonYellow')}
+            <TouchableScale
               style={this.styles.playButtonImage}
-              resizeMode="contain">
-              <Text style={this.styles.playButtonText}>Hola</Text>
-            </ImageBackground>
+              onPress={() => {
+                console.log('press!');
+              }}>
+              <ImageBackground
+                source={ImageService.getImage('buttonYellow')}
+                style={this.styles.playButtonImage}
+                resizeMode="contain">
+                <Text style={this.styles.playButtonText}>Jugar</Text>
+              </ImageBackground>
+            </TouchableScale>
           </View>
         </View>
       </NoNotchView>
