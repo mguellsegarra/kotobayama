@@ -16,13 +16,13 @@ const getCoordinateFromLatLonString = (latLonString) => {
   };
 };
 
-const CreateMarker = ({id, coord}) => {
+const CreateMarker = ({id, coord, mapReady}) => {
   return (
     <Marker
       key={id}
       identifier={id}
       coordinate={coord}
-      tracksViewChanges={true}>
+      tracksViewChanges={!mapReady}>
       <Image
         source={ImageService.getImage('marker_3')}
         style={getStyles().marker_guess}
@@ -88,6 +88,7 @@ export default class LevelMap extends Component<> {
               CreateMarker({
                 id: level.id.toString(),
                 coord: getCoordinateFromLatLonString(level.latlon),
+                mapReady: true,
               }),
             );
             allIds.push(level.id.toString());
