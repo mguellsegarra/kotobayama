@@ -93,7 +93,10 @@ export default class LevelMap extends Component<> {
             );
             allIds.push(level.id.toString());
           });
-          that.setState({markers, allIds});
+
+          setTimeout(() => {
+            that.setState({markers, allIds});
+          }, 100);
         }}>
         {this.state.markers}
       </MapView>
