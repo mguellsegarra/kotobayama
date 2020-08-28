@@ -38,7 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string/>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIRequiredDeviceCapabilities</key>
@@ -58,5 +58,13 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Alata-Regular.ttf</string>
+		<string>JosefinSans-Thin_Bold.ttf</string>
+		<string>JosefinSans-Thin_Light.ttf</string>
+		<string>LeagueSpartan-Bold.otf</string>
+		<string>LilitaOne.ttf</string>
+	</array>
 </dict>
 </plist>
