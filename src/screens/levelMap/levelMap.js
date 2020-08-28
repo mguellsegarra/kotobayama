@@ -18,7 +18,15 @@ const getCoordinateFromLatLonString = (latLonString) => {
 };
 
 const CreateMarker = ({id, coord}) => {
-  return <Marker key={id} identifier={id} coordinate={coord} />;
+  return (
+    <Marker key={id} identifier={id} coordinate={coord}>
+      <Image
+        source={ImageService.getImage('marker_3')}
+        style={getStyles().marker_guess}
+        resizeMode="contain"
+      />
+    </Marker>
+  );
 };
 
 export default class LevelMap extends Component<> {
@@ -46,6 +54,13 @@ export default class LevelMap extends Component<> {
   }
 
   getMapView() {
+    const initialCenter = {
+      latitude: 42.6053217,
+      longitude: 0.8774010999999999,
+    };
+
+    const paddingConstant = 0.99989;
+
     return (
       <MapView
         style={this.styles.map}
@@ -55,26 +70,29 @@ export default class LevelMap extends Component<> {
         }}
         initialCamera={{
           center: {
-            latitude: 42.6053217,
-            longitude: 0.8774010999999999,
+            latitude: initialCenter.latitude * paddingConstant,
+            longitude: initialCenter.longitude,
           },
           pitch: 0,
           heading: 0,
           altitude: 1000,
-          zoom: 15,
+          zoom: 14,
         }}
         mapType={'satellite'}
         rotateEnabled={false}
         pitchEnabled={false}
         scrollEnabled={false}
         zoomEnabled={false}
+        moveOnMarkerPress={false}
         customMapStyle={MapSettings.mapStyle}
         onMapReady={() => {
           // this.map.fitToSuppliedMarkers(allIds, fitMarkersMapOptions);
-        }}
-      />
+        }}>
+        {this.markers}
+      </MapView>
     );
   }
+
   render() {
     this.styles = getStyles();
 

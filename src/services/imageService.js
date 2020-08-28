@@ -12,6 +12,7 @@ const ImageService = {
     mapButton: require('../images/mapButton.png'),
     backButton: require('../images/backButton.png'),
     buttonYellow: require('../images/buttonYellow.png'),
+    marker_3: require('../images/marker_3.png'),
   }),
   init: () => {
     ImageService.images = ImageService.requireImages();

@@ -113,6 +113,9 @@ const getStyles = () => {
       fontSize: playButtonTextFontSize,
       color: Colors.yellowButtonText,
     },
+    marker_guess: {
+      width: 33,
+    },
   });
 };
 
