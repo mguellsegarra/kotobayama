@@ -3,7 +3,6 @@ import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
 import {View, Image, ImageBackground, Text} from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 
-import MapSettings from '../../assets/mapSettings.json';
 import Levels from '../../assets/levels.json';
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
@@ -19,7 +18,11 @@ const getCoordinateFromLatLonString = (latLonString) => {
 
 const CreateMarker = ({id, coord}) => {
   return (
-    <Marker key={id} identifier={id} coordinate={coord}>
+    <Marker
+      key={id}
+      identifier={id}
+      coordinate={coord}
+      tracksViewChanges={true}>
       <Image
         source={ImageService.getImage('marker_3')}
         style={getStyles().marker_guess}
@@ -30,28 +33,20 @@ const CreateMarker = ({id, coord}) => {
 };
 
 export default class LevelMap extends Component<> {
-  allIds: Array;
-  markers: Array;
+  state = {
+    allIds: [],
+    markers: [],
+    mapReady: false,
+  };
+
   styles: Object;
   map: Object;
 
   constructor() {
     super();
-    this.allIds = [];
-    this.markers = [];
   }
 
-  componentDidMount() {
-    Levels.forEach((level) => {
-      this.markers.push(
-        CreateMarker({
-          id: level.id.toString(),
-          coord: getCoordinateFromLatLonString(level.latlon),
-        }),
-      );
-      this.allIds.push(level.id.toString());
-    });
-  }
+  componentDidMount() {}
 
   getMapView() {
     const initialCenter = {
@@ -60,6 +55,7 @@ export default class LevelMap extends Component<> {
     };
 
     const paddingConstant = 0.99989;
+    const that = this;
 
     return (
       <MapView
@@ -84,11 +80,21 @@ export default class LevelMap extends Component<> {
         scrollEnabled={false}
         zoomEnabled={false}
         moveOnMarkerPress={false}
-        customMapStyle={MapSettings.mapStyle}
         onMapReady={() => {
-          // this.map.fitToSuppliedMarkers(allIds, fitMarkersMapOptions);
+          const markers = [];
+          const allIds = [];
+          Levels.forEach((level) => {
+            markers.push(
+              CreateMarker({
+                id: level.id.toString(),
+                coord: getCoordinateFromLatLonString(level.latlon),
+              }),
+            );
+            allIds.push(level.id.toString());
+          });
+          that.setState({markers, allIds});
         }}>
-        {this.markers}
+        {this.state.markers}
       </MapView>
     );
   }
