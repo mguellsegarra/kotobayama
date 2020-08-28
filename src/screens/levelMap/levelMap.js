@@ -22,13 +22,9 @@ const CreateMarker = ({id, coord, mapReady}) => {
       key={id}
       identifier={id}
       coordinate={coord}
-      tracksViewChanges={!mapReady}>
-      <Image
-        source={ImageService.getImage('marker_3')}
-        style={getStyles().marker_guess}
-        resizeMode="contain"
-      />
-    </Marker>
+      icon={ImageService.getImage('marker_3')}
+      tracksViewChanges={!mapReady}
+    />
   );
 };
 
