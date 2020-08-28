@@ -113,8 +113,12 @@ const getStyles = () => {
       fontSize: playButtonTextFontSize,
       color: Colors.yellowButtonText,
     },
-    marker_guess: {
-      width: 33,
+    closeMapButtonOverlay: {
+      position: 'absolute',
+      width: playButtonWidth,
+      height: playButtonHeight,
+      marginBottom: 20,
+      bottom: 0,
     },
   });
 };
