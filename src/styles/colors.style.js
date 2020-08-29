@@ -1,4 +1,6 @@
 export default {
   ondoriRed: '#AF4837',
-  yellowButtonText: '#973504',
+  RectButton: {
+    yellowButtonText: '#973504',
+  },
 };

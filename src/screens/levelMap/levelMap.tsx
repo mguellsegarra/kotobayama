@@ -1,23 +1,28 @@
 import React, {Component} from 'react';
-import {View, Image, ImageBackground, Text} from 'react-native';
-// @ts-ignore
-import TouchableScale from 'react-native-touchable-scale';
+import {View, Image, ImageBackground, Text, ViewStyle} from 'react-native';
 
 // import Levels from '../../assets/levels.json';
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
 import ImageService from '../../services/imageService';
 import MapLayer from '../../components/map/mapLayer';
-import MapBackButton from '../../components/map/mapBackButton';
 import CircleButton from '../../components/button/circleButton';
+import RectButton from '../../components/button/rectButton';
 
-export default class LevelMap extends Component {
+type State = {
+  mapNavigationMode: boolean;
+};
+
+export default class LevelMap extends Component<State> {
+  styles: any;
+
   state = {
     mapNavigationMode: false,
   };
 
-  constructor() {
-    super();
+  constructor(props: any) {
+    super(props);
+    this.styles = {};
   }
 
   render() {
@@ -31,16 +36,35 @@ export default class LevelMap extends Component {
           <CircleButton
             image="backButton"
             style={this.styles.leftButtonOverlay}
-            imageStyle={this.styles.topButtonImage}
-            hide={this.props.mapNavigationMode}
+            hide={this.state.mapNavigationMode}
             // onPress={}
           />
 
           <CircleButton
             image="mapButton"
             style={this.styles.rightButtonOverlay}
-            imageStyle={this.styles.topButtonImage}
-            hide={this.props.mapNavigationMode}
+            hide={this.state.mapNavigationMode}
+            onPress={() => {
+              setTimeout(() => {
+                this.setState({
+                  mapNavigationMode: !this.state.mapNavigationMode,
+                });
+              }, 500);
+            }}
+          />
+
+          <RectButton
+            hide={this.state.mapNavigationMode}
+            color={'yellow'}
+            text={'Jugar'}
+            style={this.styles.playButtonOverlay}
+          />
+
+          <RectButton
+            hide={!this.state.mapNavigationMode}
+            color={'yellow'}
+            text={'Tancar mapa'}
+            style={this.styles.closeMapButtonOverlay}
             onPress={() => {
               setTimeout(() => {
                 this.setState({
@@ -66,42 +90,6 @@ export default class LevelMap extends Component {
           {this.state.mapNavigationMode ? null : (
             <View style={this.styles.bottomOverlay} />
           )}
-
-          {this.state.mapNavigationMode ? null : (
-            <View style={this.styles.playButtonOverlay}>
-              <TouchableScale
-                style={this.styles.playButtonImage}
-                onPress={() => {}}>
-                <ImageBackground
-                  source={ImageService.getImage('buttonYellow')}
-                  style={this.styles.playButtonImage}
-                  resizeMode="contain">
-                  <Text style={this.styles.playButtonText}>TypeScript</Text>
-                </ImageBackground>
-              </TouchableScale>
-            </View>
-          )}
-
-          {this.state.mapNavigationMode ? (
-            <View style={this.styles.closeMapButtonOverlay}>
-              <TouchableScale
-                style={this.styles.playButtonImage}
-                onPress={() => {
-                  setTimeout(() => {
-                    this.setState({
-                      mapNavigationMode: !this.state.mapNavigationMode,
-                    });
-                  }, 500);
-                }}>
-                <ImageBackground
-                  source={ImageService.getImage('buttonYellow')}
-                  style={this.styles.playButtonImage}
-                  resizeMode="contain">
-                  <Text style={this.styles.playButtonText}>Tancar mapa</Text>
-                </ImageBackground>
-              </TouchableScale>
-            </View>
-          ) : null}
         </View>
       </NoNotchView>
     );
