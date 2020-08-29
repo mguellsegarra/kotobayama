@@ -1,8 +1,3 @@
-/**
- * @format
- * @flow strict-local
- */
-
 const ImageService = {
   initialized: false,
   images: {},
@@ -21,6 +16,8 @@ const ImageService = {
     marker_7: require('../images/marker_7.png'),
     marker_8: require('../images/marker_8.png'),
     marker_9: require('../images/marker_9.png'),
+    navButtonBackgroundLeft: require('../images/navButtonBackgroundLeft.png'),
+    navButtonBackgroundRight: require('../images/navButtonBackgroundRight.png'),
   }),
   init: () => {
     ImageService.images = ImageService.requireImages();

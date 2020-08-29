@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, ImageBackground, Text, ViewStyle} from 'react-native';
+import {View, ImageBackground, Text} from 'react-native';
 
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
@@ -7,6 +7,7 @@ import ImageService from '../../services/imageService';
 import MapLayer from '../../components/map/mapLayer';
 import CircleButton from '../../components/button/circleButton';
 import RectButton from '../../components/button/rectButton';
+import MapNavButton from '../../components/button/mapNavButton';
 
 type State = {
   mapNavigationMode: boolean;
@@ -32,16 +33,17 @@ export default class LevelMap extends Component<State> {
         <View style={this.styles.container}>
           <MapLayer controlsEnabled={this.state.mapNavigationMode} />
 
-          <CircleButton
-            image="backButton"
+          <MapNavButton
+            buttonImage="backButton"
             style={this.styles.leftButtonOverlay}
             hide={this.state.mapNavigationMode}
           />
 
-          <CircleButton
-            image="mapButton"
+          <MapNavButton
+            buttonImage="mapButton"
             style={this.styles.rightButtonOverlay}
             hide={this.state.mapNavigationMode}
+            right
             onPress={() => {
               setTimeout(() => {
                 this.setState({

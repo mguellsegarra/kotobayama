@@ -12,7 +12,7 @@ const getStyles: any = () => {
   const navbarHeight = hp('7%');
   const bottomHeight = hp('30%');
 
-  const titleBannerWidth = hp('42%');
+  const titleBannerWidth = isTablet() ? wp('60%') : wp('82%');
   const titleBannerConstant = 0.2922;
   const titleHeight = titleBannerWidth * titleBannerConstant;
   const titleFont = titleHeight * 0.15;
@@ -20,6 +20,7 @@ const getStyles: any = () => {
   const titleMarginBottom = titleHeight * titleMarginBottomConstant;
   const titleMarginSides = titleBannerWidth * 0.05;
   const titleLineHeight = titleHeight * 0.3;
+  const titleMarginTop = hp('1%');
 
   const buttonMargin = hp('1%');
 
@@ -45,7 +46,7 @@ const getStyles: any = () => {
       position: 'absolute',
       top: 0,
       width: titleBannerWidth,
-      marginTop: navbarHeight,
+      marginTop: titleMarginTop,
       height: titleHeight,
     },
     mapTitleContainerImage: {
@@ -67,15 +68,13 @@ const getStyles: any = () => {
     },
     leftButtonOverlay: {
       position: 'absolute',
-      top: 0,
+      top: titleMarginTop + titleHeight + hp('1%'),
       left: 0,
-      margin: buttonMargin,
     },
     rightButtonOverlay: {
       position: 'absolute',
-      top: 0,
+      top: titleMarginTop + titleHeight + hp('1%'),
       right: 0,
-      margin: buttonMargin,
     },
     playButtonOverlay: {
       position: 'absolute',
