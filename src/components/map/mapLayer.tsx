@@ -1,11 +1,12 @@
 import React, {Component} from 'react';
-import MapView, {PROVIDER_GOOGLE, Marker} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, Marker, LatLng} from 'react-native-maps';
 
-import Levels from '../../assets/levels.json';
+const Levels = require('../../assets/levels');
+
 import {getStyles} from './mapLayer.style';
 import ImageService from '../../services/imageService';
 
-const getCoordinateFromLatLonString = (latLonString) => {
+const getCoordinateFromLatLonString = (latLonString: string): LatLng => {
   const splitted = latLonString.split(',');
   return {
     latitude: parseFloat(splitted[0]),
@@ -13,36 +14,42 @@ const getCoordinateFromLatLonString = (latLonString) => {
   };
 };
 
-const getMarkerImageForIdx = (idx) => {
+const getMarkerImageForIdx = (idx: number) => {
   return 'marker_' + idx.toString();
 };
 
-const CreateMarker = ({id, idx, coord, mapReady}) => {
+type CreateMarkerOptions = {
+  id: string;
+  idx: number;
+  coord: LatLng;
+  mapReady: boolean;
+};
+
+const CreateMarker = (options: CreateMarkerOptions) => {
   return (
     <Marker
-      key={id}
-      identifier={id}
-      coordinate={coord}
-      icon={ImageService.getImage(getMarkerImageForIdx(idx))}
-      tracksViewChanges={!mapReady}
+      key={options.id}
+      identifier={options.id}
+      coordinate={options.coord}
+      icon={ImageService.getImage(getMarkerImageForIdx(options.idx))}
+      tracksViewChanges={!options.mapReady}
     />
   );
 };
 
-export default class MapLayer extends Component<> {
+type Props = {
+  controlsEnabled: boolean;
+};
+
+export default class MapLayer extends Component<Props> {
   state = {
     allIds: [],
     markers: [],
     mapReady: false,
-    mapNavigationMode: false,
   };
 
-  styles: Object;
-  map: Object;
-
-  constructor() {
-    super();
-  }
+  styles: Object | undefined;
+  map!: MapView;
 
   componentDidMount() {}
 
@@ -75,9 +82,9 @@ export default class MapLayer extends Component<> {
         mapType={'satellite'}
         rotateEnabled={false}
         pitchEnabled={false}
-        scrollEnabled={this.state.mapNavigationMode}
-        zoomEnabled={this.state.mapNavigationMode}
-        moveOnMarkerPress={this.state.mapNavigationMode}
+        scrollEnabled={this.props.controlsEnabled}
+        zoomEnabled={this.props.controlsEnabled}
+        moveOnMarkerPress={this.props.controlsEnabled}
         onMapReady={() => {
           const markers = [];
           const allIds = [];

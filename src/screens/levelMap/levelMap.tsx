@@ -31,13 +31,12 @@ export default class LevelMap extends Component<State> {
     return (
       <NoNotchView>
         <View style={this.styles.container}>
-          <MapLayer />
+          <MapLayer controlsEnabled={this.state.mapNavigationMode} />
 
           <CircleButton
             image="backButton"
             style={this.styles.leftButtonOverlay}
             hide={this.state.mapNavigationMode}
-            // onPress={}
           />
 
           <CircleButton
