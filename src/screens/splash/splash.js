@@ -3,9 +3,7 @@ import {View, Image, Animated} from 'react-native';
 import {getStyles} from './splash.style';
 import ImageService from '../../services/imageService';
 
-export default class Splash extends Component<> {
-  styles: Object;
-
+export default class Splash extends Component {
   state = {
     fadeAnim: new Animated.Value(0),
   };
@@ -16,13 +14,13 @@ export default class Splash extends Component<> {
       delay: 1000,
       duration: 800,
       useNativeDriver: true,
-    }).start(({finished}) => {
+    }).start(() => {
       Animated.timing(this.state.fadeAnim, {
         delay: 1200,
         toValue: 0,
         duration: 800,
         useNativeDriver: true,
-      }).start(({finished}) => {
+      }).start(() => {
         this.props.navigation.navigate('LevelMap');
       });
     });
@@ -40,7 +38,7 @@ export default class Splash extends Component<> {
         <Animated.View
           style={[
             {
-              opacity: this.state.fadeAnim, // Bind opacity to animated value
+              opacity: this.state.fadeAnim,
             },
           ]}>
           <Image
