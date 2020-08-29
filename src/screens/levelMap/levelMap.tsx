@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {View, Image, ImageBackground, Text, ViewStyle} from 'react-native';
 
-// import Levels from '../../assets/levels.json';
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
 import ImageService from '../../services/imageService';
