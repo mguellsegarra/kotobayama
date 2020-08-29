@@ -18,6 +18,10 @@ const getStyles = () => {
       left: 0,
       margin: buttonMargin,
     },
+    topButtonImage: {
+      flex: 1,
+      width: topButtonSize,
+    },
   });
 };
 
