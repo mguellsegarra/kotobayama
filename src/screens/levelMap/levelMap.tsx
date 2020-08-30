@@ -5,9 +5,10 @@ import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
 import ImageService from '../../services/imageService';
 import MapLayer from '../../components/map/mapLayer';
-import CircleButton from '../../components/button/circleButton';
-import RectButton from '../../components/button/rectButton';
-import MapNavButton from '../../components/button/mapNavButton';
+import RectButton, {RectButtonEnum} from '../../components/button/rectButton';
+import MapNavButton, {
+  MapNavButtonEnum,
+} from '../../components/button/mapNavButton';
 
 type State = {
   mapNavigationMode: boolean;
@@ -34,13 +35,13 @@ export default class LevelMap extends Component<State> {
           <MapLayer controlsEnabled={this.state.mapNavigationMode} />
 
           <MapNavButton
-            buttonImage="backButton"
+            type={MapNavButtonEnum.Back}
             style={this.styles.leftButtonOverlay}
             hide={this.state.mapNavigationMode}
           />
 
           <MapNavButton
-            buttonImage="mapButton"
+            type={MapNavButtonEnum.Map}
             style={this.styles.rightButtonOverlay}
             hide={this.state.mapNavigationMode}
             right
@@ -55,14 +56,14 @@ export default class LevelMap extends Component<State> {
 
           <RectButton
             hide={this.state.mapNavigationMode}
-            color={'yellow'}
+            type={RectButtonEnum.Yellow}
             text={'Jugar'}
             style={this.styles.playButtonOverlay}
           />
 
           <RectButton
             hide={!this.state.mapNavigationMode}
-            color={'yellow'}
+            type={RectButtonEnum.Yellow}
             text={'Tancar mapa'}
             style={this.styles.closeMapButtonOverlay}
             onPress={() => {

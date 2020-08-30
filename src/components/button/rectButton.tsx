@@ -26,11 +26,15 @@ type Props = {
   text: string;
   hide?: boolean;
   onPress?: Function;
-  color: string;
+  type: RectButtonEnum;
   imageStyle?: ViewStyle;
   textStyle?: TextStyle;
   style?: ViewStyle;
 };
+
+export enum RectButtonEnum {
+  Yellow = 'yellow',
+}
 
 interface RectButtonType {
   image: string;
@@ -52,7 +56,6 @@ export default class RectButton extends Component<Props> {
   static defaultProps = {
     hide: false,
     onPress: () => {},
-    color: 'yellow',
     imageStyle: {},
   };
 
@@ -62,7 +65,7 @@ export default class RectButton extends Component<Props> {
     }
 
     const rectButtonConfig =
-      RectButtonTypes[this.props.color] || RectButtonTypes['yellow'];
+      RectButtonTypes[this.props.type] || RectButtonTypes['yellow'];
 
     const buttonWidth = isTablet() ? wp('30%') : wp('42%');
     const buttonRatioConstant = 0.3525;

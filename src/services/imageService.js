@@ -18,6 +18,7 @@ const ImageService = {
     marker_9: require('../images/marker_9.png'),
     navButtonBackgroundLeft: require('../images/navButtonBackgroundLeft.png'),
     navButtonBackgroundRight: require('../images/navButtonBackgroundRight.png'),
+    mapNavBackButton: require('../images/mapNavBackButton.png'),
   }),
   init: () => {
     ImageService.images = ImageService.requireImages();
