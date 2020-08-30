@@ -16,6 +16,7 @@ type State = {
 
 export default class LevelMap extends Component<State> {
   styles: any;
+  mapLayer: any;
 
   state = {
     mapNavigationMode: false,
@@ -32,7 +33,12 @@ export default class LevelMap extends Component<State> {
     return (
       <NoNotchView>
         <View style={this.styles.container}>
-          <MapLayer controlsEnabled={this.state.mapNavigationMode} />
+          <MapLayer
+            ref={(ref) => {
+              this.mapLayer = ref;
+            }}
+            controlsEnabled={this.state.mapNavigationMode}
+          />
 
           <MapNavButton
             type={MapNavButtonEnum.Back}
@@ -67,6 +73,8 @@ export default class LevelMap extends Component<State> {
             text={'Tancar mapa'}
             style={this.styles.closeMapButtonOverlay}
             onPress={() => {
+              this.mapLayer.resetToLevel();
+
               setTimeout(() => {
                 this.setState({
                   mapNavigationMode: !this.state.mapNavigationMode,

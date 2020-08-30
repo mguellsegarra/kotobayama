@@ -17,6 +17,13 @@ type State = {
   mapReady: boolean;
 };
 
+const initialCenter = {
+  latitude: 42.6053217,
+  longitude: 0.8774010999999999,
+};
+
+const paddingConstant = 0.99989;
+
 export default class MapLayer extends Component<Props, State> {
   state = {
     allIds: [],
@@ -29,13 +36,17 @@ export default class MapLayer extends Component<Props, State> {
 
   componentDidMount() {}
 
-  getMapView() {
-    const initialCenter = {
-      latitude: 42.6053217,
-      longitude: 0.8774010999999999,
+  async resetToLevel() {
+    const camera = await this.map.getCamera();
+    camera.zoom = 14;
+    camera.center = {
+      latitude: initialCenter.latitude * paddingConstant,
+      longitude: initialCenter.longitude,
     };
+    this.map.animateCamera(camera, {duration: 1000});
+  }
 
-    const paddingConstant = 0.99989;
+  getMapView() {
     const that = this;
 
     return (
