@@ -3,7 +3,7 @@ import {View, ImageBackground, Text} from 'react-native';
 
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
-import images from 'res/images';
+import images from '../../res/images';
 import {strings} from '../../services/i18nService';
 import MapLayer from '../../components/map/mapLayer';
 import LevelService, {Level} from '../../services/levelService';

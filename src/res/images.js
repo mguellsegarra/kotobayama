@@ -1,6 +1,4 @@
-import ImagesType from './images';
-
-const images: ImagesType = {
+const images = {
   backButton: require('./images/ui/backButton.png'),
   buttonYellow: require('./images/ui/buttonYellow.png'),
   leftArrow: require('./images/ui/leftArrow.png'),

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Image, Text} from 'react-native';
 
-import images from 'res/images';
+import images from '../../res/images';
 import {getStyles} from './levelChooser.style';
 import CircleButton from '../button/circleButton';
 import LevelChooserNumber from './levelChooserNumber';

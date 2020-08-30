@@ -9,7 +9,7 @@ import {
 } from 'react-native-responsive-screen';
 
 // @ts-ignore
-import images from 'res/images';
+import images from '../../res/images';
 import CircleButton from './circleButton';
 
 type Props = {

@@ -5,7 +5,7 @@ import {View, ImageBackground, Text, ViewStyle, TextStyle} from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import {isTablet} from 'react-native-device-info';
 
-import images from 'res/images';
+import images from '../../res/images';
 import Colors from '../../styles/colors.style';
 import Fonts from '../../styles/fonts.style';
 
