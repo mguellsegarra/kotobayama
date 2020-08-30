@@ -1,15 +1,7 @@
 import React, {Component} from 'react';
 import {Marker, LatLng} from 'react-native-maps';
 
-import ImageService from '../../services/imageService';
-
-const getCoordinateFromLatLonString = (latLonString: string): LatLng => {
-  const splitted = latLonString.split(',');
-  return {
-    latitude: parseFloat(splitted[0]),
-    longitude: parseFloat(splitted[1]),
-  };
-};
+import images from 'res/images';
 
 const getMarkerImageForIdx = (idx: number) => {
   return 'marker_' + idx.toString();
@@ -36,7 +28,7 @@ export default class LevelMarker extends Component<Props> {
         key={this.props.id}
         identifier={this.props.id}
         coordinate={this.props.coord}
-        icon={ImageService.getImage(getMarkerImageForIdx(this.props.idx))}
+        icon={images[getMarkerImageForIdx(this.props.idx)]}
         tracksViewChanges={!this.props.mapReady}
       />
     );

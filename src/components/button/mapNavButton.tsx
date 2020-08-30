@@ -9,7 +9,7 @@ import {
 } from 'react-native-responsive-screen';
 
 // @ts-ignore
-import ImageService from '../../services/imageService';
+import images from 'res/images';
 import CircleButton from './circleButton';
 
 type Props = {
@@ -92,7 +92,7 @@ export default class MapNavButton extends Component<Props> {
 
     return (
       <ImageBackground
-        source={ImageService.getImage(imageSource)}
+        source={images[imageSource]}
         style={Object.assign(defaultStyle, this.props.style)}>
         <CircleButton image={imageForType} onPress={this.props.onPress} />
         <Text style={styles.buttonText}>{textForType}</Text>

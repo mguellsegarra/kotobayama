@@ -8,7 +8,7 @@ import {
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';
-import ImageService from '../../services/imageService';
+import images from 'res/images';
 
 type Props = {
   hide?: boolean;
@@ -51,7 +51,7 @@ export default class MapBackButton extends Component<Props> {
           style={Object.assign(defaultImageStyle, this.props.imageStyle)}
           onPress={this.props.onPress}>
           <Image
-            source={ImageService.getImage(this.props.image)}
+            source={images[this.props.image]}
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}
             resizeMode="contain"
           />

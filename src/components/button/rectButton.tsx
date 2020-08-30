@@ -1,17 +1,11 @@
 import React, {Component} from 'react';
-import {
-  View,
-  ImageBackground,
-  Text,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import {View, ImageBackground, Text, ViewStyle, TextStyle} from 'react-native';
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';
 import {isTablet} from 'react-native-device-info';
 
-import ImageService from '../../services/imageService';
+import images from 'res/images';
 import Colors from '../../styles/colors.style';
 import Fonts from '../../styles/fonts.style';
 
@@ -94,7 +88,7 @@ export default class RectButton extends Component<Props> {
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}
             onPress={this.props.onPress}>
             <ImageBackground
-              source={ImageService.getImage(rectButtonConfig.image)}
+              source={images[rectButtonConfig.image]}
               style={Object.assign(defaultImageStyle, this.props.imageStyle)}
               resizeMode="contain">
               <Text

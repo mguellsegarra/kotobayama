@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Image, Text} from 'react-native';
 
-import ImageService from '../../services/imageService';
+import images from 'res/images';
 import {getStyles} from './levelChooser.style';
 import CircleButton from '../button/circleButton';
 import LevelChooserNumber from './levelChooserNumber';
@@ -26,13 +26,11 @@ export default class LevelChooser extends Component<Props> {
       return null;
     }
 
-    const pic = ImageService.getImage(
-      'level_1000' + (this.props.currentLevel + 1).toString(),
-    );
+    const pic = images['1000' + (this.props.currentLevel + 1).toString()];
 
     return (
       <ImageBackground
-        source={ImageService.getImage('levelChooserBg')}
+        source={images['levelChooserBg']}
         style={styles.container}>
         <View style={styles.levelBar}>
           <View style={styles.levelBarFlex}>
@@ -69,7 +67,7 @@ export default class LevelChooser extends Component<Props> {
             <Image
               resizeMode="cover"
               style={styles.levelDetailsImageFrame}
-              source={ImageService.getImage('photoFrame')}
+              source={images['photoFrame']}
             />
           </View>
         </View>

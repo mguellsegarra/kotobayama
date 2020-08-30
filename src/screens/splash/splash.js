@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {View, Image, Animated} from 'react-native';
 import {getStyles} from './splash.style';
-import ImageService from '../../services/imageService';
 import I18n from '../../services/i18nService';
+import images from 'res/images';
 
 export default class Splash extends Component {
   state = {
@@ -44,7 +44,7 @@ export default class Splash extends Component {
             },
           ]}>
           <Image
-            source={ImageService.getImage('ondori_logo')}
+            source={images['ondori_logo']}
             style={this.styles.logo}
             resizeMode="contain"
           />

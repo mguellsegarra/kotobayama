@@ -8,6 +8,7 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",
+    "images": "node scripts/images.js",
     "build:apk": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release/ && open . && cd ../../../.."
   },
   "dependencies": {
