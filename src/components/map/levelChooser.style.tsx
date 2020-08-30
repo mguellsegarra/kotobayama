@@ -82,7 +82,7 @@ const getStyles: any = () => {
       height: photoFrameHeight * photoFramePicResizeConstant,
       position: 'absolute',
       zIndex: 1,
-      borderRadius: 10,
+      borderRadius: 20,
       overflow: 'hidden',
     },
 
