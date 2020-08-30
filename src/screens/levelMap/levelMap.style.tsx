@@ -10,7 +10,7 @@ import {
 
 const getStyles: any = () => {
   const navbarHeight = hp('7%');
-  const bottomHeight = hp('30%');
+  const bottomHeight = hp('35%');
 
   const titleBannerWidth = isTablet() ? wp('60%') : wp('82%');
   const titleBannerConstant = 0.2922;
@@ -22,8 +22,6 @@ const getStyles: any = () => {
   const titleLineHeight = titleHeight * 0.3;
   const titleMarginTop = hp('1%');
 
-  const buttonMargin = hp('1%');
-
   const playButtonOverlayBottomMargin = hp('2%');
 
   return StyleSheet.create({
@@ -34,13 +32,6 @@ const getStyles: any = () => {
     },
     map: {
       ...StyleSheet.absoluteFillObject,
-    },
-    bottomOverlay: {
-      position: 'absolute',
-      bottom: 0,
-      width: wp('100%'),
-      height: bottomHeight,
-      backgroundColor: 'black',
     },
     titleOverlay: {
       position: 'absolute',

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import MapView, {PROVIDER_GOOGLE, Marker, LatLng} from 'react-native-maps';
 
-import LevelService, {Level} from '../../services/levelService';
+import {Level} from '../../services/levelService';
 
 import {getStyles} from './mapLayer.style';
 
@@ -9,6 +9,7 @@ import LevelMarker from './levelMarker';
 
 type Props = {
   controlsEnabled: boolean;
+  levels: Array<Level>;
 };
 
 type State = {
@@ -33,6 +34,12 @@ export default class MapLayer extends Component<Props, State> {
 
   styles: any;
   map: any;
+  currentLevel: number;
+
+  constructor(props: Props) {
+    super(props);
+    this.currentLevel = 0;
+  }
 
   componentDidMount() {}
 
@@ -40,10 +47,15 @@ export default class MapLayer extends Component<Props, State> {
     const camera = await this.map.getCamera();
     camera.zoom = 14;
     camera.center = {
-      latitude: initialCenter.latitude * paddingConstant,
-      longitude: initialCenter.longitude,
+      latitude:
+        this.props.levels[this.currentLevel].latlon.latitude * paddingConstant,
+      longitude: this.props.levels[this.currentLevel].latlon.longitude,
     };
     this.map.animateCamera(camera, {duration: 1000});
+  }
+
+  setCurrentLevel(level: number) {
+    this.currentLevel = level;
   }
 
   getMapView() {
@@ -58,8 +70,10 @@ export default class MapLayer extends Component<Props, State> {
         }}
         initialCamera={{
           center: {
-            latitude: initialCenter.latitude * paddingConstant,
-            longitude: initialCenter.longitude,
+            latitude:
+              this.props.levels[this.currentLevel].latlon.latitude *
+              paddingConstant,
+            longitude: this.props.levels[this.currentLevel].latlon.longitude,
           },
           pitch: 0,
           heading: 0,
@@ -76,7 +90,7 @@ export default class MapLayer extends Component<Props, State> {
           const markers: Array<any> = [];
           const allIds: Array<string> = [];
           let i = 1;
-          LevelService.getLevels().forEach((level: Level) => {
+          this.props.levels.forEach((level: Level) => {
             markers.push(
               <LevelMarker
                 id={level.id.toString()}

@@ -19,6 +19,10 @@ const ImageService = {
     navButtonBackgroundLeft: require('../images/navButtonBackgroundLeft.png'),
     navButtonBackgroundRight: require('../images/navButtonBackgroundRight.png'),
     mapNavBackButton: require('../images/mapNavBackButton.png'),
+    rightArrow: require('../images/rightArrow.png'),
+    leftArrow: require('../images/leftArrow.png'),
+    levelNumberContainer: require('../images/levelNumberContainer.png'),
+    levelChooserBg: require('../images/levelChooserBg.png'),
   }),
   init: () => {
     ImageService.images = ImageService.requireImages();
