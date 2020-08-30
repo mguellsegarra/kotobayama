@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Text} from 'react-native';
+import {View, ImageBackground, Image, Text} from 'react-native';
 
 import ImageService from '../../services/imageService';
 import {getStyles} from './levelChooser.style';
@@ -25,6 +25,10 @@ export default class LevelChooser extends Component<Props> {
     if (this.props.hide) {
       return null;
     }
+
+    const pic = ImageService.getImage(
+      'level_1000' + (this.props.currentLevel + 1).toString(),
+    );
 
     return (
       <ImageBackground
@@ -52,6 +56,21 @@ export default class LevelChooser extends Component<Props> {
                 onPress={this.props.onNextLevel}
               />
             </View>
+          </View>
+        </View>
+        <View style={styles.levelDetails}>
+          <View style={styles.levelDetailsImage}>
+            <Image
+              resizeMode="cover"
+              style={styles.levelDetailsImagePic}
+              source={pic}
+            />
+
+            <Image
+              resizeMode="cover"
+              style={styles.levelDetailsImageFrame}
+              source={ImageService.getImage('photoFrame')}
+            />
           </View>
         </View>
       </ImageBackground>

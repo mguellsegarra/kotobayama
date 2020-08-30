@@ -23,6 +23,16 @@ const ImageService = {
     leftArrow: require('../images/leftArrow.png'),
     levelNumberContainer: require('../images/levelNumberContainer.png'),
     levelChooserBg: require('../images/levelChooserBg.png'),
+    photoFrame: require('../images/photoFrame.png'),
+    level_10001: require('../images/levels/10001.jpg'),
+    level_10002: require('../images/levels/10002.jpg'),
+    level_10003: require('../images/levels/10003.jpg'),
+    level_10004: require('../images/levels/10004.jpg'),
+    level_10005: require('../images/levels/10005.jpg'),
+    level_10006: require('../images/levels/10006.jpg'),
+    level_10007: require('../images/levels/10007.jpg'),
+    level_10008: require('../images/levels/10008.jpg'),
+    level_10009: require('../images/levels/10009.jpg'),
   }),
   init: () => {
     ImageService.images = ImageService.requireImages();

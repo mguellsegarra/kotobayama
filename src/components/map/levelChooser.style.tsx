@@ -14,8 +14,12 @@ const getStyles: any = () => {
   const levelChooserNumberConstant = 0.322420634920635;
   const levelChooserNumberHeight =
     levelChooserNumberWidth * levelChooserNumberConstant;
-  const levelChooserNumberMarginTop = levelChooserNumberHeight * 0.1;
   const levelChooserFont = hp('1.5%');
+
+  const photoFrameWidth = bottomHeight * 0.95;
+  const photoFrameConstant = 0.626373626373626;
+  const photoFrameHeight = photoFrameWidth * photoFrameConstant;
+  const photoFramePicResizeConstant = 0.98;
 
   return StyleSheet.create({
     container: {
@@ -57,6 +61,32 @@ const getStyles: any = () => {
       color: 'white',
       fontSize: levelChooserFont,
     },
+    levelDetails: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      // backgroundColor: 'red',
+    },
+    levelDetailsImage: {
+      // backgroundColor: 'yellow',
+      width: photoFrameWidth,
+      height: photoFrameHeight,
+    },
+    levelDetailsImageFrame: {
+      width: photoFrameWidth,
+      height: photoFrameHeight,
+      zIndex: 2,
+    },
+    levelDetailsImagePic: {
+      width: photoFrameWidth * photoFramePicResizeConstant,
+      height: photoFrameHeight * photoFramePicResizeConstant,
+      position: 'absolute',
+      zIndex: 1,
+      borderRadius: 10,
+      overflow: 'hidden',
+    },
+
+    levelDetailsRight: {},
   });
 };
 
