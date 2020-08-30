@@ -4,6 +4,7 @@ import {View, ImageBackground, Text} from 'react-native';
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
 import ImageService from '../../services/imageService';
+import {strings} from '../../services/i18nService';
 import MapLayer from '../../components/map/mapLayer';
 import RectButton, {RectButtonEnum} from '../../components/button/rectButton';
 import MapNavButton, {
@@ -63,14 +64,14 @@ export default class LevelMap extends Component<State> {
           <RectButton
             hide={this.state.mapNavigationMode}
             type={RectButtonEnum.Yellow}
-            text={'Jugar'}
+            text={strings('play')}
             style={this.styles.playButtonOverlay}
           />
 
           <RectButton
             hide={!this.state.mapNavigationMode}
             type={RectButtonEnum.Yellow}
-            text={'Tancar mapa'}
+            text={strings('closeMap')}
             style={this.styles.closeMapButtonOverlay}
             onPress={() => {
               this.mapLayer.resetToLevel();

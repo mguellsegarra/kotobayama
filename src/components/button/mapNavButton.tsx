@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {ViewStyle, ImageBackground, Text} from 'react-native';
 import {getStyles} from './mapNavButton.style';
+import {strings} from '../../services/i18nService';
 
 import {
   widthPercentageToDP as wp,
@@ -21,7 +22,7 @@ type Props = {
 
 interface MapNavButtonType {
   image: string;
-  text: string;
+  textKey: string;
 }
 
 interface MapNavButtonTypeConfig {
@@ -36,11 +37,11 @@ export enum MapNavButtonEnum {
 const mapNavButtonTypes: MapNavButtonTypeConfig = {
   back: {
     image: 'mapNavBackButton',
-    text: 'Tornar',
+    textKey: 'back',
   },
   map: {
     image: 'mapButton',
-    text: 'Explorar mapa',
+    textKey: 'exploreMap',
   },
 };
 
@@ -64,7 +65,7 @@ export default class MapNavButton extends Component<Props> {
     const typeForButton = mapNavButtonTypes[this.props.type];
     const type = !typeForButton ? 'back' : this.props.type;
     const imageForType = mapNavButtonTypes[type].image;
-    const textForType = mapNavButtonTypes[type].text;
+    const textForType = strings(mapNavButtonTypes[type].textKey);
 
     const bgWidth = hp('11%');
     const bgConstant = 0.897058823529412;

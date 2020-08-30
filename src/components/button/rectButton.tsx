@@ -5,8 +5,6 @@ import {
   Text,
   ViewStyle,
   TextStyle,
-  ImageStyle,
-  StyleSheet,
 } from 'react-native';
 
 // @ts-ignore
