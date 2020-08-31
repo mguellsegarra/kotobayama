@@ -1,10 +1,11 @@
 const fs = require('fs');
+const base = './src/res/';
 const rootPath = 'images/';
 
 const imageFileNames = (path) => {
   const newPath = path || '';
   const array = fs
-    .readdirSync('./src/' + rootPath + newPath)
+    .readdirSync(base + rootPath + newPath)
     .filter((file) => {
       return file.endsWith('.png') || file.endsWith('.jpg');
     })
@@ -14,7 +15,7 @@ const imageFileNames = (path) => {
       let key = newFilename.replace('.png', '');
       key = key.replace('.jpg', '');
 
-      return {key, filename: './' + rootPath + newPath + newFilename};
+      return {key, filename: './' + newPath + newFilename};
     });
 
   return Array.from(new Set(array));
@@ -35,7 +36,7 @@ const generate = () => {
 export default images;
 `;
 
-  fs.writeFileSync('src/images/images.js', string, 'utf8');
+  fs.writeFileSync('src/res/images/index.js', string, 'utf8');
 };
 
 generate();

@@ -8,7 +8,9 @@ import {
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';
-import images from '../../res/images';
+// import images from '../../res/images';
+// import images from 'images';
+import images from '@images';
 
 type Props = {
   hide?: boolean;
