@@ -5,7 +5,23 @@ const ca = require('src/assets/locales/ca.json');
 // @ts-ignore
 const es = require('src/assets/locales/es.json');
 
-const I18n = {
+interface translationEntry {
+  [index: string]: string;
+}
+
+interface translationObject {
+  [index: string]: translationEntry;
+}
+
+interface I18nInterface {
+  defaultLocale: string;
+  supportedLocales: Array<string>;
+  translations: translationObject;
+  locale: string;
+  init: Function;
+}
+
+const I18n: I18nInterface = {
   defaultLocale: 'ca',
   supportedLocales: ['es', 'ca'],
   translations: {

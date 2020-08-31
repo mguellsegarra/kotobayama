@@ -1,10 +1,10 @@
 import images from './images';
 import colors from './colors';
 import fonts from './fonts';
-import {ImageSourcePropType} from 'react-native';
+import {ImageURISource, ImageRequireSource} from 'react-native';
 
 interface ImagesInterface {
-  [index: string]: ImageSourcePropType;
+  [index: string]: ImageURISource | ImageRequireSource;
 }
 
 interface StringKVInterface {

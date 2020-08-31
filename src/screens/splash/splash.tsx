@@ -4,7 +4,11 @@ import {getStyles} from './splash.style';
 import I18n from 'src/library/services/i18nService';
 import R from 'src/res';
 
-export default class Splash extends Component {
+type Props = {
+  navigation: any
+};
+
+export default class Splash extends Component<Props> {
   styles: any;
   state = {
     fadeAnim: new Animated.Value(0),
