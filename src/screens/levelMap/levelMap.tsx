@@ -3,7 +3,7 @@ import {View, ImageBackground, Text} from 'react-native';
 
 import {getStyles} from './levelMap.style';
 import NoNotchView from '../../components/noNotchView';
-import images from '../../res/images';
+import R from '@res';
 import {strings} from '../../services/i18nService';
 import MapLayer from '../../components/map/mapLayer';
 import LevelService, {Level} from '../../services/levelService';
@@ -92,7 +92,7 @@ export default class LevelMap extends Component<State> {
           {this.state.mapNavigationMode ? null : (
             <View style={this.styles.titleOverlay}>
               <ImageBackground
-                source={images['mapTitleContainer']}
+                source={R.images['mapTitleContainer']}
                 style={this.styles.mapTitleContainerImage}
                 resizeMode="contain">
                 <Text style={this.styles.mapTitleText}>

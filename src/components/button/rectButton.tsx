@@ -5,9 +5,7 @@ import {View, ImageBackground, Text, ViewStyle, TextStyle} from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import {isTablet} from 'react-native-device-info';
 
-import images from '../../res/images';
-import Colors from '../../styles/colors.style';
-import Fonts from '../../styles/fonts.style';
+import R from '@res';
 
 import {
   widthPercentageToDP as wp,
@@ -40,7 +38,7 @@ interface RectButtonTypeConfig {
 const RectButtonTypes: RectButtonTypeConfig = {
   yellow: {
     image: 'buttonYellow',
-    textColor: Colors.RectButton.yellowButtonText,
+    textColor: R.colors.yellowButtonText,
   },
 };
 
@@ -88,7 +86,7 @@ export default class RectButton extends Component<Props> {
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}
             onPress={this.props.onPress}>
             <ImageBackground
-              source={images[rectButtonConfig.image]}
+              source={R.images[rectButtonConfig.image]}
               style={Object.assign(defaultImageStyle, this.props.imageStyle)}
               resizeMode="contain">
               <Text
@@ -96,7 +94,7 @@ export default class RectButton extends Component<Props> {
                   ...this.props.textStyle,
                   ...{
                     marginBottom: buttonTextMarginBottom,
-                    fontFamily: Fonts.lilita,
+                    fontFamily: R.fonts.lilita,
                     fontSize: buttonTextFontSize,
                     color: rectButtonConfig.textColor,
                   },

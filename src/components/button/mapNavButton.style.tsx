@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Fonts from '../../styles/fonts.style';
+import R from '@res';
 
 import {
   widthPercentageToDP as wp,
@@ -11,7 +11,7 @@ const getStyles: any = () => {
 
   return StyleSheet.create({
     buttonText: {
-      fontFamily: Fonts.alata,
+      fontFamily: R.fonts.alata,
       fontSize: fontSize,
       color: 'white',
       textAlign: 'center',

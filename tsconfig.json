@@ -12,7 +12,7 @@
     "target": "esnext",
     "baseUrl": ".",
     "paths": {
-      "@images": ["src/res/images"]
+      "@res": ["src/res"]
     }
   },
   "exclude": [

@@ -8,8 +8,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-// @ts-ignore
-import images from '../../res/images';
+import R from '@res';
 import CircleButton from './circleButton';
 
 type Props = {
@@ -92,7 +91,7 @@ export default class MapNavButton extends Component<Props> {
 
     return (
       <ImageBackground
-        source={images[imageSource]}
+        source={R.images[imageSource]}
         style={Object.assign(defaultStyle, this.props.style)}>
         <CircleButton image={imageForType} onPress={this.props.onPress} />
         <Text style={styles.buttonText}>{textForType}</Text>

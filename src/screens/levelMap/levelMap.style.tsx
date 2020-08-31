@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Colors from '../../styles/colors.style';
-import Fonts from '../../styles/fonts.style';
+import R from '@res';
 import {isTablet} from 'react-native-device-info';
 
 import {
@@ -9,7 +8,6 @@ import {
 } from 'react-native-responsive-screen';
 
 const getStyles: any = () => {
-  const navbarHeight = hp('7%');
   const bottomHeight = hp('35%');
 
   const titleBannerWidth = isTablet() ? wp('60%') : wp('82%');
@@ -48,7 +46,7 @@ const getStyles: any = () => {
       width: titleBannerWidth,
     },
     mapTitleText: {
-      fontFamily: Fonts.league,
+      fontFamily: R.fonts.league,
       fontSize: titleFont,
       color: 'white',
       textAlign: 'center',

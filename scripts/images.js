@@ -15,7 +15,7 @@ const imageFileNames = (path) => {
       let key = newFilename.replace('.png', '');
       key = key.replace('.jpg', '');
 
-      return {key, filename: './' + newPath + newFilename};
+      return {key, filename: './' + rootPath + newPath + newFilename};
     });
 
   return Array.from(new Set(array));
@@ -25,7 +25,7 @@ const generate = () => {
   let properties = imageFileNames('ui/')
     .concat(imageFileNames('levels/'))
     .map(({key, filename}) => {
-      return `'${key}': require('${filename}')`;
+      return `${key}: require('${filename}')`;
     })
     .join(',\n  ');
 
@@ -36,7 +36,7 @@ const generate = () => {
 export default images;
 `;
 
-  fs.writeFileSync('src/res/images/index.js', string, 'utf8');
+  fs.writeFileSync('src/res/images.tsx', string, 'utf8');
 };
 
 generate();

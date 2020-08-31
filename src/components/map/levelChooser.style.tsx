@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import Fonts from '../../styles/fonts.style';
+import R from '@res';
 
 import {
   widthPercentageToDP as wp,
@@ -57,7 +57,7 @@ const getStyles: any = () => {
     },
     levelChooserText: {
       textAlign: 'center',
-      fontFamily: Fonts.league,
+      fontFamily: R.fonts.league,
       color: 'white',
       fontSize: levelChooserFont,
     },
