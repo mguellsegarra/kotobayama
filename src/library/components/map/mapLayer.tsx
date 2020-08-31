@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
-import MapView, {
-  PROVIDER_GOOGLE,
-  Marker,
-  LatLng,
-  MapEvent,
-} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
 
 import {Level} from '../../services/levelService';
 
@@ -22,11 +17,6 @@ type State = {
   allIds: Array<string>;
   markers: Array<any>;
   mapReady: boolean;
-};
-
-const initialCenter = {
-  latitude: 42.6053217,
-  longitude: 0.8774010999999999,
 };
 
 const paddingConstant = 0.99989;
@@ -89,7 +79,6 @@ export default class MapLayer extends Component<Props, State> {
         mapType={'satellite'}
         rotateEnabled={false}
         pitchEnabled={false}
-        // scrollEnabled={this.props.controlsEnabled}
         scrollEnabled={true}
         zoomEnabled={this.props.controlsEnabled}
         moveOnMarkerPress={this.props.controlsEnabled}

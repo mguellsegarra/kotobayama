@@ -13,9 +13,7 @@ import LevelChooser from 'src/library/components/map/levelChooser';
 import RectButton, {
   RectButtonEnum,
 } from 'src/library/components/button/rectButton';
-import MapNavButton, {
-  MapNavButtonEnum,
-} from 'src/library/components/button/mapNavButton';
+import CircleButton from 'src/library/components/button/circleButton';
 
 type State = {
   mapNavigationMode: boolean;
@@ -115,25 +113,14 @@ export default class LevelMap extends Component<State> {
             </View>
           )}
 
-          <MapNavButton
-            type={MapNavButtonEnum.Back}
-            style={this.styles.leftButtonOverlay}
-            hide={this.state.mapNavigationMode}
-          />
-
-          <MapNavButton
-            type={MapNavButtonEnum.Map}
-            style={this.styles.rightButtonOverlay}
-            hide={this.state.mapNavigationMode}
-            right
-            onPress={() => {
-              setTimeout(() => {
-                this.setState({
-                  mapNavigationMode: !this.state.mapNavigationMode,
-                });
-              }, 500);
-            }}
-          />
+          {this.state.mapNavigationMode ? null : (
+            <View style={this.styles.backButtonContainer}>
+              <CircleButton
+                style={this.styles.leftButtonOverlay}
+                image="mapNavBackButton"
+              />
+            </View>
+          )}
 
           <RectButton
             hide={this.state.mapNavigationMode}

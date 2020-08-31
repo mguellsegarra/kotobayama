@@ -19,9 +19,14 @@ const getStyles: any = () => {
   const titleMarginSides = titleBannerWidth * 0.05;
   const titleLineHeight = titleHeight * 0.3;
   const titleMarginTop = hp('1%');
+  const buttonWidth = isTablet() ? wp('30%') : wp('42%');
+  const buttonRatioConstant = 0.3525;
+  const buttonHeight = buttonWidth * buttonRatioConstant;
 
   const playButtonOverlayBottomMargin = hp('2%');
-
+  const yBackButton =
+    hp('100%') - (bottomHeight + playButtonOverlayBottomMargin + buttonHeight);
+  const y = yBackButton * 0.5;
   return StyleSheet.create({
     container: {
       ...StyleSheet.absoluteFillObject,
@@ -55,15 +60,14 @@ const getStyles: any = () => {
       marginBottom: titleMarginBottom,
       lineHeight: titleLineHeight,
     },
-    leftButtonOverlay: {
+    backButtonContainer: {
       position: 'absolute',
-      top: titleMarginTop + titleHeight + hp('1%'),
+      top: y,
       left: 0,
-    },
-    rightButtonOverlay: {
-      position: 'absolute',
-      top: titleMarginTop + titleHeight + hp('1%'),
-      right: 0,
+      backgroundColor: '#000000CC',
+      padding: 10,
+      borderTopRightRadius: 10,
+      borderBottomRightRadius: 10,
     },
     playButtonOverlay: {
       position: 'absolute',
