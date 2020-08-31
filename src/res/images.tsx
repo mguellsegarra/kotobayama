@@ -1,5 +1,6 @@
 const images = {
   backButton: require('./images/ui/backButton.png'),
+  buttonBlue: require('./images/ui/buttonBlue.png'),
   buttonYellow: require('./images/ui/buttonYellow.png'),
   leftArrow: require('./images/ui/leftArrow.png'),
   levelChooserBg: require('./images/ui/levelChooserBg.png'),
@@ -29,7 +30,7 @@ const images = {
   10006: require('./images/levels/10006.jpg'),
   10007: require('./images/levels/10007.jpg'),
   10008: require('./images/levels/10008.jpg'),
-  10009: require('./images/levels/10009.jpg'),
-};
+  10009: require('./images/levels/10009.jpg')
+}
 
 export default images;

@@ -131,17 +131,19 @@ export default class LevelMap extends Component<State> {
 
           <RectButton
             hide={!this.state.mapNavigationMode}
-            type={RectButtonEnum.Yellow}
-            text={strings('closeMap')}
+            type={RectButtonEnum.Blue}
+            text={strings('back')}
             style={this.styles.closeMapButtonOverlay}
             onPress={() => {
-              this.mapLayer.resetToLevel();
+              setTimeout(() => {
+                this.mapLayer.resetToLevel();
+              }, 500);
 
               setTimeout(() => {
                 this.setState({
                   mapNavigationMode: !this.state.mapNavigationMode,
                 });
-              }, 500);
+              }, 300);
             }}
           />
 

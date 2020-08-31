@@ -76,7 +76,7 @@ const getStyles: any = () => {
     },
     closeMapButtonOverlay: {
       position: 'absolute',
-      marginBottom: 20,
+      marginBottom: hp('5%'),
       bottom: 0,
     },
   });

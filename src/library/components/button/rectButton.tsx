@@ -24,6 +24,7 @@ type Props = {
 
 export enum RectButtonEnum {
   Yellow = 'yellow',
+  Blue = 'blue',
 }
 
 interface RectButtonType {
@@ -39,6 +40,10 @@ const RectButtonTypes: RectButtonTypeConfig = {
   yellow: {
     image: 'buttonYellow',
     textColor: R.colors.yellowButtonText,
+  },
+  blue: {
+    image: 'buttonBlue',
+    textColor: 'white',
   },
 };
 
