@@ -116,7 +116,8 @@ export default class LevelMap extends Component<State> {
           {this.state.mapNavigationMode ? null : (
             <View style={this.styles.backButtonContainer}>
               <CircleButton
-                style={this.styles.leftButtonOverlay}
+                imageStyle={this.styles.backButton}
+                style={this.styles.backButton}
                 image="mapNavBackButton"
               />
             </View>
@@ -149,7 +150,7 @@ export default class LevelMap extends Component<State> {
 
           <LevelChooser
             currentLevel={this.state.currentLevel}
-            totalLevels={this.state.levels.length}
+            levels={this.state.levels}
             hide={this.state.mapNavigationMode}
             onNextLevel={this.setNextLevel}
             onPrevLevel={this.setPrevLevel}

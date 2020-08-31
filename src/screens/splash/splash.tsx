@@ -2,10 +2,12 @@ import React, {Component} from 'react';
 import {View, Image, Animated} from 'react-native';
 import {getStyles} from './splash.style';
 import I18n from 'src/library/services/i18nService';
+import ImagePrefetcher from 'src/library/services/imagePrefetcher';
+
 import R from 'src/res';
 
 type Props = {
-  navigation: any
+  navigation: any;
 };
 
 export default class Splash extends Component<Props> {
@@ -54,6 +56,9 @@ export default class Splash extends Component<Props> {
             resizeMode="contain"
           />
         </Animated.View>
+        <View style={{width: 0, height: 0, opacity: 0}}>
+          {ImagePrefetcher.getImages()}
+        </View>
       </View>
     );
   }

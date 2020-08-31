@@ -1,8 +1,11 @@
 const images = {
   backButton: require('./images/ui/backButton.png'),
+  bootIconDetails: require('./images/ui/bootIconDetails.png'),
   buttonBlue: require('./images/ui/buttonBlue.png'),
   buttonYellow: require('./images/ui/buttonYellow.png'),
+  heartIconDetails: require('./images/ui/heartIconDetails.png'),
   leftArrow: require('./images/ui/leftArrow.png'),
+  letterIconDetails: require('./images/ui/letterIconDetails.png'),
   levelChooserBg: require('./images/ui/levelChooserBg.png'),
   levelNumberContainer: require('./images/ui/levelNumberContainer.png'),
   mapButton: require('./images/ui/mapButton.png'),

@@ -5,18 +5,18 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
+import {isTablet} from 'react-native-device-info';
 
 const getStyles: any = () => {
   // const fontSize = hp('1.3%');
   const bottomHeight = hp('35%');
-  const levelBarHeight = bottomHeight * 0.2;
   const levelChooserNumberWidth = hp('10%');
   const levelChooserNumberConstant = 0.322420634920635;
   const levelChooserNumberHeight =
     levelChooserNumberWidth * levelChooserNumberConstant;
   const levelChooserFont = hp('1.5%');
 
-  const photoFrameWidth = bottomHeight * 0.95;
+  const photoFrameWidth = isTablet() ? hp('35%') : wp('68%');
   const photoFrameConstant = 0.626373626373626;
   const photoFrameHeight = photoFrameWidth * photoFrameConstant;
   const photoFramePicResizeConstant = 0.98;
@@ -31,7 +31,8 @@ const getStyles: any = () => {
       backgroundColor: 'black',
     },
     levelBar: {
-      height: levelBarHeight,
+      flex: 1,
+      // height: levelBarHeight,
       width: wp('100%'),
       backgroundColor: 'black',
     },
@@ -62,15 +63,13 @@ const getStyles: any = () => {
       fontSize: levelChooserFont,
     },
     levelDetails: {
-      flex: 1,
-      alignItems: 'center',
-      justifyContent: 'center',
-      // backgroundColor: 'red',
+      flex: 5,
+      flexDirection: 'row',
     },
     levelDetailsImage: {
-      // backgroundColor: 'yellow',
-      width: photoFrameWidth,
-      height: photoFrameHeight,
+      flex: 3,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     levelDetailsImageFrame: {
       width: photoFrameWidth,
@@ -85,8 +84,26 @@ const getStyles: any = () => {
       borderRadius: 20,
       overflow: 'hidden',
     },
-
-    levelDetailsRight: {},
+    levelDetailsRight: {
+      flex: 1,
+      flexDirection: 'column',
+    },
+    levelDetailsRightCell: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-start',
+      flexDirection: 'row',
+    },
+    detailRightCellImage: {
+      width: hp('4%'),
+      height: hp('4%'),
+    },
+    detailRightText: {
+      color: 'white',
+      fontFamily: R.fonts.alata,
+      marginLeft: hp('0.4%'),
+      fontSize: hp('1.6%'),
+    },
   });
 };
 

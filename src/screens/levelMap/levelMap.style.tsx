@@ -18,7 +18,7 @@ const getStyles: any = () => {
   const titleMarginBottom = titleHeight * titleMarginBottomConstant;
   const titleMarginSides = titleBannerWidth * 0.05;
   const titleLineHeight = titleHeight * 0.3;
-  const titleMarginTop = hp('1%');
+  const titleMarginTop = hp('4%');
   const buttonWidth = isTablet() ? wp('30%') : wp('42%');
   const buttonRatioConstant = 0.3525;
   const buttonHeight = buttonWidth * buttonRatioConstant;
@@ -65,7 +65,7 @@ const getStyles: any = () => {
       top: y,
       left: 0,
       backgroundColor: '#000000CC',
-      padding: 10,
+      padding: 7,
       borderTopRightRadius: 10,
       borderBottomRightRadius: 10,
     },
@@ -79,6 +79,10 @@ const getStyles: any = () => {
       marginBottom: hp('5%'),
       bottom: 0,
     },
+    backButton: {
+      width: hp('7%'),
+      height: hp('7%'),
+    }
   });
 };
 

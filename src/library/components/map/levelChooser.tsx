@@ -5,10 +5,11 @@ import R from 'src/res';
 import {getStyles} from './levelChooser.style';
 import CircleButton from '../button/circleButton';
 import LevelChooserNumber from './levelChooserNumber';
+import {Level} from 'src/library/services/levelService';
 
 type Props = {
   hide?: boolean;
-  totalLevels: number;
+  levels: Array<Level>;
   currentLevel: number;
   onNextLevel: Function;
   onPrevLevel: Function;
@@ -43,7 +44,7 @@ export default class LevelChooser extends Component<Props> {
             </View>
             <View style={styles.levelBarMiddle}>
               <LevelChooserNumber
-                totalLevels={this.props.totalLevels}
+                totalLevels={this.props.levels.length}
                 currentLevel={this.props.currentLevel}
               />
             </View>
@@ -63,12 +64,39 @@ export default class LevelChooser extends Component<Props> {
               style={styles.levelDetailsImagePic}
               source={pic}
             />
-
             <Image
               resizeMode="cover"
               style={styles.levelDetailsImageFrame}
               source={R.images['photoFrame']}
             />
+          </View>
+          <View style={styles.levelDetailsRight}>
+            <View style={styles.levelDetailsRightCell}>
+              <Image
+                resizeMode="contain"
+                style={styles.detailRightCellImage}
+                source={R.images['bootIconDetails']}
+              />
+              <Text style={styles.detailRightText}>Refugi</Text>
+            </View>
+            <View style={styles.levelDetailsRightCell}>
+              <Image
+                resizeMode="contain"
+                style={styles.detailRightCellImage}
+                source={R.images['letterIconDetails']}
+              />
+              <Text style={styles.detailRightText}>
+                {this.props.levels[this.props.currentLevel].word.length} lletres
+              </Text>
+            </View>
+            <View style={styles.levelDetailsRightCell}>
+              <Image
+                resizeMode="contain"
+                style={styles.detailRightCellImage}
+                source={R.images['heartIconDetails']}
+              />
+              <Text style={styles.detailRightText}>3/3</Text>
+            </View>
           </View>
         </View>
       </ImageBackground>
