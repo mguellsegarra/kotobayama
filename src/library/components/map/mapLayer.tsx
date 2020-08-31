@@ -1,5 +1,10 @@
 import React, {Component} from 'react';
-import MapView, {PROVIDER_GOOGLE, Marker, LatLng} from 'react-native-maps';
+import MapView, {
+  PROVIDER_GOOGLE,
+  Marker,
+  LatLng,
+  MapEvent,
+} from 'react-native-maps';
 
 import {Level} from '../../services/levelService';
 
@@ -10,6 +15,7 @@ import LevelMarker from './levelMarker';
 type Props = {
   controlsEnabled: boolean;
   levels: Array<Level>;
+  onPanDrag: Function;
 };
 
 type State = {
@@ -83,9 +89,13 @@ export default class MapLayer extends Component<Props, State> {
         mapType={'satellite'}
         rotateEnabled={false}
         pitchEnabled={false}
-        scrollEnabled={this.props.controlsEnabled}
+        // scrollEnabled={this.props.controlsEnabled}
+        scrollEnabled={true}
         zoomEnabled={this.props.controlsEnabled}
         moveOnMarkerPress={this.props.controlsEnabled}
+        onPanDrag={() => {
+          this.props.onPanDrag();
+        }}
         onMapReady={() => {
           const markers: Array<any> = [];
           const allIds: Array<string> = [];

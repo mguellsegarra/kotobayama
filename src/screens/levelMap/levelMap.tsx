@@ -38,6 +38,7 @@ export default class LevelMap extends Component<State> {
     this.styles = {};
     this.setNextLevel = this.setNextLevel.bind(this);
     this.setPrevLevel = this.setPrevLevel.bind(this);
+    this.onMapPanDrag = this.onMapPanDrag.bind(this);
   }
 
   setNextLevel() {
@@ -78,6 +79,14 @@ export default class LevelMap extends Component<State> {
     );
   }
 
+  onMapPanDrag() {
+    if (!this.state.mapNavigationMode) {
+      this.setState({
+        mapNavigationMode: !this.state.mapNavigationMode,
+      });
+    }
+  }
+
   render() {
     this.styles = getStyles();
 
@@ -90,6 +99,7 @@ export default class LevelMap extends Component<State> {
             }}
             levels={this.state.levels}
             controlsEnabled={this.state.mapNavigationMode}
+            onPanDrag={this.onMapPanDrag}
           />
 
           {this.state.mapNavigationMode ? null : (
