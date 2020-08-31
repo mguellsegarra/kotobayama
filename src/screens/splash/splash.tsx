@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {View, Image, Animated} from 'react-native';
 import {getStyles} from './splash.style';
-import I18n from '../../services/i18nService';
-import R from '@res';
+import I18n from 'src/library/services/i18nService';
+import R from 'src/res';
 
 export default class Splash extends Component {
+  styles: any;
   state = {
     fadeAnim: new Animated.Value(0),
   };

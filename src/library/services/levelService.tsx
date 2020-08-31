@@ -1,4 +1,4 @@
-const levelSource = require('../assets/levels');
+const levelSource = require('src/assets/levels');
 import {LatLng} from 'react-native-maps';
 
 const getCoordinateFromLatLonString = (latLonString: string): LatLng => {

@@ -2,17 +2,20 @@ import React, {Component} from 'react';
 import {View, ImageBackground, Text} from 'react-native';
 
 import {getStyles} from './levelMap.style';
-import NoNotchView from '../../components/noNotchView';
-import R from '@res';
-import {strings} from '../../services/i18nService';
-import MapLayer from '../../components/map/mapLayer';
-import LevelService, {Level} from '../../services/levelService';
+import NoNotchView from 'src/library/components/noNotchView';
+import R from 'src/res';
 
-import LevelChooser from '../../components/map/levelChooser';
-import RectButton, {RectButtonEnum} from '../../components/button/rectButton';
+import {strings} from 'src/library/services/i18nService';
+import MapLayer from 'src/library/components/map/mapLayer';
+import LevelService, {Level} from 'src/library/services/levelService';
+
+import LevelChooser from 'src/library/components/map/levelChooser';
+import RectButton, {
+  RectButtonEnum,
+} from 'src/library/components/button/rectButton';
 import MapNavButton, {
   MapNavButtonEnum,
-} from '../../components/button/mapNavButton';
+} from 'src/library/components/button/mapNavButton';
 
 type State = {
   mapNavigationMode: boolean;
@@ -82,7 +85,7 @@ export default class LevelMap extends Component<State> {
       <NoNotchView>
         <View style={this.styles.container}>
           <MapLayer
-            ref={(ref) => {
+            ref={(ref: any) => {
               this.mapLayer = ref;
             }}
             levels={this.state.levels}

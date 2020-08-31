@@ -3,8 +3,8 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import LevelMap from './screens/levelMap/levelMap';
-import Splash from './screens/splash/splash';
+import LevelMap from 'src/screens/levelMap/levelMap';
+import Splash from 'src/screens/splash/splash';
 
 const Stack = createStackNavigator();
 

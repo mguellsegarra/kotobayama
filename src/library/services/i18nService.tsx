@@ -1,9 +1,9 @@
 import * as RNLocalize from 'react-native-localize';
 
 // @ts-ignore
-const ca = require('../assets/locales/ca.json');
+const ca = require('src/assets/locales/ca.json');
 // @ts-ignore
-const es = require('../assets/locales/es.json');
+const es = require('src/assets/locales/es.json');
 
 const I18n = {
   defaultLocale: 'ca',

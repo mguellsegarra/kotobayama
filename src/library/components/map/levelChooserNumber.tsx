@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Text} from 'react-native';
 
-import images from '../../res/images';
+import images from '../../../res/images';
 import {getStyles} from './levelChooser.style';
 
 type Props = {

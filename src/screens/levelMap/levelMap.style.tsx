@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import R from '@res';
+import R from 'src/res';
 import {isTablet} from 'react-native-device-info';
 
 import {

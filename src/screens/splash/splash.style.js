@@ -3,7 +3,7 @@
  * @flow strict-local
  */
 import {StyleSheet} from 'react-native';
-import R from '@res';
+import R from 'src/res';
 
 const getStyles = () =>
   StyleSheet.create({
