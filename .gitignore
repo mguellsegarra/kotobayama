@@ -63,3 +63,5 @@ ios/index/
 ios/Index
 ios/Index/
 ios/Index/*
+
+node_modules/react-native/scripts/.packager.env

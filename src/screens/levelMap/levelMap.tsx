@@ -21,7 +21,11 @@ type State = {
   levels: Array<Level>;
 };
 
-export default class LevelMap extends Component<State> {
+type Props = {
+  navigation: any;
+};
+
+export default class LevelMap extends Component<Props, State> {
   styles: any;
   mapLayer: any;
 
@@ -31,7 +35,7 @@ export default class LevelMap extends Component<State> {
     levels: LevelService.getLevels(),
   };
 
-  constructor(props: any) {
+  constructor(props: Props) {
     super(props);
     this.styles = {};
     this.setNextLevel = this.setNextLevel.bind(this);
@@ -128,6 +132,9 @@ export default class LevelMap extends Component<State> {
             type={RectButtonEnum.Yellow}
             text={strings('play')}
             style={this.styles.playButtonOverlay}
+            onPress={() => {
+              this.props.navigation.navigate('Game');
+            }}
           />
 
           <RectButton
