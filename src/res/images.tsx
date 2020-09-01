@@ -3,6 +3,7 @@ const images = {
   bootIconDetails: require('./images/ui/bootIconDetails.png'),
   buttonBlue: require('./images/ui/buttonBlue.png'),
   buttonYellow: require('./images/ui/buttonYellow.png'),
+  gradientBackground: require('./images/ui/gradientBackground.png'),
   heartIconDetails: require('./images/ui/heartIconDetails.png'),
   leftArrow: require('./images/ui/leftArrow.png'),
   letterIconDetails: require('./images/ui/letterIconDetails.png'),

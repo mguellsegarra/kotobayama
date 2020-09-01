@@ -8,7 +8,15 @@ import {
 } from 'react-native-responsive-screen';
 
 const getStyles: any = () => {
-  return StyleSheet.create({});
+  return StyleSheet.create({
+    background: {
+      flex: 1,
+      backgroundColor: 'red',
+    },
+    backButton: {
+      marginLeft: 10,
+    },
+  });
 };
 
 export {getStyles};

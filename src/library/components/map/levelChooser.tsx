@@ -3,7 +3,7 @@ import {View, ImageBackground, Image, Text} from 'react-native';
 
 import R from 'src/res';
 import {getStyles} from './levelChooser.style';
-import CircleButton from '../button/circleButton';
+import CircleButton from 'src/library/components/button/circleButton';
 import LevelChooserNumber from './levelChooserNumber';
 import {Level} from 'src/library/services/levelService';
 

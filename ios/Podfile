@@ -20,6 +20,8 @@ target 'tegami_mountains' do
   use_flipper!
   pod 'RNDeviceInfo', :path => '../node_modules/react-native-device-info'
 
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
+
   post_install do |installer|
     flipper_post_install(installer)
   end

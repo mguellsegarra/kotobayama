@@ -3,7 +3,7 @@ import DeviceInfo from 'react-native-device-info';
 import {View, Platform} from 'react-native';
 
 class NoNotchView extends PureComponent {
-  constructor(props) {
+  constructor(props: any) {
     super(props);
   }
 
@@ -27,15 +27,11 @@ class NoNotchView extends PureComponent {
 
     if (deviceHaveNotch) {
       return (
-        <View
-          style={{
-            flex: 1,
-            backgroundColor: 'black',
-          }}>
+        <View style={{flex: 1}}>
           <View
             style={{
               flex: 1,
-              marginTop: navbarHeight,
+              paddingTop: navbarHeight,
             }}>
             {this.props.children}
           </View>
@@ -45,6 +41,7 @@ class NoNotchView extends PureComponent {
       return (
         <View
           style={{
+            paddingTop: 10,
             flex: 1,
           }}>
           {this.props.children}

@@ -4,7 +4,7 @@ import fonts from './fonts';
 import {ImageURISource, ImageRequireSource} from 'react-native';
 
 interface ImagesInterface {
-  [index: string]: ImageURISource | ImageRequireSource;
+  [index: string]: ImageURISource | ImageRequireSource  ;
 }
 
 interface StringKVInterface {

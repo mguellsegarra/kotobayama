@@ -25,8 +25,8 @@ const getStyles: any = () => {
 
   const playButtonOverlayBottomMargin = hp('2%');
   const yBackButton =
-    hp('100%') - (bottomHeight + playButtonOverlayBottomMargin + buttonHeight);
-  const y = yBackButton * 0.5;
+    hp('100%') - (bottomHeight - titleHeight + playButtonOverlayBottomMargin + buttonHeight);
+  const y = (yBackButton * 0.5);
   return StyleSheet.create({
     container: {
       ...StyleSheet.absoluteFillObject,
