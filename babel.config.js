@@ -6,7 +6,10 @@ module.exports = {
       {
         root: ['./src'],
         alias: {
-          '^@tegami/(.+)': './src/\\1',
+          '^@library/(.+)': './src/library/\\1',
+          '^@screens/(.+)': './src/screens/\\1',
+          '^@res/(.+)': './src/res/\\1',
+          '^@assets/(.+)': './src/assets/\\1',
         },
         extensions: [
           '.ios.ts',

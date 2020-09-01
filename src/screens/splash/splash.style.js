@@ -3,7 +3,7 @@
  * @flow strict-local
  */
 import {StyleSheet} from 'react-native';
-import R from '@tegami/res';
+import R from '@res/R';
 
 const getStyles = () =>
   StyleSheet.create({

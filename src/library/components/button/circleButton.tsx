@@ -8,7 +8,7 @@ import {
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';
-import R from '@tegami/res';
+import R from '@res/R';
 
 type Props = {
   hide?: boolean;

@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
 
-import R from '@tegami/res';
+import R from '@res/R';
 
 const ImagePrefetcher = {
   getImages: () => {

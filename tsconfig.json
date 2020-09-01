@@ -12,7 +12,10 @@
     "target": "esnext",
     "baseUrl": "./src",
     "paths": {
-      "@tegami/*": ["./*"]
+      "@library/*": ["./library/*"],
+      "@screens/*": ["./screens/*"],
+      "@res/*": ["./res/*"],
+      "@assets/*": ["./assets/*"]
     },
     "skipLibCheck": true
   },

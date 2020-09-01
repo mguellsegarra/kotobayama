@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Marker, LatLng} from 'react-native-maps';
 
-import R from '@tegami/res';
+import R from '@res/R';
 
 const getMarkerImageForIdx = (idx: number) => {
   return 'marker_' + idx.toString();

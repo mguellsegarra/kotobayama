@@ -3,9 +3,9 @@ import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import {Animated, Easing} from 'react-native';
-import LevelMap from '@tegami/screens/levelMap/levelMap';
-import Splash from '@tegami/screens/splash/splash';
-import Game from '@tegami/screens/game/game';
+import LevelMap from '@screens/levelMap/levelMap';
+import Splash from '@screens/splash/splash';
+import Game from '@screens/game/game';
 
 const Stack = createStackNavigator();
 

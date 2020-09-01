@@ -8,7 +8,7 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
-import R from '@tegami/res';
+import R from '@res/R';
 import CircleButton from './circleButton';
 
 type Props = {

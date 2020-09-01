@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Image, Text} from 'react-native';
 
-import R from '@tegami/res';
+import R from '@res/R';
 import {getStyles} from './levelChooser.style';
-import CircleButton from '@tegami/library/components/button/circleButton';
+import CircleButton from '@library/components/button/circleButton';
 import LevelChooserNumber from './levelChooserNumber';
-import {Level} from '@tegami/library/services/levelService';
+import {Level} from '@library/services/levelService';
 
 type Props = {
   hide?: boolean;

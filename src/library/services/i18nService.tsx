@@ -1,9 +1,9 @@
 import * as RNLocalize from 'react-native-localize';
 
 // @ts-ignore
-const ca = require('@tegami/assets/locales/ca.json');
+const ca = require('@assets/locales/ca.json');
 // @ts-ignore
-const es = require('@tegami/assets/locales/es.json');
+const es = require('@assets/locales/es.json');
 
 interface translationEntry {
   [index: string]: string;
