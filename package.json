@@ -4,7 +4,12 @@
   "private": true,
   "scripts": {
     "android": "react-native run-android",
+    "android:release": "react-native run-android --variant=release",
     "ios": "react-native run-ios",
+    "ios:se": "react-native run-ios --simulator=\"iPhone SE\"",
+    "ios:release": "react-native run-ios --configuration Release",
+    "ios:bundle": "node_modules/react-native/cli.js bundle --entry-file index.js --platform ios --dev false --reset-cache --bundle-output /dev/null",
+    "android:bundle": "node_modules/react-native/cli.js bundle --entry-file index.js --platform android --dev false --reset-cache --bundle-output /dev/null",
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint .",

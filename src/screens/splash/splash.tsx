@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {View, Image, Animated} from 'react-native';
 import {getStyles} from './splash.style';
-import I18n from 'src/library/services/i18nService';
-import ImagePrefetcher from 'src/library/services/imagePrefetcher';
+import I18n from '@tegami/library/services/i18nService';
+import ImagePrefetcher from '@tegami/library/services/imagePrefetcher';
 
-import R from 'src/res';
+import R from '@tegami/res';
 
 type Props = {
   navigation: any;

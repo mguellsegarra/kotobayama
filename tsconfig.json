@@ -10,7 +10,10 @@
     "noEmit": true,
     "strict": true,
     "target": "esnext",
-    "baseUrl": ".",
+    "baseUrl": "./src",
+    "paths": {
+      "@tegami/*": ["./*"]
+    },
     "skipLibCheck": true
   },
   "exclude": [

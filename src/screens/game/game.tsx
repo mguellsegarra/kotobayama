@@ -1,11 +1,11 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Image, Text} from 'react-native';
-import R from 'src/res';
+import R from '@tegami/res';
 
 import {getStyles} from './game.style';
-import NoNotchView from 'src/library/components/noNotchView';
+import NoNotchView from '@tegami/library/components/noNotchView';
 import LinearGradient from 'react-native-linear-gradient';
-import CircleButton from 'src/library/components/button/circleButton';
+import CircleButton from '@tegami/library/components/button/circleButton';
 
 type Props = {
   navigation: any;

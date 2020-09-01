@@ -4,7 +4,10 @@ module.exports = {
     [
       'module-resolver',
       {
-        root: ['./'],
+        root: ['./src'],
+        alias: {
+          '^@tegami/(.+)': './src/\\1',
+        },
         extensions: [
           '.ios.ts',
           '.android.ts',

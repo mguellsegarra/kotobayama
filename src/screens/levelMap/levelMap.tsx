@@ -2,18 +2,18 @@ import React, {Component} from 'react';
 import {View, ImageBackground, Text} from 'react-native';
 
 import {getStyles} from './levelMap.style';
-import NoNotchView from 'src/library/components/noNotchView';
-import R from 'src/res';
+import NoNotchView from '@tegami/library/components/noNotchView';
+import R from '@tegami/res';
 
-import {strings} from 'src/library/services/i18nService';
-import MapLayer from 'src/library/components/map/mapLayer';
-import LevelService, {Level} from 'src/library/services/levelService';
+import {strings} from '@tegami/library/services/i18nService';
+import MapLayer from '@tegami/library/components/map/mapLayer';
+import LevelService, {Level} from '@tegami/library/services/levelService';
 
-import LevelChooser from 'src/library/components/map/levelChooser';
+import LevelChooser from '@tegami/library/components/map/levelChooser';
 import RectButton, {
   RectButtonEnum,
-} from 'src/library/components/button/rectButton';
-import CircleButton from 'src/library/components/button/circleButton';
+} from '@tegami/library/components/button/rectButton';
+import CircleButton from '@tegami/library/components/button/circleButton';
 
 type State = {
   mapNavigationMode: boolean;

@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import R from 'src/res';
+import R from '@tegami/res';
 
 import {
   widthPercentageToDP as wp,

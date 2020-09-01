@@ -5,7 +5,7 @@ import {View, ImageBackground, Text, ViewStyle, TextStyle} from 'react-native';
 import TouchableScale from 'react-native-touchable-scale';
 import {isTablet} from 'react-native-device-info';
 
-import R from 'src/res';
+import R from '@tegami/res';
 
 import {
   widthPercentageToDP as wp,
