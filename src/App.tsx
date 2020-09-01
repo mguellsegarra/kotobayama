@@ -58,22 +58,28 @@ const transitionConfig = () => {
 };
 
 const App = () => {
+  // transitionConfig={transitionConfig}>
+
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        initialRouteName="Splash"
-        headerMode="none"
-        transitionConfig={transitionConfig}>
+      <Stack.Navigator initialRouteName="Splash" headerMode="none">
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen
           name="LevelMap"
           component={LevelMap}
           options={{
             animationEnabled: false,
-            cardStyle: {backgroundColor: 'black'},
+            cardStyle: {opacity: 1, backgroundColor: 'black'},
           }}
         />
-        <Stack.Screen name="Game" component={Game} />
+        <Stack.Screen
+          name="Game"
+          component={Game}
+          options={{
+            // animationEnabled: false,
+            cardStyle: {opacity: 1},
+          }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
