@@ -11,7 +11,6 @@ const getStyles: any = () => {
   return StyleSheet.create({
     background: {
       flex: 1,
-      backgroundColor: 'red',
     },
     backButton: {
       marginLeft: 10,

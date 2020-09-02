@@ -1,85 +1,45 @@
 import 'react-native-gesture-handler';
 import * as React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import {Animated, Easing} from 'react-native';
+import {
+  createStackNavigator,
+  TransitionSpecs,
+  CardStyleInterpolators,
+} from '@react-navigation/stack';
 import LevelMap from '@screens/levelMap/levelMap';
 import Splash from '@screens/splash/splash';
 import Game from '@screens/game/game';
-
 const Stack = createStackNavigator();
 
-const transitionConfig = () => {
-  return {
-    transitionSpec: {
-      duration: 750,
-      easing: Easing.out(Easing.poly(4)),
-      timing: Animated.timing,
-      useNativeDriver: true,
-    },
-    screenInterpolator: (sceneProps: any) => {
-      const {position, layout, scene, index, scenes} = sceneProps;
-      const toIndex = index;
-      const thisSceneIndex = scene.index;
-      const height = layout.initHeight;
-      const width = layout.initWidth;
-
-      const translateX = position.interpolate({
-        inputRange: [thisSceneIndex - 1, thisSceneIndex, thisSceneIndex + 1],
-        outputRange: [width, 0, 0],
-      });
-
-      // Since we want the card to take the same amount of time
-      // to animate downwards no matter if it's 3rd on the stack
-      // or 53rd, we interpolate over the entire range from 0 - thisSceneIndex
-      const translateY = position.interpolate({
-        inputRange: [0, thisSceneIndex],
-        outputRange: [height, 0],
-      });
-
-      const slideFromRight = {transform: [{translateX}]};
-      const slideFromBottom = {transform: [{translateY}]};
-
-      const lastSceneIndex = scenes[scenes.length - 1].index;
-
-      // Test whether we're skipping back more than one screen
-      if (lastSceneIndex - toIndex > 1) {
-        // Do not transoform the screen being navigated to
-        if (scene.index === toIndex) return;
-        // Hide all screens in between
-        if (scene.index !== lastSceneIndex) return {opacity: 0};
-        // Slide top screen down
-        return slideFromBottom;
-      }
-
-      return slideFromRight;
-    },
-  };
-};
-
 const App = () => {
-  // transitionConfig={transitionConfig}>
-
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Splash" headerMode="none">
+      <Stack.Navigator
+        initialRouteName="Splash"
+        headerMode="none"
+        mode="modal"
+        screenOptions={{
+          cardStyle: {backgroundColor: 'transparent'},
+          cardOverlayEnabled: true,
+          cardStyleInterpolator: ({current: {progress}}) => ({
+            cardStyle: {
+              opacity: progress,
+            },
+            overlayStyle: {
+              opacity: progress,
+            },
+          }),
+        }}>
         <Stack.Screen name="Splash" component={Splash} />
         <Stack.Screen
           name="LevelMap"
           component={LevelMap}
           options={{
             animationEnabled: false,
-            cardStyle: {opacity: 1, backgroundColor: 'black'},
+            cardStyle: {backgroundColor: 'black'},
           }}
         />
-        <Stack.Screen
-          name="Game"
-          component={Game}
-          options={{
-            // animationEnabled: false,
-            cardStyle: {opacity: 1},
-          }}
-        />
+        <Stack.Screen name="Game" component={Game} />
       </Stack.Navigator>
     </NavigationContainer>
   );
