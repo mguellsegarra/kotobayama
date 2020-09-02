@@ -52,7 +52,6 @@ export default class Splash extends Component<Props> {
           <Image
             source={R.img(Images.ondori_logo)}
             style={this.styles.logo}
-            resizeMode="contain"
           />
         </Animated.View>
       </View>

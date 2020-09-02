@@ -53,7 +53,6 @@ export default class MapBackButton extends Component<Props> {
           <Image
             source={R.img(this.props.image)}
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}
-            resizeMode="contain"
           />
         </TouchableScale>
       </View>

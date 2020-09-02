@@ -92,8 +92,7 @@ export default class RectButton extends Component<Props> {
             onPress={this.props.onPress}>
             <ImageBackground
               source={R.img(rectButtonConfig.image)}
-              style={Object.assign(defaultImageStyle, this.props.imageStyle)}
-              resizeMode="contain">
+              style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
               <Text
                 style={{
                   ...this.props.textStyle,

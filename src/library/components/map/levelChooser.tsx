@@ -36,7 +36,6 @@ export default class LevelChooser extends Component<Props> {
             <View style={styles.levelBarArrow}>
               <CircleButton
                 image={Images.left_arrow}
-                style={{flex: 1}}
                 onPress={this.props.onPrevLevel}
               />
             </View>
@@ -49,7 +48,6 @@ export default class LevelChooser extends Component<Props> {
             <View style={styles.levelBarArrow}>
               <CircleButton
                 image={Images.right_arrow}
-                style={{flex: 1}}
                 onPress={this.props.onNextLevel}
               />
             </View>
@@ -57,13 +55,8 @@ export default class LevelChooser extends Component<Props> {
         </View>
         <View style={styles.levelDetails}>
           <View style={styles.levelDetailsImage}>
+            <Image style={styles.levelDetailsImagePic} source={pic} />
             <Image
-              resizeMode="cover"
-              style={styles.levelDetailsImagePic}
-              source={pic}
-            />
-            <Image
-              resizeMode="cover"
               style={styles.levelDetailsImageFrame}
               source={R.img(Images.photo_frame)}
             />
@@ -71,7 +64,6 @@ export default class LevelChooser extends Component<Props> {
           <View style={styles.levelDetailsRight}>
             <View style={styles.levelDetailsRightCell}>
               <Image
-                resizeMode="contain"
                 style={styles.detailRightCellImage}
                 source={R.img(Images.boot_icon_details)}
               />
@@ -79,7 +71,6 @@ export default class LevelChooser extends Component<Props> {
             </View>
             <View style={styles.levelDetailsRightCell}>
               <Image
-                resizeMode="contain"
                 style={styles.detailRightCellImage}
                 source={R.img(Images.letter_icon_details)}
               />
@@ -89,7 +80,6 @@ export default class LevelChooser extends Component<Props> {
             </View>
             <View style={styles.levelDetailsRightCell}>
               <Image
-                resizeMode="contain"
                 style={styles.detailRightCellImage}
                 source={R.img(Images.heart_icon_details)}
               />

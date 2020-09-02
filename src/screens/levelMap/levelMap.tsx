@@ -108,8 +108,7 @@ export default class LevelMap extends Component<Props, State> {
             <View style={this.styles.titleOverlay}>
               <ImageBackground
                 source={R.img(Images.map_title_container)}
-                style={this.styles.mapTitleContainerImage}
-                resizeMode="contain">
+                style={this.styles.mapTitleContainerImage}>
                 <Text style={this.styles.mapTitleText}>
                   Parc Nacional d'Aigüestortes i llac de Sant Maurici
                 </Text>
