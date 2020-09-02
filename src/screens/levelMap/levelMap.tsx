@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Text} from 'react-native';
+import {View, ImageBackground, Text, Animated} from 'react-native';
 
 import {getStyles} from './levelMap.style';
 import NoNotchView from '@library/components/noNotchView';
@@ -19,6 +19,7 @@ type State = {
   mapNavigationMode: boolean;
   currentLevel: number;
   levels: Array<Level>;
+  fadeAnim: Animated.Value;
 };
 
 type Props = {
@@ -33,6 +34,7 @@ export default class LevelMap extends Component<Props, State> {
     mapNavigationMode: false,
     currentLevel: 0,
     levels: LevelService.getLevels(),
+    fadeAnim: new Animated.Value(1),
   };
 
   constructor(props: Props) {
@@ -41,6 +43,7 @@ export default class LevelMap extends Component<Props, State> {
     this.setNextLevel = this.setNextLevel.bind(this);
     this.setPrevLevel = this.setPrevLevel.bind(this);
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
+    this.mapLoaded = this.mapLoaded.bind(this);
   }
 
   setNextLevel() {
@@ -60,6 +63,15 @@ export default class LevelMap extends Component<Props, State> {
         this.mapLayer.resetToLevel();
       },
     );
+  }
+
+  mapLoaded() {
+    Animated.timing(this.state.fadeAnim, {
+      toValue: 0,
+      delay: 0,
+      duration: 800,
+      useNativeDriver: true,
+    }).start();
   }
 
   setPrevLevel() {
@@ -102,6 +114,7 @@ export default class LevelMap extends Component<Props, State> {
             levels={this.state.levels}
             controlsEnabled={this.state.mapNavigationMode}
             onPanDrag={this.onMapPanDrag}
+            onMapLoaded={this.mapLoaded}
           />
 
           {this.state.mapNavigationMode ? null : (
@@ -162,6 +175,15 @@ export default class LevelMap extends Component<Props, State> {
             onPrevLevel={this.setPrevLevel}
           />
         </View>
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            this.styles.overlayLoad,
+            {
+              opacity: this.state.fadeAnim,
+            },
+          ]}
+        />
       </NoNotchView>
     );
   }

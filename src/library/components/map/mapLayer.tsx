@@ -11,6 +11,7 @@ type Props = {
   controlsEnabled: boolean;
   levels: Array<Level>;
   onPanDrag: Function;
+  onMapLoaded: Function;
 };
 
 type State = {
@@ -104,7 +105,9 @@ export default class MapLayer extends Component<Props, State> {
           });
 
           setTimeout(() => {
-            that.setState({markers, allIds});
+            that.setState({markers, allIds}, () => {
+              this.props.onMapLoaded();
+            });
           }, 100);
         }}>
         {this.state.markers}
