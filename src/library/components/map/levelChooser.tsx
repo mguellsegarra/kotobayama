@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Image, Text} from 'react-native';
+import {View, Image, Text} from 'react-native';
+// @ts-ignore
+import { NoFlickerImage } from 'react-native-no-flicker-image';
 
 import R, {Images} from '@res/R';
 import {getStyles} from './levelChooser.style';
@@ -55,7 +57,7 @@ export default class LevelChooser extends Component<Props> {
         </View>
         <View style={styles.levelDetails}>
           <View style={styles.levelDetailsImage}>
-            <Image style={styles.levelDetailsImagePic} source={pic} />
+            <NoFlickerImage style={styles.levelDetailsImagePic} source={pic} />
             <Image
               style={styles.levelDetailsImageFrame}
               source={R.img(Images.photo_frame)}

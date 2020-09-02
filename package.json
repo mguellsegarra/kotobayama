@@ -27,6 +27,7 @@
     "react-native-linear-gradient": "^2.5.6",
     "react-native-localize": "^1.4.1",
     "react-native-maps": "0.27.1",
+    "react-native-no-flicker-image": "^1.0.2",
     "react-native-reanimated": "^1.13.0",
     "react-native-responsive-screen": "^1.4.1",
     "react-native-safe-area-context": "^3.1.7",
