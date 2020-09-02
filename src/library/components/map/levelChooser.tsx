@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import {View, Image, Text} from 'react-native';
 // @ts-ignore
-import { NoFlickerImage } from 'react-native-no-flicker-image';
+import {NoFlickerImage} from 'react-native-no-flicker-image';
+import LinearGradient from 'react-native-linear-gradient';
 
-import R, {Images} from '@res/R';
+import R, {Images, Colors} from '@res/R';
 import {getStyles} from './levelChooser.style';
 import CircleButton from '@library/components/button/circleButton';
 import LevelChooserNumber from './levelChooserNumber';
@@ -55,7 +56,9 @@ export default class LevelChooser extends Component<Props> {
             </View>
           </View>
         </View>
-        <View style={styles.levelDetails}>
+        <LinearGradient
+          colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
+          style={styles.levelDetails}>
           <View style={styles.levelDetailsImage}>
             <NoFlickerImage style={styles.levelDetailsImagePic} source={pic} />
             <Image
@@ -88,7 +91,7 @@ export default class LevelChooser extends Component<Props> {
               <Text style={styles.detailRightText}>3/3</Text>
             </View>
           </View>
-        </View>
+        </LinearGradient>
       </View>
     );
   }
