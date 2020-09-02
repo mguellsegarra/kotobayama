@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Text} from 'react-native';
+import {ImageBackground, Text} from 'react-native';
 
-import images from '../../../res/images';
+import R, {Images} from '@res/R';
 import {getStyles} from './levelChooser.style';
 
 type Props = {
@@ -15,7 +15,7 @@ export default class LevelChooserNumber extends Component<Props> {
 
     return (
       <ImageBackground
-        source={images['levelNumberContainer']}
+        source={R.img(Images.level_number_container)}
         style={styles.levelChooserImage}>
         <Text style={styles.levelChooserText}>
           {this.props.currentLevel + 1}/{this.props.totalLevels}

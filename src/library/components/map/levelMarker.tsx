@@ -28,7 +28,7 @@ export default class LevelMarker extends Component<Props> {
         key={this.props.id}
         identifier={this.props.id}
         coordinate={this.props.coord}
-        icon={R.images[getMarkerImageForIdx(this.props.idx)]}
+        icon={R.img(getMarkerImageForIdx(this.props.idx))}
         tracksViewChanges={!this.props.mapReady}
       />
     );

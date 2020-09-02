@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Image, Text} from 'react-native';
 
-import R from '@res/R';
+import R, {Images} from '@res/R';
 import {getStyles} from './levelChooser.style';
 import CircleButton from '@library/components/button/circleButton';
 import LevelChooserNumber from './levelChooserNumber';
@@ -27,11 +27,10 @@ export default class LevelChooser extends Component<Props> {
       return null;
     }
 
-    const pic = R.images['1000' + (this.props.currentLevel + 1).toString()];
+    const pic = R.img('level_1000' + (this.props.currentLevel + 1).toString());
 
     return (
-      <ImageBackground
-        source={R.images['levelChooserBg']}
+      <View
         style={styles.container}>
         <View style={styles.levelBar}>
           <View style={styles.levelBarFlex}>
@@ -67,7 +66,7 @@ export default class LevelChooser extends Component<Props> {
             <Image
               resizeMode="cover"
               style={styles.levelDetailsImageFrame}
-              source={R.images['photoFrame']}
+              source={R.img(Images.photo_frame)}
             />
           </View>
           <View style={styles.levelDetailsRight}>
@@ -75,7 +74,7 @@ export default class LevelChooser extends Component<Props> {
               <Image
                 resizeMode="contain"
                 style={styles.detailRightCellImage}
-                source={R.images['bootIconDetails']}
+                source={R.img(Images.boot_icon_details)}
               />
               <Text style={styles.detailRightText}>Refugi</Text>
             </View>
@@ -83,7 +82,7 @@ export default class LevelChooser extends Component<Props> {
               <Image
                 resizeMode="contain"
                 style={styles.detailRightCellImage}
-                source={R.images['letterIconDetails']}
+                source={R.img(Images.letter_icon_details)}
               />
               <Text style={styles.detailRightText}>
                 {this.props.levels[this.props.currentLevel].word.length} lletres
@@ -93,13 +92,13 @@ export default class LevelChooser extends Component<Props> {
               <Image
                 resizeMode="contain"
                 style={styles.detailRightCellImage}
-                source={R.images['heartIconDetails']}
+                source={R.img(Images.heart_icon_details)}
               />
               <Text style={styles.detailRightText}>3/3</Text>
             </View>
           </View>
         </View>
-      </ImageBackground>
+      </View>
     );
   }
 }

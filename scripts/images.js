@@ -1,42 +1,101 @@
 const fs = require('fs');
-const base = './src/res/';
-const rootPath = 'images/';
+const resPath = './src/res/';
+const basePath = resPath + 'images/';
+const iosAssets = 'Images.xcassets';
 
-const imageFileNames = (path) => {
-  const newPath = path || '';
-  const array = fs
-    .readdirSync(base + rootPath + newPath)
-    .filter((file) => {
-      return file.endsWith('.png') || file.endsWith('.jpg');
-    })
-    .map((file) => {
-      let newFilename = file.replace('@2x', '');
-      newFilename = newFilename.replace('@3x', '');
-      let key = newFilename.replace('.png', '');
-      key = key.replace('.jpg', '');
-
-      return {key, filename: './' + rootPath + newPath + newFilename};
-    });
-
-  return Array.from(new Set(array));
+const defaultIosAssetContent = {
+  images: [
+    {
+      idiom: 'universal',
+      scale: '1x',
+    },
+    {
+      idiom: 'universal',
+      scale: '2x',
+    },
+    {
+      idiom: 'universal',
+      scale: '3x',
+    },
+  ],
+  info: {
+    author: 'xcode',
+    version: 1,
+  },
 };
 
-const generate = () => {
-  let properties = imageFileNames('ui/')
-    .concat(imageFileNames('levels/'))
-    .map(({key, filename}) => {
-      return `${key}: require('${filename}')`;
+const iosArrayPosMedia = {
+  '1x': 0,
+  '2x': 1,
+  '3x': 2,
+};
+
+const getDirectories = (source) =>
+  fs
+    .readdirSync(source, {withFileTypes: true})
+    .filter((dirent) => dirent.isDirectory())
+    .map((dirent) => dirent.name + '/');
+
+const getImages = (source) =>
+  fs
+    .readdirSync(source)
+    .filter((file) => {
+      return file.endsWith('.png');
+    })
+    .map((file) => {
+      let key = file.replace('@2x', '').replace('@3x', '').replace('.png', '');
+      return {key, filename: source + file};
+    });
+
+const getImagesForDirectories = () => {
+  let images = [];
+  getDirectories(basePath).forEach((directory) => {
+    images = images.concat(getImages(basePath + directory));
+  });
+  return images;
+};
+
+const getEnumFileContent = (images) => {
+  const keys = images
+    .map((image) => {
+      return `'${image.key}' = '${image.key}'`;
     })
     .join(',\n  ');
 
-  const string = `const images = {
-  ${properties}
-}
+  return `export enum Images {
+  ${keys}
+  }`;
+};
 
-export default images;
-`;
+const getMediaTypeForFilename = (filename) => {
+  if (filename.indexOf('@3x') !== -1) {
+    return {android: 'xxhdpi', ios: '3x'};
+  } else if (filename.indexOf('@2x') !== -1) {
+    return {android: 'xhdpi', ios: '2x'};
+  } else {
+    return {android: 'mdpi', ios: '1x'};
+  }
+};
 
-  fs.writeFileSync('src/res/images.tsx', string, 'utf8');
+const getIosAssetsContentFileForFile = (filename) => {
+  const contentFile = Object.assign({}, defaultIosAssetContent);
+  const type = getMediaTypeForFilename(filename);
+  const splittedFn = filename.split('/');
+  const rootFilename = splittedFn[splittedFn.length - 1];
+
+  const arrayPosition = iosArrayPosMedia[type.ios];
+  contentFile.images[arrayPosition].filename = rootFilename;
+
+  return contentFile;
+};
+
+const generate = () => {
+  const enumFileContent = getEnumFileContent(getImagesForDirectories());
+  fs.writeFileSync(resPath + '/images.tsx', enumFileContent, 'utf8');
+
+  getImagesForDirectories().forEach((item) => {
+    console.log(getIosAssetsContentFileForFile(item.filename));
+  });
 };
 
 generate();

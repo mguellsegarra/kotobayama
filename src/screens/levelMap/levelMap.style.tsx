@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import R from '@res/R';
+import {Fonts} from '@res/R';
 import {isTablet} from 'react-native-device-info';
 
 import {
@@ -52,7 +52,7 @@ const getStyles: any = () => {
       width: titleBannerWidth,
     },
     mapTitleText: {
-      fontFamily: R.fonts.league,
+      fontFamily: Fonts.league,
       fontSize: titleFont,
       color: 'white',
       textAlign: 'center',

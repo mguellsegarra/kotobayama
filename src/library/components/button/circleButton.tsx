@@ -51,7 +51,7 @@ export default class MapBackButton extends Component<Props> {
           style={Object.assign(defaultImageStyle, this.props.imageStyle)}
           onPress={this.props.onPress}>
           <Image
-            source={R.images[this.props.image]}
+            source={R.img(this.props.image)}
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}
             resizeMode="contain"
           />

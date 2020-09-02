@@ -2,9 +2,8 @@ import React, {Component} from 'react';
 import {View, Image, Animated} from 'react-native';
 import {getStyles} from './splash.style';
 import I18n from '@library/services/i18nService';
-import ImagePrefetcher from '@library/services/imagePrefetcher';
 
-import R from '@res/R';
+import R, {Images} from '@res/R';
 
 type Props = {
   navigation: any;
@@ -51,14 +50,11 @@ export default class Splash extends Component<Props> {
             },
           ]}>
           <Image
-            source={R.images['ondori_logo']}
+            source={R.img(Images.ondori_logo)}
             style={this.styles.logo}
             resizeMode="contain"
           />
         </Animated.View>
-        <View style={{width: 0, height: 0, opacity: 0}}>
-          {ImagePrefetcher.getImages()}
-        </View>
       </View>
     );
   }

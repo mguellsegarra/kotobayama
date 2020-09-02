@@ -1,26 +1,15 @@
-import images from './images';
-import colors from './colors';
-import fonts from './fonts';
-import {ImageURISource, ImageRequireSource} from 'react-native';
-
-interface ImagesInterface {
-  [index: string]: ImageURISource | ImageRequireSource  ;
-}
-
-interface StringKVInterface {
-  [index: string]: string;
-}
+export {Images} from './images';
+export {Colors} from './colors';
+export {Fonts} from './fonts';
 
 interface RInterface {
-  images: ImagesInterface;
-  colors: StringKVInterface;
-  fonts: StringKVInterface;
+  img: Function;
 }
 
 const R: RInterface = {
-  images,
-  colors,
-  fonts,
+  img: (key: string) => {
+    return {uri: key};
+  },
 };
 
 export default R;

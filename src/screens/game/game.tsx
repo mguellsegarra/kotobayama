@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Image, Text} from 'react-native';
-import R from '@res/R';
+import {Colors} from '@res/R';
 
 import {getStyles} from './game.style';
 import NoNotchView from '@library/components/noNotchView';
@@ -28,7 +28,7 @@ export default class LevelMap extends Component<Props, State> {
 
     return (
       <LinearGradient
-        colors={[R.colors.purpleGradientStart, R.colors.purpleGradientEnd]}
+        colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
         style={this.styles.background}>
         <NoNotchView>
           <CircleButton

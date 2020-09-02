@@ -3,13 +3,13 @@
  * @flow strict-local
  */
 import {StyleSheet} from 'react-native';
-import R from '@res/R';
+import {Colors} from '@res/R';
 
 const getStyles = () =>
   StyleSheet.create({
     background: {
       flex: 1,
-      backgroundColor: R.colors.ondoriRed,
+      backgroundColor: Colors.ondoriRed,
       justifyContent: 'center',
       alignItems: 'center',
     },
