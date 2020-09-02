@@ -2,6 +2,9 @@ const fs = require('fs');
 const resPath = './src/res/';
 const basePath = resPath + 'images/';
 const iosAssets = 'Images.xcassets';
+const assetExtension = '.imageset';
+const pjson = JSON.parse(fs.readFileSync('./package.json', 'utf8'));
+const rimraf = require('rimraf');
 
 const defaultIosAssetContent = {
   images: [
@@ -43,7 +46,7 @@ const getImages = (source) =>
       return file.endsWith('.png');
     })
     .map((file) => {
-      let key = file.replace('@2x', '').replace('@3x', '').replace('.png', '');
+      let key = cleanMediaSuffixes(file).replace('.png', '');
       return {key, filename: source + file};
     });
 
@@ -77,11 +80,19 @@ const getMediaTypeForFilename = (filename) => {
   }
 };
 
+const getRootFilename = (filename) => {
+  const splittedFn = filename.split('/');
+  return splittedFn[splittedFn.length - 1];
+};
+
+const cleanMediaSuffixes = (filename) => {
+  return filename.replace('@2x', '').replace('@3x', '');
+};
+
 const getIosAssetsContentFileForFile = (filename) => {
   const contentFile = Object.assign({}, defaultIosAssetContent);
   const type = getMediaTypeForFilename(filename);
-  const splittedFn = filename.split('/');
-  const rootFilename = splittedFn[splittedFn.length - 1];
+  const rootFilename = getRootFilename(filename);
 
   const arrayPosition = iosArrayPosMedia[type.ios];
   contentFile.images[arrayPosition].filename = rootFilename;
@@ -89,12 +100,45 @@ const getIosAssetsContentFileForFile = (filename) => {
   return contentFile;
 };
 
+const createIosAssetForFilename = (filename) => {
+  // const iosAssets = 'Images.xcassets';
+  // const assetExtension = '.imageasset';
+  // const project = require('./package');
+
+  const rootFilename = getRootFilename(filename);
+  const cleanFilename = cleanMediaSuffixes(rootFilename).split('.')[0];
+  const fileAssetFolder =
+    './ios/' +
+    pjson.name +
+    '/' +
+    iosAssets +
+    '/' +
+    cleanFilename +
+    assetExtension;
+
+  console.log(fileAssetFolder);
+
+  if (fs.existsSync(fileAssetFolder)) {
+    rimraf.sync(fileAssetFolder);
+  }
+  fs.mkdirSync(fileAssetFolder);
+
+  const contentJson = getIosAssetsContentFileForFile(filename);
+  fs.writeFileSync(
+    fileAssetFolder + '/Contents.json',
+    JSON.stringify(contentJson, null, 2),
+    'utf8',
+  );
+  fs.copyFileSync(filename, fileAssetFolder + '/' + rootFilename);
+};
+
 const generate = () => {
   const enumFileContent = getEnumFileContent(getImagesForDirectories());
   fs.writeFileSync(resPath + '/images.tsx', enumFileContent, 'utf8');
 
   getImagesForDirectories().forEach((item) => {
-    console.log(getIosAssetsContentFileForFile(item.filename));
+    // console.log(getIosAssetsContentFileForFile(item.filename));
+    createIosAssetForFilename(item.filename);
   });
 };
 

@@ -30,13 +30,12 @@ export default class LevelChooser extends Component<Props> {
     const pic = R.img('level_1000' + (this.props.currentLevel + 1).toString());
 
     return (
-      <View
-        style={styles.container}>
+      <View style={styles.container}>
         <View style={styles.levelBar}>
           <View style={styles.levelBarFlex}>
             <View style={styles.levelBarArrow}>
               <CircleButton
-                image="leftArrow"
+                image={Images.left_arrow}
                 style={{flex: 1}}
                 onPress={this.props.onPrevLevel}
               />
@@ -49,7 +48,7 @@ export default class LevelChooser extends Component<Props> {
             </View>
             <View style={styles.levelBarArrow}>
               <CircleButton
-                image="rightArrow"
+                image={Images.right_arrow}
                 style={{flex: 1}}
                 onPress={this.props.onNextLevel}
               />

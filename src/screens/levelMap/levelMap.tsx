@@ -122,7 +122,7 @@ export default class LevelMap extends Component<Props, State> {
               <CircleButton
                 imageStyle={this.styles.backButton}
                 style={this.styles.backButton}
-                image="mapNavBackButton"
+                image={Images.back_button}
               />
             </View>
           )}
