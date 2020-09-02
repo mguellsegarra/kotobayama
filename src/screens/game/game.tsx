@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Image, Text} from 'react-native';
-import {Colors} from '@res/R';
+import {Colors, Images} from '@res/R';
 
 import {getStyles} from './game.style';
 import NoNotchView from '@library/components/noNotchView';
@@ -33,7 +33,7 @@ export default class LevelMap extends Component<Props, State> {
         <NoNotchView>
           <CircleButton
             style={this.styles.backButton}
-            image="backButton"
+            image={Images.back_button}
             onPress={this.props.navigation.goBack}></CircleButton>
         </NoNotchView>
       </LinearGradient>
