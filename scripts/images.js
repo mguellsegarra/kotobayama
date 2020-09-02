@@ -101,10 +101,6 @@ const getIosAssetsContentFileForFile = (filename) => {
 };
 
 const createIosAssetForFilename = (filename) => {
-  // const iosAssets = 'Images.xcassets';
-  // const assetExtension = '.imageasset';
-  // const project = require('./package');
-
   const rootFilename = getRootFilename(filename);
   const cleanFilename = cleanMediaSuffixes(rootFilename).split('.')[0];
   const fileAssetFolder =
@@ -115,8 +111,6 @@ const createIosAssetForFilename = (filename) => {
     '/' +
     cleanFilename +
     assetExtension;
-
-  console.log(fileAssetFolder);
 
   if (fs.existsSync(fileAssetFolder)) {
     rimraf.sync(fileAssetFolder);
@@ -132,13 +126,31 @@ const createIosAssetForFilename = (filename) => {
   fs.copyFileSync(filename, fileAssetFolder + '/' + rootFilename);
 };
 
+const createAndroidDrawablesForFilename = (filename) => {
+  const rootFilename = getRootFilename(filename);
+  const fileAssetFolder =
+    './android/app/src/main/res/drawable-' +
+    getMediaTypeForFilename(filename).android;
+
+  if (!fs.existsSync(fileAssetFolder)) {
+    fs.mkdirSync(fileAssetFolder);
+  }
+
+  fs.copyFileSync(
+    filename,
+    fileAssetFolder + '/' + cleanMediaSuffixes(rootFilename),
+  );
+};
+
 const generate = () => {
-  const enumFileContent = getEnumFileContent(getImagesForDirectories());
+  const imagesForDirectories = getImagesForDirectories();
+
+  const enumFileContent = getEnumFileContent(imagesForDirectories);
   fs.writeFileSync(resPath + '/images.tsx', enumFileContent, 'utf8');
 
-  getImagesForDirectories().forEach((item) => {
-    // console.log(getIosAssetsContentFileForFile(item.filename));
+  imagesForDirectories.forEach((item) => {
     createIosAssetForFilename(item.filename);
+    createAndroidDrawablesForFilename(item.filename);
   });
 };
 
