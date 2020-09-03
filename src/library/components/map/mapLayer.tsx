@@ -83,6 +83,12 @@ export default class MapLayer extends Component<Props, State> {
         scrollEnabled={true}
         zoomEnabled={this.props.controlsEnabled}
         moveOnMarkerPress={this.props.controlsEnabled}
+        onPress={() => {
+          this.props.onPanDrag();
+        }}
+        onDoublePress={() => {
+          this.props.onPanDrag();
+        }}
         onPanDrag={() => {
           this.props.onPanDrag();
         }}

@@ -17,11 +17,9 @@ const getStyles: any = () => {
     navBar: {
       flex: 1,
       flexDirection: 'row',
-      // backgroundColor: 'red',
     },
     navBarLeft: {
       flex: 1,
-      // backgroundColor: 'green',
       justifyContent: 'center',
       alignItems: 'flex-start',
     },
