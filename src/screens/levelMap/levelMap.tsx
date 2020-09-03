@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, ImageBackground, Text, Animated} from 'react-native';
 
 import {getStyles} from './levelMap.style';
-import NoNotchView from '@library/components/noNotchView';
+import NoNotchView from '@library/components/common/noNotchView';
 import R, {Images} from '@res/R';
 
 import {strings} from '@library/services/i18nService';
@@ -145,7 +145,8 @@ export default class LevelMap extends Component<Props, State> {
             style={this.styles.playButtonOverlay}
             onPress={() => {
               this.props.navigation.navigate('Game', {
-                level: this.state.levels[this.state.currentLevel],
+                levels: this.state.levels,
+                currentLevel: this.state.currentLevel
               });
             }}
           />

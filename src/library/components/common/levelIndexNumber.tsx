@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {ImageBackground, Text} from 'react-native';
 
 import R, {Images} from '@res/R';
-import {getStyles} from './levelChooser.style';
+import {getStyles} from './levelIndexNumber.style';
 
 type Props = {
   totalLevels: number;
   currentLevel: number;
 };
 
-export default class LevelChooserNumber extends Component<Props> {
+export default class LevelIndexNumber extends Component<Props> {
   render() {
     const styles = getStyles();
 

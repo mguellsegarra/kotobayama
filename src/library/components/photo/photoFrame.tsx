@@ -37,7 +37,7 @@ export default class PhotoFrame extends Component<Props> {
     if (this.props.size === PhotoFrameSize.small) {
       this.photoFrameWidth = isTablet() ? hp('35%') : wp('68%');
     } else {
-      this.photoFrameWidth = wp('85%');
+      this.photoFrameWidth = isTablet() ? wp('70%') : wp('85%');
     }
     this.photoFrameHeight = this.photoFrameWidth * photoFrameConstant;
   }

@@ -3,10 +3,12 @@ import {View, ImageBackground, Image, Text} from 'react-native';
 import {Colors, Images} from '@res/R';
 
 import {getStyles} from './game.style';
-import NoNotchView from '@library/components/noNotchView';
+import NoNotchView from '@library/components/common/noNotchView';
 import LinearGradient from 'react-native-linear-gradient';
 import CircleButton from '@library/components/button/circleButton';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
+import LevelIndexNumber from '@library/components/common/levelIndexNumber';
+import LivesIndicator from '@library/components/game/livesIndicator';
 
 type Props = {
   navigation: any;
@@ -27,7 +29,8 @@ export default class LevelMap extends Component<Props, State> {
 
   render() {
     this.styles = getStyles();
-    const {level} = this.props.route.params;
+    const {levels, currentLevel} = this.props.route.params;
+    const level = levels[currentLevel];
 
     return (
       <LinearGradient
@@ -41,10 +44,24 @@ export default class LevelMap extends Component<Props, State> {
                 image={Images.back_button}
                 onPress={this.props.navigation.goBack}></CircleButton>
             </View>
-            <View style={this.styles.navBarMiddle}></View>
+            <View style={this.styles.navBarMiddle}>
+              <LivesIndicator lives={1} />
+            </View>
             <View style={this.styles.navBarRight}></View>
           </View>
-          <View style={this.styles.titleBar}></View>
+          <View style={this.styles.titleBar}>
+            <Text
+              style={this.styles.titleText}
+              adjustsFontSizeToFit
+              numberOfLines={2}>
+              Parc Nacional d'Aigüestortes i llac de Sant Maurici
+            </Text>
+
+            <LevelIndexNumber
+              totalLevels={levels.length}
+              currentLevel={currentLevel}
+            />
+          </View>
           <View style={this.styles.photoBar}>
             <PhotoFrame size={PhotoFrameSize.big} level={level} />
             <Text style={this.styles.sourceText}>

@@ -5,15 +5,9 @@ import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
-import {isTablet} from 'react-native-device-info';
 
 const getStyles: any = () => {
   const bottomHeight = hp('35%');
-  const levelChooserNumberWidth = hp('10%');
-  const levelChooserNumberConstant = 0.322420634920635;
-  const levelChooserNumberHeight =
-    levelChooserNumberWidth * levelChooserNumberConstant;
-  const levelChooserFont = hp('1.5%');
 
   return StyleSheet.create({
     container: {
@@ -43,18 +37,6 @@ const getStyles: any = () => {
       flex: 5,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    levelChooserImage: {
-      width: levelChooserNumberWidth,
-      height: levelChooserNumberHeight,
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    levelChooserText: {
-      textAlign: 'center',
-      fontFamily: Fonts.league,
-      color: 'white',
-      fontSize: levelChooserFont,
     },
     levelDetails: {
       flex: 5,

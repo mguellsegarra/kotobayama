@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import R, {Images, Colors} from '@res/R';
 import {getStyles} from './levelChooser.style';
 import CircleButton from '@library/components/button/circleButton';
-import LevelChooserNumber from './levelChooserNumber';
+import LevelIndexNumber from '../common/levelIndexNumber';
 import {Level} from '@library/services/levelService';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 
@@ -41,7 +41,7 @@ export default class LevelChooser extends Component<Props> {
               />
             </View>
             <View style={styles.levelBarMiddle}>
-              <LevelChooserNumber
+              <LevelIndexNumber
                 totalLevels={this.props.levels.length}
                 currentLevel={this.props.currentLevel}
               />

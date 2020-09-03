@@ -25,19 +25,20 @@ const getStyles: any = () => {
     },
     navBarRight: {
       flex: 1,
-      backgroundColor: 'green',
+      // backgroundColor: 'green',
       justifyContent: 'center',
       alignItems: 'flex-end',
     },
     navBarMiddle: {
       flex: 3,
-      backgroundColor: 'blue',
+      // backgroundColor: 'blue',
       justifyContent: 'center',
       alignItems: 'center',
     },
     titleBar: {
-      flex: 1,
-      backgroundColor: 'yellow',
+      flex: 1.3,
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     photoBar: {
       flex: 5,
@@ -64,8 +65,18 @@ const getStyles: any = () => {
     sourceText: {
       marginTop: hp('0.5%'),
       color: '#ffffffcc',
-      fontSize: 11,
+      fontSize: hp('1.4%'),
       fontFamily: Fonts.josefin_light,
+    },
+    titleText: {
+      width: wp('100%'),
+      padding: hp('1%'),
+      backgroundColor: '#000000aa',
+      fontFamily: Fonts.league,
+      fontSize: hp('1.6%'),
+      color: 'white',
+      textAlign: 'center',
+      marginBottom: hp('0.5%'),
     },
   });
 };
