@@ -43,10 +43,16 @@ const getImages = (source) =>
   fs
     .readdirSync(source)
     .filter((file) => {
-      return file.endsWith('.png');
+      const fileLc = file.toLowerCase();
+      return (
+        fileLc.toLowerCase().endsWith('.jpg') ||
+        fileLc.toLowerCase().endsWith('.jpeg') ||
+        fileLc.toLowerCase().endsWith('.png')
+      );
     })
     .map((file) => {
-      let key = cleanMediaSuffixes(file).replace('.png', '');
+      let key = cleanMediaSuffixes(file).split('.')[0];
+
       return {key, filename: source + file};
     });
 
