@@ -9,6 +9,7 @@ import CircleButton from '@library/components/button/circleButton';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
+import CoinCounter from '@library/components/game/coinCounter';
 
 type Props = {
   navigation: any;
@@ -47,7 +48,9 @@ export default class LevelMap extends Component<Props, State> {
             <View style={this.styles.navBarMiddle}>
               <LivesIndicator lives={1} />
             </View>
-            <View style={this.styles.navBarRight}></View>
+            <View style={this.styles.navBarRight}>
+              <CoinCounter totalCoins={200} onPress={() => {}} />
+            </View>
           </View>
           <View style={this.styles.titleBar}>
             <Text

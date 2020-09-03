@@ -30,7 +30,7 @@ const getStyles: any = () => {
       alignItems: 'flex-end',
     },
     navBarMiddle: {
-      flex: 3,
+      flex: 2,
       // backgroundColor: 'blue',
       justifyContent: 'center',
       alignItems: 'center',
@@ -60,7 +60,7 @@ const getStyles: any = () => {
     backButton: {
       width: backButtonSize,
       height: backButtonSize,
-      marginLeft: 2,
+      marginLeft: 4,
     },
     sourceText: {
       marginTop: hp('0.5%'),

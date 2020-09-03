@@ -12,6 +12,7 @@ export enum Images {
   'boot_icon_details' = 'boot_icon_details',
   'button_blue' = 'button_blue',
   'button_yellow' = 'button_yellow',
+  'coins' = 'coins',
   'heart_black_icon_details' = 'heart_black_icon_details',
   'heart_icon_details' = 'heart_icon_details',
   'left_arrow' = 'left_arrow',
