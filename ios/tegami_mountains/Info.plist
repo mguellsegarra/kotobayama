@@ -61,8 +61,8 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>Alata-Regular.ttf</string>
-		<string>JosefinSans-Thin_Bold.ttf</string>
-		<string>JosefinSans-Thin_Light.ttf</string>
+		<string>JosefinSans-Bold.ttf</string>
+		<string>JosefinSans-Light.ttf</string>
 		<string>LeagueSpartan-Bold.otf</string>
 		<string>LilitaOne.ttf</string>
 	</array>

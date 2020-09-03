@@ -34,25 +34,24 @@ export default class MapBackButton extends Component<Props> {
     }
 
     const buttonSize = hp('5%');
-    const defaultImageStyle = {
-      flex: 1,
-      width: buttonSize,
-    };
+    const style = Object.assign(
+      {
+        width: buttonSize,
+        height: buttonSize,
+      },
+      this.props.style,
+    );
+
     return (
-      <View
-        style={Object.assign(
-          {
-            width: buttonSize,
-            height: buttonSize,
-          },
-          this.props.style,
-        )}>
-        <TouchableScale
-          style={Object.assign(defaultImageStyle, this.props.imageStyle)}
-          onPress={this.props.onPress}>
+      <View style={style}>
+        <TouchableScale style={style} onPress={this.props.onPress}>
           <Image
+            resizeMode="contain"
             source={R.img(this.props.image)}
-            style={Object.assign(defaultImageStyle, this.props.imageStyle)}
+            style={Object.assign(
+              {width: style.width, height: style.height},
+              this.props.imageStyle,
+            )}
           />
         </TouchableScale>
       </View>

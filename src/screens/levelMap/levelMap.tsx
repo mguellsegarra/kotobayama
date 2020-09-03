@@ -132,7 +132,6 @@ export default class LevelMap extends Component<Props, State> {
           {this.state.mapNavigationMode ? null : (
             <View style={this.styles.backButtonContainer}>
               <CircleButton
-                imageStyle={this.styles.backButton}
                 style={this.styles.backButton}
                 image={Images.back_button}
               />
@@ -145,7 +144,9 @@ export default class LevelMap extends Component<Props, State> {
             text={strings('play')}
             style={this.styles.playButtonOverlay}
             onPress={() => {
-              this.props.navigation.navigate('Game');
+              this.props.navigation.navigate('Game', {
+                level: this.state.levels[this.state.currentLevel],
+              });
             }}
           />
 

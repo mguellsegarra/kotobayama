@@ -8,18 +8,12 @@ import {
 import {isTablet} from 'react-native-device-info';
 
 const getStyles: any = () => {
-  // const fontSize = hp('1.3%');
   const bottomHeight = hp('35%');
   const levelChooserNumberWidth = hp('10%');
   const levelChooserNumberConstant = 0.322420634920635;
   const levelChooserNumberHeight =
     levelChooserNumberWidth * levelChooserNumberConstant;
   const levelChooserFont = hp('1.5%');
-
-  const photoFrameWidth = isTablet() ? hp('35%') : wp('68%');
-  const photoFrameConstant = 0.626373626373626;
-  const photoFrameHeight = photoFrameWidth * photoFrameConstant;
-  const photoFramePicResizeConstant = 0.98;
 
   return StyleSheet.create({
     container: {
@@ -70,19 +64,6 @@ const getStyles: any = () => {
       flex: 3,
       alignItems: 'center',
       justifyContent: 'center',
-    },
-    levelDetailsImageFrame: {
-      width: photoFrameWidth,
-      height: photoFrameHeight,
-      zIndex: 2,
-    },
-    levelDetailsImagePic: {
-      width: photoFrameWidth * photoFramePicResizeConstant,
-      height: photoFrameHeight * photoFramePicResizeConstant,
-      position: 'absolute',
-      zIndex: 1,
-      borderRadius: 20,
-      overflow: 'hidden',
     },
     levelDetailsRight: {
       flex: 1,

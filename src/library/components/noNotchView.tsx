@@ -41,7 +41,7 @@ class NoNotchView extends PureComponent {
       return (
         <View
           style={{
-            paddingTop: 10,
+            paddingTop: 0,
             flex: 1,
           }}>
           {this.props.children}

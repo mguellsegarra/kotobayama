@@ -11,11 +11,11 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		41F142E3F90A465FBC9C1B44 /* JosefinSans-Thin_Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 80726D7B4D6B4F4C9D0374FB /* JosefinSans-Thin_Light.ttf */; };
 		64FFFED4890549F58CA4C6E5 /* LeagueSpartan-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 09B8B70025ED47E6814805B9 /* LeagueSpartan-Bold.otf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		9F5F6F27FB3801CB185183EE /* libPods-tegami_mountains.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5FC980FAA3D9436990A45504 /* libPods-tegami_mountains.a */; };
-		A504C8B424F940DD87A2E876 /* JosefinSans-Thin_Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CDEA6EFD8DD041608297C9B2 /* JosefinSans-Thin_Bold.ttf */; };
+		A93831EDCDDF454183AF3EDF /* JosefinSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1EF1803CA836479E98E0930A /* JosefinSans-Light.ttf */; };
+		AEF02AE05E5040A1B1B4D8E2 /* JosefinSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 151703FD4005469082694392 /* JosefinSans-Bold.ttf */; };
 		C66521D1CFD9432393F08DFA /* Alata-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5F59AF599A814200866A137E /* Alata-Regular.ttf */; };
 /* End PBXBuildFile section */
 
@@ -29,13 +29,13 @@
 		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = tegami_mountains/Images.xcassets; sourceTree = "<group>"; };
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = tegami_mountains/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = tegami_mountains/main.m; sourceTree = "<group>"; };
+		151703FD4005469082694392 /* JosefinSans-Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Bold.ttf"; path = "../fonts/JosefinSans-Bold.ttf"; sourceTree = "<group>"; };
+		1EF1803CA836479E98E0930A /* JosefinSans-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Light.ttf"; path = "../fonts/JosefinSans-Light.ttf"; sourceTree = "<group>"; };
 		3B91F745C4C6504CDD3B1409 /* Pods-tegami_mountains.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tegami_mountains.release.xcconfig"; path = "Target Support Files/Pods-tegami_mountains/Pods-tegami_mountains.release.xcconfig"; sourceTree = "<group>"; };
 		5F59AF599A814200866A137E /* Alata-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Alata-Regular.ttf"; path = "../fonts/Alata-Regular.ttf"; sourceTree = "<group>"; };
 		5FC980FAA3D9436990A45504 /* libPods-tegami_mountains.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-tegami_mountains.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		80726D7B4D6B4F4C9D0374FB /* JosefinSans-Thin_Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Thin_Light.ttf"; path = "../fonts/JosefinSans-Thin_Light.ttf"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = tegami_mountains/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		93711AFAF607FD0EDE4029AA /* Pods-tegami_mountains.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-tegami_mountains.debug.xcconfig"; path = "Target Support Files/Pods-tegami_mountains/Pods-tegami_mountains.debug.xcconfig"; sourceTree = "<group>"; };
-		CDEA6EFD8DD041608297C9B2 /* JosefinSans-Thin_Bold.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "JosefinSans-Thin_Bold.ttf"; path = "../fonts/JosefinSans-Thin_Bold.ttf"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 /* End PBXFileReference section */
@@ -119,10 +119,10 @@
 			isa = PBXGroup;
 			children = (
 				5F59AF599A814200866A137E /* Alata-Regular.ttf */,
-				CDEA6EFD8DD041608297C9B2 /* JosefinSans-Thin_Bold.ttf */,
-				80726D7B4D6B4F4C9D0374FB /* JosefinSans-Thin_Light.ttf */,
 				09B8B70025ED47E6814805B9 /* LeagueSpartan-Bold.otf */,
 				03B1133961984F289FE3DE79 /* LilitaOne.ttf */,
+				151703FD4005469082694392 /* JosefinSans-Bold.ttf */,
+				1EF1803CA836479E98E0930A /* JosefinSans-Light.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -191,10 +191,10 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				C66521D1CFD9432393F08DFA /* Alata-Regular.ttf in Resources */,
-				A504C8B424F940DD87A2E876 /* JosefinSans-Thin_Bold.ttf in Resources */,
-				41F142E3F90A465FBC9C1B44 /* JosefinSans-Thin_Light.ttf in Resources */,
 				64FFFED4890549F58CA4C6E5 /* LeagueSpartan-Bold.otf in Resources */,
 				08C2210387324D0DB1DC5238 /* LilitaOne.ttf in Resources */,
+				AEF02AE05E5040A1B1B4D8E2 /* JosefinSans-Bold.ttf in Resources */,
+				A93831EDCDDF454183AF3EDF /* JosefinSans-Light.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
