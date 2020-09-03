@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Image, Text} from 'react-native';
-import {Colors, Images} from '@res/R';
+import {View, Image, Text} from 'react-native';
+import R, {Colors, Images} from '@res/R';
 
 import {getStyles} from './game.style';
 import NoNotchView from '@library/components/common/noNotchView';
@@ -10,6 +10,7 @@ import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
+import LettersBar from '@library/components/game/lettersBar';
 
 type Props = {
   navigation: any;
@@ -43,7 +44,9 @@ export default class LevelMap extends Component<Props, State> {
               <CircleButton
                 style={this.styles.backButton}
                 image={Images.back_button}
-                onPress={this.props.navigation.goBack}></CircleButton>
+                onPress={() => {
+                  setTimeout(this.props.navigation.goBack, 300);
+                }}></CircleButton>
             </View>
             <View style={this.styles.navBarMiddle}>
               <LivesIndicator lives={1} />
@@ -56,7 +59,7 @@ export default class LevelMap extends Component<Props, State> {
             <Text
               style={this.styles.titleText}
               adjustsFontSizeToFit
-              numberOfLines={2}>
+              numberOfLines={1}>
               Parc Nacional d'Aigüestortes i llac de Sant Maurici
             </Text>
 
@@ -71,9 +74,19 @@ export default class LevelMap extends Component<Props, State> {
               Font fotografia: pirineosconninos.es
             </Text>
           </View>
-          <View style={this.styles.solutionBar}></View>
+          <View style={this.styles.solutionBar}>
+            <Image
+              style={this.styles.separator}
+              resizeMode="contain"
+              source={R.img(Images.separator_line_down)}></Image>
+            <View style={this.styles.solutionView}></View>
+            <Image
+              style={this.styles.separator}
+              resizeMode="contain"
+              source={R.img(Images.separator_line_up)}></Image>
+          </View>
           <View style={this.styles.powerUpsBar}></View>
-          <View style={this.styles.lettersBar}></View>
+          <LettersBar style={this.styles.lettersBar} word={level.word} />
         </NoNotchView>
       </LinearGradient>
     );

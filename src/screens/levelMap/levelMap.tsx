@@ -144,10 +144,12 @@ export default class LevelMap extends Component<Props, State> {
             text={strings('play')}
             style={this.styles.playButtonOverlay}
             onPress={() => {
-              this.props.navigation.navigate('Game', {
-                levels: this.state.levels,
-                currentLevel: this.state.currentLevel
-              });
+              setTimeout(() => {
+                this.props.navigation.navigate('Game', {
+                  levels: this.state.levels,
+                  currentLevel: this.state.currentLevel,
+                });
+              }, 300);
             }}
           />
 

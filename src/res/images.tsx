@@ -29,6 +29,10 @@ export enum Images {
   'marker_8' = 'marker_8',
   'marker_9' = 'marker_9',
   'ondori_logo' = 'ondori_logo',
+  'option_letter' = 'option_letter',
   'photo_frame' = 'photo_frame',
-  'right_arrow' = 'right_arrow'
+  'right_arrow' = 'right_arrow',
+  'separator_line_down' = 'separator_line_down',
+  'separator_line_up' = 'separator_line_up',
+  'solution_letter' = 'solution_letter'
   }

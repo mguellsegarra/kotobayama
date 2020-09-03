@@ -45,17 +45,9 @@ const getStyles: any = () => {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    solutionBar: {
-      flex: 3,
-      backgroundColor: 'green',
-    },
     powerUpsBar: {
       flex: 2,
-      backgroundColor: 'pink',
-    },
-    lettersBar: {
-      flex: 3,
-      backgroundColor: 'blue',
+      // backgroundColor: 'pink',
     },
     backButton: {
       width: backButtonSize,
@@ -71,12 +63,36 @@ const getStyles: any = () => {
     titleText: {
       width: wp('100%'),
       padding: hp('1%'),
+      paddingLeft: hp('2%'),
+      paddingRight: hp('2%'),
       backgroundColor: '#000000aa',
       fontFamily: Fonts.league,
       fontSize: hp('1.6%'),
       color: 'white',
       textAlign: 'center',
       marginBottom: hp('0.5%'),
+    },
+    solutionBar: {
+      flex: 3,
+      // backgroundColor: 'green',
+      justifyContent: 'center',
+      alignItems: 'center',
+      flexDirection: 'column',
+    },
+    separator: {
+      flex: 1,
+      width: wp('100%'),
+    },
+    solutionView: {
+      flex: 4,
+      width: wp('100%'),
+    },
+    lettersBar: {
+      flex: 3,
+      flexDirection: 'column',
+      // backgroundColor: 'blue',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
   });
 };
