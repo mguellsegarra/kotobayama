@@ -6,7 +6,8 @@ import {getStyles} from './lettersBar.style';
 
 import AvailableLetter from './availableLetter';
 
-const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+const vocals = 'AEIOU';
+const consonants = 'BCDFGHJKLMNPQRSTVWXYZ';
 
 type Props = {
   style: ViewStyle;
@@ -51,10 +52,17 @@ export default class LettersBar extends Component<Props> {
       totalLetters.push(wordWithoutSpace.substr(i, 1));
     }
 
-    for (let i = 0; i < numberOfRandomLetters; i += 1) {
-      totalLetters.push(this.getRandomCharacter());
+    const numberOfRandomVocals = numberOfRandomLetters % 2 ? numberOfRandomLetters / 2 : (numberOfRandomLetters + 1) / 2;
+    const numberOfRandomConsonants = numberOfRandomLetters - numberOfRandomVocals;
+
+    for (let i = 0; i < numberOfRandomVocals; i += 1) {
+      totalLetters.push(this.getRandomCharacter(vocals));
     }
 
+    for (let i = 0; i < numberOfRandomConsonants; i += 1) {
+        totalLetters.push(this.getRandomCharacter(consonants));
+      }
+  
     const shuffledLetters = this.shuffle(totalLetters);
 
     const line1 = [];
@@ -74,7 +82,7 @@ export default class LettersBar extends Component<Props> {
     return letterLines;
   }
 
-  getRandomCharacter() {
+  getRandomCharacter(characters: string) {
     return characters.charAt(Math.floor(Math.random() * characters.length));
   }
 

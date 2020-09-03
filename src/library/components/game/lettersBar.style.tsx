@@ -6,8 +6,6 @@ import {
 } from 'react-native-responsive-screen';
 
 const getStyles: any = () => {
-  const heartSize = hp('4%');
-
   return StyleSheet.create({
     row: {
       flex: 1,
