@@ -36,6 +36,7 @@ export default class LevelChooser extends Component<Props> {
           <View style={styles.levelBarFlex}>
             <View style={styles.levelBarArrow}>
               <CircleButton
+                delay={0}
                 image={Images.left_arrow}
                 onPress={this.props.onPrevLevel}
               />
@@ -48,6 +49,7 @@ export default class LevelChooser extends Component<Props> {
             </View>
             <View style={styles.levelBarArrow}>
               <CircleButton
+                delay={0}
                 image={Images.right_arrow}
                 onPress={this.props.onNextLevel}
               />

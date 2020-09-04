@@ -44,9 +44,7 @@ export default class LevelMap extends Component<Props, State> {
               <CircleButton
                 style={this.styles.backButton}
                 image={Images.back_button}
-                onPress={() => {
-                  setTimeout(this.props.navigation.goBack, 300);
-                }}></CircleButton>
+                onPress={this.props.navigation.goBack}></CircleButton>
             </View>
             <View style={this.styles.navBarMiddle}>
               <LivesIndicator lives={1} />

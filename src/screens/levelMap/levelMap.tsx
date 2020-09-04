@@ -144,12 +144,10 @@ export default class LevelMap extends Component<Props, State> {
             text={strings('play')}
             style={this.styles.playButtonOverlay}
             onPress={() => {
-              setTimeout(() => {
-                this.props.navigation.navigate('Game', {
-                  levels: this.state.levels,
-                  currentLevel: this.state.currentLevel,
-                });
-              }, 300);
+              this.props.navigation.navigate('Game', {
+                levels: this.state.levels,
+                currentLevel: this.state.currentLevel,
+              });
             }}
           />
 
@@ -159,15 +157,13 @@ export default class LevelMap extends Component<Props, State> {
             text={strings('back')}
             style={this.styles.closeMapButtonOverlay}
             onPress={() => {
-              setTimeout(() => {
-                this.mapLayer.resetToLevel();
-              }, 500);
+              this.setState({
+                mapNavigationMode: !this.state.mapNavigationMode,
+              });
 
               setTimeout(() => {
-                this.setState({
-                  mapNavigationMode: !this.state.mapNavigationMode,
-                });
-              }, 300);
+                this.mapLayer.resetToLevel();
+              }, 200);
             }}
           />
 

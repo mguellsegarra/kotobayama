@@ -20,6 +20,7 @@ type Props = {
   imageStyle?: ViewStyle;
   textStyle?: TextStyle;
   style?: ViewStyle;
+  delay?: number;
 };
 
 export enum RectButtonEnum {
@@ -52,6 +53,7 @@ export default class RectButton extends Component<Props> {
     hide: false,
     onPress: () => {},
     imageStyle: {},
+    delay: 300,
   };
 
   render() {
@@ -89,7 +91,9 @@ export default class RectButton extends Component<Props> {
           ]}>
           <TouchableScale
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}
-            onPress={this.props.onPress}>
+            onPress={() => {
+              setTimeout(this.props.onPress, this.props.delay);
+            }}>
             <ImageBackground
               source={R.img(rectButtonConfig.image)}
               style={Object.assign(defaultImageStyle, this.props.imageStyle)}>

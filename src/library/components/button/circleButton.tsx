@@ -16,12 +16,14 @@ type Props = {
   image: string;
   imageStyle?: ImageStyle;
   style?: ViewStyle;
+  delay?: number;
 };
 
 export default class MapBackButton extends Component<Props> {
   static defaultProps = {
     hide: false,
     onPress: () => {},
+    delay: 300,
   };
 
   constructor(props: Props) {
@@ -44,7 +46,11 @@ export default class MapBackButton extends Component<Props> {
 
     return (
       <View style={style}>
-        <TouchableScale style={style} onPress={this.props.onPress}>
+        <TouchableScale
+          style={style}
+          onPress={() => {
+            setTimeout(this.props.onPress, this.props.delay);
+          }}>
           <Image
             resizeMode="contain"
             source={R.img(this.props.image)}
