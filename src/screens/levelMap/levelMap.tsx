@@ -46,25 +46,6 @@ export default class LevelMap extends Component<Props, State> {
     this.mapLoaded = this.mapLoaded.bind(this);
   }
 
-  setNextLevel() {
-    let nextLevel: number;
-    if (this.state.currentLevel === this.state.levels.length - 1) {
-      nextLevel = 0;
-    } else {
-      nextLevel = this.state.currentLevel + 1;
-    }
-    this.setState(
-      {
-        ...this.state,
-        currentLevel: nextLevel,
-      },
-      () => {
-        this.mapLayer.setCurrentLevel(nextLevel);
-        this.mapLayer.resetToLevel();
-      },
-    );
-  }
-
   mapLoaded() {
     Animated.timing(this.state.fadeAnim, {
       toValue: 0,
@@ -74,6 +55,16 @@ export default class LevelMap extends Component<Props, State> {
     }).start();
   }
 
+  setNextLevel() {
+    let nextLevel: number;
+    if (this.state.currentLevel === this.state.levels.length - 1) {
+      nextLevel = 0;
+    } else {
+      nextLevel = this.state.currentLevel + 1;
+    }
+    this.setCurrentLevel(nextLevel);
+  }
+
   setPrevLevel() {
     let nextLevel: number;
     if (this.state.currentLevel === 0) {
@@ -81,13 +72,17 @@ export default class LevelMap extends Component<Props, State> {
     } else {
       nextLevel = this.state.currentLevel - 1;
     }
+    this.setCurrentLevel(nextLevel);
+  }
+
+  setCurrentLevel(level: number) {
     this.setState(
       {
         ...this.state,
-        currentLevel: nextLevel,
+        currentLevel: level,
       },
       () => {
-        this.mapLayer.setCurrentLevel(nextLevel);
+        this.mapLayer.setCurrentLevel(level);
         this.mapLayer.resetToLevel();
       },
     );
