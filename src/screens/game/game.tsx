@@ -11,6 +11,7 @@ import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
 import LettersBar from '@library/components/game/lettersBar';
+import SolutionBar from '@library/components/game/solutionBar';
 
 type Props = {
   navigation: any;
@@ -77,7 +78,9 @@ export default class LevelMap extends Component<Props, State> {
               style={this.styles.separator}
               resizeMode="contain"
               source={R.img(Images.separator_line_down)}></Image>
-            <View style={this.styles.solutionView}></View>
+            <View style={this.styles.solutionView}>
+              <SolutionBar style={this.styles.lettersBar} word={level.word} />
+            </View>
             <Image
               style={this.styles.separator}
               resizeMode="contain"

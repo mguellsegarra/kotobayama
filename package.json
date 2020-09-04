@@ -17,7 +17,7 @@
     "test": "jest",
     "lint": "eslint .",
     "images": "node scripts/images.js",
-    "build:apk": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release/ && open . && cd ../../../.."
+    "apk": "cd android && ./gradlew assembleRelease && cd app/build/outputs/apk/release/ && open . && cd ../../../.."
   },
   "dependencies": {
     "@react-native-community/masked-view": "^0.1.10",
