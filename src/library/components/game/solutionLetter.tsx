@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {TouchableOpacity, Text, ImageBackground, View} from 'react-native';
+import {Text, ImageBackground, View} from 'react-native';
+// @ts-ignore
+import TouchableScale from 'react-native-touchable-scale';
 
 import R, {Images} from '@res/R';
 import {getStyles} from './solutionLetter.style';
@@ -8,7 +10,7 @@ type Props = {
   id: string;
   character: string;
   letterState: SolutionLetterState;
-  availableLetterId: string | null;
+  availableLetterId: string | null;
   onPress: Function;
   letterSize: number;
   margin: number;
@@ -31,13 +33,17 @@ export default class SolutionLetter extends Component<Props> {
     const styles = getStyles(this.props.letterSize, this.props.margin);
 
     return (
-      <TouchableOpacity
+      <TouchableScale
+        tension={500}
+        friction={10}
         onPress={() => {
-          this.props.onPress({
-            id: this.props.id,
-            availableLetterId: this.props.availableLetterId,
-            letterState: this.props.letterState,
-          });
+          setTimeout(() => {
+            this.props.onPress({
+              id: this.props.id,
+              availableLetterId: this.props.availableLetterId,
+              letterState: this.props.letterState,
+            });
+          }, 300);
         }}>
         <ImageBackground
           style={styles.letter}
@@ -50,7 +56,7 @@ export default class SolutionLetter extends Component<Props> {
             </Text>
           </View>
         </ImageBackground>
-      </TouchableOpacity>
+      </TouchableScale>
     );
   }
 }

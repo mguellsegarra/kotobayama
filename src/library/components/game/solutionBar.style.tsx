@@ -41,4 +41,6 @@ const getLetterSizeOptionsForWordLines = (wordLines: Array<string>) => {
   }
 }
 
-export { getStyles, getLetterSizeOptionsForWordLines };
+const styles = getStyles();
+
+export { styles, getStyles, getLetterSizeOptionsForWordLines };

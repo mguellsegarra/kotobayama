@@ -67,39 +67,32 @@ export default class LettersBar extends Component<Props, State> {
       });
   }
 
-  setLetterState(id: string, letterState: AvailableLetterState) {
-    let letterPosition = 0;
+  getLetterAndPosForId(id: string) {
+    let position = 0;
 
     const letter = this.state.letters.find((item, index) => {
       const found = item!.id === id;
       if (found) {
-        letterPosition = index;
+        position = index;
       }
       return found;
     });
+
+    return {letter, position};
+  }
+
+  setLetterState(id: string, letterState: AvailableLetterState) {
+    const {letter, position} = this.getLetterAndPosForId(id);
 
     letter!.letterState = letterState;
 
     const newLetters = [...this.state.letters];
-    newLetters[letterPosition] = letter;
+    newLetters[position] = letter;
     this.setState({...this.state, letters: newLetters});
   }
 
   restoreLetterWithId(id: string) {
-    let letterPosition = 0;
-
-    const letter = this.state.letters.find((item, index) => {
-      const found = item!.id === id;
-      if (found) {
-        letterPosition = index;
-      }
-      return found;
-    });
-    letter!.letterState = AvailableLetterState.Idle;
-
-    const newLetters = [...this.state.letters];
-    newLetters[letterPosition] = letter;
-    this.setState({...this.state, letters: newLetters});
+    this.setLetterState(id, AvailableLetterState.Idle);
   }
 
   render() {

@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import {View, ViewStyle} from 'react-native';
 
-import {getStyles, getLetterSizeOptionsForWordLines} from './solutionBar.style';
+import {styles, getLetterSizeOptionsForWordLines} from './solutionBar.style';
 
 import SolutionLetter, {SolutionLetterState} from './solutionLetter';
+import {
+  isCharacterMapFull,
+  getFirstCharacterMapEmptyPos,
+  getInitialCharacterMap,
+} from '@library/services/characterMapHelper';
 
 type Props = {
   style: ViewStyle;
@@ -11,13 +16,13 @@ type Props = {
   onLetterPress: Function;
 };
 
-type CharactersMapObject = {
+export type CharactersMapObject = {
   availableLetterId: string | null;
   letterState: SolutionLetterState;
   character: string;
 };
 
-type CharactersMap = {
+export type CharactersMap = {
   [index: string]: CharactersMapObject;
 };
 
@@ -30,48 +35,6 @@ export interface SolutionBarElement extends Element {
   allLettersAreFull: Function;
   removeLetterWithId: Function;
 }
-
-const getInitialCharacterMap = (word: string) => {
-  const characterMap: CharactersMap = {};
-  let idx = 0;
-
-  Array.from(word.replace(' ', '')).forEach((char: string) => {
-    characterMap[idx] = {
-      character: '',
-      availableLetterId: null,
-      letterState: SolutionLetterState.Empty,
-    };
-    idx += 1;
-  });
-
-  return characterMap;
-};
-
-const isCharacterMapFull = (characterMap: CharactersMap, word: string) => {
-  return (
-    Object.values(characterMap)
-      .map((element: CharactersMapObject) => {
-        return element.character;
-      })
-      .join('').length === word.replace(' ', '').length
-  );
-};
-
-const getFirstCharacterMapEmptyPos = (characterMap: CharactersMap) => {
-  let foundPos = 0,
-    idx = 0,
-    found = false;
-
-  Object.values(characterMap).forEach((element: CharactersMapObject) => {
-    if (element.character === '' && !found) {
-      foundPos = idx;
-      found = true;
-    }
-    idx += 1;
-  });
-
-  return foundPos;
-};
 
 export default class SolutionBar extends Component<Props, State> {
   constructor(props: Props) {
@@ -93,7 +56,6 @@ export default class SolutionBar extends Component<Props, State> {
       const line = [];
 
       for (let i = 0; i < word.length; i += 1) {
-        const char = word.charAt(i);
         line.push(
           <SolutionLetter
             key={charIdx.toString()}
@@ -156,7 +118,6 @@ export default class SolutionBar extends Component<Props, State> {
   }
 
   render() {
-    const styles = getStyles();
     const letterLines = this.getLetterLinesForWord(this.props.word);
 
     return (

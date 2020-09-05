@@ -1,15 +1,11 @@
 import React, {Component} from 'react';
-import {
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-  TouchableOpacity,
-  Text,
-  ImageBackground,
-  View,
-} from 'react-native';
+import {Text, ImageBackground, View} from 'react-native';
+
+// @ts-ignore
+import TouchableScale from 'react-native-touchable-scale';
 
 import R, {Images} from '@res/R';
-import {getStyles} from './availableLetter.style';
+import {styles} from './availableLetter.style';
 
 type Props = {
   id: string;
@@ -36,18 +32,20 @@ export default class AvailableLetter extends Component<Props> {
   }
 
   render() {
-    const styles = getStyles();
-
     return (
-      <TouchableHighlight
+      <TouchableScale
+        tension={500}
+        friction={10}
         onPress={() => {
-          const letterTapped: AvailableLetterType = {
-            id: this.props.id,
-            letterState: this.props.letterState,
-            character: this.props.character,
-          };
+          setTimeout(() => {
+            const letterTapped: AvailableLetterType = {
+              id: this.props.id,
+              letterState: this.props.letterState,
+              character: this.props.character,
+            };
 
-          this.props.onPress(letterTapped);
+            this.props.onPress(letterTapped);
+          }, 300);
         }}>
         <ImageBackground
           style={{
@@ -62,7 +60,7 @@ export default class AvailableLetter extends Component<Props> {
             </Text>
           </View>
         </ImageBackground>
-      </TouchableHighlight>
+      </TouchableScale>
     );
   }
 }

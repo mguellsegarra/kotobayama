@@ -20,9 +20,8 @@ import {
   AvailableLetterType,
   AvailableLetterState,
 } from '@library/components/game/availableLetter';
-
 import {
-  SolutionLetterTapped,
+  SolutionLetterType,
   SolutionLetterState,
 } from '@library/components/game/solutionLetter';
 
@@ -63,12 +62,10 @@ export default class LevelMap extends Component<Props, State> {
     }
   }
 
-  solutionLetterHasTapped(solutionLetterTapped: SolutionLetterTapped) {
-    if (solutionLetterTapped.letterState === SolutionLetterState.Filled) {
-      this.solutionBar?.removeLetterWithId(solutionLetterTapped.id);
-      this.lettersBar?.restoreLetterWithId(
-        solutionLetterTapped.availableLetterId,
-      );
+  solutionLetterHasTapped(letter: SolutionLetterType) {
+    if (letter.letterState === SolutionLetterState.Filled) {
+      this.solutionBar?.removeLetterWithId(letter.id);
+      this.lettersBar?.restoreLetterWithId(letter.availableLetterId);
     }
   }
 
