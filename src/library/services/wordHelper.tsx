@@ -3,7 +3,7 @@ const consonants = 'BCDFGHJKLMNPQRSTVWXYZ';
 
 type WordServiceType = {
   shuffle: Function;
-  getLetterLinesForWord: Function;
+  getLettersForWord: Function;
   getRandomCharacter: Function;
 };
 
@@ -24,19 +24,18 @@ const WordService: WordServiceType = {
 
     return array;
   },
-  getLetterLinesForWord: (word: string) => {
-    const letterLines = [];
+  getLettersForWord: (word: string) => {
     const totalLetters = [];
     const wordWithoutSpace = word.replace(' ', '');
     const wordLength = wordWithoutSpace.length;
     const numberOfRandomLetters = 14 - wordLength;
 
     for (let i = 0; i < wordWithoutSpace.length; i += 1) {
-      totalLetters.push(wordWithoutSpace.substr(i, 1));
+      totalLetters.push(wordWithoutSpace.substr(i, 1).toUpperCase());
     }
 
     const numberOfRandomVocals =
-      numberOfRandomLetters % 2
+      numberOfRandomLetters % 2 === 0
         ? numberOfRandomLetters / 2
         : (numberOfRandomLetters + 1) / 2;
     const numberOfRandomConsonants =
@@ -50,23 +49,7 @@ const WordService: WordServiceType = {
       totalLetters.push(WordService.getRandomCharacter(consonants));
     }
 
-    const shuffledLetters = WordService.shuffle(totalLetters);
-
-    const line1 = [];
-    const line2 = [];
-
-    for (let i = 0; i < 7; i += 1) {
-      line1.push(shuffledLetters[i]);
-    }
-
-    for (let i = 7; i < 14; i += 1) {
-      line2.push(shuffledLetters[i]);
-    }
-
-    letterLines.push(line1);
-    letterLines.push(line2);
-
-    return letterLines;
+    return WordService.shuffle(totalLetters);
   },
   getRandomCharacter: (characters: string) => {
     return characters.charAt(Math.floor(Math.random() * characters.length));

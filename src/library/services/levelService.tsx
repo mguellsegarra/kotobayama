@@ -34,7 +34,7 @@ type LevelServiceType = {
   init: Function;
   getLevels: Function;
   inMemoryRandomLetters: MemoryRandomLetters;
-  getLettersForLevel: Function;
+  getLettersForWord: Function;
 };
 
 const LevelService: LevelServiceType = {
@@ -57,12 +57,12 @@ const LevelService: LevelServiceType = {
     }
     return LevelService.levels;
   },
-  getLettersForLevel: (word: string) => {
+  getLettersForWord: (word: string) => {
     if (LevelService.inMemoryRandomLetters[word]) {
       return LevelService.inMemoryRandomLetters[word];
     }
 
-    LevelService.inMemoryRandomLetters[word] = WordHelper.getLetterLinesForWord(
+    LevelService.inMemoryRandomLetters[word] = WordHelper.getLettersForWord(
       word,
     );
     return LevelService.inMemoryRandomLetters[word];

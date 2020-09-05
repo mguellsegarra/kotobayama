@@ -10,8 +10,21 @@ import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
-import LettersBar from '@library/components/game/lettersBar';
-import SolutionBar from '@library/components/game/solutionBar';
+import LettersBar, {
+  LettersBarElement,
+} from '@library/components/game/lettersBar';
+import SolutionBar, {
+  SolutionBarElement,
+} from '@library/components/game/solutionBar';
+import {
+  AvailableLetterType,
+  AvailableLetterState,
+} from '@library/components/game/availableLetter';
+
+import {
+  SolutionLetterTapped,
+  SolutionLetterState,
+} from '@library/components/game/solutionLetter';
 
 type Props = {
   navigation: any;
@@ -22,12 +35,41 @@ type State = {};
 export default class LevelMap extends Component<Props, State> {
   styles: any;
   mapLayer: any;
+  solutionBar: SolutionBarElement | SolutionBar | null;
+  lettersBar: LettersBarElement | LettersBar | null;
 
   state = {};
 
   constructor(props: Props) {
     super(props);
     this.styles = {};
+    this.solutionBar = null;
+    this.lettersBar = null;
+    this.availableLetterHasTapped = this.availableLetterHasTapped.bind(this);
+    this.solutionLetterHasTapped = this.solutionLetterHasTapped.bind(this);
+  }
+
+  availableLetterHasTapped(letter: AvailableLetterType) {
+    if (this.solutionBar?.allLettersAreFull()) {
+      return;
+    }
+
+    this.lettersBar?.setLetterState(letter.id, AvailableLetterState.Selected);
+
+    this.solutionBar?.addLetter(letter.character, letter.id);
+
+    if (this.solutionBar?.allLettersAreFull()) {
+      // TODO: Check if word is correct and there on.
+    }
+  }
+
+  solutionLetterHasTapped(solutionLetterTapped: SolutionLetterTapped) {
+    if (solutionLetterTapped.letterState === SolutionLetterState.Filled) {
+      this.solutionBar?.removeLetterWithId(solutionLetterTapped.id);
+      this.lettersBar?.restoreLetterWithId(
+        solutionLetterTapped.availableLetterId,
+      );
+    }
   }
 
   render() {
@@ -79,7 +121,14 @@ export default class LevelMap extends Component<Props, State> {
               resizeMode="contain"
               source={R.img(Images.separator_line_down)}></Image>
             <View style={this.styles.solutionView}>
-              <SolutionBar style={this.styles.lettersBar} word={level.word} />
+              <SolutionBar
+                ref={(ref) => {
+                  this.solutionBar = ref;
+                }}
+                onLetterPress={this.solutionLetterHasTapped}
+                style={this.styles.lettersBar}
+                word={level.word}
+              />
             </View>
             <Image
               style={this.styles.separator}
@@ -87,7 +136,14 @@ export default class LevelMap extends Component<Props, State> {
               source={R.img(Images.separator_line_up)}></Image>
           </View>
           <View style={this.styles.powerUpsBar}></View>
-          <LettersBar style={this.styles.lettersBar} word={level.word} />
+          <LettersBar
+            ref={(ref) => {
+              this.lettersBar = ref;
+            }}
+            style={this.styles.lettersBar}
+            word={level.word}
+            availableLetterHasTapped={this.availableLetterHasTapped}
+          />
         </NoNotchView>
       </LinearGradient>
     );

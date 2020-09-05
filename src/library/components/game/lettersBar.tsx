@@ -1,41 +1,105 @@
 import React, {Component} from 'react';
-import {Image, Text, View, ViewStyle} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 
-import R, {Images} from '@res/R';
 import {getStyles} from './lettersBar.style';
 
-import AvailableLetter from './availableLetter';
+import AvailableLetter, {
+  AvailableLetterType,
+  AvailableLetterState,
+} from './availableLetter';
 import LevelService from '@library/services/levelService';
 
 type Props = {
   style: ViewStyle;
   word: string;
+  availableLetterHasTapped: Function;
 };
 
-export default class LettersBar extends Component<Props> {
-  letterLines: Array<Array<string>>;
+type State = {
+  letters: Array<AvailableLetterType | undefined>;
+};
 
+export interface LettersBarElement extends Element {
+  restoreLetterWithId: Function;
+  setLetterState: Function;
+}
+
+export default class LettersBar extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.letterHasTapped = this.letterHasTapped.bind(this);
 
-    this.letterLines = LevelService.getLettersForLevel(props.word);
+    const stringLetters = LevelService.getLettersForWord(props.word);
+    const letters = stringLetters.map((char: string, idx: number) => {
+      return {
+        character: char,
+        id: idx.toString(),
+        letterState: AvailableLetterState.Idle,
+      };
+    });
+    this.state = {letters: letters};
   }
 
-  letterHasTapped(letter: any) {}
+  letterHasTapped(event: AvailableLetterType) {
+    this.props.availableLetterHasTapped(event);
+  }
+
+  getLettersLineForLetters(letters: Array<string>) {
+    letters.forEach((line) => {});
+  }
 
   getAvailableLettersForLine(line: number) {
-    let i = 0;
-    return this.letterLines[line].map((char: string) => {
-      i += 1;
-      return (
-        <AvailableLetter
-          key={i.toString()}
-          onPress={this.letterHasTapped}
-          character={char}
-        />
-      );
+    const startPos = line + line * 6;
+    const endPos = startPos + 7;
+
+    return this.state.letters
+      .slice(startPos, endPos)
+      .map((element: AvailableLetterType | undefined) => {
+        return (
+          <AvailableLetter
+            id={element!.id}
+            key={element!.id}
+            letterState={element!.letterState}
+            onPress={this.letterHasTapped}
+            character={element!.character}
+          />
+        );
+      });
+  }
+
+  setLetterState(id: string, letterState: AvailableLetterState) {
+    let letterPosition = 0;
+
+    const letter = this.state.letters.find((item, index) => {
+      const found = item!.id === id;
+      if (found) {
+        letterPosition = index;
+      }
+      return found;
     });
+
+    letter!.letterState = letterState;
+
+    const newLetters = [...this.state.letters];
+    newLetters[letterPosition] = letter;
+    this.setState({...this.state, letters: newLetters});
+  }
+
+  restoreLetterWithId(id: string) {
+    let letterPosition = 0;
+
+    const letter = this.state.letters.find((item, index) => {
+      const found = item!.id === id;
+      if (found) {
+        letterPosition = index;
+      }
+      return found;
+    });
+    letter!.letterState = AvailableLetterState.Idle;
+
+    const newLetters = [...this.state.letters];
+    newLetters[letterPosition] = letter;
+    this.setState({...this.state, letters: newLetters});
   }
 
   render() {
