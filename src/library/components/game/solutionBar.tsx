@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {View, ViewStyle} from 'react-native';
-
+import {ViewStyle} from 'react-native';
 import {styles, getLetterSizeOptionsForWordLines} from './solutionBar.style';
+import {View} from 'react-native-animatable';
 
 import SolutionLetter, {SolutionLetterState} from './solutionLetter';
 import {
@@ -38,15 +38,20 @@ export interface SolutionBarElement extends Element {
   isWordCorrect: Function;
   removeAllLetters: Function;
   getAllAvailableLetterIds: Function;
+  animateLetters: Function;
 }
 
 export default class SolutionBar extends Component<Props, State> {
+  containerView: any;
+
   constructor(props: Props) {
     super(props);
 
     this.state = {
       charactersMap: getInitialCharacterMap(props.word),
     };
+
+    this.containerView = null;
   }
 
   getLetterLinesForWord(word: string) {
@@ -144,11 +149,19 @@ export default class SolutionBar extends Component<Props, State> {
     });
   }
 
+  animateLetters(animationType: string, duration: number) {
+    this.containerView.animate(animationType, duration);
+  }
+
   render() {
     const letterLines = this.getLetterLinesForWord(this.props.word);
 
     return (
-      <View style={this.props.style}>
+      <View
+        style={this.props.style}
+        ref={(ref) => {
+          this.containerView = ref;
+        }}>
         <View style={styles.row}>{letterLines[0]}</View>
 
         {letterLines.length > 1 ? (

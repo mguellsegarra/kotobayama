@@ -65,10 +65,12 @@ export default class LevelMap extends Component<Props, State> {
     if (this.solutionBar?.isWordCorrect()) {
       // TODO: Add coins
       // TODO: Correct screen
+      this.solutionBar?.animateLetters('flash', 1000);
       await delayPromise(1000);
       this.props.navigation.goBack();
     } else {
       Vibration.vibrate(1000);
+      this.solutionBar?.animateLetters('shake', 1000);
       // TODO: Restar vida
       // TODO: Restar coins
       await delayPromise(1000);
