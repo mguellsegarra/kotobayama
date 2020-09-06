@@ -30,6 +30,17 @@ const isCharacterMapFull = (characterMap: CharactersMap, word: string) => {
   );
 };
 
+const isWordCorrect = (characterMap: CharactersMap, word: string) => {
+  return (
+    Object.values(characterMap)
+      .map((element: CharactersMapObject) => {
+        return element.character;
+      })
+      .join('')
+      .toUpperCase() === word.replace(' ', '').toUpperCase()
+  );
+};
+
 const getFirstCharacterMapEmptyPos = (characterMap: CharactersMap) => {
   let foundPos = 0,
     idx = 0,
@@ -50,4 +61,5 @@ export {
   isCharacterMapFull,
   getFirstCharacterMapEmptyPos,
   getInitialCharacterMap,
+  isWordCorrect
 };

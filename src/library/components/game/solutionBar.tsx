@@ -8,7 +8,8 @@ import {
   isCharacterMapFull,
   getFirstCharacterMapEmptyPos,
   getInitialCharacterMap,
-} from '@library/services/characterMapHelper';
+  isWordCorrect,
+} from '@library/components/helpers/characterMapHelper';
 
 type Props = {
   style: ViewStyle;
@@ -34,6 +35,9 @@ export interface SolutionBarElement extends Element {
   addLetter: Function;
   allLettersAreFull: Function;
   removeLetterWithId: Function;
+  isWordCorrect: Function;
+  removeAllLetters: Function;
+  getAllAvailableLetterIds: Function;
 }
 
 export default class SolutionBar extends Component<Props, State> {
@@ -78,25 +82,32 @@ export default class SolutionBar extends Component<Props, State> {
   }
 
   addLetter(character: string, availableLetterId: string) {
-    if (isCharacterMapFull(this.state.charactersMap, this.props.word)) {
-      return;
-    }
+    return new Promise((resolve, reject) => {
+      if (isCharacterMapFull(this.state.charactersMap, this.props.word)) {
+        return;
+      }
 
-    const firstEmptyPos = getFirstCharacterMapEmptyPos(
-      this.state.charactersMap,
-    );
+      const firstEmptyPos = getFirstCharacterMapEmptyPos(
+        this.state.charactersMap,
+      );
 
-    const newCharacterMap = Object.assign({}, this.state.charactersMap);
+      const newCharacterMap = Object.assign({}, this.state.charactersMap);
 
-    newCharacterMap[firstEmptyPos] = {
-      character: character,
-      letterState: SolutionLetterState.Filled,
-      availableLetterId,
-    };
+      newCharacterMap[firstEmptyPos] = {
+        character: character,
+        letterState: SolutionLetterState.Filled,
+        availableLetterId,
+      };
 
-    this.setState({
-      ...this.state,
-      charactersMap: newCharacterMap,
+      this.setState(
+        {
+          ...this.state,
+          charactersMap: newCharacterMap,
+        },
+        () => {
+          resolve();
+        },
+      );
     });
   }
 
@@ -114,6 +125,22 @@ export default class SolutionBar extends Component<Props, State> {
     this.setState({
       ...this.state,
       charactersMap: newCharacterMap,
+    });
+  }
+
+  isWordCorrect() {
+    return isWordCorrect(this.state.charactersMap, this.props.word);
+  }
+
+  getAllAvailableLetterIds() {
+    return Object.values(this.state.charactersMap).map((mapObject) => {
+      return mapObject.availableLetterId;
+    });
+  }
+
+  removeAllLetters() {
+    Object.keys(this.state.charactersMap).forEach((letterId) => {
+      this.removeLetterWithId(letterId);
     });
   }
 

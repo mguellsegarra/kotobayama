@@ -1,6 +1,6 @@
 const levelSource = require('@assets/levels');
 import {LatLng} from 'react-native-maps';
-import WordHelper from './wordHelper';
+import WordHelper from '../components/helpers/wordHelper';
 
 const getCoordinateFromLatLonString = (latLonString: string): LatLng => {
   const splitted = latLonString.split(',');

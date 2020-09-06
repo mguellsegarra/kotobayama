@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text} from 'react-native';
+import {View, Image, Text, Vibration} from 'react-native';
 import R, {Colors, Images} from '@res/R';
 
 import {getStyles} from './game.style';
@@ -10,6 +10,7 @@ import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
+import delayPromise from '@library/utils/delayPromise';
 import LettersBar, {
   LettersBarElement,
 } from '@library/components/game/lettersBar';
@@ -48,17 +49,36 @@ export default class LevelMap extends Component<Props, State> {
     this.solutionLetterHasTapped = this.solutionLetterHasTapped.bind(this);
   }
 
-  availableLetterHasTapped(letter: AvailableLetterType) {
+  async availableLetterHasTapped(letter: AvailableLetterType) {
     if (this.solutionBar?.allLettersAreFull()) {
       return;
     }
 
     this.lettersBar?.setLetterState(letter.id, AvailableLetterState.Selected);
 
-    this.solutionBar?.addLetter(letter.character, letter.id);
+    await this.solutionBar?.addLetter(letter.character, letter.id);
 
-    if (this.solutionBar?.allLettersAreFull()) {
-      // TODO: Check if word is correct and there on.
+    if (!this.solutionBar?.allLettersAreFull()) {
+      return;
+    }
+
+    if (this.solutionBar?.isWordCorrect()) {
+      // TODO: Add coins
+      // TODO: Correct screen
+      await delayPromise(1000);
+      this.props.navigation.goBack();
+    } else {
+      Vibration.vibrate(1000);
+      // TODO: Restar vida
+      // TODO: Restar coins
+      await delayPromise(1000);
+
+      const availableLetterIds = this.solutionBar?.getAllAvailableLetterIds();
+      availableLetterIds.forEach((letterId: string) => {
+        this.lettersBar?.restoreLetterWithId(letterId);
+      });
+
+      this.solutionBar?.removeAllLetters();
     }
   }
 
