@@ -7,7 +7,7 @@ import R, {Images} from '@res/R';
 
 import {strings} from '@library/services/i18nService';
 import MapLayer from '@library/components/map/mapLayer';
-import LevelService, {Level} from '@library/services/levelService';
+import LevelService, {Level, Pack} from '@library/services/levelService';
 
 import LevelChooser from '@library/components/map/levelChooser';
 import RectButton, {
@@ -18,24 +18,18 @@ import CircleButton from '@library/components/button/circleButton';
 type State = {
   mapNavigationMode: boolean;
   currentLevel: number;
-  levels: Array<Level>;
+  pack: Pack;
   fadeAnim: Animated.Value;
 };
 
 type Props = {
   navigation: any;
+  route: any;
 };
 
 export default class LevelMap extends Component<Props, State> {
   styles: any;
   mapLayer: any;
-
-  state = {
-    mapNavigationMode: false,
-    currentLevel: 0,
-    levels: LevelService.getLevels(),
-    fadeAnim: new Animated.Value(1),
-  };
 
   constructor(props: Props) {
     super(props);
@@ -44,6 +38,15 @@ export default class LevelMap extends Component<Props, State> {
     this.setPrevLevel = this.setPrevLevel.bind(this);
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
     this.mapLoaded = this.mapLoaded.bind(this);
+
+    const {pack} = this.props.route.params;
+
+    this.state = {
+      mapNavigationMode: false,
+      currentLevel: 0,
+      fadeAnim: new Animated.Value(1),
+      pack,
+    };
   }
 
   mapLoaded() {
@@ -57,7 +60,7 @@ export default class LevelMap extends Component<Props, State> {
 
   setNextLevel() {
     let nextLevel: number;
-    if (this.state.currentLevel === this.state.levels.length - 1) {
+    if (this.state.currentLevel === this.state.pack.levels!.length - 1) {
       nextLevel = 0;
     } else {
       nextLevel = this.state.currentLevel + 1;
@@ -68,7 +71,7 @@ export default class LevelMap extends Component<Props, State> {
   setPrevLevel() {
     let nextLevel: number;
     if (this.state.currentLevel === 0) {
-      nextLevel = this.state.levels.length - 1;
+      nextLevel = this.state.pack.levels!.length - 1;
     } else {
       nextLevel = this.state.currentLevel - 1;
     }
@@ -106,7 +109,7 @@ export default class LevelMap extends Component<Props, State> {
             ref={(ref: any) => {
               this.mapLayer = ref;
             }}
-            levels={this.state.levels}
+            levels={this.state.pack.levels!}
             controlsEnabled={this.state.mapNavigationMode}
             onPanDrag={this.onMapPanDrag}
             onMapLoaded={this.mapLoaded}
@@ -118,7 +121,7 @@ export default class LevelMap extends Component<Props, State> {
                 source={R.img(Images.map_title_container)}
                 style={this.styles.mapTitleContainerImage}>
                 <Text style={this.styles.mapTitleText}>
-                  Parc Nacional d'Aigüestortes i llac de Sant Maurici
+                  {this.state.pack.title}
                 </Text>
               </ImageBackground>
             </View>
@@ -140,7 +143,7 @@ export default class LevelMap extends Component<Props, State> {
             style={this.styles.playButtonOverlay}
             onPress={() => {
               this.props.navigation.navigate('Game', {
-                levels: this.state.levels,
+                pack: this.state.pack,
                 currentLevel: this.state.currentLevel,
               });
             }}
@@ -164,7 +167,7 @@ export default class LevelMap extends Component<Props, State> {
 
           <LevelChooser
             currentLevel={this.state.currentLevel}
-            levels={this.state.levels}
+            levels={this.state.pack.levels!}
             hide={this.state.mapNavigationMode}
             onNextLevel={this.setNextLevel}
             onPrevLevel={this.setPrevLevel}

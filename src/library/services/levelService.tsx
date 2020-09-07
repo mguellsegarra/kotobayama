@@ -1,5 +1,7 @@
 import {LatLng} from 'react-native-maps';
 import WordHelper from '../components/helpers/wordHelper';
+const levelSource = require('@assets/levels');
+const packSource = require('@assets/packs');
 
 const getCoordinateFromLatLonString = (latLonString: string): LatLng => {
   const splitted = latLonString.split(',');
@@ -10,17 +12,29 @@ const getCoordinateFromLatLonString = (latLonString: string): LatLng => {
 };
 
 export type LevelSource = {
-  id: number;
+  id: string;
   word: string;
-  pack: number;
+  packId: number;
   latlon: string;
 };
 
 export type Level = {
   id: string;
   word: string;
-  pack: number;
+  packId: string;
   latlon: LatLng;
+};
+
+export type PackSource = {
+  id: string;
+  title: string;
+  levels: Array<string>;
+};
+
+export type Pack = {
+  id: string;
+  title: string;
+  levels: Array<Level> | undefined;
 };
 
 export interface MemoryRandomLetters {
@@ -30,37 +44,48 @@ export interface MemoryRandomLetters {
 type LevelServiceType = {
   loaded: boolean;
   levels: Array<Level>;
+  packs: Array<Pack>;
   init: Function;
-  getLevels: Function;
   inMemoryRandomLetters: MemoryRandomLetters;
   getLettersForWord: Function;
-  setLevelSource: Function;
-  levelSource: any;
+  getPackWithId: Function;
+  getLevelWithId: Function;
 };
 
 const LevelService: LevelServiceType = {
   loaded: false,
   levels: [],
-  levelSource: [],
+  packs: [],
   inMemoryRandomLetters: {},
-  setLevelSource: (levelSource: string) => {
-    LevelService.levelSource = levelSource;
-  },
   init: () => {
-    LevelService.levels = LevelService.levelSource.map((lvl: LevelSource) => {
+    LevelService.levels = levelSource.map((lvl: LevelSource) => {
       return {
-        id: lvl.id.toString(),
+        id: lvl.id,
         word: lvl.word,
-        pack: lvl.word,
+        packId: lvl.packId.toString(),
         latlon: getCoordinateFromLatLonString(lvl.latlon),
       };
     });
+
+    LevelService.packs = packSource.map((pack: PackSource) => {
+      return {
+        id: pack.id,
+        title: pack.title,
+        levels: LevelService.levels.filter((lvl: Level) => {
+          return lvl?.packId === pack.id.toString();
+        }),
+      };
+    });
   },
-  getLevels: (): Array<Level> => {
-    if (!LevelService.loaded) {
-      LevelService.init();
-    }
-    return LevelService.levels;
+  getPackWithId: (packId: string): Pack | undefined => {
+    return LevelService.packs.find((pack: Pack) => {
+      return pack?.id === packId;
+    });
+  },
+  getLevelWithId: (id: string): Level | undefined => {
+    return LevelService.levels.find((level: Level) => {
+      return level?.id === id;
+    });
   },
   getLettersForWord: (word: string) => {
     if (LevelService.inMemoryRandomLetters[word]) {

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Image, Animated} from 'react-native';
 import {getStyles} from './splash.style';
 import I18n from '@library/services/i18nService';
+import LevelService from '@library/services/levelService';
 
 import R, {Images} from '@res/R';
 
@@ -35,6 +36,7 @@ export default class Splash extends Component<Props> {
 
   componentDidMount() {
     I18n.init();
+    LevelService.init();
     this.startAnimation();
   }
 

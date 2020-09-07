@@ -23,27 +23,33 @@ export default class Splash extends Component<Props, State> {
   };
 
   componentDidMount() {
-    RNFetchBlob.fetch(
-      'GET',
-      'https://tegami-mountains-content.s3-eu-west-1.amazonaws.com/levels.json',
-    )
-      .progress({count: 5}, (received, total) => {
-        const progress = (received / total) * 100;
-        this.setState({...this.state, downloadProgress: progress});
-      })
-      .then((res) => {
-        let status = res.info().status;
-        if (status == 200) {
-          let json = res.json();
-          LevelService.setLevelSource(json);
-          setTimeout(() => {
-            this.props.navigation.navigate('LevelMap');
-          }, 2000);
-        }
-      })
-      .catch((e) => {
-        console.log(e);
+    setTimeout(() => {
+      this.props.navigation.navigate('LevelMap', {
+        pack: LevelService.getPackWithId('1'),
       });
+    }, 1000);
+
+    // RNFetchBlob.fetch(
+    //   'GET',
+    //   'https://tegami-mountains-content.s3-eu-west-1.amazonaws.com/levels.json',
+    // )
+    //   .progress({count: 5}, (received, total) => {
+    //     const progress = (received / total) * 100;
+    //     this.setState({...this.state, downloadProgress: progress});
+    //   })
+    //   .then((res) => {
+    //     let status = res.info().status;
+    //     if (status == 200) {
+    //       let json = res.json();
+    //       LevelService.setLevelSource(json);
+    //       setTimeout(() => {
+    //         this.props.navigation.navigate('LevelMap');
+    //       }, 2000);
+    //     }
+    //   })
+    //   .catch((e) => {
+    //     console.log(e);
+    //   });
   }
 
   render() {

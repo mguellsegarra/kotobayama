@@ -11,6 +11,8 @@ import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
 import delayPromise from '@library/utils/delayPromise';
+import {Level, Pack} from '@library/services/levelService';
+
 import LettersBar, {
   LettersBarElement,
 } from '@library/components/game/lettersBar';
@@ -93,8 +95,10 @@ export default class LevelMap extends Component<Props, State> {
 
   render() {
     this.styles = getStyles();
-    const {levels, currentLevel} = this.props.route.params;
-    const level = levels[currentLevel];
+    const {currentLevel} = this.props.route.params;
+    const pack: Pack = this.props.route.params.pack;
+    const level: Level = pack.levels![currentLevel];
+    const levels: Array<Level> = pack.levels!;
 
     return (
       <LinearGradient
@@ -120,7 +124,7 @@ export default class LevelMap extends Component<Props, State> {
               style={this.styles.titleText}
               adjustsFontSizeToFit
               numberOfLines={1}>
-              Parc Nacional d'Aigüestortes i llac de Sant Maurici
+              {pack.title}
             </Text>
 
             <LevelIndexNumber
