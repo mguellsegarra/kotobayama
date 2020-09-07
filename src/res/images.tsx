@@ -28,6 +28,7 @@ export enum Images {
   'marker_7' = 'marker_7',
   'marker_8' = 'marker_8',
   'marker_9' = 'marker_9',
+  'mountain_bg' = 'mountain_bg',
   'ondori_logo' = 'ondori_logo',
   'option_letter' = 'option_letter',
   'photo_frame' = 'photo_frame',

@@ -177,8 +177,11 @@ export default class LevelMap extends Component<Props, State> {
             {
               opacity: this.state.fadeAnim,
             },
-          ]}
-        />
+          ]}>
+          <ImageBackground
+            source={R.img(Images.mountain_bg)}
+            style={this.styles.overlayLoad}></ImageBackground>
+        </Animated.View>
       </NoNotchView>
     );
   }

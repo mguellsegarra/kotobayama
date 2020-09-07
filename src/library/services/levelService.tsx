@@ -1,4 +1,3 @@
-const levelSource = require('@assets/levels');
 import {LatLng} from 'react-native-maps';
 import WordHelper from '../components/helpers/wordHelper';
 
@@ -35,14 +34,20 @@ type LevelServiceType = {
   getLevels: Function;
   inMemoryRandomLetters: MemoryRandomLetters;
   getLettersForWord: Function;
+  setLevelSource: Function;
+  levelSource: any;
 };
 
 const LevelService: LevelServiceType = {
   loaded: false,
   levels: [],
+  levelSource: [],
   inMemoryRandomLetters: {},
+  setLevelSource: (levelSource: string) => {
+    LevelService.levelSource = levelSource;
+  },
   init: () => {
-    LevelService.levels = levelSource.map((lvl: LevelSource) => {
+    LevelService.levels = LevelService.levelSource.map((lvl: LevelSource) => {
       return {
         id: lvl.id.toString(),
         word: lvl.word,
@@ -68,4 +73,5 @@ const LevelService: LevelServiceType = {
     return LevelService.inMemoryRandomLetters[word];
   },
 };
+
 export default LevelService;

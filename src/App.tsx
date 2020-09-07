@@ -8,6 +8,7 @@ import {
 } from '@react-navigation/stack';
 import LevelMap from '@screens/levelMap/levelMap';
 import Splash from '@screens/splash/splash';
+import Home from '@screens/home/home';
 import Game from '@screens/game/game';
 const Stack = createStackNavigator();
 
@@ -31,6 +32,7 @@ const App = () => {
           }),
         }}>
         <Stack.Screen name="Splash" component={Splash} />
+        <Stack.Screen name="Home" component={Home} />
         <Stack.Screen
           name="LevelMap"
           component={LevelMap}
