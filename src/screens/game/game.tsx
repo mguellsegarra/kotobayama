@@ -15,7 +15,7 @@ import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
 import {observer, inject} from 'mobx-react';
-import LevelStore from '@library/mobx/levelStore';
+import LevelStore from '@library/mobx/levelProgressStore';
 import CoinStore from '@library/mobx/coinsStore';
 
 import LettersBar, {

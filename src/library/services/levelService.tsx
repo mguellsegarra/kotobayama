@@ -19,36 +19,25 @@ export interface MemoryRandomLetters {
 }
 
 type LevelServiceType = {
-  loaded: boolean;
   levels: Array<Level>;
   packs: Array<Pack>;
-  inMemoryRandomLetters: MemoryRandomLetters;
-  getLettersForWord: Function;
   getPackWithId: Function;
   getLevelWithId: Function;
-  getPacks: Function;
-  getLevels: Function;
+  getLevelsForPack: Function;
+  inMemoryRandomLetters: MemoryRandomLetters;
+  getLettersForWord: Function;
 };
 
 const LevelService: LevelServiceType = {
-  loaded: false,
-  levels: [],
-  packs: [],
+  levels: levelSource.map((lvl: LevelSource) => {
+    return {
+      id: lvl.id,
+      word: lvl.word,
+      latlon: getCoordinateFromLatLonString(lvl.latlon),
+    };
+  }),
+  packs: packSource,
   inMemoryRandomLetters: {},
-  getPacks: () => {
-    return packSource;
-  },
-  getLevels: () => {
-    return levelSource.map((lvl: LevelSource) => {
-      return {
-        id: lvl.id,
-        word: lvl.word,
-        packId: lvl.packId.toString(),
-        latlon: getCoordinateFromLatLonString(lvl.latlon),
-        lives: 3,
-      };
-    });
-  },
   getPackWithId: (packId: string): Pack | undefined => {
     return packSource.find((pack: Pack) => {
       return pack?.id === packId;
@@ -57,6 +46,12 @@ const LevelService: LevelServiceType = {
   getLevelWithId: (id: string): Level | undefined => {
     return LevelService.levels.find((level: Level) => {
       return level?.id === id;
+    });
+  },
+  getLevelsForPack: (packId: string): Array<Level> => {
+    const pack = LevelService.getPackWithId(packId);
+    return pack.levels.map((levelId: string) => {
+      return LevelService.getLevelWithId(levelId);
     });
   },
   getLettersForWord: (word: string) => {

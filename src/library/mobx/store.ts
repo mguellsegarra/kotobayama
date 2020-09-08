@@ -1,10 +1,8 @@
-import LevelStore from './levelStore';
-import PackStore from './packStore';
+import LevelProgressStore from './levelProgressStore';
 import CoinStore from './coinsStore';
 
 class StoreRoot {
-  public levelStore = new LevelStore();
-  public packStore = new PackStore();
+  public levelProgressStore = new LevelProgressStore();
   public coinStore = new CoinStore();
 }
 
