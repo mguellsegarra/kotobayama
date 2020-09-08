@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
-import {View, Image} from 'react-native';
+import {Image} from 'react-native';
+import {View} from 'react-native-animatable';
 
 import R, {Images} from '@res/R';
 import {getStyles} from './livesIndicator.style';
@@ -9,6 +10,12 @@ type Props = {
 };
 
 export default class LivesIndicator extends Component<Props> {
+  containerView: any;
+
+  animate(animationType: string, duration: number) {
+    this.containerView.animate(animationType, duration);
+  }
+
   render() {
     const styles = getStyles();
 
@@ -38,7 +45,12 @@ export default class LivesIndicator extends Component<Props> {
     const currentImages = imagesForLifes[this.props.lives];
 
     return (
-      <View style={styles.container}>
+      <View
+        style={styles.container}
+        ref={(ref) => {
+          this.containerView = ref;
+        }}
+        useNativeDriver>
         <Image style={styles.image} source={R.img(currentImages.first)} />
         <Image style={styles.image} source={R.img(currentImages.second)} />
         <Image style={styles.image} source={R.img(currentImages.third)} />

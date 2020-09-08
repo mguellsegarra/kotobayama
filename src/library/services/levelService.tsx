@@ -1,7 +1,7 @@
 import {LatLng} from 'react-native-maps';
 import WordHelper from '../components/helpers/wordHelper';
 import {Level, LevelSource} from '@library/models/level';
-import {Pack, PackSource} from '@library/models/pack';
+import {Pack} from '@library/models/pack';
 
 const levelSource = require('@assets/levels');
 const packSource = require('@assets/packs');
@@ -22,12 +22,12 @@ type LevelServiceType = {
   loaded: boolean;
   levels: Array<Level>;
   packs: Array<Pack>;
-  init: Function;
   inMemoryRandomLetters: MemoryRandomLetters;
   getLettersForWord: Function;
   getPackWithId: Function;
   getLevelWithId: Function;
   getPacks: Function;
+  getLevels: Function;
 };
 
 const LevelService: LevelServiceType = {
@@ -35,50 +35,22 @@ const LevelService: LevelServiceType = {
   levels: [],
   packs: [],
   inMemoryRandomLetters: {},
-  init: () => {
-    LevelService.levels = levelSource.map((lvl: LevelSource) => {
-      return {
-        id: lvl.id,
-        word: lvl.word,
-        packId: lvl.packId.toString(),
-        latlon: getCoordinateFromLatLonString(lvl.latlon),
-      };
-    });
-
-    LevelService.packs = packSource.map((pack: PackSource) => {
-      return {
-        id: pack.id,
-        title: pack.title,
-        levels: LevelService.levels.filter((lvl: Level) => {
-          return lvl?.packId === pack.id.toString();
-        }),
-      };
-    });
-  },
   getPacks: () => {
-    LevelService.levels = levelSource.map((lvl: LevelSource) => {
+    return packSource;
+  },
+  getLevels: () => {
+    return levelSource.map((lvl: LevelSource) => {
       return {
         id: lvl.id,
         word: lvl.word,
         packId: lvl.packId.toString(),
         latlon: getCoordinateFromLatLonString(lvl.latlon),
+        lives: 3,
       };
     });
-
-    LevelService.packs = packSource.map((pack: PackSource) => {
-      return {
-        id: pack.id,
-        title: pack.title,
-        levels: LevelService.levels.filter((lvl: Level) => {
-          return lvl?.packId === pack.id.toString();
-        }),
-      };
-    });
-
-    return LevelService.packs;
   },
   getPackWithId: (packId: string): Pack | undefined => {
-    return LevelService.packs.find((pack: Pack) => {
+    return packSource.find((pack: Pack) => {
       return pack?.id === packId;
     });
   },

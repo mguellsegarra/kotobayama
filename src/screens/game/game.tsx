@@ -15,8 +15,8 @@ import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
 import {observer, inject} from 'mobx-react';
-import { toJS } from 'mobx';
 import LevelStore from '@library/mobx/levelStore';
+import CoinStore from '@library/mobx/coinsStore';
 
 import LettersBar, {
   LettersBarElement,
@@ -33,20 +33,25 @@ import {
   SolutionLetterState,
 } from '@library/components/game/solutionLetter';
 
+import LevelService from '@library/services/levelService';
+
 type Props = {
   navigation: any;
   route: any;
   levelStore: LevelStore;
+  coinStore: CoinStore;
 };
 type State = {};
 
 @inject('levelStore')
+@inject('coinStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
   styles: any;
   mapLayer: any;
   solutionBar: SolutionBarElement | SolutionBar | null;
   lettersBar: LettersBarElement | LettersBar | null;
+  livesIndicator: LivesIndicator | null;
 
   state = {};
 
@@ -55,11 +60,15 @@ export default class LevelMap extends Component<Props, State> {
     this.styles = {};
     this.solutionBar = null;
     this.lettersBar = null;
+    this.livesIndicator = null;
     this.availableLetterHasTapped = this.availableLetterHasTapped.bind(this);
     this.solutionLetterHasTapped = this.solutionLetterHasTapped.bind(this);
   }
 
   async availableLetterHasTapped(letter: AvailableLetterType) {
+    const {currentLevel} = this.props.route.params;
+    const level: Level = this.props.levelStore.levels![currentLevel]!;
+
     if (this.solutionBar?.allLettersAreFull()) {
       return;
     }
@@ -75,13 +84,24 @@ export default class LevelMap extends Component<Props, State> {
     if (this.solutionBar?.isWordCorrect()) {
       // TODO: Add coins
       // TODO: Correct screen
+      this.props.coinStore.incrementCoins(level.lives * 25);
+
       this.solutionBar?.animateLetters('flash', 1000);
       await delayPromise(1000);
       this.props.navigation.goBack();
     } else {
       Vibration.vibrate(1000);
       this.solutionBar?.animateLetters('shake', 1000);
-      // TODO: Restar vida
+
+      this.props.levelStore.decrementLivesForLevel(level.id);
+      this.livesIndicator?.animate('tada', 1000);
+
+      if (level.lives === 0) {
+        await delayPromise(500);
+        this.props.navigation.goBack();
+        return;
+      }
+
       // TODO: Restar coins
       await delayPromise(1000);
 
@@ -105,12 +125,10 @@ export default class LevelMap extends Component<Props, State> {
     this.styles = getStyles();
     const {currentLevel} = this.props.route.params;
     const packId: string = this.props.route.params.packId;
-    const pack = toJS(this.props.levelStore.packs).find((pack: Pack) => {
-      return pack.id === packId;
-    });
+    const pack: Pack = LevelService.getPackWithId(packId);
 
-    const level: Level = pack?.levels![currentLevel]!;
-    const levels: Array<Level> = pack?.levels!;
+    const level: Level = this.props.levelStore.levels![currentLevel]!;
+    const levels: Array<Level> = this.props.levelStore.levels!;
 
     return (
       <LinearGradient
@@ -125,10 +143,18 @@ export default class LevelMap extends Component<Props, State> {
                 onPress={this.props.navigation.goBack}></CircleButton>
             </View>
             <View style={this.styles.navBarMiddle}>
-              <LivesIndicator lives={1} />
+              <LivesIndicator
+                ref={(ref) => {
+                  this.livesIndicator = ref;
+                }}
+                lives={level.lives}
+              />
             </View>
             <View style={this.styles.navBarRight}>
-              <CoinCounter totalCoins={200} onPress={() => {}} />
+              <CoinCounter
+                totalCoins={this.props.coinStore.coins}
+                onPress={() => {}}
+              />
             </View>
           </View>
           <View style={this.styles.titleBar}>

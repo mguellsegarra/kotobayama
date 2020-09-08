@@ -12,4 +12,5 @@ export type Level = {
   word: string;
   packId: string;
   latlon: LatLng;
+  lives: number;
 };

@@ -86,7 +86,9 @@ export default class LevelChooser extends Component<Props> {
                 style={styles.detailRightCellImage}
                 source={R.img(Images.heart_icon_details)}
               />
-              <Text style={styles.detailRightText}>3/3</Text>
+              <Text style={styles.detailRightText}>
+                {this.props.levels[this.props.currentLevel].lives + '/3'}
+              </Text>
             </View>
           </View>
         </LinearGradient>

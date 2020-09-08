@@ -7,6 +7,7 @@ import R, {Images} from '@res/R';
 
 import {strings} from '@library/services/i18nService';
 import MapLayer from '@library/components/map/mapLayer';
+import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
 import LevelChooser from '@library/components/map/levelChooser';
@@ -16,8 +17,9 @@ import RectButton, {
 import CircleButton from '@library/components/button/circleButton';
 
 import {observer, inject} from 'mobx-react';
-import { toJS } from 'mobx';
+import {toJS} from 'mobx';
 import LevelStore from '@library/mobx/levelStore';
+import LevelService from '@library/services/levelService';
 
 type State = {
   mapNavigationMode: boolean;
@@ -37,6 +39,7 @@ export default class LevelMap extends Component<Props, State> {
   styles: any;
   mapLayer: any;
   packId: string;
+  pack: Pack;
 
   constructor(props: Props) {
     super(props);
@@ -48,7 +51,8 @@ export default class LevelMap extends Component<Props, State> {
 
     const {packId} = this.props.route.params;
     this.packId = packId;
-    this.getPack = this.getPack.bind(this);
+    this.pack = LevelService.getPackWithId(this.packId);
+    this.getLevels = this.getLevels.bind(this);
 
     this.state = {
       mapNavigationMode: false,
@@ -68,7 +72,7 @@ export default class LevelMap extends Component<Props, State> {
 
   setNextLevel() {
     let nextLevel: number;
-    if (this.state.currentLevel === this.getPack()?.levels!.length! - 1) {
+    if (this.state.currentLevel === this.getLevels().length! - 1) {
       nextLevel = 0;
     } else {
       nextLevel = this.state.currentLevel + 1;
@@ -79,7 +83,7 @@ export default class LevelMap extends Component<Props, State> {
   setPrevLevel() {
     let nextLevel: number;
     if (this.state.currentLevel === 0) {
-      nextLevel = this.getPack()?.levels!.length! - 1;
+      nextLevel = this.getLevels().length! - 1;
     } else {
       nextLevel = this.state.currentLevel - 1;
     }
@@ -107,11 +111,10 @@ export default class LevelMap extends Component<Props, State> {
     }
   }
 
-  getPack() {
-    const pack = toJS(this.props.levelStore.packs).find((pack: Pack) => {
-      return pack.id === this.packId;
+  getLevels() {
+    return toJS(this.props.levelStore.levels).filter((level: Level) => {
+      return level.packId === this.packId;
     });
-    return pack;
   }
 
   render() {
@@ -124,7 +127,7 @@ export default class LevelMap extends Component<Props, State> {
             ref={(ref: any) => {
               this.mapLayer = ref;
             }}
-            levels={this.getPack()?.levels!}
+            levels={this.getLevels()!}
             controlsEnabled={this.state.mapNavigationMode}
             onPanDrag={this.onMapPanDrag}
             onMapLoaded={this.mapLoaded}
@@ -136,7 +139,7 @@ export default class LevelMap extends Component<Props, State> {
                 source={R.img(Images.map_title_container)}
                 style={this.styles.mapTitleContainerImage}>
                 <Text style={this.styles.mapTitleText}>
-                  {this.getPack()?.title}
+                  {this.pack.title}
                 </Text>
               </ImageBackground>
             </View>
@@ -182,7 +185,7 @@ export default class LevelMap extends Component<Props, State> {
 
           <LevelChooser
             currentLevel={this.state.currentLevel}
-            levels={this.getPack()?.levels!}
+            levels={this.getLevels()!}
             hide={this.state.mapNavigationMode}
             onNextLevel={this.setNextLevel}
             onPrevLevel={this.setPrevLevel}

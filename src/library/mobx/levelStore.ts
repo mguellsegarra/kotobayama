@@ -1,17 +1,25 @@
 import {observable, action, IObservableArray} from 'mobx';
-import {Level, LevelSource} from '@library/models/level';
-import {Pack, PackSource} from '@library/models/pack';
+import {Level} from '@library/models/level';
 import LevelService from '@library/services/levelService';
 
 export default class LevelStore {
-  @observable public packs: Pack[] = [];
+  @observable public levels: Level[] = [];
 
   constructor() {
-    this.packs = [...LevelService.getPacks()];
+    this.levels = [...LevelService.getLevels()];
   }
 
   @action
-  updatePacks = (packs: any) => {
-    this.packs = packs;
+  decrementLivesForLevel = (levelId: any) => {
+    let lvlIdx = 0;
+
+    const level = this.levels.find((lvl, idx) => {
+      const found = levelId === lvl.id;
+      if (found) lvlIdx = idx;
+      return found;
+    });
+
+    level!.lives--;
+    this.levels[lvlIdx] = level!;
   };
 }
