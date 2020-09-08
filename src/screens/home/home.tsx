@@ -25,7 +25,7 @@ export default class Splash extends Component<Props, State> {
   componentDidMount() {
     setTimeout(() => {
       this.props.navigation.navigate('LevelMap', {
-        pack: LevelService.getPackWithId('1'),
+        packId: '1',
       });
     }, 1000);
 

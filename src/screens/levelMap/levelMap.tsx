@@ -7,7 +7,7 @@ import R, {Images} from '@res/R';
 
 import {strings} from '@library/services/i18nService';
 import MapLayer from '@library/components/map/mapLayer';
-import LevelService, {Level, Pack} from '@library/services/levelService';
+import {Pack} from '@library/models/pack';
 
 import LevelChooser from '@library/components/map/levelChooser';
 import RectButton, {
@@ -15,21 +15,28 @@ import RectButton, {
 } from '@library/components/button/rectButton';
 import CircleButton from '@library/components/button/circleButton';
 
+import {observer, inject} from 'mobx-react';
+import { toJS } from 'mobx';
+import LevelStore from '@library/mobx/levelStore';
+
 type State = {
   mapNavigationMode: boolean;
   currentLevel: number;
-  pack: Pack;
   fadeAnim: Animated.Value;
 };
 
 type Props = {
   navigation: any;
   route: any;
+  levelStore: LevelStore;
 };
 
+@inject('levelStore')
+@observer
 export default class LevelMap extends Component<Props, State> {
   styles: any;
   mapLayer: any;
+  packId: string;
 
   constructor(props: Props) {
     super(props);
@@ -39,13 +46,14 @@ export default class LevelMap extends Component<Props, State> {
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
     this.mapLoaded = this.mapLoaded.bind(this);
 
-    const {pack} = this.props.route.params;
+    const {packId} = this.props.route.params;
+    this.packId = packId;
+    this.getPack = this.getPack.bind(this);
 
     this.state = {
       mapNavigationMode: false,
       currentLevel: 0,
       fadeAnim: new Animated.Value(1),
-      pack,
     };
   }
 
@@ -60,7 +68,7 @@ export default class LevelMap extends Component<Props, State> {
 
   setNextLevel() {
     let nextLevel: number;
-    if (this.state.currentLevel === this.state.pack.levels!.length - 1) {
+    if (this.state.currentLevel === this.getPack()?.levels!.length! - 1) {
       nextLevel = 0;
     } else {
       nextLevel = this.state.currentLevel + 1;
@@ -71,7 +79,7 @@ export default class LevelMap extends Component<Props, State> {
   setPrevLevel() {
     let nextLevel: number;
     if (this.state.currentLevel === 0) {
-      nextLevel = this.state.pack.levels!.length - 1;
+      nextLevel = this.getPack()?.levels!.length! - 1;
     } else {
       nextLevel = this.state.currentLevel - 1;
     }
@@ -99,6 +107,13 @@ export default class LevelMap extends Component<Props, State> {
     }
   }
 
+  getPack() {
+    const pack = toJS(this.props.levelStore.packs).find((pack: Pack) => {
+      return pack.id === this.packId;
+    });
+    return pack;
+  }
+
   render() {
     this.styles = getStyles();
 
@@ -109,7 +124,7 @@ export default class LevelMap extends Component<Props, State> {
             ref={(ref: any) => {
               this.mapLayer = ref;
             }}
-            levels={this.state.pack.levels!}
+            levels={this.getPack()?.levels!}
             controlsEnabled={this.state.mapNavigationMode}
             onPanDrag={this.onMapPanDrag}
             onMapLoaded={this.mapLoaded}
@@ -121,7 +136,7 @@ export default class LevelMap extends Component<Props, State> {
                 source={R.img(Images.map_title_container)}
                 style={this.styles.mapTitleContainerImage}>
                 <Text style={this.styles.mapTitleText}>
-                  {this.state.pack.title}
+                  {this.getPack()?.title}
                 </Text>
               </ImageBackground>
             </View>
@@ -143,7 +158,7 @@ export default class LevelMap extends Component<Props, State> {
             style={this.styles.playButtonOverlay}
             onPress={() => {
               this.props.navigation.navigate('Game', {
-                pack: this.state.pack,
+                packId: this.packId,
                 currentLevel: this.state.currentLevel,
               });
             }}
@@ -167,7 +182,7 @@ export default class LevelMap extends Component<Props, State> {
 
           <LevelChooser
             currentLevel={this.state.currentLevel}
-            levels={this.state.pack.levels!}
+            levels={this.getPack()?.levels!}
             hide={this.state.mapNavigationMode}
             onNextLevel={this.setNextLevel}
             onPrevLevel={this.setPrevLevel}

@@ -1,5 +1,8 @@
 import {LatLng} from 'react-native-maps';
 import WordHelper from '../components/helpers/wordHelper';
+import {Level, LevelSource} from '@library/models/level';
+import {Pack, PackSource} from '@library/models/pack';
+
 const levelSource = require('@assets/levels');
 const packSource = require('@assets/packs');
 
@@ -9,32 +12,6 @@ const getCoordinateFromLatLonString = (latLonString: string): LatLng => {
     latitude: parseFloat(splitted[0]),
     longitude: parseFloat(splitted[1]),
   };
-};
-
-export type LevelSource = {
-  id: string;
-  word: string;
-  packId: number;
-  latlon: string;
-};
-
-export type Level = {
-  id: string;
-  word: string;
-  packId: string;
-  latlon: LatLng;
-};
-
-export type PackSource = {
-  id: string;
-  title: string;
-  levels: Array<string>;
-};
-
-export type Pack = {
-  id: string;
-  title: string;
-  levels: Array<Level> | undefined;
 };
 
 export interface MemoryRandomLetters {
@@ -50,6 +27,7 @@ type LevelServiceType = {
   getLettersForWord: Function;
   getPackWithId: Function;
   getLevelWithId: Function;
+  getPacks: Function;
 };
 
 const LevelService: LevelServiceType = {
@@ -77,7 +55,29 @@ const LevelService: LevelServiceType = {
       };
     });
   },
-  getPackWithId: (packId: string): Pack | undefined => {
+  getPacks: () => {
+    LevelService.levels = levelSource.map((lvl: LevelSource) => {
+      return {
+        id: lvl.id,
+        word: lvl.word,
+        packId: lvl.packId.toString(),
+        latlon: getCoordinateFromLatLonString(lvl.latlon),
+      };
+    });
+
+    LevelService.packs = packSource.map((pack: PackSource) => {
+      return {
+        id: pack.id,
+        title: pack.title,
+        levels: LevelService.levels.filter((lvl: Level) => {
+          return lvl?.packId === pack.id.toString();
+        }),
+      };
+    });
+
+    return LevelService.packs;
+  },
+  getPackWithId: (packId: string): Pack | undefined => {
     return LevelService.packs.find((pack: Pack) => {
       return pack?.id === packId;
     });

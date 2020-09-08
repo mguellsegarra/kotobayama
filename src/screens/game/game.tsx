@@ -11,7 +11,12 @@ import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
 import delayPromise from '@library/utils/delayPromise';
-import {Level, Pack} from '@library/services/levelService';
+import {Level} from '@library/models/level';
+import {Pack} from '@library/models/pack';
+
+import {observer, inject} from 'mobx-react';
+import { toJS } from 'mobx';
+import LevelStore from '@library/mobx/levelStore';
 
 import LettersBar, {
   LettersBarElement,
@@ -31,9 +36,12 @@ import {
 type Props = {
   navigation: any;
   route: any;
+  levelStore: LevelStore;
 };
 type State = {};
 
+@inject('levelStore')
+@observer
 export default class LevelMap extends Component<Props, State> {
   styles: any;
   mapLayer: any;
@@ -96,9 +104,13 @@ export default class LevelMap extends Component<Props, State> {
   render() {
     this.styles = getStyles();
     const {currentLevel} = this.props.route.params;
-    const pack: Pack = this.props.route.params.pack;
-    const level: Level = pack.levels![currentLevel];
-    const levels: Array<Level> = pack.levels!;
+    const packId: string = this.props.route.params.packId;
+    const pack = toJS(this.props.levelStore.packs).find((pack: Pack) => {
+      return pack.id === packId;
+    });
+
+    const level: Level = pack?.levels![currentLevel]!;
+    const levels: Array<Level> = pack?.levels!;
 
     return (
       <LinearGradient
@@ -124,7 +136,7 @@ export default class LevelMap extends Component<Props, State> {
               style={this.styles.titleText}
               adjustsFontSizeToFit
               numberOfLines={1}>
-              {pack.title}
+              {pack?.title!}
             </Text>
 
             <LevelIndexNumber
