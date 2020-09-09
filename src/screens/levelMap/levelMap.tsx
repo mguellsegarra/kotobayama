@@ -17,12 +17,15 @@ import RectButton, {
 import CircleButton from '@library/components/button/circleButton';
 
 import {observer, inject} from 'mobx-react';
-import LevelProgressStore from '@library/mobx/levelProgressStore';
+import LevelProgressStore, {
+  getFirstIncompleteLevelIdForPack,
+} from '@library/mobx/levelProgressStore';
+import LevelMapStore from '@library/mobx/levelMapStore';
+
 import LevelService from '@library/services/levelService';
 
 type State = {
   mapNavigationMode: boolean;
-  currentLevel: number;
   fadeAnim: Animated.Value;
 };
 
@@ -30,9 +33,11 @@ type Props = {
   navigation: any;
   route: any;
   levelProgressStore: LevelProgressStore;
+  levelMapStore: LevelMapStore;
 };
 
 @inject('levelProgressStore')
+@inject('levelMapStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
   styles: any;
@@ -40,23 +45,26 @@ export default class LevelMap extends Component<Props, State> {
   packId: string;
   pack: Pack;
   levels: Array<Level>;
+  prevCurrentLevel: number;
 
   constructor(props: Props) {
     super(props);
     this.styles = {};
-    this.setNextLevel = this.setNextLevel.bind(this);
-    this.setPrevLevel = this.setPrevLevel.bind(this);
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
     this.mapLoaded = this.mapLoaded.bind(this);
+    this.getCurrentLevel = this.getCurrentLevel.bind(this);
 
     const {packId} = this.props.route.params;
     this.packId = packId;
     this.pack = LevelService.getPackWithId(this.packId);
     this.levels = LevelService.getLevelsForPack(packId);
 
+    const {idx} = this.getFirstIncompleteLevel();
+    this.props.levelMapStore.setCurrentLevelForPack(idx, this.pack);
+    this.prevCurrentLevel = idx;
+
     this.state = {
       mapNavigationMode: false,
-      currentLevel: 0,
       fadeAnim: new Animated.Value(1),
     };
   }
@@ -70,37 +78,39 @@ export default class LevelMap extends Component<Props, State> {
     }).start();
   }
 
-  setNextLevel() {
-    let nextLevel: number;
-    if (this.state.currentLevel === this.levels.length! - 1) {
-      nextLevel = 0;
-    } else {
-      nextLevel = this.state.currentLevel + 1;
-    }
-    this.setCurrentLevel(nextLevel);
+  // setCurrentLevel(level: number) {
+  //   this.setState(
+  //     {
+  //       ...this.state,
+  //       currentLevel: level,
+  //     },
+  //     () => {
+  //       this.mapLayer.setCurrentLevel(level);
+  //       this.mapLayer.resetToLevel();
+  //     },
+  //   );
+  // }
+
+  componentDidMount() {
+    this.updateMapLayer();
   }
 
-  setPrevLevel() {
-    let nextLevel: number;
-    if (this.state.currentLevel === 0) {
-      nextLevel = this.levels.length! - 1;
-    } else {
-      nextLevel = this.state.currentLevel - 1;
+  componentDidUpdate() {
+    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack[
+      this.pack.id
+    ];
+    if (this.prevCurrentLevel !== actualCurrentLevel) {
+      this.updateMapLayer();
+      this.prevCurrentLevel = actualCurrentLevel;
     }
-    this.setCurrentLevel(nextLevel);
   }
 
-  setCurrentLevel(level: number) {
-    this.setState(
-      {
-        ...this.state,
-        currentLevel: level,
-      },
-      () => {
-        this.mapLayer.setCurrentLevel(level);
-        this.mapLayer.resetToLevel();
-      },
-    );
+  updateMapLayer() {
+    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack[
+      this.pack.id
+    ];
+    this.mapLayer.setCurrentLevel(actualCurrentLevel);
+    this.mapLayer.resetToLevel();
   }
 
   onMapPanDrag() {
@@ -109,6 +119,30 @@ export default class LevelMap extends Component<Props, State> {
         mapNavigationMode: !this.state.mapNavigationMode,
       });
     }
+  }
+
+  getFirstIncompleteLevel() {
+    let levelIdx: number = 0;
+
+    const { levelId } = getFirstIncompleteLevelIdForPack(
+      this.props.levelProgressStore.levelsProgress,
+      this.pack,
+    );
+
+    const level = this.levels.find((lvl, lvlIdx) => {
+      const found = lvl.id === levelId;
+
+      if (found) {
+        levelIdx = lvlIdx;
+      }
+      return found;
+    });
+
+    return {idx: levelIdx, level};
+  }
+
+  getCurrentLevel() {
+    return this.props.levelMapStore.currentLevelForPack[this.packId];
   }
 
   render() {
@@ -155,7 +189,7 @@ export default class LevelMap extends Component<Props, State> {
               this.props.navigation.navigate('Game', {
                 packId: this.packId,
                 levels: this.levels,
-                currentLevel: this.state.currentLevel,
+                currentLevel: this.getCurrentLevel(),
               });
             }}
           />
@@ -177,12 +211,18 @@ export default class LevelMap extends Component<Props, State> {
           />
 
           <LevelChooser
-            currentLevel={this.state.currentLevel}
+            currentLevel={this.getCurrentLevel()}
             levels={this.levels}
             packId={this.packId}
             hide={this.state.mapNavigationMode}
-            onNextLevel={this.setNextLevel}
-            onPrevLevel={this.setPrevLevel}
+            onNextLevel={() => {
+              this.props.levelMapStore.nextLevelForPack(this.pack);
+              // this.updateMapLayer();
+            }}
+            onPrevLevel={() => {
+              this.props.levelMapStore.prevLevelForPack(this.pack);
+              // this.updateMapLayer();
+            }}
           />
         </View>
         <Animated.View

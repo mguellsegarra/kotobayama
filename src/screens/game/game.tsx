@@ -19,6 +19,7 @@ import LevelProgressStore, {
   getLevelProgress,
 } from '@library/mobx/levelProgressStore';
 import CoinStore from '@library/mobx/coinsStore';
+import LevelMapStore from '@library/mobx/levelMapStore';
 
 import LettersBar, {
   LettersBarElement,
@@ -36,17 +37,20 @@ import {
 } from '@library/components/game/solutionLetter';
 
 import LevelService from '@library/services/levelService';
+import SyncService from '@library/services/syncService';
 
 type Props = {
   navigation: any;
   route: any;
   levelProgressStore: LevelProgressStore;
   coinStore: CoinStore;
+  levelMapStore: LevelMapStore;
 };
 type State = {};
 
 @inject('levelProgressStore')
 @inject('coinStore')
+@inject('levelMapStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
   styles: any;
@@ -99,8 +103,16 @@ export default class LevelMap extends Component<Props, State> {
       // TODO: Correct screen
       this.props.coinStore.incrementCoins(this.getLevelProgress()?.lives! * 25);
 
+      this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
+
       this.solutionBar?.animateLetters('flash', 1000);
       await delayPromise(1000);
+
+      this.props.levelMapStore.nextIncompleteLevelForPack(
+        this.props.levelProgressStore.levelsProgress,
+        this.pack,
+      );
+
       this.props.navigation.goBack();
     } else {
       Vibration.vibrate(1000);
@@ -128,6 +140,8 @@ export default class LevelMap extends Component<Props, State> {
 
       this.solutionBar?.removeAllLetters();
     }
+
+    SyncService.persistLevelsProgress(this.props.levelProgressStore);
   }
 
   solutionLetterHasTapped(letter: SolutionLetterType) {
