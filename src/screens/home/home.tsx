@@ -5,6 +5,7 @@ import * as Progress from 'react-native-progress';
 
 import R, {Images} from '@res/R';
 import LevelProgressStore from '@library/mobx/levelProgressStore';
+import UserStore from '@library/mobx/userStore';
 import {observer, inject} from 'mobx-react';
 import SyncService from '@library/services/syncService';
 
@@ -14,6 +15,7 @@ import {isTablet} from 'react-native-device-info';
 type Props = {
   navigation: any;
   levelProgressStore: LevelProgressStore;
+  userStore: UserStore;
 };
 
 type State = {
@@ -21,6 +23,7 @@ type State = {
 };
 
 @inject('levelProgressStore')
+@inject('userStore')
 @observer
 export default class Splash extends Component<Props, State> {
   styles: any;
@@ -29,8 +32,9 @@ export default class Splash extends Component<Props, State> {
   };
 
   componentDidMount() {
-    SyncService.hydrateLevelsProgress(
+    SyncService.hydrate(
       this.props.levelProgressStore,
+      this.props.userStore,
       (progress: number) => {
         this.setState({...this.state, downloadProgress: progress});
       },

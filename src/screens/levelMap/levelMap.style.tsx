@@ -26,7 +26,7 @@ const getStyles: any = () => {
     const navbarHeight = hp('5%');
   const backButtonSize = hp('5%');
   const navbarMarginTop =
-    Platform.OS === 'ios' && DeviceInfo.hasNotch() ? 44 : 0;
+    Platform.OS === 'ios' && DeviceInfo.hasNotch() ? 44 : 5;
 
   const playButtonOverlayBottomMargin = hp('2%');
   const yBackButton =

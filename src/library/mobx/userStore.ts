@@ -1,4 +1,5 @@
-import {observable, action} from 'mobx';
+import {observable, action, autorun} from 'mobx';
+import SyncService from '@library/services/syncService';
 
 export enum MapStyleMode {
   Sat = 'sat',
@@ -7,21 +8,28 @@ export enum MapStyleMode {
 
 export default class UserStore {
   @observable public coins: number = 200;
-  @observable public mapStyleMode: MapStyleMode = MapStyleMode.Sat;
+  @observable public mapStyleMode: MapStyleMode = MapStyleMode.Topo;
 
   @action
   decrementCoins = (amount: number) => {
     this.coins -= amount;
+    SyncService.persistUser(this);
   };
 
   @action
   incrementCoins = (amount: number) => {
     this.coins += amount;
+    SyncService.persistUser(this);
   };
 
   @action
   setMapStyleMode = (mapStyleMode: MapStyleMode) => {
     this.mapStyleMode = mapStyleMode;
+  };
+
+  @action
+  setCoins = (coins: number) => {
+    this.coins = coins;
   };
 
   @action
@@ -31,5 +39,6 @@ export default class UserStore {
     } else {
       this.setMapStyleMode(MapStyleMode.Sat);
     }
+    SyncService.persistUser(this);
   };
 }
