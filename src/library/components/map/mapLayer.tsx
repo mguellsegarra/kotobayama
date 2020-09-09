@@ -12,6 +12,7 @@ type Props = {
   levels: Array<Level>;
   onPanDrag: Function;
   onMapLoaded: Function;
+  initialLevel: number;
 };
 
 type State = {
@@ -35,7 +36,7 @@ export default class MapLayer extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.currentLevel = 0;
+    this.currentLevel = this.props.initialLevel;
   }
 
   componentDidMount() {}

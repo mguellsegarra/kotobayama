@@ -124,7 +124,7 @@ export default class LevelMap extends Component<Props, State> {
   getFirstIncompleteLevel() {
     let levelIdx: number = 0;
 
-    const { levelId } = getFirstIncompleteLevelIdForPack(
+    const {levelId} = getFirstIncompleteLevelIdForPack(
       this.props.levelProgressStore.levelsProgress,
       this.pack,
     );
@@ -155,6 +155,7 @@ export default class LevelMap extends Component<Props, State> {
             ref={(ref: any) => {
               this.mapLayer = ref;
             }}
+            initialLevel={this.getCurrentLevel()}
             levels={this.levels}
             controlsEnabled={this.state.mapNavigationMode}
             onPanDrag={this.onMapPanDrag}
@@ -217,11 +218,9 @@ export default class LevelMap extends Component<Props, State> {
             hide={this.state.mapNavigationMode}
             onNextLevel={() => {
               this.props.levelMapStore.nextLevelForPack(this.pack);
-              // this.updateMapLayer();
             }}
             onPrevLevel={() => {
               this.props.levelMapStore.prevLevelForPack(this.pack);
-              // this.updateMapLayer();
             }}
           />
         </View>
