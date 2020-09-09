@@ -1,11 +1,16 @@
 import React, {Component} from 'react';
-import MapView, {PROVIDER_GOOGLE} from 'react-native-maps';
+import MapView, {PROVIDER_GOOGLE, UrlTile, MapTypes} from 'react-native-maps';
+const MapSettings = require('@assets/mapSettings');
 
-import {Level} from '@library/models/level'
+import {Level} from '@library/models/level';
 
-import {getStyles} from './mapLayer.style';
+import {styles} from './mapLayer.style';
 
 import LevelMarker from './levelMarker';
+import {MapStyleMode} from '@library/mobx/userStore';
+
+import {observer, inject} from 'mobx-react';
+import UserStore from '@library/mobx/userStore';
 
 type Props = {
   controlsEnabled: boolean;
@@ -13,6 +18,7 @@ type Props = {
   onPanDrag: Function;
   onMapLoaded: Function;
   initialLevel: number;
+  userStore?: UserStore;
 };
 
 type State = {
@@ -23,6 +29,19 @@ type State = {
 
 const paddingConstant = 0.99989;
 
+const mapOptionsForMode = {
+  sat: {
+    type: 'satellite',
+    mapStyle: undefined,
+  },
+  topo: {
+    type: 'standard',
+    mapStyle: MapSettings.mapStyle,
+  },
+};
+
+@inject('userStore')
+@observer
 export default class MapLayer extends Component<Props, State> {
   state = {
     allIds: [],
@@ -30,7 +49,6 @@ export default class MapLayer extends Component<Props, State> {
     mapReady: false,
   };
 
-  styles: any;
   map: any;
   currentLevel: number;
 
@@ -61,7 +79,7 @@ export default class MapLayer extends Component<Props, State> {
 
     return (
       <MapView
-        style={this.styles.map}
+        style={styles.map}
         provider={PROVIDER_GOOGLE}
         ref={(ref) => {
           this.map = ref;
@@ -78,7 +96,13 @@ export default class MapLayer extends Component<Props, State> {
           altitude: 1000,
           zoom: 14,
         }}
-        mapType={'satellite'}
+        mapType={
+          mapOptionsForMode[this.props.userStore?.mapStyleMode!]
+            .type as MapTypes
+        }
+        customMapStyle={
+          mapOptionsForMode[this.props.userStore?.mapStyleMode!].mapStyle
+        }
         rotateEnabled={false}
         pitchEnabled={false}
         scrollEnabled={true}
@@ -117,14 +141,15 @@ export default class MapLayer extends Component<Props, State> {
             });
           }, 100);
         }}>
+        {this.props.userStore?.mapStyleMode === MapStyleMode.Topo ? (
+          <UrlTile urlTemplate={MapSettings.urlMapTile} />
+        ) : null}
         {this.state.markers}
       </MapView>
     );
   }
 
   render() {
-    this.styles = getStyles();
-
     return this.getMapView();
   }
 }

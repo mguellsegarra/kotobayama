@@ -8,4 +8,6 @@ const getStyles = () => {
   });
 };
 
-export {getStyles};
+const styles = getStyles();
+
+export {styles};

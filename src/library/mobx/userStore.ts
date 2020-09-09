@@ -1,5 +1,9 @@
 import {observable, action} from 'mobx';
-import {MapStyleMode} from '@library/components/map/mapStyleButton';
+
+export enum MapStyleMode {
+  Sat = 'sat',
+  Topo = 'topo',
+}
 
 export default class UserStore {
   @observable public coins: number = 200;
