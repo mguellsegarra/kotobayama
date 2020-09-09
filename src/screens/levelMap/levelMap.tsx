@@ -17,7 +17,6 @@ import RectButton, {
 import CircleButton from '@library/components/button/circleButton';
 
 import {observer, inject} from 'mobx-react';
-import {toJS} from 'mobx';
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import LevelService from '@library/services/levelService';
 
@@ -112,12 +111,6 @@ export default class LevelMap extends Component<Props, State> {
     }
   }
 
-  getLevelsProgress() {
-    // return toJS(this.props.levelStore.levels).filter((level: Level) => {
-    //   return level.packId === this.packId;
-    // });
-  }
-
   render() {
     this.styles = getStyles();
 
@@ -139,9 +132,7 @@ export default class LevelMap extends Component<Props, State> {
               <ImageBackground
                 source={R.img(Images.map_title_container)}
                 style={this.styles.mapTitleContainerImage}>
-                <Text style={this.styles.mapTitleText}>
-                  {this.pack.title}
-                </Text>
+                <Text style={this.styles.mapTitleText}>{this.pack.title}</Text>
               </ImageBackground>
             </View>
           )}
@@ -163,6 +154,7 @@ export default class LevelMap extends Component<Props, State> {
             onPress={() => {
               this.props.navigation.navigate('Game', {
                 packId: this.packId,
+                levels: this.levels,
                 currentLevel: this.state.currentLevel,
               });
             }}
@@ -187,6 +179,7 @@ export default class LevelMap extends Component<Props, State> {
           <LevelChooser
             currentLevel={this.state.currentLevel}
             levels={this.levels}
+            packId={this.packId}
             hide={this.state.mapNavigationMode}
             onNextLevel={this.setNextLevel}
             onPrevLevel={this.setPrevLevel}

@@ -4,31 +4,45 @@ import {View, Image, Text} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
 import R, {Images, Colors} from '@res/R';
-import {getStyles} from './levelChooser.style';
+import {styles} from './levelChooser.style';
 import CircleButton from '@library/components/button/circleButton';
 import LevelIndexNumber from '../common/levelIndexNumber';
-import {Level} from '@library/services/levelService';
+
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
+import {observer, inject} from 'mobx-react';
+
+import {Level} from '@library/models/level';
+import LevelProgressStore, {
+  getLevelProgress,
+} from '@library/mobx/levelProgressStore';
 
 type Props = {
   hide?: boolean;
   levels: Array<Level>;
   currentLevel: number;
+  packId: string;
   onNextLevel: Function;
   onPrevLevel: Function;
+  levelProgressStore?: LevelProgressStore;
 };
 
+@inject('levelProgressStore')
+@observer
 export default class LevelChooser extends Component<Props> {
   static defaultProps = {
     hide: false,
   };
 
   render() {
-    const styles = getStyles();
-
     if (this.props.hide) {
       return null;
     }
+
+    const levelProgress = getLevelProgress(
+      this.props.levelProgressStore!.levelsProgress,
+      this.props.levels[this.props.currentLevel].id,
+      this.props.packId,
+    ).levelProgress;
 
     return (
       <View style={styles.container}>
@@ -87,7 +101,7 @@ export default class LevelChooser extends Component<Props> {
                 source={R.img(Images.heart_icon_details)}
               />
               <Text style={styles.detailRightText}>
-                {this.props.levels[this.props.currentLevel].lives + '/3'}
+                {levelProgress?.lives + '/3'}
               </Text>
             </View>
           </View>

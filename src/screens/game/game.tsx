@@ -15,7 +15,9 @@ import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
 import {observer, inject} from 'mobx-react';
-import LevelStore from '@library/mobx/levelProgressStore';
+import LevelProgressStore, {
+  getLevelProgress,
+} from '@library/mobx/levelProgressStore';
 import CoinStore from '@library/mobx/coinsStore';
 
 import LettersBar, {
@@ -38,12 +40,12 @@ import LevelService from '@library/services/levelService';
 type Props = {
   navigation: any;
   route: any;
-  levelStore: LevelStore;
+  levelProgressStore: LevelProgressStore;
   coinStore: CoinStore;
 };
 type State = {};
 
-@inject('levelStore')
+@inject('levelProgressStore')
 @inject('coinStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
@@ -52,6 +54,10 @@ export default class LevelMap extends Component<Props, State> {
   solutionBar: SolutionBarElement | SolutionBar | null;
   lettersBar: LettersBarElement | LettersBar | null;
   livesIndicator: LivesIndicator | null;
+  level: Level;
+  currentLevel: number;
+  totalLevels: number;
+  pack: Pack;
 
   state = {};
 
@@ -61,13 +67,20 @@ export default class LevelMap extends Component<Props, State> {
     this.solutionBar = null;
     this.lettersBar = null;
     this.livesIndicator = null;
+
     this.availableLetterHasTapped = this.availableLetterHasTapped.bind(this);
     this.solutionLetterHasTapped = this.solutionLetterHasTapped.bind(this);
+    this.getLevelProgress = this.getLevelProgress.bind(this);
+
+    const {currentLevel, levels, packId} = this.props.route.params;
+    this.level = levels[currentLevel];
+    this.pack = LevelService.getPackWithId(packId);
+    this.currentLevel = currentLevel;
+    this.totalLevels = levels.length;
   }
 
   async availableLetterHasTapped(letter: AvailableLetterType) {
-    const {currentLevel} = this.props.route.params;
-    const level: Level = this.props.levelStore.levels![currentLevel]!;
+    const level: Level = this.level;
 
     if (this.solutionBar?.allLettersAreFull()) {
       return;
@@ -84,7 +97,7 @@ export default class LevelMap extends Component<Props, State> {
     if (this.solutionBar?.isWordCorrect()) {
       // TODO: Add coins
       // TODO: Correct screen
-      this.props.coinStore.incrementCoins(level.lives * 25);
+      this.props.coinStore.incrementCoins(this.getLevelProgress()?.lives! * 25);
 
       this.solutionBar?.animateLetters('flash', 1000);
       await delayPromise(1000);
@@ -93,10 +106,13 @@ export default class LevelMap extends Component<Props, State> {
       Vibration.vibrate(1000);
       this.solutionBar?.animateLetters('shake', 1000);
 
-      this.props.levelStore.decrementLivesForLevel(level.id);
+      this.props.levelProgressStore.decrementLivesForLevel(
+        level.id,
+        this.pack.id,
+      );
       this.livesIndicator?.animate('tada', 1000);
 
-      if (level.lives === 0) {
+      if (this.getLevelProgress()?.lives === 0) {
         await delayPromise(500);
         this.props.navigation.goBack();
         return;
@@ -121,15 +137,16 @@ export default class LevelMap extends Component<Props, State> {
     }
   }
 
+  getLevelProgress() {
+    return getLevelProgress(
+      this.props.levelProgressStore.levelsProgress,
+      this.level.id,
+      this.pack.id,
+    ).levelProgress;
+  }
+
   render() {
     this.styles = getStyles();
-    const {currentLevel} = this.props.route.params;
-    const packId: string = this.props.route.params.packId;
-    const pack: Pack = LevelService.getPackWithId(packId);
-
-    const level: Level = this.props.levelStore.levels![currentLevel]!;
-    const levels: Array<Level> = this.props.levelStore.levels!;
-
     return (
       <LinearGradient
         colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
@@ -147,7 +164,7 @@ export default class LevelMap extends Component<Props, State> {
                 ref={(ref) => {
                   this.livesIndicator = ref;
                 }}
-                lives={level.lives}
+                lives={this.getLevelProgress()?.lives!}
               />
             </View>
             <View style={this.styles.navBarRight}>
@@ -162,16 +179,16 @@ export default class LevelMap extends Component<Props, State> {
               style={this.styles.titleText}
               adjustsFontSizeToFit
               numberOfLines={1}>
-              {pack?.title!}
+              {this.pack?.title!}
             </Text>
 
             <LevelIndexNumber
-              totalLevels={levels.length}
-              currentLevel={currentLevel}
+              totalLevels={this.totalLevels}
+              currentLevel={this.currentLevel}
             />
           </View>
           <View style={this.styles.photoBar}>
-            <PhotoFrame size={PhotoFrameSize.big} level={level} />
+            <PhotoFrame size={PhotoFrameSize.big} level={this.level} />
             <Text style={this.styles.sourceText}>
               Font fotografia: pirineosconninos.es
             </Text>
@@ -188,7 +205,7 @@ export default class LevelMap extends Component<Props, State> {
                 }}
                 onLetterPress={this.solutionLetterHasTapped}
                 style={this.styles.lettersBar}
-                word={level.word}
+                word={this.level.word}
               />
             </View>
             <Image
@@ -202,7 +219,7 @@ export default class LevelMap extends Component<Props, State> {
               this.lettersBar = ref;
             }}
             style={this.styles.lettersBar}
-            word={level.word}
+            word={this.level.word}
             availableLetterHasTapped={this.availableLetterHasTapped}
           />
         </NoNotchView>

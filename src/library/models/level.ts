@@ -14,7 +14,7 @@ export type Level = {
 
 export type LevelProgress = {
   id: string;
-  packId: string;
+  packId: string | null;
   lives: number;
   completed: boolean;
   stars: number;
