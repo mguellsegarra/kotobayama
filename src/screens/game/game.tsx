@@ -18,7 +18,7 @@ import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
   getLevelProgress,
 } from '@library/mobx/levelProgressStore';
-import CoinStore from '@library/mobx/coinsStore';
+import UserStore from '@library/mobx/userStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 
 import LettersBar, {
@@ -43,13 +43,13 @@ type Props = {
   navigation: any;
   route: any;
   levelProgressStore: LevelProgressStore;
-  coinStore: CoinStore;
+  userStore: UserStore;
   levelMapStore: LevelMapStore;
 };
 type State = {};
 
 @inject('levelProgressStore')
-@inject('coinStore')
+@inject('userStore')
 @inject('levelMapStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
@@ -101,7 +101,7 @@ export default class LevelMap extends Component<Props, State> {
     if (this.solutionBar?.isWordCorrect()) {
       // TODO: Add coins
       // TODO: Correct screen
-      this.props.coinStore.incrementCoins(this.getLevelProgress()?.lives! * 25);
+      this.props.userStore.incrementCoins(this.getLevelProgress()?.lives! * 25);
 
       this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
 
@@ -183,7 +183,7 @@ export default class LevelMap extends Component<Props, State> {
             </View>
             <View style={this.styles.navBarRight}>
               <CoinCounter
-                totalCoins={this.props.coinStore.coins}
+                totalCoins={this.props.userStore.coins}
                 onPress={() => {}}
               />
             </View>

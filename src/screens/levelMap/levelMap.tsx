@@ -23,7 +23,7 @@ import LevelProgressStore, {
   getFirstIncompleteLevelIdForPack,
 } from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
-import CoinStore from '@library/mobx/coinsStore';
+import UserStore from '@library/mobx/userStore';
 
 import LevelService from '@library/services/levelService';
 
@@ -37,12 +37,12 @@ type Props = {
   route: any;
   levelProgressStore: LevelProgressStore;
   levelMapStore: LevelMapStore;
-  coinStore: CoinStore;
+  userStore: UserStore;
 };
 
 @inject('levelProgressStore')
 @inject('levelMapStore')
-@inject('coinStore')
+@inject('userStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
   mapLayer: any;
@@ -163,7 +163,7 @@ export default class LevelMap extends Component<Props, State> {
               <View style={styles.navBarMiddle}></View>
               <View style={styles.navBarRight}>
                 <CoinCounter
-                  totalCoins={this.props.coinStore.coins}
+                  totalCoins={this.props.userStore.coins}
                   onPress={() => {}}
                 />
               </View>
@@ -181,7 +181,12 @@ export default class LevelMap extends Component<Props, State> {
 
           {this.state.mapNavigationMode ? null : (
             <View style={styles.backButtonContainer}>
-              <MapStyleButton mapMode={'topo'} onPress={() => {}} />
+              <MapStyleButton
+                mapMode={this.props.userStore.mapStyleMode}
+                onPress={() => {
+                  this.props.userStore.toggleMapStyleMode();
+                }}
+              />
             </View>
           )}
 
