@@ -13,8 +13,7 @@ class NoNotchView extends PureComponent {
   };
 
   componentDidMount = async () => {
-    const deviceHaveNotch = DeviceInfo.hasNotch();
-    if (Platform.OS === 'ios' && deviceHaveNotch) {
+    if (Platform.OS === 'ios' && DeviceInfo.hasNotch()) {
       this.setState({
         navbarHeight: 44,
         deviceHaveNotch: true,

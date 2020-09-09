@@ -1,6 +1,6 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, Platform} from 'react-native';
 import {Fonts} from '@res/R';
-import {isTablet} from 'react-native-device-info';
+import DeviceInfo, {isTablet} from 'react-native-device-info';
 
 import {
   widthPercentageToDP as wp,
@@ -19,17 +19,24 @@ const getStyles: any = () => {
   const titleMarginBottom = titleHeight * titleMarginBottomConstant;
   const titleMarginSides = titleBannerWidth * 0.05;
   const titleLineHeight = titleHeight * 0.3;
-  const titleMarginTop = hp('4%');
   const buttonWidth = isTablet() ? wp('30%') : wp('42%');
   const buttonRatioConstant = 0.3525;
   const buttonHeight = buttonWidth * buttonRatioConstant;
 
+    const navbarHeight = hp('5%');
+  const backButtonSize = hp('5%');
+  const navbarMarginTop =
+    Platform.OS === 'ios' && DeviceInfo.hasNotch() ? 44 : 0;
+
   const playButtonOverlayBottomMargin = hp('2%');
   const yBackButton =
     hp('100%') -
-    (bottomHeight - titleHeight + playButtonOverlayBottomMargin + buttonHeight);
+    (bottomHeight - (navbarHeight + titleHeight) + playButtonOverlayBottomMargin + buttonHeight);
   const y = yBackButton * 0.5;
   return StyleSheet.create({
+    root: {
+      flex: 1,
+    },
     container: {
       ...StyleSheet.absoluteFillObject,
       justifyContent: 'flex-end',
@@ -38,11 +45,35 @@ const getStyles: any = () => {
     map: {
       ...StyleSheet.absoluteFillObject,
     },
+    navBar: {
+      position: 'absolute',
+      top: navbarMarginTop,
+      height: navbarHeight,
+      width: wp('100%'),
+      flex: 1,
+      flexDirection: 'row',
+    },
+    navBarLeft: {
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+    },
+    navBarRight: {
+      flex: 1,
+      // backgroundColor: 'green',
+      justifyContent: 'center',
+      alignItems: 'flex-end',
+    },
+    navBarMiddle: {
+      flex: 2,
+      // backgroundColor: 'blue',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
     titleOverlay: {
       position: 'absolute',
-      top: 0,
+      top: navbarHeight + navbarMarginTop + hp('2%'),
       width: titleBannerWidth,
-      marginTop: titleMarginTop,
       height: titleHeight,
     },
     mapTitleContainerImage: {
@@ -82,6 +113,11 @@ const getStyles: any = () => {
       bottom: 0,
     },
     backButton: {
+      width: backButtonSize,
+      height: backButtonSize,
+      marginLeft: 4,
+    },
+    mapButton: {
       width: hp('7%'),
       height: hp('7%'),
     },
@@ -95,4 +131,5 @@ const getStyles: any = () => {
   });
 };
 
-export {getStyles};
+const styles = getStyles();
+export {styles};

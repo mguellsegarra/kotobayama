@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Text, Animated} from 'react-native';
 
-import {getStyles} from './levelMap.style';
-import NoNotchView from '@library/components/common/noNotchView';
+import {styles} from './levelMap.style';
 import R, {Images} from '@res/R';
 
 import {strings} from '@library/services/i18nService';
 import MapLayer from '@library/components/map/mapLayer';
+import CoinCounter from '@library/components/game/coinCounter';
+
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
@@ -21,6 +22,7 @@ import LevelProgressStore, {
   getFirstIncompleteLevelIdForPack,
 } from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
+import CoinStore from '@library/mobx/coinsStore';
 
 import LevelService from '@library/services/levelService';
 
@@ -34,13 +36,14 @@ type Props = {
   route: any;
   levelProgressStore: LevelProgressStore;
   levelMapStore: LevelMapStore;
+  coinStore: CoinStore;
 };
 
 @inject('levelProgressStore')
 @inject('levelMapStore')
+@inject('coinStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
-  styles: any;
   mapLayer: any;
   packId: string;
   pack: Pack;
@@ -49,7 +52,6 @@ export default class LevelMap extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.styles = {};
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
     this.mapLoaded = this.mapLoaded.bind(this);
     this.getCurrentLevel = this.getCurrentLevel.bind(this);
@@ -133,11 +135,9 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   render() {
-    this.styles = getStyles();
-
     return (
-      <NoNotchView>
-        <View style={this.styles.container}>
+      <View style={styles.root}>
+        <View style={styles.container}>
           <MapLayer
             ref={(ref: any) => {
               this.mapLayer = ref;
@@ -150,19 +150,38 @@ export default class LevelMap extends Component<Props, State> {
           />
 
           {this.state.mapNavigationMode ? null : (
-            <View style={this.styles.titleOverlay}>
+            <View style={styles.navBar}>
+              <View style={styles.navBarLeft}>
+                <CircleButton
+                  style={styles.backButton}
+                  image={Images.back_button}
+                  onPress={() => {
+                    /*this.props.navigation.goBack*/
+                  }}></CircleButton>
+              </View>
+              <View style={styles.navBarMiddle}></View>
+              <View style={styles.navBarRight}>
+                <CoinCounter
+                  totalCoins={this.props.coinStore.coins}
+                  onPress={() => {}}
+                />
+              </View>
+            </View>
+          )}
+          {this.state.mapNavigationMode ? null : (
+            <View style={styles.titleOverlay}>
               <ImageBackground
                 source={R.img(Images.map_title_container)}
-                style={this.styles.mapTitleContainerImage}>
-                <Text style={this.styles.mapTitleText}>{this.pack.title}</Text>
+                style={styles.mapTitleContainerImage}>
+                <Text style={styles.mapTitleText}>{this.pack.title}</Text>
               </ImageBackground>
             </View>
           )}
 
           {this.state.mapNavigationMode ? null : (
-            <View style={this.styles.backButtonContainer}>
+            <View style={styles.backButtonContainer}>
               <CircleButton
-                style={this.styles.backButton}
+                style={styles.mapButton}
                 image={Images.back_button}
               />
             </View>
@@ -172,7 +191,7 @@ export default class LevelMap extends Component<Props, State> {
             hide={this.state.mapNavigationMode}
             type={RectButtonEnum.Yellow}
             text={strings('play')}
-            style={this.styles.playButtonOverlay}
+            style={styles.playButtonOverlay}
             onPress={() => {
               this.props.navigation.navigate('Game', {
                 packId: this.packId,
@@ -186,7 +205,7 @@ export default class LevelMap extends Component<Props, State> {
             hide={!this.state.mapNavigationMode}
             type={RectButtonEnum.Blue}
             text={strings('back')}
-            style={this.styles.closeMapButtonOverlay}
+            style={styles.closeMapButtonOverlay}
             onPress={() => {
               this.setState({
                 mapNavigationMode: !this.state.mapNavigationMode,
@@ -214,16 +233,16 @@ export default class LevelMap extends Component<Props, State> {
         <Animated.View
           pointerEvents="none"
           style={[
-            this.styles.overlayLoad,
+            styles.overlayLoad,
             {
               opacity: this.state.fadeAnim,
             },
           ]}>
           <ImageBackground
             source={R.img(Images.mountain_bg)}
-            style={this.styles.overlayLoad}></ImageBackground>
+            style={styles.overlayLoad}></ImageBackground>
         </Animated.View>
-      </NoNotchView>
+      </View>
     );
   }
 }

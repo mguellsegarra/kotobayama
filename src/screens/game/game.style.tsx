@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
 import R, {Fonts} from '@res/R';
-import {isTablet} from 'react-native-device-info';
 
 import {
   widthPercentageToDP as wp,
