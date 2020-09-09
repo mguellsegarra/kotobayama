@@ -78,19 +78,6 @@ export default class LevelMap extends Component<Props, State> {
     }).start();
   }
 
-  // setCurrentLevel(level: number) {
-  //   this.setState(
-  //     {
-  //       ...this.state,
-  //       currentLevel: level,
-  //     },
-  //     () => {
-  //       this.mapLayer.setCurrentLevel(level);
-  //       this.mapLayer.resetToLevel();
-  //     },
-  //   );
-  // }
-
   componentDidMount() {
     this.updateMapLayer();
   }

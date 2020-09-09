@@ -2,14 +2,14 @@ import React, {Component} from 'react';
 import {ImageBackground} from 'react-native';
 import {styles} from './home.style';
 import * as Progress from 'react-native-progress';
-import RNFetchBlob from 'rn-fetch-blob';
-
-import LevelService from '@library/services/levelService';
 
 import R, {Images} from '@res/R';
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import {observer, inject} from 'mobx-react';
 import SyncService from '@library/services/syncService';
+
+import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
+import {isTablet} from 'react-native-device-info';
 
 type Props = {
   navigation: any;
@@ -29,37 +29,18 @@ export default class Splash extends Component<Props, State> {
   };
 
   componentDidMount() {
-    SyncService.hydrateLevelsProgress(this.props.levelProgressStore).then(
-      () => {
-        setTimeout(() => {
-          this.props.navigation.navigate('LevelMap', {
-            packId: '1',
-          });
-        }, 500);
+    SyncService.hydrateLevelsProgress(
+      this.props.levelProgressStore,
+      (progress: number) => {
+        this.setState({...this.state, downloadProgress: progress});
       },
-    );
-
-    // RNFetchBlob.fetch(
-    //   'GET',
-    //   'https://tegami-mountains-content.s3-eu-west-1.amazonaws.com/levels.json',
-    // )
-    //   .progress({count: 5}, (received, total) => {
-    //     const progress = (received / total) * 100;
-    //     this.setState({...this.state, downloadProgress: progress});
-    //   })
-    //   .then((res) => {
-    //     let status = res.info().status;
-    //     if (status == 200) {
-    //       let json = res.json();
-    //       LevelService.setLevelSource(json);
-    //       setTimeout(() => {
-    //         this.props.navigation.navigate('LevelMap');
-    //       }, 2000);
-    //     }
-    //   })
-    //   .catch((e) => {
-    //     console.log(e);
-    //   });
+    ).then(() => {
+      setTimeout(() => {
+        this.props.navigation.navigate('LevelMap', {
+          packId: '1',
+        });
+      }, 500);
+    });
   }
 
   render() {
@@ -69,7 +50,7 @@ export default class Splash extends Component<Props, State> {
         style={styles.background}>
         <Progress.Bar
           progress={this.state.downloadProgress}
-          width={200}
+          width={isTablet() ? wp('40%') : wp('70%')}
           color={'black'}
         />
       </ImageBackground>
