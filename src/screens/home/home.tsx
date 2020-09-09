@@ -7,15 +7,21 @@ import RNFetchBlob from 'rn-fetch-blob';
 import LevelService from '@library/services/levelService';
 
 import R, {Images} from '@res/R';
+import LevelProgressStore from '@library/mobx/levelProgressStore';
+import {observer, inject} from 'mobx-react';
+import SyncService from '@library/services/syncService';
 
 type Props = {
   navigation: any;
+  levelProgressStore: LevelProgressStore;
 };
 
 type State = {
   downloadProgress: number;
 };
 
+@inject('levelProgressStore')
+@observer
 export default class Splash extends Component<Props, State> {
   styles: any;
   state = {
@@ -23,11 +29,15 @@ export default class Splash extends Component<Props, State> {
   };
 
   componentDidMount() {
-    setTimeout(() => {
-      this.props.navigation.navigate('LevelMap', {
-        packId: '1',
-      });
-    }, 1000);
+    SyncService.hydrateLevelsProgress(this.props.levelProgressStore).then(
+      () => {
+        setTimeout(() => {
+          this.props.navigation.navigate('LevelMap', {
+            packId: '1',
+          });
+        }, 500);
+      },
+    );
 
     // RNFetchBlob.fetch(
     //   'GET',

@@ -20,3 +20,11 @@ export type LevelProgress = {
   stars: number;
   emptyLivesTimestamp: string;
 };
+
+export const LevelProgressInitialState = {
+  lives: 3,
+  completed: false,
+  stars: 3,
+  emptyLivesTimestamp: '',
+};
+
