@@ -96,11 +96,11 @@ const getStyles: any = () => {
     backButtonContainer: {
       position: 'absolute',
       top: y,
-      left: 0,
+      right: 0,
       backgroundColor: '#000000CC',
       padding: 7,
-      borderTopRightRadius: 10,
-      borderBottomRightRadius: 10,
+      borderTopLeftRadius: 10,
+      borderBottomLeftRadius: 10,
     },
     playButtonOverlay: {
       position: 'absolute',
