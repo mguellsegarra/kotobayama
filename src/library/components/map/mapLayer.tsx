@@ -27,8 +27,6 @@ type Props = {
 };
 
 type State = {
-  allIds: Array<string>;
-  markers: Array<any>;
   mapReady: boolean;
 };
 
@@ -44,8 +42,6 @@ const mapOptionsForMode = new Map<string, any>([
 @observer
 export default class MapLayer extends Component<Props, State> {
   state = {
-    allIds: [],
-    markers: [],
     mapReady: false,
   };
 
@@ -74,8 +70,33 @@ export default class MapLayer extends Component<Props, State> {
     this.currentLevel = level;
   }
 
+  getMarkers() {
+    const markers: Array<any> = [];
+
+    let i = 1;
+    this.props.levels.forEach((level: Level) => {
+      const {levelProgress} = getLevelProgress(
+        this.props.levelProgressStore?.levelsProgress!,
+        level.id,
+        this.props.packId,
+      );
+
+      markers.push(
+        <LevelMarker
+          id={level.id.toString()}
+          key={level.id.toString()}
+          coord={level.latlon}
+          idx={i}
+          completed={levelProgress?.completed!}
+        />,
+      );
+      i += 1;
+    });
+    return markers;
+  }
   render() {
     const that = this;
+    const markers = this.getMarkers();
 
     return (
       <MapView
@@ -118,41 +139,15 @@ export default class MapLayer extends Component<Props, State> {
           this.props.onPanDrag();
         }}
         onMapReady={() => {
-          const markers: Array<any> = [];
-          const allIds: Array<string> = [];
-          let i = 1;
-          this.props.levels.forEach((level: Level) => {
-            const {levelProgress} = getLevelProgress(
-              this.props.levelProgressStore?.levelsProgress!,
-              level.id,
-              this.props.packId,
-            );
-        
-        
-            markers.push(
-              <LevelMarker
-                id={level.id.toString()}
-                key={level.id.toString()}
-                coord={level.latlon}
-                mapReady={true}
-                idx={i}
-                completed={levelProgress?.completed!}
-              />,
-            );
-            allIds.push(level.id.toString());
-            i += 1;
-          });
-
+          that.setState({mapReady: true});
           setTimeout(() => {
-            that.setState({markers, allIds}, () => {
-              this.props.onMapLoaded();
-            });
+            this.props.onMapLoaded();
           }, 100);
         }}>
         {this.props.userStore?.mapTypeMode === MapTypeMode.Topo ? (
           <UrlTile urlTemplate={MapSettings.urlMapTile} />
         ) : null}
-        {this.state.markers}
+        {this.state.mapReady ? markers : null}
       </MapView>
     );
   }

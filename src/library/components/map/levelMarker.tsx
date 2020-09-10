@@ -12,7 +12,6 @@ type Props = {
   id: string;
   idx: number;
   coord: LatLng;
-  mapReady: boolean;
   completed: boolean;
 };
 
@@ -24,7 +23,7 @@ export default class LevelMarker extends Component<Props> {
         identifier={this.props.id}
         coordinate={this.props.coord}
         icon={R.img(getMarkerImageForIdx(this.props.idx, this.props.completed))}
-        tracksViewChanges={!this.props.mapReady}
+        tracksViewChanges={false}
       />
     );
   }
