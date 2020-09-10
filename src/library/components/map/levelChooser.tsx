@@ -11,7 +11,7 @@ import LevelIndexNumber from '../common/levelIndexNumber';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import {observer, inject} from 'mobx-react';
 
-import {Level} from '@library/models/level';
+import {Level, LevelProgress} from '@library/models/level';
 import LevelProgressStore, {
   getLevelProgress,
 } from '@library/mobx/levelProgressStore';
@@ -33,16 +33,71 @@ export default class LevelChooser extends Component<Props> {
     hide: false,
   };
 
-  render() {
-    if (this.props.hide) {
-      return null;
-    }
+  completedLevel() {
+    return (
+      <LinearGradient
+        colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
+        style={styles.levelDetailsComplete}>
+        <PhotoFrame
+          size={PhotoFrameSize.small}
+          style={styles.levelDetailsImage}
+          level={this.props.levels[this.props.currentLevel]}
+        />
+      </LinearGradient>
+    );
+  }
 
+  incompleteLevel(levelProgress: LevelProgress) {
+    return (
+      <LinearGradient
+        colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
+        style={styles.levelDetailsIncomplete}>
+        <PhotoFrame
+          size={PhotoFrameSize.small}
+          style={styles.levelDetailsImage}
+          level={this.props.levels[this.props.currentLevel]}
+        />
+        <View style={styles.levelDetailsRight}>
+          <View style={styles.levelDetailsRightCell}>
+            <Image
+              style={styles.detailRightCellImage}
+              source={R.img(Images.boot_icon_details)}
+            />
+            <Text style={styles.detailRightText}>Refugi</Text>
+          </View>
+          <View style={styles.levelDetailsRightCell}>
+            <Image
+              style={styles.detailRightCellImage}
+              source={R.img(Images.letter_icon_details)}
+            />
+            <Text style={styles.detailRightText}>
+              {this.props.levels[this.props.currentLevel].word.length} lletres
+            </Text>
+          </View>
+          <View style={styles.levelDetailsRightCell}>
+            <Image
+              style={styles.detailRightCellImage}
+              source={R.img(Images.heart_icon_details)}
+            />
+            <Text style={styles.detailRightText}>
+              {levelProgress?.lives + '/3'}
+            </Text>
+          </View>
+        </View>
+      </LinearGradient>
+    );
+  }
+
+  render() {
     const levelProgress = getLevelProgress(
       this.props.levelProgressStore!.levelsProgress,
       this.props.levels[this.props.currentLevel].id,
       this.props.packId,
     ).levelProgress;
+
+    if (this.props.hide) {
+      return null;
+    }
 
     return (
       <View style={styles.container}>
@@ -70,42 +125,9 @@ export default class LevelChooser extends Component<Props> {
             </View>
           </View>
         </View>
-        <LinearGradient
-          colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
-          style={styles.levelDetails}>
-          <PhotoFrame
-            size={PhotoFrameSize.small}
-            style={styles.levelDetailsImage}
-            level={this.props.levels[this.props.currentLevel]}
-          />
-          <View style={styles.levelDetailsRight}>
-            <View style={styles.levelDetailsRightCell}>
-              <Image
-                style={styles.detailRightCellImage}
-                source={R.img(Images.boot_icon_details)}
-              />
-              <Text style={styles.detailRightText}>Refugi</Text>
-            </View>
-            <View style={styles.levelDetailsRightCell}>
-              <Image
-                style={styles.detailRightCellImage}
-                source={R.img(Images.letter_icon_details)}
-              />
-              <Text style={styles.detailRightText}>
-                {this.props.levels[this.props.currentLevel].word.length} lletres
-              </Text>
-            </View>
-            <View style={styles.levelDetailsRightCell}>
-              <Image
-                style={styles.detailRightCellImage}
-                source={R.img(Images.heart_icon_details)}
-              />
-              <Text style={styles.detailRightText}>
-                {levelProgress?.lives + '/3'}
-              </Text>
-            </View>
-          </View>
-        </LinearGradient>
+        {levelProgress?.completed
+          ? this.completedLevel()
+          : this.incompleteLevel(levelProgress!)}
       </View>
     );
   }

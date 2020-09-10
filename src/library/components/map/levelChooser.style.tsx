@@ -38,9 +38,13 @@ const getStyles: any = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    levelDetails: {
+    levelDetailsIncomplete: {
       flex: 5,
       flexDirection: 'row',
+    },
+    levelDetailsComplete: {
+      flex: 5,
+      flexDirection: 'column',
     },
     levelDetailsImage: {
       flex: 3,
@@ -64,6 +68,7 @@ const getStyles: any = () => {
     detailRightText: {
       color: 'white',
       fontFamily: Fonts.alata,
+      marginTop: wp('1%'),
       marginLeft: hp('0.4%'),
       fontSize: hp('1.6%'),
     },

@@ -8,7 +8,7 @@ import {
 } from 'react-native-responsive-screen';
 
 const titleBannerWidth = isTablet() ? wp('60%') : wp('82%');
-const progressBarWidth = titleBannerWidth / 2.5;
+const progressBarWidth = titleBannerWidth / 2;
 const progressBarConstant = 0.126190476190476;
 const progressBarHeight = progressBarWidth * progressBarConstant;
 
@@ -142,7 +142,7 @@ const getStyles: any = () => {
     progressBar: {
       width: progressBarWidth,
       height: progressBarHeight,
-      marginTop: hp('1%'),
+      marginTop: hp('0.5%'),
       flex: 1,
       flexDirection: 'row',
       justifyContent: 'flex-start',

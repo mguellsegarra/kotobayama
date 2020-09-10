@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ImageBackground, Image, Text} from 'react-native';
+import {ImageBackground, Text} from 'react-native';
 
 import {styles, getSizeForProgress} from '@screens/levelMap/levelMap.style';
 import R, {Images} from '@res/R';
