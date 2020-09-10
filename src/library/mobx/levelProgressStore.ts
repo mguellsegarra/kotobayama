@@ -34,6 +34,25 @@ export default class LevelProgressStore {
   };
 
   @action
+  calculateLevelStars = (levelId: string, packId: string) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    if (levelProgress!.investedLives === 0) {
+      levelProgress!.stars = 3;
+    } else if (levelProgress!.investedLives === 1) {
+      levelProgress!.stars = 2;
+    } else {
+      levelProgress!.stars = 1;
+    }
+
+    this.levelsProgress[idx as number] = levelProgress!;
+  };
+
+  @action
   decrementLivesForLevel = (levelId: string, packId: string) => {
     const {idx, levelProgress} = getLevelProgress(
       this.levelsProgress,
@@ -42,6 +61,18 @@ export default class LevelProgressStore {
     );
 
     levelProgress!.lives--;
+    this.levelsProgress[idx as number] = levelProgress!;
+  };
+
+  @action
+  incrementInvestedLivesForLevel = (levelId: string, packId: string) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    levelProgress!.investedLives++;
     this.levelsProgress[idx as number] = levelProgress!;
   };
 

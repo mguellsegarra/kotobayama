@@ -104,7 +104,7 @@ export default class LevelMap extends Component<Props, State> {
       this.props.userStore.incrementCoins(this.getLevelProgress()?.lives! * 25);
 
       this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
-      this.props.levelProgressStore.setLevelStars(level.id, this.pack.id, this.getLevelProgress()?.lives!);
+      this.props.levelProgressStore.calculateLevelStars(level.id, this.pack.id);
 
       this.solutionBar?.animateLetters('flash', 1000);
       await delayPromise(1000);
@@ -120,6 +120,10 @@ export default class LevelMap extends Component<Props, State> {
       this.solutionBar?.animateLetters('shake', 1000);
 
       this.props.levelProgressStore.decrementLivesForLevel(
+        level.id,
+        this.pack.id,
+      );
+      this.props.levelProgressStore.incrementInvestedLivesForLevel(
         level.id,
         this.pack.id,
       );

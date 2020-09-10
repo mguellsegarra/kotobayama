@@ -25,6 +25,17 @@ export default class LevelCompletedBanner extends Component<Props> {
     this.containerView.animate(animationType, duration);
   }
 
+  getStarsImages() {
+    switch (this.props.stars) {
+      case 3:
+        return [Images.star_yellow, Images.star_yellow, Images.star_yellow];
+      case 2:
+        return [Images.star_yellow, Images.star_yellow, Images.star_gray];
+      default:
+        return [Images.star_yellow, Images.star_gray, Images.star_gray];
+    }
+  }
+
   render() {
     return (
       <View
@@ -59,17 +70,17 @@ export default class LevelCompletedBanner extends Component<Props> {
             <View style={styles.levelCompletedBottom}>
               <Image
                 resizeMode={'contain'}
-                source={R.img(Images.star_yellow)}
+                source={R.img(this.getStarsImages()![0])}
                 style={styles.levelCompletedStar}
               />
               <Image
                 resizeMode={'contain'}
-                source={R.img(Images.star_yellow)}
+                source={R.img(this.getStarsImages()![1])}
                 style={styles.levelCompletedStar}
               />
               <Image
                 resizeMode={'contain'}
-                source={R.img(Images.star_yellow)}
+                source={R.img(this.getStarsImages()![2])}
                 style={styles.levelCompletedStar}
               />
             </View>
