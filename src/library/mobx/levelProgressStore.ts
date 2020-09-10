@@ -1,6 +1,7 @@
 import {observable, computed, action} from 'mobx';
 import {LevelProgress} from '@library/models/level';
 import {getLevelProgress} from './helpers/levelProgressHelper';
+import moment from 'moment';
 
 export default class LevelProgressStore {
   @observable public levelsProgress: LevelProgress[] = [];
@@ -74,6 +75,38 @@ export default class LevelProgressStore {
 
     levelProgress!.investedLives++;
     this.levelsProgress[idx as number] = levelProgress!;
+  };
+
+  @action
+  setLevelCooldown = (levelId: string, packId: string) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    levelProgress!.emptyLivesTimestamp = moment().add('30', 'minutes').unix();
+
+    this.levelsProgress[idx as number] = levelProgress!;
+  };
+
+  @action
+  restoreLevelCooldownAndLivesIfNeeded = (levelId: string, packId: string) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    if (levelProgress!.emptyLivesTimestamp === null) {
+      return;
+    }
+
+    if (levelProgress!.emptyLivesTimestamp <= moment().unix()) {
+      levelProgress!.emptyLivesTimestamp = null;
+      levelProgress!.lives = 3;
+      this.levelsProgress[idx as number] = levelProgress!;
+    }
   };
 
   @action

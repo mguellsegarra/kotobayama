@@ -74,7 +74,7 @@ export default class MapLayer extends Component<Props, State> {
     this.currentLevel = level;
   }
 
-  getMapView() {
+  render() {
     const that = this;
 
     return (
@@ -155,9 +155,5 @@ export default class MapLayer extends Component<Props, State> {
         {this.state.markers}
       </MapView>
     );
-  }
-
-  render() {
-    return this.getMapView();
   }
 }

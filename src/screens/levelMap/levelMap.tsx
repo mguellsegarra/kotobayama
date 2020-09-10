@@ -31,6 +31,7 @@ import UserStore from '@library/mobx/userStore';
 
 import LevelService from '@library/services/levelService';
 import LevelCompletedBanner from '@library/components/map/levelCompletedBanner';
+import PlayButton from '@library/components/map/playButton';
 
 type State = {
   mapNavigationMode: boolean;
@@ -265,21 +266,31 @@ export default class LevelMap extends Component<Props, State> {
               stars={levelProgress?.stars!}
             />
           ) : (
-            <RectButton
+            // <RectButton
+            //   ref={(ref) => {
+            //     this.playButton = ref;
+            //   }}
+            //   pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
+            //   type={RectButtonEnum.Yellow}
+            //   text={strings('play')}
+            //   style={styles.playButtonOverlay}
+            //   onPress={() => {
+            //     this.props.navigation.navigate('Game', {
+            //       packId: this.packId,
+            //       levels: this.levels,
+            //       currentLevel: this.getCurrentLevel(),
+            //     });
+            //   }}
+            // />
+            <PlayButton
               ref={(ref) => {
                 this.playButton = ref;
               }}
               pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
-              type={RectButtonEnum.Yellow}
-              text={strings('play')}
-              style={styles.playButtonOverlay}
-              onPress={() => {
-                this.props.navigation.navigate('Game', {
-                  packId: this.packId,
-                  levels: this.levels,
-                  currentLevel: this.getCurrentLevel(),
-                });
-              }}
+              navigation={this.props.navigation}
+              levels={this.levels}
+              currentLevel={this.getCurrentLevel()}
+              packId={this.packId}
             />
           )}
 

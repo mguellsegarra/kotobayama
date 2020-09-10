@@ -131,6 +131,7 @@ export default class LevelMap extends Component<Props, State> {
 
       if (this.getLevelProgress()?.lives === 0) {
         await delayPromise(500);
+        this.props.levelProgressStore.setLevelCooldown(level.id, this.pack.id);
         this.props.navigation.goBack();
         return;
       }

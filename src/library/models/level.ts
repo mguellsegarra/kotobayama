@@ -21,7 +21,7 @@ export type LevelProgress = {
   completed: boolean;
   stars: number;
   investedLives: number;
-  emptyLivesTimestamp: string;
+  emptyLivesTimestamp: number | null;
 };
 
 export const LevelProgressInitialState = {
@@ -29,6 +29,6 @@ export const LevelProgressInitialState = {
   completed: false,
   stars: 0,
   investedLives: 0,
-  emptyLivesTimestamp: '',
+  emptyLivesTimestamp: null,
 };
 

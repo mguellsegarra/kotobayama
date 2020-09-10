@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {ImageBackground, Text, ViewStyle, TextStyle, Platform} from 'react-native';
+import {
+  ImageBackground,
+  Text,
+  ViewStyle,
+  TextStyle,
+  Platform,
+} from 'react-native';
 import {View} from 'react-native-animatable';
 const isAndroid = Platform.OS === 'android';
 
@@ -15,7 +21,7 @@ import {
 } from 'react-native-responsive-screen';
 
 type Props = {
-  text: string;
+  text?: string;
   onPress?: Function;
   type: RectButtonEnum;
   imageStyle?: ViewStyle;
@@ -90,7 +96,7 @@ export default class RectButton extends Component<Props> {
     let viewStyle = Object.assign({}, this.props.style);
     viewStyle.width = buttonWidth;
     viewStyle.height = buttonHeight;
-    
+
     return (
       <View
         useNativeDriver={!isAndroid}
@@ -107,18 +113,22 @@ export default class RectButton extends Component<Props> {
           <ImageBackground
             source={R.img(rectButtonConfig!.image)}
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
-            <Text
-              style={{
-                ...this.props.textStyle,
-                ...{
-                  marginBottom: buttonTextMarginBottom,
-                  fontFamily: Fonts.lilita,
-                  fontSize: buttonTextFontSize,
-                  color: rectButtonConfig!.textColor,
-                },
-              }}>
-              {this.props.text}
-            </Text>
+            {this.props.text ? (
+              <Text
+                style={{
+                  ...this.props.textStyle,
+                  ...{
+                    marginBottom: buttonTextMarginBottom,
+                    fontFamily: Fonts.lilita,
+                    fontSize: buttonTextFontSize,
+                    color: rectButtonConfig!.textColor,
+                  },
+                }}>
+                {this.props.text}
+              </Text>
+            ) : (
+              this.props.children
+            )}
           </ImageBackground>
         </TouchableScale>
       </View>
