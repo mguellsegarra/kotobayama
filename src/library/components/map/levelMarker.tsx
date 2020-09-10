@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Marker, LatLng} from 'react-native-maps';
 
-import R from '@res/R';
+import R, {Images} from '@res/R';
 
 const getMarkerImageForIdx = (idx: number) => {
   return 'marker_' + idx.toString();
@@ -15,13 +15,6 @@ type Props = {
 };
 
 export default class LevelMarker extends Component<Props> {
-  static defaultProps = {
-    hide: false,
-    onPress: () => {},
-    color: 'yellow',
-    imageStyle: {},
-  };
-
   render() {
     return (
       <Marker

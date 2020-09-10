@@ -35,6 +35,16 @@ const getStyles: any = () => {
     hp('100%') - (bottomHeight - playButtonOverlayBottomMargin + buttonHeight);
   const y = yBackButton * 0.5;
 
+  const levelCompletedContainerWidth = isTablet() ? wp('40%') : wp('60%');
+  const levelCompletedContainerConstant = 0.408829174664107;
+  const levelCompletedContainerHeight =
+    levelCompletedContainerWidth * levelCompletedContainerConstant;
+
+  const levelCompletedTickHeight = levelCompletedContainerHeight / 5;
+  const levelCompletedTickConstant = 1.09375;
+  const levelCompletedTickWidth =
+    levelCompletedTickHeight / levelCompletedTickConstant;
+
   return StyleSheet.create({
     root: {
       flex: 1,
@@ -154,6 +164,64 @@ const getStyles: any = () => {
       fontFamily: Fonts.league,
       marginTop: progressBarHeight * 0.01,
       fontSize: progressBarHeight * 0.45,
+      color: 'white',
+      textAlign: 'center',
+    },
+    levelCompletedBanner: {
+      position: 'absolute',
+      marginBottom: bottomHeight + playButtonOverlayBottomMargin,
+      bottom: 0,
+    },
+    levelCompletedImage: {
+      width: levelCompletedContainerWidth,
+      height: levelCompletedContainerHeight,
+    },
+    levelCompletedContainer: {
+      marginTop: levelCompletedContainerHeight * 0.09,
+      marginBottom: levelCompletedContainerHeight * 0.09,
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    levelCompletedTop: {
+      width: '93%',
+      flex: 2,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    levelCompletedMiddle: {
+      width: '93%',
+      flex: 2,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginTop: hp('1%'),
+    },
+    levelCompletedTick: {
+      marginTop: hp('1.5%'),
+      height: levelCompletedTickHeight,
+      width: levelCompletedTickWidth,
+    },
+    levelCompletedBottom: {
+      width: '93%',
+      flex: 2,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
+      marginBottom: hp('1%'),
+    },
+    levelCompletedStar: {
+      height: levelCompletedTickHeight,
+      width: levelCompletedTickWidth,
+      marginRight: wp('0.5%'),
+      marginLeft: wp('0.5%'),
+    },
+    levelCompletedTitle: {
+      width: '90%',
+      fontFamily: Fonts.league,
+      fontSize: titleFont,
       color: 'white',
       textAlign: 'center',
     },

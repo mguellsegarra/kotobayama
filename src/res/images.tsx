@@ -17,6 +17,7 @@ export enum Images {
   'heart_icon_details' = 'heart_icon_details',
   'left_arrow' = 'left_arrow',
   'letter_icon_details' = 'letter_icon_details',
+  'level_completed_banner' = 'level_completed_banner',
   'level_number_container' = 'level_number_container',
   'level_progress_bar' = 'level_progress_bar',
   'level_progress_unit' = 'level_progress_unit',
@@ -39,5 +40,8 @@ export enum Images {
   'right_arrow' = 'right_arrow',
   'separator_line_down' = 'separator_line_down',
   'separator_line_up' = 'separator_line_up',
-  'solution_letter' = 'solution_letter'
+  'solution_letter' = 'solution_letter',
+  'star_gray' = 'star_gray',
+  'star_yellow' = 'star_yellow',
+  'tick' = 'tick'
   }

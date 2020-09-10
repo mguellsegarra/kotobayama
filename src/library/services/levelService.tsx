@@ -33,6 +33,7 @@ const LevelService: LevelServiceType = {
     return {
       id: lvl.id,
       word: lvl.word,
+      title: lvl.title,
       latlon: getCoordinateFromLatLonString(lvl.latlon),
     };
   }),

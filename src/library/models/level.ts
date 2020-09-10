@@ -3,12 +3,14 @@ import {LatLng} from 'react-native-maps';
 export type LevelSource = {
   id: string;
   word: string;
+  title: string;
   latlon: string;
 };
 
 export type Level = {
   id: string;
   word: string;
+  title: string;
   latlon: LatLng;
 };
 
@@ -24,7 +26,7 @@ export type LevelProgress = {
 export const LevelProgressInitialState = {
   lives: 3,
   completed: false,
-  stars: 3,
+  stars: 0,
   emptyLivesTimestamp: '',
 };
 

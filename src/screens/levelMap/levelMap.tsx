@@ -23,11 +23,13 @@ import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
   getFirstIncompleteLevelIdForPack,
   getProgressForPack,
+  getLevelProgress,
 } from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
 
 import LevelService from '@library/services/levelService';
+import LevelCompletedBanner from '@library/components/map/levelCompletedBanner';
 
 type State = {
   mapNavigationMode: boolean;
@@ -134,6 +136,15 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   render() {
+    const currentLevelId = this.levels[
+      this.props.levelMapStore.currentLevelForPack[this.packId]
+    ].id;
+    const {levelProgress} = getLevelProgress(
+      this.props.levelProgressStore.levelsProgress,
+      currentLevelId,
+      this.packId,
+    );
+
     return (
       <View style={styles.root}>
         <View style={styles.container}>
@@ -187,7 +198,7 @@ export default class LevelMap extends Component<Props, State> {
           </View>
 
           <RectButton
-            hide={this.state.mapNavigationMode}
+            hide={this.state.mapNavigationMode || levelProgress?.completed}
             type={RectButtonEnum.Yellow}
             text={strings('play')}
             style={styles.playButtonOverlay}
@@ -198,6 +209,13 @@ export default class LevelMap extends Component<Props, State> {
                 currentLevel: this.getCurrentLevel(),
               });
             }}
+          />
+
+          <LevelCompletedBanner
+            style={styles.levelCompletedBanner}
+            hide={this.state.mapNavigationMode || !levelProgress?.completed}
+            title={this.levels[this.getCurrentLevel()].title}
+            stars={levelProgress?.stars!}
           />
 
           <RectButton

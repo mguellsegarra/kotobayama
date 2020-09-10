@@ -91,7 +91,8 @@ export default class MapLayer extends Component<Props, State> {
           zoom: 14,
         }}
         mapType={
-          mapOptionsForMode.get(this.props.userStore?.mapTypeMode!).type as MapTypes
+          mapOptionsForMode.get(this.props.userStore?.mapTypeMode!)
+            .type as MapTypes
         }
         customMapStyle={
           mapOptionsForMode.get(this.props.userStore?.mapTypeMode!).mapStyle
