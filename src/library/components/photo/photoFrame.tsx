@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Image, ViewStyle} from 'react-native';
 // @ts-ignore
 import {NoFlickerImage} from 'react-native-no-flicker-image';
-import {Level} from '@library/services/levelService';
+import {Level} from '@library/models/level';
 
 import R, {Images} from '@res/R';
 import {getStyles} from './photoFrame.style';
