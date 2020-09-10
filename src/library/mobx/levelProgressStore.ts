@@ -22,6 +22,18 @@ export default class LevelProgressStore {
   };
 
   @action
+  setLevelStars = (levelId: string, packId: string, stars: number) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    levelProgress!.stars = stars;
+    this.levelsProgress[idx as number] = levelProgress!;
+  };
+
+  @action
   decrementLivesForLevel = (levelId: string, packId: string) => {
     const {idx, levelProgress} = getLevelProgress(
       this.levelsProgress,
