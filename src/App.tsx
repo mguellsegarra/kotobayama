@@ -16,7 +16,9 @@ const Stack = createStackNavigator();
 
 export default class App extends Component {
   componentDidMount() {
-    Bugsnag.start();
+    if (!__DEV__) {
+      Bugsnag.start();
+    }
   }
 
   render() {
