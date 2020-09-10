@@ -18,6 +18,8 @@ export enum Images {
   'left_arrow' = 'left_arrow',
   'letter_icon_details' = 'letter_icon_details',
   'level_number_container' = 'level_number_container',
+  'level_progress_bar' = 'level_progress_bar',
+  'level_progress_unit' = 'level_progress_unit',
   'map_circle_blue' = 'map_circle_blue',
   'map_circle_green' = 'map_circle_green',
   'map_title_container' = 'map_title_container',

@@ -6,6 +6,7 @@ import R, {Images} from '@res/R';
 
 import {strings} from '@library/services/i18nService';
 import MapLayer from '@library/components/map/mapLayer';
+import MapTitleBanner from '@library/components/map/mapTitleBanner';
 import CoinCounter from '@library/components/game/coinCounter';
 
 import {Level} from '@library/models/level';
@@ -21,6 +22,7 @@ import MapTypeButton from '@library/components/map/mapTypeButton';
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
   getFirstIncompleteLevelIdForPack,
+  getProgressForPack,
 } from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
@@ -165,15 +167,15 @@ export default class LevelMap extends Component<Props, State> {
               </View>
             </View>
           )}
-          {this.state.mapNavigationMode ? null : (
-            <View style={styles.titleOverlay}>
-              <ImageBackground
-                source={R.img(Images.map_title_container)}
-                style={styles.mapTitleContainerImage}>
-                <Text style={styles.mapTitleText}>{this.pack.title}</Text>
-              </ImageBackground>
-            </View>
-          )}
+
+          <MapTitleBanner
+            hide={this.state.mapNavigationMode}
+            title={this.pack.title}
+            progress={getProgressForPack(
+              this.props.levelProgressStore.levelsProgress,
+              this.pack,
+            )}
+          />
 
           <View style={styles.mapTypeButtonContainer}>
             <MapTypeButton

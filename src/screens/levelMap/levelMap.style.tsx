@@ -7,17 +7,19 @@ import {
   heightPercentageToDP as hp,
 } from 'react-native-responsive-screen';
 
+const titleBannerWidth = isTablet() ? wp('60%') : wp('82%');
+const progressBarWidth = titleBannerWidth / 2.5;
+const progressBarConstant = 0.126190476190476;
+const progressBarHeight = progressBarWidth * progressBarConstant;
+
 const getStyles: any = () => {
   const bottomHeight = hp('35%');
 
-  const titleBannerWidth = isTablet() ? wp('60%') : wp('82%');
   const titleBannerConstant = 0.2922;
   const titleHeight = titleBannerWidth * titleBannerConstant;
-  const titleFont = titleHeight * 0.15;
-  const titleMarginBottomConstant = 0.0;
-  const titleMarginBottom = titleHeight * titleMarginBottomConstant;
+  const titleFont = titleHeight * 0.14;
   const titleMarginSides = titleBannerWidth * 0.05;
-  const titleLineHeight = titleHeight * 0.3;
+  const titleLineHeight = titleHeight * 0.2;
   const buttonWidth = isTablet() ? wp('30%') : wp('42%');
   const buttonRatioConstant = 0.3525;
   const buttonHeight = buttonWidth * buttonRatioConstant;
@@ -70,29 +72,6 @@ const getStyles: any = () => {
       justifyContent: 'center',
       alignItems: 'center',
     },
-    titleOverlay: {
-      position: 'absolute',
-      top: navbarHeight + navbarMarginTop + hp('2%'),
-      width: titleBannerWidth,
-      height: titleHeight,
-    },
-    mapTitleContainerImage: {
-      flex: 1,
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      width: titleBannerWidth,
-    },
-    mapTitleText: {
-      fontFamily: Fonts.league,
-      fontSize: titleFont,
-      color: 'white',
-      textAlign: 'center',
-      marginLeft: titleMarginSides,
-      marginRight: titleMarginSides,
-      marginBottom: titleMarginBottom,
-      lineHeight: titleLineHeight,
-    },
     mapTypeButtonContainer: {
       position: 'absolute',
       top: y,
@@ -127,8 +106,69 @@ const getStyles: any = () => {
       width: wp('100%'),
       height: hp('100%'),
     },
+    titleOverlay: {
+      position: 'absolute',
+      top: navbarHeight + navbarMarginTop + hp('2%'),
+      width: titleBannerWidth,
+      height: titleHeight,
+    },
+    mapTitleContainerImage: {
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      width: titleBannerWidth,
+    },
+    mapTitleText: {
+      fontFamily: Fonts.league,
+      fontSize: titleFont,
+      color: 'white',
+      textAlign: 'center',
+      marginLeft: titleMarginSides,
+      marginRight: titleMarginSides,
+      marginTop: hp('2%'),
+      lineHeight: titleLineHeight,
+    },
+    progressBar: {
+      width: progressBarWidth,
+      height: progressBarHeight,
+      marginTop: hp('1%'),
+      flex: 1,
+      flexDirection: 'row',
+      justifyContent: 'flex-start',
+      alignItems: 'flex-start',
+      paddingBottom: progressBarHeight * 0.1,
+    },
+    progressBarBottomSpace: {
+      height: hp('2%'),
+    },
+    progressBarUnit: {
+      marginTop: progressBarHeight * 0.18,
+      marginLeft: progressBarWidth * 0.05,
+      flex: 1,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    progressText: {
+      fontFamily: Fonts.league,
+      marginTop: progressBarHeight * 0.01,
+      fontSize: progressBarHeight * 0.45,
+      color: 'white',
+      textAlign: 'center',
+    },
   });
 };
 
+const getSizeForProgress = (progress: number) => {
+  const maxWidthForProgress = progressBarWidth * 0.905;
+  const height = progressBarHeight * 0.5;
+
+  return {
+    width: maxWidthForProgress * (progress / 100),
+    height,
+  };
+};
+
 const styles = getStyles();
-export {styles};
+export {styles, getSizeForProgress};

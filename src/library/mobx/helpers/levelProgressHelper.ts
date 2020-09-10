@@ -79,3 +79,18 @@ export const areAllLevelsCompletedForPack = (
   });
   return completedLevels.length === pack.levels.length;
 };
+
+export const getProgressForPack = (
+  levelsProgress: LevelProgress[],
+  pack: Pack,
+) => {
+  let totalLevels = pack.levels.length;
+
+  const completedLevels = getLevelsForPack(levelsProgress, pack.id).filter(
+    (levelProgress: LevelProgress) => {
+      return levelProgress.completed;
+    },
+  ).length;
+
+  return (completedLevels / totalLevels) * 100;
+};
