@@ -175,7 +175,7 @@ export default class LevelMap extends Component<Props, State> {
             </View>
           )}
 
-          <View style={styles.backButtonContainer}>
+          <View style={styles.mapTypeButtonContainer}>
             <MapTypeButton
               mapMode={this.props.userStore.mapTypeMode}
               onPress={() => {

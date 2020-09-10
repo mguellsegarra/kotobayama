@@ -32,10 +32,10 @@ const getStyles: any = () => {
   const yBackButton =
     hp('100%') -
     (bottomHeight -
-      (navbarHeight + titleHeight) +
       playButtonOverlayBottomMargin +
       buttonHeight);
   const y = yBackButton * 0.5;
+
   return StyleSheet.create({
     root: {
       flex: 1,
@@ -96,7 +96,7 @@ const getStyles: any = () => {
       marginBottom: titleMarginBottom,
       lineHeight: titleLineHeight,
     },
-    backButtonContainer: {
+    mapTypeButtonContainer: {
       position: 'absolute',
       top: y,
       right: 0,
