@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Animated} from 'react-native';
+import {View as AnimatableView} from 'react-native-animatable';
 
 import {styles} from './levelMap.style';
 import R, {Images} from '@res/R';
@@ -54,12 +55,22 @@ export default class LevelMap extends Component<Props, State> {
   pack: Pack;
   levels: Array<Level>;
   prevCurrentLevel: number;
+  levelChooser: any;
+  navbar: any;
+  mapTitleBanner: any;
+  playButton: any;
+  closeMapButton: any;
+  levelCompletedBanner: any;
 
   constructor(props: Props) {
     super(props);
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
     this.mapLoaded = this.mapLoaded.bind(this);
     this.getCurrentLevel = this.getCurrentLevel.bind(this);
+
+    this.handleAnimsForMapNavigationMode = this.handleAnimsForMapNavigationMode.bind(
+      this,
+    );
 
     const {packId} = this.props.route.params;
     this.packId = packId;
@@ -105,9 +116,46 @@ export default class LevelMap extends Component<Props, State> {
 
   onMapPanDrag() {
     if (!this.state.mapNavigationMode) {
+      this.handleAnimsForMapNavigationMode();
       this.setState({
         mapNavigationMode: !this.state.mapNavigationMode,
       });
+    }
+  }
+
+  handleAnimsForMapNavigationMode() {
+    const currentLevelId = this.levels[
+      this.props.levelMapStore.currentLevelForPack[this.packId]
+    ].id;
+
+    const {levelProgress} = getLevelProgress(
+      this.props.levelProgressStore.levelsProgress,
+      currentLevelId,
+      this.packId,
+    );
+
+    if (this.state.mapNavigationMode) {
+      this.closeMapButton.animate('fadeOut', 300);
+      this.navbar.animate('fadeIn', 300);
+      this.mapTitleBanner.animate('fadeIn', 300);
+      this.levelChooser.animate('fadeIn', 300);
+
+      if (levelProgress?.completed) {
+        this.levelCompletedBanner?.animate('fadeIn', 300);
+      } else {
+        this.playButton.animate('fadeIn', 300);
+      }
+    } else {
+      this.closeMapButton.animate('fadeIn', 300);
+      this.navbar.animate('fadeOut', 300);
+      this.mapTitleBanner?.animate('fadeOut', 300);
+      this.levelChooser.animate('fadeOut', 300);
+
+      if (levelProgress?.completed) {
+        this.levelCompletedBanner?.animate('fadeOut', 300);
+      } else {
+        this.playButton.animate('fadeOut', 300);
+      }
     }
   }
 
@@ -159,29 +207,37 @@ export default class LevelMap extends Component<Props, State> {
             onMapLoaded={this.mapLoaded}
           />
 
-          {this.state.mapNavigationMode ? null : (
-            <View style={styles.navBar}>
-              <View style={styles.navBarLeft}>
-                <CircleButton
-                  style={styles.backButton}
-                  image={Images.back_button}
-                  onPress={() => {
-                    this.test.func();
-                    /*this.props.navigation.goBack*/
-                  }}></CircleButton>
-              </View>
-              <View style={styles.navBarMiddle}></View>
-              <View style={styles.navBarRight}>
-                <CoinCounter
-                  totalCoins={this.props.userStore.coins}
-                  onPress={() => {}}
-                />
-              </View>
+          <AnimatableView
+            useNativeDriver
+            style={styles.navBar}
+            ref={(ref) => {
+              this.navbar = ref;
+            }}
+            pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}>
+            <View style={styles.navBarLeft}>
+              <CircleButton
+                style={styles.backButton}
+                image={Images.back_button}
+                onPress={() => {
+                  // Force crash
+                  this.test.func();
+                  /*this.props.navigation.goBack*/
+                }}></CircleButton>
             </View>
-          )}
+            <View style={styles.navBarMiddle}></View>
+            <View style={styles.navBarRight}>
+              <CoinCounter
+                totalCoins={this.props.userStore.coins}
+                onPress={() => {}}
+              />
+            </View>
+          </AnimatableView>
 
           <MapTitleBanner
-            hide={this.state.mapNavigationMode}
+            ref={(ref) => {
+              this.mapTitleBanner = ref;
+            }}
+            pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
             title={this.pack.title}
             progress={getProgressForPack(
               this.props.levelProgressStore.levelsProgress,
@@ -198,33 +254,44 @@ export default class LevelMap extends Component<Props, State> {
             />
           </View>
 
+          {levelProgress?.completed ? (
+            <LevelCompletedBanner
+              style={styles.levelCompletedBanner}
+              ref={(ref) => {
+                this.levelCompletedBanner = ref;
+              }}
+              title={this.levels[this.getCurrentLevel()].title}
+              stars={levelProgress?.stars!}
+            />
+          ) : (
+            <RectButton
+              ref={(ref) => {
+                this.playButton = ref;
+              }}
+              pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
+              type={RectButtonEnum.Yellow}
+              text={strings('play')}
+              style={styles.playButtonOverlay}
+              onPress={() => {
+                this.props.navigation.navigate('Game', {
+                  packId: this.packId,
+                  levels: this.levels,
+                  currentLevel: this.getCurrentLevel(),
+                });
+              }}
+            />
+          )}
+
           <RectButton
-            hide={this.state.mapNavigationMode || levelProgress?.completed}
-            type={RectButtonEnum.Yellow}
-            text={strings('play')}
-            style={styles.playButtonOverlay}
-            onPress={() => {
-              this.props.navigation.navigate('Game', {
-                packId: this.packId,
-                levels: this.levels,
-                currentLevel: this.getCurrentLevel(),
-              });
+            ref={(ref) => {
+              this.closeMapButton = ref;
             }}
-          />
-
-          <LevelCompletedBanner
-            style={styles.levelCompletedBanner}
-            hide={this.state.mapNavigationMode || !levelProgress?.completed}
-            title={this.levels[this.getCurrentLevel()].title}
-            stars={levelProgress?.stars!}
-          />
-
-          <RectButton
-            hide={!this.state.mapNavigationMode}
+            pointerEvents={!this.state.mapNavigationMode ? 'none' : 'auto'}
             type={RectButtonEnum.Blue}
             text={strings('back')}
             style={styles.closeMapButtonOverlay}
             onPress={() => {
+              this.handleAnimsForMapNavigationMode();
               this.setState({
                 mapNavigationMode: !this.state.mapNavigationMode,
               });
@@ -236,10 +303,13 @@ export default class LevelMap extends Component<Props, State> {
           />
 
           <LevelChooser
+            ref={(ref) => {
+              this.levelChooser = ref;
+            }}
             currentLevel={this.getCurrentLevel()}
             levels={this.levels}
             packId={this.packId}
-            hide={this.state.mapNavigationMode}
+            pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
             onNextLevel={() => {
               this.props.levelMapStore.nextLevelForPack(this.pack);
             }}

@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {View, Image, Text} from 'react-native';
+import {Image, Text} from 'react-native';
+import {View} from 'react-native-animatable';
+
 // @ts-ignore
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -17,18 +19,20 @@ import LevelProgressStore, {
 } from '@library/mobx/levelProgressStore';
 
 type Props = {
-  hide?: boolean;
   levels: Array<Level>;
   currentLevel: number;
   packId: string;
   onNextLevel: Function;
   onPrevLevel: Function;
   levelProgressStore?: LevelProgressStore;
+  pointerEvents: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
 };
 
 @inject('levelProgressStore')
 @observer
 export default class LevelChooser extends Component<Props> {
+  containerView: any;
+
   static defaultProps = {
     hide: false,
   };
@@ -88,6 +92,10 @@ export default class LevelChooser extends Component<Props> {
     );
   }
 
+  animate(animationType: string, duration: number) {
+    this.containerView.animate(animationType, duration);
+  }
+
   render() {
     const levelProgress = getLevelProgress(
       this.props.levelProgressStore!.levelsProgress,
@@ -95,12 +103,14 @@ export default class LevelChooser extends Component<Props> {
       this.props.packId,
     ).levelProgress;
 
-    if (this.props.hide) {
-      return null;
-    }
-
     return (
-      <View style={styles.container}>
+      <View
+        useNativeDriver
+        ref={(ref) => {
+          this.containerView = ref;
+        }}
+        pointerEvents={this.props.pointerEvents}
+        style={styles.container}>
         <View style={styles.levelBar}>
           <View style={styles.levelBarFlex}>
             <View style={styles.levelBarArrow}>

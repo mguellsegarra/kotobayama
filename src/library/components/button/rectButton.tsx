@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Text, ViewStyle, TextStyle} from 'react-native';
+import {ImageBackground, Text, ViewStyle, TextStyle, Platform} from 'react-native';
+import {View} from 'react-native-animatable';
+const isAndroid = Platform.OS === 'android';
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';
@@ -14,13 +16,14 @@ import {
 
 type Props = {
   text: string;
-  hide?: boolean;
   onPress?: Function;
   type: RectButtonEnum;
   imageStyle?: ViewStyle;
   textStyle?: TextStyle;
   style?: ViewStyle;
   delay?: number;
+  pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
+  visible?: boolean;
 };
 
 export enum RectButtonEnum {
@@ -56,13 +59,15 @@ export default class RectButton extends Component<Props> {
     onPress: () => {},
     imageStyle: {},
     delay: 300,
+    visible: true,
   };
+  containerView: any;
+
+  animate(animationType: string, duration: number) {
+    this.containerView.animate(animationType, duration);
+  }
 
   render() {
-    if (this.props.hide) {
-      return null;
-    }
-
     const rectButtonConfig =
       rectButtonTypes.get(this.props.type) ||
       rectButtonTypes.get(RectButtonEnum.Yellow);
@@ -82,42 +87,41 @@ export default class RectButton extends Component<Props> {
       alignItems: 'center',
     };
 
-    if (!this.props.hide) {
-      return (
-        <View
-          style={[
-            this.props.style,
-            {
-              width: buttonWidth,
-              height: buttonHeight,
-            },
-          ]}>
-          <TouchableScale
-            style={Object.assign(defaultImageStyle, this.props.imageStyle)}
-            onPress={() => {
-              setTimeout(this.props.onPress, this.props.delay);
-            }}>
-            <ImageBackground
-              source={R.img(rectButtonConfig!.image)}
-              style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
-              <Text
-                style={{
-                  ...this.props.textStyle,
-                  ...{
-                    marginBottom: buttonTextMarginBottom,
-                    fontFamily: Fonts.lilita,
-                    fontSize: buttonTextFontSize,
-                    color: rectButtonConfig!.textColor,
-                  },
-                }}>
-                {this.props.text}
-              </Text>
-            </ImageBackground>
-          </TouchableScale>
-        </View>
-      );
-    } else {
-      return null;
-    }
+    let viewStyle = Object.assign({}, this.props.style);
+    viewStyle.width = buttonWidth;
+    viewStyle.height = buttonHeight;
+    
+    return (
+      <View
+        useNativeDriver={!isAndroid}
+        ref={(ref) => {
+          this.containerView = ref;
+        }}
+        pointerEvents={this.props.pointerEvents}
+        style={Object.assign({opacity: this.props.visible ? 1 : 0}, viewStyle)}>
+        <TouchableScale
+          style={Object.assign(defaultImageStyle, this.props.imageStyle)}
+          onPress={() => {
+            setTimeout(this.props.onPress, this.props.delay);
+          }}>
+          <ImageBackground
+            source={R.img(rectButtonConfig!.image)}
+            style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
+            <Text
+              style={{
+                ...this.props.textStyle,
+                ...{
+                  marginBottom: buttonTextMarginBottom,
+                  fontFamily: Fonts.lilita,
+                  fontSize: buttonTextFontSize,
+                  color: rectButtonConfig!.textColor,
+                },
+              }}>
+              {this.props.text}
+            </Text>
+          </ImageBackground>
+        </TouchableScale>
+      </View>
+    );
   }
 }
