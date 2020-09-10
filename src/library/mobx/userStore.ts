@@ -1,14 +1,10 @@
 import {observable, action, autorun} from 'mobx';
 import SyncService from '@library/services/syncService';
-
-export enum MapStyleMode {
-  Sat = 'sat',
-  Topo = 'topo',
-}
+import {MapTypeMode} from '@library/models/mapTypeMode';
 
 export default class UserStore {
   @observable public coins: number = 200;
-  @observable public mapStyleMode: MapStyleMode = MapStyleMode.Topo;
+  @observable public mapTypeMode: MapTypeMode = MapTypeMode.Topo;
 
   @action
   decrementCoins = (amount: number) => {
@@ -23,8 +19,8 @@ export default class UserStore {
   };
 
   @action
-  setMapStyleMode = (mapStyleMode: MapStyleMode) => {
-    this.mapStyleMode = mapStyleMode;
+  setMapTypeMode = (mapTypeMode: MapTypeMode) => {
+    this.mapTypeMode = mapTypeMode;
   };
 
   @action
@@ -33,11 +29,11 @@ export default class UserStore {
   };
 
   @action
-  toggleMapStyleMode = () => {
-    if (this.mapStyleMode === MapStyleMode.Sat) {
-      this.setMapStyleMode(MapStyleMode.Topo);
+  toggleMapTypeMode = () => {
+    if (this.mapTypeMode === MapTypeMode.Sat) {
+      this.setMapTypeMode(MapTypeMode.Topo);
     } else {
-      this.setMapStyleMode(MapStyleMode.Sat);
+      this.setMapTypeMode(MapTypeMode.Sat);
     }
     SyncService.persistUser(this);
   };

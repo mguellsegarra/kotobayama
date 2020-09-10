@@ -7,7 +7,7 @@ import {Level} from '@library/models/level';
 import {styles} from './mapLayer.style';
 
 import LevelMarker from './levelMarker';
-import {MapStyleMode} from '@library/mobx/userStore';
+import {MapTypeMode} from '@library/models/mapTypeMode';
 
 import {observer, inject} from 'mobx-react';
 import UserStore from '@library/mobx/userStore';
@@ -29,16 +29,10 @@ type State = {
 
 const paddingConstant = 0.99989;
 
-const mapOptionsForMode = {
-  sat: {
-    type: 'satellite',
-    mapStyle: undefined,
-  },
-  topo: {
-    type: 'standard',
-    mapStyle: MapSettings.mapStyle,
-  },
-};
+const mapOptionsForMode = new Map<string, any>([
+  [MapTypeMode.Sat, {type: 'satellite', mapStyle: undefined}],
+  [MapTypeMode.Topo, {type: 'standard', mapStyle: MapSettings.mapStyle}],
+]);
 
 @inject('userStore')
 @observer
@@ -97,11 +91,10 @@ export default class MapLayer extends Component<Props, State> {
           zoom: 14,
         }}
         mapType={
-          mapOptionsForMode[this.props.userStore?.mapStyleMode!]
-            .type as MapTypes
+          mapOptionsForMode.get(this.props.userStore?.mapTypeMode!).type as MapTypes
         }
         customMapStyle={
-          mapOptionsForMode[this.props.userStore?.mapStyleMode!].mapStyle
+          mapOptionsForMode.get(this.props.userStore?.mapTypeMode!).mapStyle
         }
         rotateEnabled={false}
         pitchEnabled={false}
@@ -141,7 +134,7 @@ export default class MapLayer extends Component<Props, State> {
             });
           }, 100);
         }}>
-        {this.props.userStore?.mapStyleMode === MapStyleMode.Topo ? (
+        {this.props.userStore?.mapTypeMode === MapTypeMode.Topo ? (
           <UrlTile urlTemplate={MapSettings.urlMapTile} />
         ) : null}
         {this.state.markers}

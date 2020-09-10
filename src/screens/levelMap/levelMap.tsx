@@ -16,7 +16,7 @@ import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
 import CircleButton from '@library/components/button/circleButton';
-import MapStyleButton from '@library/components/map/mapStyleButton';
+import MapTypeButton from '@library/components/map/mapTypeButton';
 
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
@@ -176,10 +176,10 @@ export default class LevelMap extends Component<Props, State> {
           )}
 
           <View style={styles.backButtonContainer}>
-            <MapStyleButton
-              mapMode={this.props.userStore.mapStyleMode}
+            <MapTypeButton
+              mapMode={this.props.userStore.mapTypeMode}
               onPress={() => {
-                this.props.userStore.toggleMapStyleMode();
+                this.props.userStore.toggleMapTypeMode();
               }}
             />
           </View>

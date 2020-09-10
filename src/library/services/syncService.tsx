@@ -81,7 +81,7 @@ const SyncService: SyncServiceType = {
       .then((parsedObject: any) => {
         progress(70);
         store.setCoins(parsedObject.coins);
-        store.setMapStyleMode(parsedObject.mapStyleMode);
+        store.setMapTypeMode(parsedObject.mapTypeMode);
         progress(100);
         return Promise.resolve();
       })
@@ -97,7 +97,7 @@ const SyncService: SyncServiceType = {
   persistUser: (store: UserStore) => {
     const payload = {
       coins: store.coins,
-      mapStyleMode: store.mapStyleMode,
+      mapTypeMode: store.mapTypeMode,
     };
 
     return StorageService.write({

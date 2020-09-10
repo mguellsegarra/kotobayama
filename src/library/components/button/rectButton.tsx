@@ -33,20 +33,22 @@ interface RectButtonType {
   textColor: string;
 }
 
-interface RectButtonTypeConfig {
-  [index: string]: RectButtonType;
-}
-
-const RectButtonTypes: RectButtonTypeConfig = {
-  yellow: {
-    image: Images.button_yellow,
-    textColor: Colors.yellowButtonText,
-  },
-  blue: {
-    image: Images.button_blue,
-    textColor: 'white',
-  },
-};
+const rectButtonTypes = new Map<string, RectButtonType>([
+  [
+    RectButtonEnum.Yellow,
+    {
+      image: Images.button_yellow,
+      textColor: Colors.yellowButtonText,
+    },
+  ],
+  [
+    RectButtonEnum.Blue,
+    {
+      image: Images.button_blue,
+      textColor: 'white',
+    },
+  ],
+]);
 
 export default class RectButton extends Component<Props> {
   static defaultProps = {
@@ -62,7 +64,8 @@ export default class RectButton extends Component<Props> {
     }
 
     const rectButtonConfig =
-      RectButtonTypes[this.props.type] || RectButtonTypes['yellow'];
+      rectButtonTypes.get(this.props.type) ||
+      rectButtonTypes.get(RectButtonEnum.Yellow);
 
     const buttonWidth = isTablet() ? wp('30%') : wp('42%');
     const buttonRatioConstant = 0.3525;
@@ -95,7 +98,7 @@ export default class RectButton extends Component<Props> {
               setTimeout(this.props.onPress, this.props.delay);
             }}>
             <ImageBackground
-              source={R.img(rectButtonConfig.image)}
+              source={R.img(rectButtonConfig!.image)}
               style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
               <Text
                 style={{
@@ -104,7 +107,7 @@ export default class RectButton extends Component<Props> {
                     marginBottom: buttonTextMarginBottom,
                     fontFamily: Fonts.lilita,
                     fontSize: buttonTextFontSize,
-                    color: rectButtonConfig.textColor,
+                    color: rectButtonConfig!.textColor,
                   },
                 }}>
                 {this.props.text}
