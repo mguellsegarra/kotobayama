@@ -81,10 +81,6 @@ export default class LevelMap extends Component<Props, State> {
     }).start();
   }
 
-  componentDidMount() {
-    this.updateMapLayer();
-  }
-
   componentDidUpdate() {
     const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack[
       this.pack.id
@@ -179,16 +175,14 @@ export default class LevelMap extends Component<Props, State> {
             </View>
           )}
 
-          {this.state.mapNavigationMode ? null : (
-            <View style={styles.backButtonContainer}>
-              <MapStyleButton
-                mapMode={this.props.userStore.mapStyleMode}
-                onPress={() => {
-                  this.props.userStore.toggleMapStyleMode();
-                }}
-              />
-            </View>
-          )}
+          <View style={styles.backButtonContainer}>
+            <MapStyleButton
+              mapMode={this.props.userStore.mapStyleMode}
+              onPress={() => {
+                this.props.userStore.toggleMapStyleMode();
+              }}
+            />
+          </View>
 
           <RectButton
             hide={this.state.mapNavigationMode}

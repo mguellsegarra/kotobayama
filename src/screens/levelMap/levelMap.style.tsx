@@ -23,7 +23,7 @@ const getStyles: any = () => {
   const buttonRatioConstant = 0.3525;
   const buttonHeight = buttonWidth * buttonRatioConstant;
 
-    const navbarHeight = hp('5%');
+  const navbarHeight = hp('5%');
   const backButtonSize = hp('5%');
   const navbarMarginTop =
     Platform.OS === 'ios' && DeviceInfo.hasNotch() ? 44 : 5;
@@ -31,7 +31,10 @@ const getStyles: any = () => {
   const playButtonOverlayBottomMargin = hp('2%');
   const yBackButton =
     hp('100%') -
-    (bottomHeight - (navbarHeight + titleHeight) + playButtonOverlayBottomMargin + buttonHeight);
+    (bottomHeight -
+      (navbarHeight + titleHeight) +
+      playButtonOverlayBottomMargin +
+      buttonHeight);
   const y = yBackButton * 0.5;
   return StyleSheet.create({
     root: {
