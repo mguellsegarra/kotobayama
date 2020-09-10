@@ -205,6 +205,7 @@ export default class LevelMap extends Component<Props, State> {
             controlsEnabled={this.state.mapNavigationMode}
             onPanDrag={this.onMapPanDrag}
             onMapLoaded={this.mapLoaded}
+            packId={this.packId}
           />
 
           <AnimatableView

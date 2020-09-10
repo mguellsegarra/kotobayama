@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
 import {Marker, LatLng} from 'react-native-maps';
 
-import R, {Images} from '@res/R';
+import R from '@res/R';
 
-const getMarkerImageForIdx = (idx: number) => {
-  return 'marker_' + idx.toString();
+const getMarkerImageForIdx = (idx: number, completed: boolean) => {
+  const suffix = completed ? '_green' : '';
+  return 'marker_' + idx.toString() + suffix;
 };
 
 type Props = {
@@ -12,6 +13,7 @@ type Props = {
   idx: number;
   coord: LatLng;
   mapReady: boolean;
+  completed: boolean;
 };
 
 export default class LevelMarker extends Component<Props> {
@@ -21,7 +23,7 @@ export default class LevelMarker extends Component<Props> {
         key={this.props.id}
         identifier={this.props.id}
         coordinate={this.props.coord}
-        icon={R.img(getMarkerImageForIdx(this.props.idx))}
+        icon={R.img(getMarkerImageForIdx(this.props.idx, this.props.completed))}
         tracksViewChanges={!this.props.mapReady}
       />
     );

@@ -11,14 +11,19 @@ import {MapTypeMode} from '@library/models/mapTypeMode';
 
 import {observer, inject} from 'mobx-react';
 import UserStore from '@library/mobx/userStore';
+import LevelProgressStore, {
+  getLevelProgress,
+} from '@library/mobx/levelProgressStore';
 
 type Props = {
   controlsEnabled: boolean;
   levels: Array<Level>;
+  packId: string;
   onPanDrag: Function;
   onMapLoaded: Function;
   initialLevel: number;
   userStore?: UserStore;
+  levelProgressStore?: LevelProgressStore;
 };
 
 type State = {
@@ -35,6 +40,7 @@ const mapOptionsForMode = new Map<string, any>([
 ]);
 
 @inject('userStore')
+@inject('levelProgressStore')
 @observer
 export default class MapLayer extends Component<Props, State> {
   state = {
@@ -116,6 +122,13 @@ export default class MapLayer extends Component<Props, State> {
           const allIds: Array<string> = [];
           let i = 1;
           this.props.levels.forEach((level: Level) => {
+            const {levelProgress} = getLevelProgress(
+              this.props.levelProgressStore?.levelsProgress!,
+              level.id,
+              this.props.packId,
+            );
+        
+        
             markers.push(
               <LevelMarker
                 id={level.id.toString()}
@@ -123,6 +136,7 @@ export default class MapLayer extends Component<Props, State> {
                 coord={level.latlon}
                 mapReady={true}
                 idx={i}
+                completed={levelProgress?.completed!}
               />,
             );
             allIds.push(level.id.toString());
