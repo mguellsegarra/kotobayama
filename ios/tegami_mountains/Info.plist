@@ -66,5 +66,10 @@
 		<string>LeagueSpartan-Bold.otf</string>
 		<string>LilitaOne.ttf</string>
 	</array>
+	<key>bugsnag</key>
+	<dict>
+		<key>apiKey</key>
+		<string>3c86cec137dce1bf5e2a5fb37bce82ab</string>
+	</dict>
 </dict>
 </plist>

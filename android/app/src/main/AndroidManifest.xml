@@ -16,6 +16,8 @@
       <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyD5R415KVeuIc-tMyGEZAdSciu7O_kgF90"/>
+      <meta-data android:name="com.bugsnag.android.API_KEY"
+        android:value="3c86cec137dce1bf5e2a5fb37bce82ab"/>
       <uses-library android:name="org.apache.http.legacy" android:required="false"/>
       <activity
         android:name=".MainActivity"

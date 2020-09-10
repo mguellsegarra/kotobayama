@@ -1,5 +1,7 @@
 PODS:
   - boost-for-react-native (1.63.0)
+  - BugsnagReactNative (7.3.3):
+    - React
   - BVLinearGradient (2.5.6):
     - React
   - CocoaAsyncSocket (7.6.4)
@@ -348,6 +350,7 @@ PODS:
     - Yoga (~> 1.14)
 
 DEPENDENCIES:
+  - "BugsnagReactNative (from `../node_modules/@bugsnag/react-native`)"
   - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
@@ -428,6 +431,8 @@ SPEC REPOS:
     - YogaKit
 
 EXTERNAL SOURCES:
+  BugsnagReactNative:
+    :path: "../node_modules/@bugsnag/react-native"
   BVLinearGradient:
     :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
@@ -507,6 +512,7 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  BugsnagReactNative: cc21bc7a63d3184d51bd9337674eb7651c9afb0b
   BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   CocoaAsyncSocket: 694058e7c0ed05a9e217d1b3c7ded962f4180845
   CocoaLibEvent: 2fab71b8bd46dd33ddb959f7928ec5909f838e3f

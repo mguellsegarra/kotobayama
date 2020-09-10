@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import androidx.multidex.MultiDexApplication;
+import com.bugsnag.android.Bugsnag;
 
 import com.facebook.react.PackageList;
 import com.facebook.react.ReactApplication;
@@ -48,6 +49,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
     super.onCreate();
     SoLoader.init(this, /* native exopackage */ false);
     initializeFlipper(this, getReactNativeHost().getReactInstanceManager());
+    Bugsnag.start(this);
   }
 
   /**

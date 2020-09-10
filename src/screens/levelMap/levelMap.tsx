@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Text, Animated} from 'react-native';
+import {View, ImageBackground, Animated} from 'react-native';
 
 import {styles} from './levelMap.style';
 import R, {Images} from '@res/R';
@@ -166,6 +166,7 @@ export default class LevelMap extends Component<Props, State> {
                   style={styles.backButton}
                   image={Images.back_button}
                   onPress={() => {
+                    this.test.func();
                     /*this.props.navigation.goBack*/
                   }}></CircleButton>
               </View>
