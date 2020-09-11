@@ -101,7 +101,9 @@ export default class LevelMap extends Component<Props, State> {
     if (this.solutionBar?.isWordCorrect()) {
       // TODO: Add coins
       // TODO: Correct screen
-      this.props.userStore.incrementCoins(this.getLevelProgress()?.lives! * 25);
+      this.props.userStore.incrementCoinsForLives(
+        this.props.levelProgressStore?.getCurrentLives(level.id, this.pack.id),
+      );
 
       this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
       this.props.levelProgressStore.calculateLevelStars(level.id, this.pack.id);
@@ -129,7 +131,12 @@ export default class LevelMap extends Component<Props, State> {
       );
       this.livesIndicator?.animate('tada', 1000);
 
-      if (this.getLevelProgress()?.lives === 0) {
+      if (
+        this.props.levelProgressStore?.getCurrentLives(
+          level.id,
+          this.pack.id,
+        ) === 0
+      ) {
         await delayPromise(500);
         this.props.levelProgressStore.setLevelCooldown(level.id, this.pack.id);
         this.props.navigation.goBack();
@@ -184,7 +191,12 @@ export default class LevelMap extends Component<Props, State> {
                 ref={(ref) => {
                   this.livesIndicator = ref;
                 }}
-                lives={this.getLevelProgress()?.lives!}
+                lives={
+                  this.props.levelProgressStore?.getCurrentLives(
+                    this.getLevelProgress()?.id!,
+                    this.pack.id,
+                  )!
+                }
               />
             </View>
             <View style={this.styles.navBarRight}>

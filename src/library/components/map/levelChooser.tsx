@@ -84,7 +84,10 @@ export default class LevelChooser extends Component<Props> {
               source={R.img(Images.heart_icon_details)}
             />
             <Text style={styles.detailRightText}>
-              {levelProgress?.lives + '/3'}
+              {this.props.levelProgressStore?.getCurrentLives(
+                levelProgress?.id,
+                this.props.packId,
+              )}
             </Text>
           </View>
         </View>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ImageBackground, Text, Platform} from 'react-native';
+import {Platform} from 'react-native';
 import {strings} from '@library/services/i18nService';
 import {Level} from '@library/models/level';
 import {observer, inject} from 'mobx-react';
@@ -14,8 +14,7 @@ import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
 
-// @ts-ignore
-import {Countdown} from 'react-native-countdown-text';
+import CountdownText from '@library/components/map/countdownText';
 
 import {styles} from '@screens/levelMap/levelMap.style';
 
@@ -28,10 +27,28 @@ type Props = {
   levelProgressStore?: LevelProgressStore;
 };
 
+type State = {
+  countdownRunning: boolean;
+};
+
 @inject('levelProgressStore')
 @observer
-export default class PlayButton extends Component<Props> {
+export default class PlayButton extends Component<Props, State> {
   containerView: any;
+
+  constructor(props: Props) {
+    super(props);
+    const level = this.props.levels[this.props.currentLevel];
+    const {levelProgress} = getLevelProgress(
+      this.props.levelProgressStore?.levelsProgress!,
+      level.id,
+      this.props.packId,
+    );
+
+    this.state = {
+      countdownRunning: levelProgress?.emptyLivesTimestamp !== null,
+    };
+  }
 
   animate(animationType: string, duration: number) {
     this.containerView.animate(animationType, duration);
@@ -54,9 +71,20 @@ export default class PlayButton extends Component<Props> {
   }
 
   noLivesButton(timestamp: number) {
+    const level = this.props.levels[this.props.currentLevel];
+
     return (
       <RectButton type={RectButtonEnum.Yellow} onPress={() => {}}>
-        <Countdown finishTime={timestamp} format={'h:m:s'} />
+        <CountdownText
+          finishTime={timestamp}
+          format={'m:ss'}
+          onFinish={() => {
+            this.props.levelProgressStore?.restoreLevelCooldownAndLivesIfNeeded(
+              level.id,
+              this.props.packId,
+            );
+          }}
+        />
       </RectButton>
     );
   }
@@ -64,13 +92,13 @@ export default class PlayButton extends Component<Props> {
   render() {
     const level = this.props.levels[this.props.currentLevel];
 
-    this.props.levelProgressStore?.restoreLevelCooldownAndLivesIfNeeded(
+    const {levelProgress} = getLevelProgress(
+      this.props.levelProgressStore?.levelsProgress!,
       level.id,
       this.props.packId,
     );
 
-    const {levelProgress} = getLevelProgress(
-      this.props.levelProgressStore?.levelsProgress!,
+    const lives = this.props.levelProgressStore?.getCurrentLives(
       level.id,
       this.props.packId,
     );
@@ -83,9 +111,10 @@ export default class PlayButton extends Component<Props> {
           this.containerView = ref;
         }}
         pointerEvents={this.props.pointerEvents}>
-        {levelProgress?.emptyLivesTimestamp !== null
+        {lives === 0 && levelProgress?.emptyLivesTimestamp! !== null
           ? this.noLivesButton(levelProgress?.emptyLivesTimestamp!)
           : this.playButton()}
+        <View key={levelProgress?.lives} />
       </View>
     );
   }

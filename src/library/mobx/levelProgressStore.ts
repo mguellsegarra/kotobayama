@@ -1,7 +1,10 @@
 import {observable, computed, action} from 'mobx';
+import {computedFn} from 'mobx-utils';
+
 import {LevelProgress} from '@library/models/level';
 import {getLevelProgress} from './helpers/levelProgressHelper';
 import moment from 'moment';
+const gameConfig = require('@assets/gameConfig');
 
 export default class LevelProgressStore {
   @observable public levelsProgress: LevelProgress[] = [];
@@ -60,6 +63,7 @@ export default class LevelProgressStore {
       levelId,
       packId,
     );
+    this.restoreLevelCooldownAndLivesIfNeededForLevel(levelProgress!, idx!);
 
     levelProgress!.lives--;
     this.levelsProgress[idx as number] = levelProgress!;
@@ -72,6 +76,7 @@ export default class LevelProgressStore {
       levelId,
       packId,
     );
+    this.restoreLevelCooldownAndLivesIfNeededForLevel(levelProgress!, idx!);
 
     levelProgress!.investedLives++;
     this.levelsProgress[idx as number] = levelProgress!;
@@ -85,10 +90,32 @@ export default class LevelProgressStore {
       packId,
     );
 
-    levelProgress!.emptyLivesTimestamp = moment().add('30', 'minutes').unix();
+    levelProgress!.emptyLivesTimestamp = moment().add(gameConfig.coolDownMinutes.toString(), 'seconds').unix();
 
     this.levelsProgress[idx as number] = levelProgress!;
   };
+
+  getCurrentLives = computedFn(function getCurrentLives(
+    this: LevelProgressStore,
+    levelId: string,
+    packId: string,
+  ) {
+    const {levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    if (levelProgress!.emptyLivesTimestamp === null) {
+      return levelProgress!.lives;
+    } else {
+      if (levelProgress!.emptyLivesTimestamp <= moment().unix()) {
+        return 3;
+      } else {
+        return 0;
+      }
+    }
+  });
 
   @action
   restoreLevelCooldownAndLivesIfNeeded = (levelId: string, packId: string) => {
@@ -98,6 +125,10 @@ export default class LevelProgressStore {
       packId,
     );
 
+    this.restoreLevelCooldownAndLivesIfNeededForLevel(levelProgress!, idx!);
+  };
+
+  restoreLevelCooldownAndLivesIfNeededForLevel = (levelProgress: LevelProgress, idx: number) => {
     if (levelProgress!.emptyLivesTimestamp === null) {
       return;
     }
@@ -107,7 +138,7 @@ export default class LevelProgressStore {
       levelProgress!.lives = 3;
       this.levelsProgress[idx as number] = levelProgress!;
     }
-  };
+  } 
 
   @action
   fillLevelsProgress = (content: LevelProgress[]) => {

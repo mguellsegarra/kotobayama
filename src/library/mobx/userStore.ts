@@ -1,6 +1,7 @@
 import {observable, action, autorun} from 'mobx';
 import SyncService from '@library/services/syncService';
 import {MapTypeMode} from '@library/models/mapTypeMode';
+const gameConfig = require('@assets/gameConfig');
 
 export default class UserStore {
   @observable public coins: number = 200;
@@ -15,6 +16,12 @@ export default class UserStore {
   @action
   incrementCoins = (amount: number) => {
     this.coins += amount;
+    SyncService.persistUser(this);
+  };
+
+  @action
+  incrementCoinsForLives = (lives: number) => {
+    this.coins += lives * gameConfig.coinsPerLive;
     SyncService.persistUser(this);
   };
 

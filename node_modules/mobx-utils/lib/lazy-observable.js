@@ -1,0 +1,79 @@
+import { observable, action, _allowStateChanges } from "mobx";
+/**
+ * `lazyObservable` creates an observable around a `fetch` method that will not be invoked
+ * until the observable is needed the first time.
+ * The fetch method receives a `sink` callback which can be used to replace the
+ * current value of the lazyObservable. It is allowed to call `sink` multiple times
+ * to keep the lazyObservable up to date with some external resource.
+ *
+ * Note that it is the `current()` call itself which is being tracked by MobX,
+ * so make sure that you don't dereference to early.
+ *
+ * @example
+ * const userProfile = lazyObservable(
+ *   sink => fetch("/myprofile").then(profile => sink(profile))
+ * )
+ *
+ * // use the userProfile in a React component:
+ * const Profile = observer(({ userProfile }) =>
+ *   userProfile.current() === undefined
+ *   ? <div>Loading user profile...</div>
+ *   : <div>{userProfile.current().displayName}</div>
+ * )
+ *
+ * // triggers refresh the userProfile
+ * userProfile.refresh()
+ *
+ * @param {(sink: (newValue: T) => void) => void} fetch method that will be called the first time the value of this observable is accessed. The provided sink can be used to produce a new value, synchronously or asynchronously
+ * @param {T} [initialValue=undefined] optional initialValue that will be returned from `current` as long as the `sink` has not been called at least once
+ * @returns {{
+ *     current(): T,
+ *     refresh(): T,
+ *     reset(): T
+ *     pending: boolean
+ * }}
+ */
+export function lazyObservable(fetch, initialValue) {
+    if (initialValue === void 0) { initialValue = undefined; }
+    var started = false;
+    var value = observable.box(initialValue, { deep: false });
+    var pending = observable.box(false);
+    var currentFnc = function () {
+        if (!started) {
+            started = true;
+            _allowStateChanges(true, function () {
+                pending.set(true);
+            });
+            fetch(function (newValue) {
+                _allowStateChanges(true, function () {
+                    value.set(newValue);
+                    pending.set(false);
+                });
+            });
+        }
+        return value.get();
+    };
+    var resetFnc = action("lazyObservable-reset", function () {
+        started = false;
+        value.set(initialValue);
+        return value.get();
+    });
+    return {
+        current: currentFnc,
+        refresh: function () {
+            if (started) {
+                started = false;
+                return currentFnc();
+            }
+            else {
+                return value.get();
+            }
+        },
+        reset: function () {
+            return resetFnc();
+        },
+        get pending() {
+            return pending.get();
+        },
+    };
+}
