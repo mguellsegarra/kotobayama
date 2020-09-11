@@ -11,6 +11,7 @@ import LevelProgressStore, {
   getLevelProgress,
 } from '@library/mobx/levelProgressStore';
 
+import UserStore from '@library/mobx/userStore';
 import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
@@ -18,6 +19,7 @@ import RectButton, {
 import CountdownText from '@library/components/map/countdownText';
 
 import {styles} from '@screens/levelMap/levelMap.style';
+const gameConfig = require('@assets/gameConfig');
 
 type Props = {
   levels: Array<Level>;
@@ -26,6 +28,7 @@ type Props = {
   navigation: any;
   pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
   levelProgressStore?: LevelProgressStore;
+  userStore?: UserStore;
 };
 
 type State = {
@@ -33,6 +36,7 @@ type State = {
 };
 
 @inject('levelProgressStore')
+@inject('userStore')
 @observer
 export default class PlayButton extends Component<Props, State> {
   containerView: any;
@@ -100,7 +104,17 @@ export default class PlayButton extends Component<Props, State> {
           </View>
         </View>
         <View style={styles.countdownBottom}>
-          <RectButton type={RectButtonEnum.Red} onPress={() => {}}>
+          <RectButton
+            type={RectButtonEnum.Red}
+            onPress={() => {
+              this.props.userStore?.decrementCoins(
+                gameConfig.freeCooldownPrice,
+              );
+              this.props.levelProgressStore?.unsetLevelCooldown(
+                level.id,
+                this.props.packId,
+              );
+            }}>
             <View style={styles.countdownButton}>
               <View style={styles.countdownButtonUpperView}>
                 <Text style={styles.countdownButtonUpperText}>
@@ -108,7 +122,9 @@ export default class PlayButton extends Component<Props, State> {
                 </Text>
               </View>
               <View style={styles.countdownButtonLowerView}>
-                <Text style={styles.countdownButtonLowerText}>100</Text>
+                <Text style={styles.countdownButtonLowerText}>
+                  {gameConfig.freeCooldownPrice}
+                </Text>
                 <Image
                   style={styles.countdownButtonLowerCoin}
                   source={R.img(Images.coin_small)}

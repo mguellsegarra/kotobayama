@@ -1,4 +1,5 @@
 {
   "coinsPerLive": 25,
-  "coolDownMinutes": 30
+  "coolDownMinutes": 30,
+  "freeCooldownPrice": 100
 }

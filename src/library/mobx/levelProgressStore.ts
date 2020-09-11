@@ -1,9 +1,11 @@
-import {observable, computed, action} from 'mobx';
+import {observable, action} from 'mobx';
 import {computedFn} from 'mobx-utils';
 
 import {LevelProgress} from '@library/models/level';
 import {getLevelProgress} from './helpers/levelProgressHelper';
 import moment from 'moment';
+import SyncService from '@library/services/syncService';
+
 const gameConfig = require('@assets/gameConfig');
 
 export default class LevelProgressStore {
@@ -23,6 +25,7 @@ export default class LevelProgressStore {
 
     levelProgress!.completed = true;
     this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this.levelsProgress);
   };
 
   @action
@@ -35,6 +38,7 @@ export default class LevelProgressStore {
 
     levelProgress!.stars = stars;
     this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this.levelsProgress);
   };
 
   @action
@@ -54,6 +58,7 @@ export default class LevelProgressStore {
     }
 
     this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this.levelsProgress);
   };
 
   @action
@@ -67,6 +72,7 @@ export default class LevelProgressStore {
 
     levelProgress!.lives--;
     this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this.levelsProgress);
   };
 
   @action
@@ -80,6 +86,7 @@ export default class LevelProgressStore {
 
     levelProgress!.investedLives++;
     this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this.levelsProgress);
   };
 
   @action
@@ -90,9 +97,27 @@ export default class LevelProgressStore {
       packId,
     );
 
-    levelProgress!.emptyLivesTimestamp = moment().add(gameConfig.coolDownMinutes.toString(), 'minutes').unix();
+    levelProgress!.emptyLivesTimestamp = moment()
+      .add(gameConfig.coolDownMinutes.toString(), 'minutes')
+      .unix();
 
     this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this.levelsProgress);
+  };
+
+  @action
+  unsetLevelCooldown = (levelId: string, packId: string) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    levelProgress!.emptyLivesTimestamp = null;
+    levelProgress!.lives = 3;
+
+    this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this.levelsProgress);
   };
 
   getCurrentLives = computedFn(function getCurrentLives(
@@ -126,9 +151,13 @@ export default class LevelProgressStore {
     );
 
     this.restoreLevelCooldownAndLivesIfNeededForLevel(levelProgress!, idx!);
+    SyncService.persistLevelsProgress(this.levelsProgress);
   };
 
-  restoreLevelCooldownAndLivesIfNeededForLevel = (levelProgress: LevelProgress, idx: number) => {
+  restoreLevelCooldownAndLivesIfNeededForLevel = (
+    levelProgress: LevelProgress,
+    idx: number,
+  ) => {
     if (levelProgress!.emptyLivesTimestamp === null) {
       return;
     }
@@ -138,7 +167,7 @@ export default class LevelProgressStore {
       levelProgress!.lives = 3;
       this.levelsProgress[idx as number] = levelProgress!;
     }
-  } 
+  };
 
   @action
   fillLevelsProgress = (content: LevelProgress[]) => {

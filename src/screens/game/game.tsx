@@ -37,7 +37,6 @@ import {
 } from '@library/components/game/solutionLetter';
 
 import LevelService from '@library/services/levelService';
-import SyncService from '@library/services/syncService';
 
 type Props = {
   navigation: any;
@@ -153,8 +152,6 @@ export default class LevelMap extends Component<Props, State> {
 
       this.solutionBar?.removeAllLetters();
     }
-
-    SyncService.persistLevelsProgress(this.props.levelProgressStore);
   }
 
   solutionLetterHasTapped(letter: SolutionLetterType) {
