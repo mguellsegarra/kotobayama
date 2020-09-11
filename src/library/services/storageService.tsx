@@ -24,6 +24,9 @@ const StorageService: StorageServiceType = {
       if (value !== null) {
         const bytes = CryptoJS.AES.decrypt(value, getUniqueId());
         const plaintext = bytes.toString(CryptoJS.enc.Utf8);
+        if (plaintext === "") {
+          return Promise.reject('Not found');
+        }
         const parsed = JSON.parse(plaintext);
         return Promise.resolve(parsed);
       } else {

@@ -2,6 +2,7 @@ import {StyleSheet, Platform} from 'react-native';
 import {Fonts, Colors} from '@res/R';
 import DeviceInfo, {isTablet} from 'react-native-device-info';
 import {defaultButtonSize} from '@library/components/button/rectButton';
+const isAndroid = Platform.OS === 'android';
 
 import {
   widthPercentageToDP as wp,
@@ -261,13 +262,14 @@ const getStyles: any = () => {
     countdownTextContainer: {
       // backgroundColor: 'pink',
       flex: 2,
-      marginTop: defaultButtonSize.height * 0.08,
+      marginTop: defaultButtonSize.height * (isAndroid ? 0.01 : 0.08),
+      marginLeft: defaultButtonSize.width * 0.05,
       alignItems: 'flex-start',
       justifyContent: 'center',
     },
     countdownText: {
       fontFamily: Fonts.league,
-      fontSize: defaultButtonSize.height * 0.25,
+      fontSize: defaultButtonSize.height * 0.21,
       textAlign: 'left',
       color: '#ffffff',
     },
@@ -290,7 +292,7 @@ const getStyles: any = () => {
     },
     countdownButtonUpperText: {
       fontFamily: Fonts.league,
-      fontSize: defaultButtonSize.height * 0.25,
+      fontSize: defaultButtonSize.height * (isAndroid ? 0.23: 0.25),
       textAlign: 'center',
       color: Colors.redButtonText,
     },
@@ -309,7 +311,7 @@ const getStyles: any = () => {
       color: '#ffffff',
     },
     countdownButtonLowerCoin: {
-      marginTop: defaultButtonSize.height * 0.055,
+      marginTop: defaultButtonSize.height * (isAndroid ? 0.09: 0.055),
       width: defaultButtonSize.height * 0.25,
       height: defaultButtonSize.height * 0.25,
       marginLeft: defaultButtonSize.height * 0.03,

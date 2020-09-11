@@ -25,7 +25,7 @@ export default class LevelProgressStore {
 
     levelProgress!.completed = true;
     this.levelsProgress[idx as number] = levelProgress!;
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   @action
@@ -38,7 +38,7 @@ export default class LevelProgressStore {
 
     levelProgress!.stars = stars;
     this.levelsProgress[idx as number] = levelProgress!;
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   @action
@@ -58,7 +58,7 @@ export default class LevelProgressStore {
     }
 
     this.levelsProgress[idx as number] = levelProgress!;
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   @action
@@ -72,7 +72,7 @@ export default class LevelProgressStore {
 
     levelProgress!.lives--;
     this.levelsProgress[idx as number] = levelProgress!;
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   @action
@@ -86,7 +86,7 @@ export default class LevelProgressStore {
 
     levelProgress!.investedLives++;
     this.levelsProgress[idx as number] = levelProgress!;
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   @action
@@ -102,7 +102,7 @@ export default class LevelProgressStore {
       .unix();
 
     this.levelsProgress[idx as number] = levelProgress!;
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   @action
@@ -117,7 +117,7 @@ export default class LevelProgressStore {
     levelProgress!.lives = 3;
 
     this.levelsProgress[idx as number] = levelProgress!;
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   getCurrentLives = computedFn(function getCurrentLives(
@@ -151,7 +151,7 @@ export default class LevelProgressStore {
     );
 
     this.restoreLevelCooldownAndLivesIfNeededForLevel(levelProgress!, idx!);
-    SyncService.persistLevelsProgress(this.levelsProgress);
+    SyncService.persistLevelsProgress(this);
   };
 
   restoreLevelCooldownAndLivesIfNeededForLevel = (
