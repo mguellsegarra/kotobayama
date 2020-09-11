@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Platform} from 'react-native';
+import {Platform, Text, Image} from 'react-native';
 import {strings} from '@library/services/i18nService';
 import {Level} from '@library/models/level';
 import {observer, inject} from 'mobx-react';
 import {View} from 'react-native-animatable';
 const isAndroid = Platform.OS === 'android';
+import R, {Images} from '@res/R';
 
 import LevelProgressStore, {
   getLevelProgress,
@@ -74,18 +75,49 @@ export default class PlayButton extends Component<Props, State> {
     const level = this.props.levels[this.props.currentLevel];
 
     return (
-      <RectButton type={RectButtonEnum.Yellow} onPress={() => {}}>
-        <CountdownText
-          finishTime={timestamp}
-          format={'m:ss'}
-          onFinish={() => {
-            this.props.levelProgressStore?.restoreLevelCooldownAndLivesIfNeeded(
-              level.id,
-              this.props.packId,
-            );
-          }}
-        />
-      </RectButton>
+      <View style={styles.countdownContainer}>
+        <View style={styles.countdownTop}>
+          <View style={styles.countdownTopContainer}>
+            <View style={styles.stopwatchImageContainer}>
+              <Image
+                style={styles.stopwatchImage}
+                source={R.img(Images.stopwatch_small)}
+              />
+            </View>
+            <View style={styles.countdownTextContainer}>
+              <CountdownText
+                finishTime={timestamp}
+                format={'m:ss'}
+                onFinish={() => {
+                  this.props.levelProgressStore?.restoreLevelCooldownAndLivesIfNeeded(
+                    level.id,
+                    this.props.packId,
+                  );
+                }}
+                textStyle={styles.countdownText}
+              />
+            </View>
+          </View>
+        </View>
+        <View style={styles.countdownBottom}>
+          <RectButton type={RectButtonEnum.Red} onPress={() => {}}>
+            <View style={styles.countdownButton}>
+              <View style={styles.countdownButtonUpperView}>
+                <Text style={styles.countdownButtonUpperText}>
+                  Restaura les vides
+                </Text>
+              </View>
+              <View style={styles.countdownButtonLowerView}>
+                <Text style={styles.countdownButtonLowerText}>100</Text>
+                <Image
+                  style={styles.countdownButtonLowerCoin}
+                  source={R.img(Images.coin_small)}
+                />
+              </View>
+            </View>
+          </RectButton>
+        </View>
+      </View>
     );
   }
 

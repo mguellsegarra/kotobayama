@@ -90,7 +90,7 @@ export default class LevelProgressStore {
       packId,
     );
 
-    levelProgress!.emptyLivesTimestamp = moment().add(gameConfig.coolDownMinutes.toString(), 'seconds').unix();
+    levelProgress!.emptyLivesTimestamp = moment().add(gameConfig.coolDownMinutes.toString(), 'minutes').unix();
 
     this.levelsProgress[idx as number] = levelProgress!;
   };

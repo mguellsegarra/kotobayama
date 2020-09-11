@@ -12,6 +12,7 @@ type Props = {
   title: string;
   stars: number;
   visible?: boolean;
+  pointerEvents: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
 };
 
 export default class LevelCompletedBanner extends Component<Props> {
@@ -43,7 +44,7 @@ export default class LevelCompletedBanner extends Component<Props> {
         ref={(ref) => {
           this.containerView = ref;
         }}
-        pointerEvents={'none'}
+        pointerEvents={this.props.pointerEvents}
         style={Object.assign(
           {opacity: this.props.visible ? 1 : 0},
           this.props.style,

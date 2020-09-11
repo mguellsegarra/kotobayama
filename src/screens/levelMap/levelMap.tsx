@@ -262,6 +262,7 @@ export default class LevelMap extends Component<Props, State> {
               ref={(ref) => {
                 this.levelCompletedBanner = ref;
               }}
+              pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
               title={this.levels[this.getCurrentLevel()].title}
               stars={levelProgress?.stars!}
             />

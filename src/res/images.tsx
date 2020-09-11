@@ -11,7 +11,9 @@ export enum Images {
   'back_button' = 'back_button',
   'boot_icon_details' = 'boot_icon_details',
   'button_blue' = 'button_blue',
+  'button_red' = 'button_red',
   'button_yellow' = 'button_yellow',
+  'coin_small' = 'coin_small',
   'coins' = 'coins',
   'heart_black_icon_details' = 'heart_black_icon_details',
   'heart_icon_details' = 'heart_icon_details',
@@ -52,5 +54,6 @@ export enum Images {
   'solution_letter' = 'solution_letter',
   'star_gray' = 'star_gray',
   'star_yellow' = 'star_yellow',
+  'stopwatch_small' = 'stopwatch_small',
   'tick' = 'tick'
   }

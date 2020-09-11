@@ -35,6 +35,7 @@ type Props = {
 export enum RectButtonEnum {
   Yellow = 'yellow',
   Blue = 'blue',
+  Red = 'red',
 }
 
 interface RectButtonType {
@@ -57,7 +58,26 @@ const rectButtonTypes = new Map<string, RectButtonType>([
       textColor: 'white',
     },
   ],
+  [
+    RectButtonEnum.Red,
+    {
+      image: Images.button_red,
+      textColor: Colors.redButtonText,
+    },
+  ],
 ]);
+
+const buttonRatioConstant = 0.3525;
+const buttonWidth = isTablet() ? wp('30%') : wp('42%');
+const buttonHeight = buttonWidth * buttonRatioConstant;
+const buttonShadowBottomConstant = 0.063063063063063;
+const buttonTextMarginBottom = buttonHeight * buttonShadowBottomConstant;
+
+export const defaultButtonSize = {
+  width: isTablet() ? wp('30%') : wp('42%'),
+  height: buttonHeight,
+  marginBottom: buttonTextMarginBottom,
+};
 
 export default class RectButton extends Component<Props> {
   static defaultProps = {
@@ -78,11 +98,6 @@ export default class RectButton extends Component<Props> {
       rectButtonTypes.get(this.props.type) ||
       rectButtonTypes.get(RectButtonEnum.Yellow);
 
-    const buttonWidth = isTablet() ? wp('30%') : wp('42%');
-    const buttonRatioConstant = 0.3525;
-    const buttonHeight = buttonWidth * buttonRatioConstant;
-    const buttonShadowBottomConstant = 0.063063063063063;
-    const buttonTextMarginBottom = buttonHeight * buttonShadowBottomConstant;
     const buttonTextFontSize = hp('3%');
 
     const defaultImageStyle: ViewStyle = {

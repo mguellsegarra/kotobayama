@@ -1,6 +1,7 @@
 import {StyleSheet, Platform} from 'react-native';
-import {Fonts} from '@res/R';
+import {Fonts, Colors} from '@res/R';
 import DeviceInfo, {isTablet} from 'react-native-device-info';
+import {defaultButtonSize} from '@library/components/button/rectButton';
 
 import {
   widthPercentageToDP as wp,
@@ -44,6 +45,7 @@ const getStyles: any = () => {
   const levelCompletedTickConstant = 1.09375;
   const levelCompletedTickWidth =
     levelCompletedTickHeight / levelCompletedTickConstant;
+  const stopWatchConstant = 1.276595744680851;
 
   return StyleSheet.create({
     root: {
@@ -224,6 +226,93 @@ const getStyles: any = () => {
       fontSize: titleFont,
       color: 'white',
       textAlign: 'center',
+    },
+    countdownContainer: {
+      height: defaultButtonSize.height * 1.8,
+      width: defaultButtonSize.width,
+    },
+    countdownTop: {
+      flex: 1,
+      // backgroundColor: '#000000dd',
+      // borderRadius: defaultButtonSize.height * 0.2,
+      // backgroundColor: 'yellow',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    countdownTopContainer: {
+      backgroundColor: '#000000bc',
+      borderRadius: defaultButtonSize.height * 0.1,
+      width: defaultButtonSize.width * 0.5,
+      height: defaultButtonSize.height * 0.5,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    stopwatchImageContainer: {
+      // backgroundColor: 'yellow',
+      flex: 1.1,
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    stopwatchImage: {
+      width: defaultButtonSize.height * 0.3,
+      height: defaultButtonSize.height * 0.3 * stopWatchConstant,
+    },
+    countdownTextContainer: {
+      // backgroundColor: 'pink',
+      flex: 2,
+      marginTop: defaultButtonSize.height * 0.08,
+      alignItems: 'flex-start',
+      justifyContent: 'center',
+    },
+    countdownText: {
+      fontFamily: Fonts.league,
+      fontSize: defaultButtonSize.height * 0.25,
+      textAlign: 'left',
+      color: '#ffffff',
+    },
+    countdownBottom: {
+      height: defaultButtonSize.height,
+      width: defaultButtonSize.width,
+    },
+    countdownButton: {
+      flexDirection: 'column',
+      justifyContent: 'flex-start',
+      alignItems: 'center',
+      marginTop: defaultButtonSize.height * 0.05,
+      marginBottom:
+        defaultButtonSize.marginBottom + defaultButtonSize.height * 0.08,
+    },
+    countdownButtonUpperView: {
+      flex: 2.5,
+      justifyContent: 'flex-end',
+      alignItems: 'center',
+    },
+    countdownButtonUpperText: {
+      fontFamily: Fonts.league,
+      fontSize: defaultButtonSize.height * 0.25,
+      textAlign: 'center',
+      color: Colors.redButtonText,
+    },
+    countdownButtonLowerView: {
+      flex: 3,
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'flex-start',
+      maxHeight: defaultButtonSize.height * 0.4,
+      marginTop: -defaultButtonSize.height * 0.06,
+    },
+    countdownButtonLowerText: {
+      fontFamily: Fonts.alata,
+      fontSize: defaultButtonSize.height * 0.23,
+      textAlign: 'center',
+      color: '#ffffff',
+    },
+    countdownButtonLowerCoin: {
+      marginTop: defaultButtonSize.height * 0.055,
+      width: defaultButtonSize.height * 0.25,
+      height: defaultButtonSize.height * 0.25,
+      marginLeft: defaultButtonSize.height * 0.03,
     },
   });
 };
