@@ -36,6 +36,7 @@ export enum RectButtonEnum {
   Yellow = 'yellow',
   Blue = 'blue',
   Red = 'red',
+  Green = 'green',
 }
 
 interface RectButtonType {
@@ -63,6 +64,13 @@ const rectButtonTypes = new Map<string, RectButtonType>([
     {
       image: Images.button_red,
       textColor: Colors.redButtonText,
+    },
+  ],
+  [
+    RectButtonEnum.Green,
+    {
+      image: Images.button_green,
+      textColor: Colors.greenButtonText,
     },
   ],
 ]);

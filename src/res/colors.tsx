@@ -4,4 +4,6 @@ export enum Colors {
   purpleGradientStart = '#2a222c',
   purpleGradientEnd = '#534458',
   redButtonText = '#680b0c',
+  greenButtonText = '#045a39',
+  darkGray = '#494949',
 }

@@ -100,23 +100,13 @@ export default class Game extends Component<Props, State> {
       this.solutionBar?.animateLetters('flash', 1000);
       await delayPromise(1000);
 
-      this.props.navigation.navigate('LevelComplete', {
-        level,
-      });
-      // return;
-      // TOT AIXÔ DINS DE LEVELCOMPLETE
-      this.props.userStore.incrementCoinsForLives(
-        this.props.levelProgressStore?.getCurrentLives(level.id, this.pack.id),
-      );
       this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
       this.props.levelProgressStore.calculateLevelStars(level.id, this.pack.id);
 
-      this.props.levelMapStore.nextIncompleteLevelForPack(
-        this.props.levelProgressStore.levelsProgress,
-        this.pack,
-      );
-      // END - TOT AIXÔ DINS DE LEVELCOMPLETE
-      // --> CULPRIT! this.props.navigation.goBack();
+      this.props.navigation.navigate('LevelComplete', {
+        level,
+        pack: this.pack,
+      });
     } else {
       Vibration.vibrate(1000);
       this.solutionBar?.animateLetters('shake', 1000);
@@ -203,6 +193,7 @@ export default class Game extends Component<Props, State> {
                 onPress={() => {
                   this.props.navigation.navigate('LevelComplete', {
                     level: this.level,
+                    pack: this.pack,
                   });
                 }}
               />
