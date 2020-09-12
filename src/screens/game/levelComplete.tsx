@@ -175,6 +175,12 @@ export default class LevelComplete extends Component<Props> {
             </View>
           </View>
         </NoNotchView>
+        <View style={styles.starFlare}>
+          <Image
+            source={R.img(Images.reward_stars_shadow)}
+            style={styles.starFlareImage}
+          />
+        </View>
       </View>
     );
   }

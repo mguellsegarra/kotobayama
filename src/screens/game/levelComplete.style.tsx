@@ -3,6 +3,7 @@ import {Fonts, Colors} from '@res/R';
 
 const isAndroid = Platform.OS === 'android';
 import DeviceInfo, {isTablet} from 'react-native-device-info';
+const iOSandNotch = Platform.OS === 'ios' && DeviceInfo.hasNotch();
 
 import {
   widthPercentageToDP as wp,
@@ -32,6 +33,9 @@ const getStyles: any = () => {
   const coinRewardsConstant = 124 / 120;
   const coinRewardsHeight = hp('5%');
   const coinRewardsWidth = coinRewardsHeight / coinRewardsConstant;
+
+  let starFlareY = iOSandNotch ? 44 : 0;
+  starFlareY += hp('1%');
 
   return StyleSheet.create({
     background: {
@@ -247,6 +251,15 @@ const getStyles: any = () => {
     },
     buttonRight: {
       marginLeft: wp('1%'),
+    },
+    starFlare: {
+      position: 'absolute',
+      zIndex: -1,
+      top: starFlareY,
+    },
+    starFlareImage: {
+      width: wp('100%'),
+      height: hp('30%'),
     },
   });
 };
