@@ -255,11 +255,10 @@ const getStyles: any = () => {
       fontFamily: Fonts.josefin_light,
     },
     buttonLeft: {
-      backgroundColor: 'yellow',
+      marginRight: wp('1%'),
     },
     buttonRight: {
       marginLeft: wp('1%'),
-      backgroundColor: 'green',
     },
     starFlare: {
       position: 'absolute',

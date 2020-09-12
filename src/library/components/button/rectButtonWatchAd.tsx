@@ -57,7 +57,6 @@ export default class RectButtonWatchAdd extends Component<Props> {
           type={RectButtonEnum.Yellow}
           text={this.props.text}
           onPress={this.props.onPress}
-          style={{width: viewStyle.width, height: viewStyle.height}}
         />
         <ImageBackground
           source={R.img(Images.watch_video_banner_for_button)}
