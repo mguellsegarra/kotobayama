@@ -181,9 +181,12 @@ const getStyles: any = () => {
       marginTop: isAndroid ? 0 : wikipediaImageWidth * 0.1,
     },
     wikipediaLabelText: {
+      width: '90%',
+      textAlign: 'center',
       color: '#ffffffcc',
       fontSize: wikipediaButtonHeight * 0.38,
       fontFamily: Fonts.league,
+      marginRight: wikipediaImageWidth * 0.5,
     },
     rewards: {
       width: wp('100%'),
