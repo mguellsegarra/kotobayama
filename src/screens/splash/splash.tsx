@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {View, Image, Animated} from 'react-native';
-import {getStyles} from './splash.style';
+import {styles} from './splash.style';
 import I18n from '@library/services/i18nService';
 
 import R, {Images} from '@res/R';
@@ -10,7 +10,6 @@ type Props = {
 };
 
 export default class Splash extends Component<Props> {
-  styles: any;
   state = {
     fadeAnim: new Animated.Value(0),
   };
@@ -39,17 +38,15 @@ export default class Splash extends Component<Props> {
   }
 
   render() {
-    this.styles = getStyles();
-
     return (
-      <View style={this.styles.background}>
+      <View style={styles.background}>
         <Animated.View
           style={[
             {
               opacity: this.state.fadeAnim,
             },
           ]}>
-          <Image source={R.img(Images.ondori_logo)} style={this.styles.logo} />
+          <Image source={R.img(Images.ondori_logo)} style={styles.logo} />
         </Animated.View>
       </View>
     );
