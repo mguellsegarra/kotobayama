@@ -1,7 +1,3 @@
-/**
- * @format
- * @flow strict-local
- */
 import {StyleSheet} from 'react-native';
 import {Colors} from '@res/R';
 
@@ -23,4 +19,6 @@ const getStyles = () => {
   });
 };
 
-export {getStyles};
+const styles = getStyles();
+
+export {styles};

@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {View, Image, Text, Vibration} from 'react-native';
 import R, {Colors, Images} from '@res/R';
 
-import {getStyles} from './game.style';
+import {styles} from './game.style';
 import NoNotchView from '@library/components/common/noNotchView';
 import LinearGradient from 'react-native-linear-gradient';
 import CircleButton from '@library/components/button/circleButton';
@@ -53,7 +53,6 @@ type State = {};
 @inject('levelMapStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
-  styles: any;
   mapLayer: any;
   solutionBar: SolutionBarElement | SolutionBar | null;
   lettersBar: LettersBarElement | LettersBar | null;
@@ -67,7 +66,6 @@ export default class LevelMap extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    this.styles = {};
     this.solutionBar = null;
     this.lettersBar = null;
     this.livesIndicator = null;
@@ -139,6 +137,7 @@ export default class LevelMap extends Component<Props, State> {
       ) {
         await delayPromise(500);
         this.props.levelProgressStore.setLevelCooldown(level.id, this.pack.id);
+        
         this.props.navigation.goBack();
         return;
       }
@@ -171,20 +170,19 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   render() {
-    this.styles = getStyles();
     return (
       <LinearGradient
         colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
-        style={this.styles.background}>
+        style={styles.background}>
         <NoNotchView>
-          <View style={this.styles.navBar}>
-            <View style={this.styles.navBarLeft}>
+          <View style={styles.navBar}>
+            <View style={styles.navBarLeft}>
               <CircleButton
-                style={this.styles.backButton}
+                style={styles.backButton}
                 image={Images.back_button}
                 onPress={this.props.navigation.goBack}></CircleButton>
             </View>
-            <View style={this.styles.navBarMiddle}>
+            <View style={styles.navBarMiddle}>
               <LivesIndicator
                 ref={(ref) => {
                   this.livesIndicator = ref;
@@ -197,16 +195,16 @@ export default class LevelMap extends Component<Props, State> {
                 }
               />
             </View>
-            <View style={this.styles.navBarRight}>
+            <View style={styles.navBarRight}>
               <CoinCounter
                 totalCoins={this.props.userStore.coins}
                 onPress={() => {}}
               />
             </View>
           </View>
-          <View style={this.styles.titleBar}>
+          <View style={styles.titleBar}>
             <Text
-              style={this.styles.titleText}
+              style={styles.titleText}
               adjustsFontSizeToFit
               numberOfLines={1}>
               {this.pack?.title!}
@@ -217,38 +215,38 @@ export default class LevelMap extends Component<Props, State> {
               currentLevel={this.currentLevel}
             />
           </View>
-          <View style={this.styles.photoBar}>
+          <View style={styles.photoBar}>
             <PhotoFrame size={PhotoFrameSize.big} level={this.level} />
-            <Text style={this.styles.sourceText}>
+            <Text style={styles.sourceText}>
               {strings('sourcePhoto')}: pirineosconninos.es
             </Text>
           </View>
-          <View style={this.styles.solutionBar}>
+          <View style={styles.solutionBar}>
             <Image
-              style={this.styles.separator}
+              style={styles.separator}
               resizeMode="contain"
               source={R.img(Images.separator_line_down)}></Image>
-            <View style={this.styles.solutionView}>
+            <View style={styles.solutionView}>
               <SolutionBar
                 ref={(ref) => {
                   this.solutionBar = ref;
                 }}
                 onLetterPress={this.solutionLetterHasTapped}
-                style={this.styles.lettersBar}
+                style={styles.lettersBar}
                 word={this.level.word}
               />
             </View>
             <Image
-              style={this.styles.separator}
+              style={styles.separator}
               resizeMode="contain"
               source={R.img(Images.separator_line_up)}></Image>
           </View>
-          <View style={this.styles.powerUpsBar}></View>
+          <View style={styles.powerUpsBar}></View>
           <LettersBar
             ref={(ref) => {
               this.lettersBar = ref;
             }}
-            style={this.styles.lettersBar}
+            style={styles.lettersBar}
             word={this.level.word}
             availableLetterHasTapped={this.availableLetterHasTapped}
           />
