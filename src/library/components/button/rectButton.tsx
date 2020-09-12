@@ -76,15 +76,17 @@ const rectButtonTypes = new Map<string, RectButtonType>([
 ]);
 
 const buttonRatioConstant = 0.3525;
-const buttonWidth = isTablet() ? wp('30%') : wp('42%');
-const buttonHeight = buttonWidth * buttonRatioConstant;
 const buttonShadowBottomConstant = 0.063063063063063;
-const buttonTextMarginBottom = buttonHeight * buttonShadowBottomConstant;
 
 export const defaultButtonSize = {
   width: isTablet() ? wp('30%') : wp('42%'),
-  height: buttonHeight,
-  marginBottom: buttonTextMarginBottom,
+  height: isTablet()
+    ? wp('30%') * buttonRatioConstant
+    : wp('42%') * buttonRatioConstant,
+  marginBottom:
+    (isTablet()
+      ? wp('30%') * buttonRatioConstant
+      : wp('42%') * buttonRatioConstant) * buttonShadowBottomConstant,
 };
 
 export default class RectButton extends Component<Props> {
@@ -111,14 +113,17 @@ export default class RectButton extends Component<Props> {
     const defaultImageStyle: ViewStyle = {
       flex: 1,
       flexDirection: 'column',
-      width: buttonWidth,
+      width: defaultButtonSize.width,
       justifyContent: 'center',
       alignItems: 'center',
     };
 
     let viewStyle = Object.assign({}, this.props.style);
-    viewStyle.width = buttonWidth;
-    viewStyle.height = buttonHeight;
+    const width: number = this.props.style?.width as number;
+    viewStyle.width = width | defaultButtonSize.width;
+    viewStyle.height = viewStyle.width * buttonRatioConstant;
+    const buttonTextMarginBottom =
+      viewStyle.height * buttonShadowBottomConstant;
 
     return (
       <View
@@ -134,6 +139,7 @@ export default class RectButton extends Component<Props> {
             setTimeout(this.props.onPress, this.props.delay);
           }}>
           <ImageBackground
+            resizeMode="contain"
             source={R.img(rectButtonConfig!.image)}
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
             {this.props.text ? (

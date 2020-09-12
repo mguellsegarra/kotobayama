@@ -39,7 +39,7 @@ const getStyles: any = () => {
 
   return StyleSheet.create({
     background: {
-      backgroundColor: '#000000ef',
+      backgroundColor: '#000000fb',
       flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
@@ -237,8 +237,12 @@ const getStyles: any = () => {
       width: wp('100%'),
       flex: 1,
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-end',
       justifyContent: 'center',
+    },
+    bottomGap: {
+      width: wp('100%'),
+      flex: 0.2,
     },
     sourceText: {
       marginTop: hp('0.5%'),

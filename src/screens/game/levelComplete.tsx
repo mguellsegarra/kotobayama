@@ -14,6 +14,8 @@ import R, {Images} from '@res/R';
 import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
+
+import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
   getLevelProgress,
@@ -152,8 +154,7 @@ export default class LevelComplete extends Component<Props> {
                   this.props.navigation.navigate('LevelMap');
                 }}
               />
-              <RectButton
-                type={RectButtonEnum.Yellow}
+              <RectButtonWatchAdd
                 text={strings('claim') + ' x2'}
                 style={styles.buttonRight}
                 onPress={() => {
@@ -173,6 +174,7 @@ export default class LevelComplete extends Component<Props> {
                 }}
               />
             </View>
+            <View style={styles.bottomGap}></View>
           </View>
         </NoNotchView>
         <View style={styles.starFlare}>
