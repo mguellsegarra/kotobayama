@@ -5,6 +5,9 @@ export type LevelSource = {
   word: string;
   title: string;
   latlon: string;
+  sourcePhoto: string;
+  wikipediaExcerpt: string;
+  wikipediaLink: string;
 };
 
 export type Level = {
@@ -12,11 +15,14 @@ export type Level = {
   word: string;
   title: string;
   latlon: LatLng;
+  sourcePhoto: string;
+  wikipediaExcerpt: string;
+  wikipediaLink: string;
 };
 
 export type LevelProgress = {
   id: string;
-  packId: string | null;
+  packId: string | null;
   lives: number;
   completed: boolean;
   stars: number;
@@ -31,4 +37,3 @@ export const LevelProgressInitialState = {
   investedLives: 0,
   emptyLivesTimestamp: null,
 };
-

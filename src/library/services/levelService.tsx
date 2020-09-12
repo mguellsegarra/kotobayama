@@ -35,6 +35,9 @@ const LevelService: LevelServiceType = {
       word: lvl.word,
       title: lvl.title,
       latlon: getCoordinateFromLatLonString(lvl.latlon),
+      sourcePhoto: lvl.sourcePhoto,
+      wikipediaExcerpt: lvl.wikipediaExcerpt,
+      wikipediaLink: lvl.wikipediaLink,
     };
   }),
   packs: packSource,

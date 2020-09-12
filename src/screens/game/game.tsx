@@ -215,7 +215,7 @@ export default class Game extends Component<Props, State> {
           <View style={styles.photoBar}>
             <PhotoFrame size={PhotoFrameSize.big} level={this.level} />
             <Text style={styles.sourceText}>
-              {strings('sourcePhoto')}: pirineosconninos.es
+              {strings('sourcePhoto') + ': ' + this.level.sourcePhoto}
             </Text>
           </View>
           <View style={styles.solutionBar}>

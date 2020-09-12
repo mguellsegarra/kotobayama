@@ -4,7 +4,8 @@ import {
   Image,
   Text,
   ImageBackground,
-  TouchableWithoutFeedback,
+  TouchableOpacity,
+  Linking,
 } from 'react-native';
 import {styles} from './levelComplete.style';
 import NoNotchView from '@library/components/common/noNotchView';
@@ -15,6 +16,9 @@ import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
 
+import {Level} from '@library/models/level';
+import {Pack} from '@library/models/pack';
+
 import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
@@ -22,6 +26,18 @@ import LevelProgressStore, {
 } from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
+import {LevelProgress} from '@library/models/level';
+const gameConfig = require('@assets/gameConfig');
+
+const kImagesForStars: any = {
+  1: [
+    Images.star_completed,
+    Images.star_completed_gray,
+    Images.star_completed_gray,
+  ],
+  2: [Images.star_completed, Images.star_completed, Images.star_completed_gray],
+  3: [Images.star_completed, Images.star_completed, Images.star_completed],
+};
 
 type Props = {
   navigation: any;
@@ -36,10 +52,53 @@ type Props = {
 @inject('userStore')
 @observer
 export default class LevelComplete extends Component<Props> {
-  componentDidMount() {}
+  constructor(props: Props) {
+    super(props);
+    this.handleClaim = this.handleClaim.bind(this);
+    this.handleClaimx2 = this.handleClaimx2.bind(this);
+    this.handleWikipediaLink = this.handleWikipediaLink.bind(this);
+  }
+
+  handleClaim(pack: Pack, levelProgress: LevelProgress) {
+    const coins = this.props.userStore.getCoinsToAddForLives(levelProgress!);
+    this.props.userStore.incrementCoins(coins);
+
+    this.props.levelMapStore.nextIncompleteLevelForPack(
+      this.props.levelProgressStore.levelsProgress,
+      pack,
+    );
+
+    this.props.navigation.navigate('LevelMap');
+  }
+
+  handleClaimx2(pack: Pack, levelProgress: LevelProgress) {
+    const coins =
+      this.props.userStore.getCoinsToAddForLives(levelProgress!) * 2;
+    this.props.userStore.incrementCoins(coins);
+
+    this.props.levelMapStore.nextIncompleteLevelForPack(
+      this.props.levelProgressStore.levelsProgress,
+      pack,
+    );
+
+    this.props.navigation.navigate('LevelMap');
+  }
+
+  async handleWikipediaLink(level: Level) {
+    const supported = await Linking.canOpenURL(level.wikipediaLink);
+    if (!supported) return;
+    await Linking.openURL(level.wikipediaLink);
+  }
 
   render() {
     const {level, pack} = this.props.route.params;
+    const levelProgress = getLevelProgress(
+      this.props.levelProgressStore.levelsProgress,
+      level.id,
+      pack.id,
+    ).levelProgress;
+    const coins = this.props.userStore.getCoinsToAddForLives(levelProgress!);
+    const imagesForStars = kImagesForStars[levelProgress?.stars!];
 
     return (
       <View style={styles.background}>
@@ -57,19 +116,19 @@ export default class LevelComplete extends Component<Props> {
             <View style={styles.stars}>
               <View style={styles.firstStar}>
                 <Image
-                  source={R.img(Images.star_completed)}
+                  source={R.img(imagesForStars[0])}
                   style={styles.starSmall}
                 />
               </View>
               <View style={styles.secondStar}>
                 <Image
-                  source={R.img(Images.star_completed)}
+                  source={R.img(imagesForStars[1])}
                   style={styles.starBig}
                 />
               </View>
               <View style={styles.thirdStar}>
                 <Image
-                  source={R.img(Images.star_completed_gray)}
+                  source={R.img(imagesForStars[2])}
                   style={styles.starSmall}
                 />
               </View>
@@ -77,14 +136,17 @@ export default class LevelComplete extends Component<Props> {
             <View style={styles.photo}>
               <PhotoFrame size={PhotoFrameSize.big} level={level} />
               <Text style={styles.sourceText}>
-                {strings('sourcePhoto')}: pirineosconninos.es
+                {strings('sourcePhoto') + ': ' + level.sourcePhoto}
               </Text>
             </View>
             <View style={styles.info}>
               <View style={styles.infoTop}>
                 <Text style={styles.titleText}>{level.title}</Text>
               </View>
-              <TouchableWithoutFeedback onPress={() => {}}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.handleWikipediaLink(level);
+                }}>
                 <View style={styles.wikipediaButton}>
                   <View style={styles.wikipediaImageContainer}>
                     <Image
@@ -101,19 +163,13 @@ export default class LevelComplete extends Component<Props> {
                     </Text>
                   </View>
                 </View>
-              </TouchableWithoutFeedback>
+              </TouchableOpacity>
               <View style={styles.infoMiddle}>
                 <Text
                   numberOfLines={6}
                   adjustsFontSizeToFit
                   style={styles.descriptionText}>
-                  El Refugi Joan Ventosa i Calvell és un refugi de muntanya
-                  propietat del Centre Excursionista de Catalunya , situat dins
-                  el municipi de la Vall de Boí (Alta Ribagorça), sobre l’Estany
-                  Negre, en la cota 2.214, al peu de les Agulles de Travessani
-                  en l'extrem oriental del Pletiu d'Estany Negre i dins dels
-                  límits del Parc Nacional d'Aigüestortes i Estany de Sant
-                  Maurici.
+                  {level.wikipediaExcerpt}
                 </Text>
               </View>
             </View>
@@ -137,7 +193,7 @@ export default class LevelComplete extends Component<Props> {
                   source={R.img(Images.coin_reward)}
                   style={styles.rewardsBottomImage}
                 />
-                <Text style={styles.rewardsBottomText}>100</Text>
+                <Text style={styles.rewardsBottomText}>{coins}</Text>
               </View>
             </View>
             <View style={styles.buttons}>
@@ -146,31 +202,14 @@ export default class LevelComplete extends Component<Props> {
                 text={strings('claim')}
                 style={styles.buttonLeft}
                 onPress={() => {
-                  this.props.levelMapStore.nextIncompleteLevelForPack(
-                    this.props.levelProgressStore.levelsProgress,
-                    pack,
-                  );
-
-                  this.props.navigation.navigate('LevelMap');
+                  this.handleClaim(pack, levelProgress!);
                 }}
               />
               <RectButtonWatchAdd
                 text={strings('claim') + ' x2'}
                 style={styles.buttonRight}
                 onPress={() => {
-                  this.props.userStore.incrementCoinsForLives(
-                    this.props.levelProgressStore?.getCurrentLives(
-                      level.id,
-                      pack.id,
-                    ),
-                  );
-
-                  this.props.levelMapStore.nextIncompleteLevelForPack(
-                    this.props.levelProgressStore.levelsProgress,
-                    pack,
-                  );
-
-                  this.props.navigation.navigate('LevelMap');
+                  this.handleClaimx2(pack, levelProgress!);
                 }}
               />
             </View>
