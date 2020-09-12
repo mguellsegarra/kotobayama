@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
-import {
-  View,
-  Image,
-  Text,
-  ImageBackground,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import {Text, ImageBackground, TouchableOpacity, Linking} from 'react-native';
+import {View, Image} from 'react-native-animatable';
+
 import {styles} from './levelComplete.style';
 import NoNotchView from '@library/components/common/noNotchView';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
@@ -27,7 +22,7 @@ import LevelProgressStore, {
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
 import {LevelProgress} from '@library/models/level';
-const gameConfig = require('@assets/gameConfig');
+import delayPromise from '@library/utils/delayPromise';
 
 const kImagesForStars: any = {
   1: [
@@ -52,11 +47,39 @@ type Props = {
 @inject('userStore')
 @observer
 export default class LevelComplete extends Component<Props> {
+  ribbonView: any;
+  firstStar: any;
+  secondStar: any;
+  thirdStar: any;
+  wikipediaButtonView: any;
+  wikipediaExcerptView: any;
+  rewardsView: any;
+  buttonsView: any;
+  starflareView: any;
+
   constructor(props: Props) {
     super(props);
     this.handleClaim = this.handleClaim.bind(this);
     this.handleClaimx2 = this.handleClaimx2.bind(this);
     this.handleWikipediaLink = this.handleWikipediaLink.bind(this);
+  }
+
+  async componentDidMount() {
+    await delayPromise(400);
+    this.ribbonView.animate('fadeIn', 300);
+    await delayPromise(400);
+    this.firstStar.animate('fadeIn', 300);
+    await delayPromise(400);
+    this.starflareView.animate('fadeIn', 300);
+    this.secondStar.animate('fadeIn', 300);
+    await delayPromise(400);
+    this.thirdStar.animate('fadeIn', 300);
+    await delayPromise(400);
+    this.wikipediaButtonView.animate('fadeIn', 300);
+    this.wikipediaExcerptView.animate('fadeIn', 300);
+    await delayPromise(400);
+    this.rewardsView.animate('fadeIn', 300);
+    this.buttonsView.animate('fadeIn', 300);
   }
 
   handleClaim(pack: Pack, levelProgress: LevelProgress) {
@@ -104,7 +127,12 @@ export default class LevelComplete extends Component<Props> {
       <View style={styles.background}>
         <NoNotchView>
           <View style={styles.container}>
-            <View style={styles.ribbon}>
+            <View
+              style={[styles.ribbon, {opacity: 0}]}
+              useNativeDriver
+              ref={(ref) => {
+                this.ribbonView = ref;
+              }}>
               <ImageBackground
                 source={R.img(Images.ribbon_level_complete)}
                 style={styles.ribbonImage}>
@@ -117,19 +145,31 @@ export default class LevelComplete extends Component<Props> {
               <View style={styles.firstStar}>
                 <Image
                   source={R.img(imagesForStars[0])}
-                  style={styles.starSmall}
+                  style={[styles.starSmall, {opacity: 0}]}
+                  useNativeDriver
+                  ref={(ref) => {
+                    this.firstStar = ref;
+                  }}
                 />
               </View>
               <View style={styles.secondStar}>
                 <Image
                   source={R.img(imagesForStars[1])}
-                  style={styles.starBig}
+                  style={[styles.starBig, {opacity: 0}]}
+                  useNativeDriver
+                  ref={(ref) => {
+                    this.secondStar = ref;
+                  }}
                 />
               </View>
               <View style={styles.thirdStar}>
                 <Image
                   source={R.img(imagesForStars[2])}
-                  style={styles.starSmall}
+                  style={[styles.starSmall, {opacity: 0}]}
+                  useNativeDriver
+                  ref={(ref) => {
+                    this.thirdStar = ref;
+                  }}
                 />
               </View>
             </View>
@@ -147,7 +187,12 @@ export default class LevelComplete extends Component<Props> {
                 onPress={() => {
                   this.handleWikipediaLink(level);
                 }}>
-                <View style={styles.wikipediaButton}>
+                <View
+                  style={[styles.wikipediaButton, {opacity: 0}]}
+                  useNativeDriver
+                  ref={(ref) => {
+                    this.wikipediaButtonView = ref;
+                  }}>
                   <View style={styles.wikipediaImageContainer}>
                     <Image
                       source={R.img(Images.wikipedia_icon)}
@@ -164,7 +209,12 @@ export default class LevelComplete extends Component<Props> {
                   </View>
                 </View>
               </TouchableOpacity>
-              <View style={styles.infoMiddle}>
+              <View
+                style={[styles.infoMiddle, {opacity: 0}]}
+                useNativeDriver
+                ref={(ref) => {
+                  this.wikipediaExcerptView = ref;
+                }}>
                 <Text
                   numberOfLines={6}
                   adjustsFontSizeToFit
@@ -173,7 +223,12 @@ export default class LevelComplete extends Component<Props> {
                 </Text>
               </View>
             </View>
-            <View style={styles.rewards}>
+            <View
+              style={[styles.rewards, {opacity: 0}]}
+              useNativeDriver
+              ref={(ref) => {
+                this.rewardsView = ref;
+              }}>
               <View style={styles.rewardsTop}>
                 <ImageBackground
                   source={R.img(Images.reward_separator)}
@@ -196,7 +251,12 @@ export default class LevelComplete extends Component<Props> {
                 <Text style={styles.rewardsBottomText}>{coins}</Text>
               </View>
             </View>
-            <View style={styles.buttons}>
+            <View
+              style={[styles.buttons, {opacity: 0}]}
+              useNativeDriver
+              ref={(ref) => {
+                this.buttonsView = ref;
+              }}>
               <RectButton
                 type={RectButtonEnum.Green}
                 text={strings('claim')}
@@ -216,7 +276,12 @@ export default class LevelComplete extends Component<Props> {
             <View style={styles.bottomGap}></View>
           </View>
         </NoNotchView>
-        <View style={styles.starFlare}>
+        <View
+          style={[styles.starFlare, {opacity: 0}]}
+          useNativeDriver
+          ref={(ref) => {
+            this.starflareView = ref;
+          }}>
           <Image
             source={R.img(Images.reward_stars_shadow)}
             style={styles.starFlareImage}
