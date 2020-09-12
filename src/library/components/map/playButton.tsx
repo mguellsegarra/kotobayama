@@ -127,7 +127,7 @@ export default class PlayButton extends Component<Props, State> {
             <View style={styles.countdownButton}>
               <View style={styles.countdownButtonUpperView}>
                 <Text style={styles.countdownButtonUpperText}>
-                  Restaura les vides
+                  {strings('restoreLives')}
                 </Text>
               </View>
               <View style={styles.countdownButtonLowerView}>

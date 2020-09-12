@@ -45,6 +45,8 @@ const getStyles: any = () => {
     levelDetailsComplete: {
       flex: 5,
       flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     levelDetailsImage: {
       flex: 3,
@@ -71,6 +73,12 @@ const getStyles: any = () => {
       marginTop: wp('1%'),
       marginLeft: hp('0.4%'),
       fontSize: hp('1.6%'),
+    },
+    sourceText: {
+      marginTop: hp('0.5%'),
+      color: '#ffffffcc',
+      fontSize: hp('1.4%'),
+      fontFamily: Fonts.josefin_light,
     },
   });
 };

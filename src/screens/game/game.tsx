@@ -35,6 +35,7 @@ import {
   SolutionLetterType,
   SolutionLetterState,
 } from '@library/components/game/solutionLetter';
+import {strings} from '@library/services/i18nService';
 
 import LevelService from '@library/services/levelService';
 
@@ -219,7 +220,7 @@ export default class LevelMap extends Component<Props, State> {
           <View style={this.styles.photoBar}>
             <PhotoFrame size={PhotoFrameSize.big} level={this.level} />
             <Text style={this.styles.sourceText}>
-              Font fotografia: pirineosconninos.es
+              {strings('sourcePhoto')}: pirineosconninos.es
             </Text>
           </View>
           <View style={this.styles.solutionBar}>

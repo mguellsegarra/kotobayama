@@ -37,13 +37,14 @@ export default class AvailableLetter extends Component<Props> {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          const letterTapped: AvailableLetterType = {
-            id: this.props.id,
-            letterState: this.props.letterState,
-            character: this.props.character,
-          };
-
-          this.props.onPress(letterTapped);
+          if (this.props.letterState === AvailableLetterState.Idle) {
+            const letterTapped: AvailableLetterType = {
+              id: this.props.id,
+              letterState: this.props.letterState,
+              character: this.props.character,
+            };
+            this.props.onPress(letterTapped);
+          }
         }}>
         <View>
           <ImageBackground

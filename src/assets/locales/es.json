@@ -2,5 +2,8 @@
   "play": "Jugar",
   "closeMap": "Cerrar mapa",
   "back": "Volver",
-  "exploreMap": "Explorar mapa"
+  "hut": "Refugio",
+  "letters": "letras",
+  "restoreLives": "Restaura las vidas",
+  "sourcePhoto": "Fuente fotografía"
 }

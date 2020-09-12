@@ -267,22 +267,6 @@ export default class LevelMap extends Component<Props, State> {
               stars={levelProgress?.stars!}
             />
           ) : (
-            // <RectButton
-            //   ref={(ref) => {
-            //     this.playButton = ref;
-            //   }}
-            //   pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
-            //   type={RectButtonEnum.Yellow}
-            //   text={strings('play')}
-            //   style={styles.playButtonOverlay}
-            //   onPress={() => {
-            //     this.props.navigation.navigate('Game', {
-            //       packId: this.packId,
-            //       levels: this.levels,
-            //       currentLevel: this.getCurrentLevel(),
-            //     });
-            //   }}
-            // />
             <PlayButton
               ref={(ref) => {
                 this.playButton = ref;

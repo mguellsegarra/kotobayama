@@ -9,6 +9,7 @@ import R, {Images, Colors} from '@res/R';
 import {styles} from './levelChooser.style';
 import CircleButton from '@library/components/button/circleButton';
 import LevelIndexNumber from '../common/levelIndexNumber';
+import {strings} from '@library/services/i18nService';
 
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import {observer, inject} from 'mobx-react';
@@ -44,9 +45,11 @@ export default class LevelChooser extends Component<Props> {
         style={styles.levelDetailsComplete}>
         <PhotoFrame
           size={PhotoFrameSize.small}
-          style={styles.levelDetailsImage}
           level={this.props.levels[this.props.currentLevel]}
         />
+        <Text style={styles.sourceText}>
+          {strings('sourcePhoto')}: pirineosconninos.es
+        </Text>
       </LinearGradient>
     );
   }
@@ -56,18 +59,22 @@ export default class LevelChooser extends Component<Props> {
       <LinearGradient
         colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
         style={styles.levelDetailsIncomplete}>
-        <PhotoFrame
-          size={PhotoFrameSize.small}
-          style={styles.levelDetailsImage}
-          level={this.props.levels[this.props.currentLevel]}
-        />
+        <View style={styles.levelDetailsImage}>
+          <PhotoFrame
+            size={PhotoFrameSize.small}
+            level={this.props.levels[this.props.currentLevel]}
+          />
+          <Text style={styles.sourceText}>
+            {strings('sourcePhoto')}: pirineosconninos.es
+          </Text>
+        </View>
         <View style={styles.levelDetailsRight}>
           <View style={styles.levelDetailsRightCell}>
             <Image
               style={styles.detailRightCellImage}
               source={R.img(Images.boot_icon_details)}
             />
-            <Text style={styles.detailRightText}>Refugi</Text>
+            <Text style={styles.detailRightText}>{strings('hut')}</Text>
           </View>
           <View style={styles.levelDetailsRightCell}>
             <Image
@@ -75,7 +82,8 @@ export default class LevelChooser extends Component<Props> {
               source={R.img(Images.letter_icon_details)}
             />
             <Text style={styles.detailRightText}>
-              {this.props.levels[this.props.currentLevel].word.length} lletres
+              {this.props.levels[this.props.currentLevel].word.length}{' '}
+              {strings('letters')}
             </Text>
           </View>
           <View style={styles.levelDetailsRightCell}>
