@@ -32,7 +32,7 @@ type Props = {
 };
 
 type State = {
-  millisecondsLeft: number;
+  minutesLeft: number;
 };
 
 @inject('levelProgressStore')
@@ -46,7 +46,7 @@ export default class PlayButton extends Component<Props, State> {
     this.countdownUpdated = this.countdownUpdated.bind(this);
 
     this.state = {
-      millisecondsLeft: gameConfig.coolDownMinutes * 60000,
+      minutesLeft: gameConfig.coolDownMinutes,
     };
   }
 
@@ -70,17 +70,17 @@ export default class PlayButton extends Component<Props, State> {
     );
   }
 
-  countdownUpdated(millisecondsLeft: number) {
-    this.setState({millisecondsLeft});
+  countdownUpdated(minutesLeft: number) {
+    this.setState({minutesLeft});
   }
 
   calculatePrice(): number {
     const maxPrice = gameConfig.freeCooldownPrice;
-    const maxTime = gameConfig.coolDownMinutes * 60000;
-    const currentTime = this.state.millisecondsLeft;
-    const price = (maxPrice / maxTime) * currentTime;
+    const maxMinutes = gameConfig.coolDownMinutes;
+    const minutes = this.state.minutesLeft;
+    const price = (maxPrice / maxMinutes) * minutes;
 
-    return Math.round((price + Number.EPSILON));
+    return Math.round(price + Number.EPSILON);
   }
 
   noLivesButton(timestamp: number) {

@@ -30,10 +30,15 @@ class CountdownText extends Component<Props, State> {
   }
 
   componentDidMount() {
+    this.props.onUpdate(
+      parseInt(moment.utc(this.props.finishTime * 1000 - new Date().getTime()).format('m')),
+    );
+
     this.left = setInterval(() => {
       this.setState({
         millisecondsLeft: this.props.finishTime * 1000 - new Date().getTime(),
       });
+
       this.millisecondsToString();
     }, 1000);
   }
@@ -57,9 +62,9 @@ class CountdownText extends Component<Props, State> {
     if (seconds === 0) {
       this.props.onFinish();
     } else {
-      if (formatted.split(':')[1] === '00') { // Every minute
-        this.props.onUpdate(this.state.millisecondsLeft);
-      }
+      this.props.onUpdate(
+        parseInt(moment.utc(this.state.millisecondsLeft).format('m')),
+      );
     }
   };
 
