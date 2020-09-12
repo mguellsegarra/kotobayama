@@ -7,6 +7,7 @@ type Props = {
   format: string;
   textStyle?: TextProps;
   onFinish: Function;
+  onUpdate: Function;
 };
 
 type State = {
@@ -45,11 +46,20 @@ class CountdownText extends Component<Props, State> {
     const seconds =
       this.state.millisecondsLeft / 1000 -
       ((this.state.millisecondsLeft / 1000) % 1);
+    const formatted = moment
+      .utc(this.state.millisecondsLeft)
+      .format(this.props.format);
+
     this.setState({
       show: moment.utc(this.state.millisecondsLeft).format(this.props.format),
     });
+
     if (seconds === 0) {
       this.props.onFinish();
+    } else {
+      if (formatted.split(':')[1] === '00') { // Every minute
+        this.props.onUpdate(this.state.millisecondsLeft);
+      }
     }
   };
 

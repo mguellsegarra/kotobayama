@@ -32,7 +32,7 @@ type Props = {
 };
 
 type State = {
-  countdownRunning: boolean;
+  millisecondsLeft: number;
 };
 
 @inject('levelProgressStore')
@@ -43,15 +43,10 @@ export default class PlayButton extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
-    const level = this.props.levels[this.props.currentLevel];
-    const {levelProgress} = getLevelProgress(
-      this.props.levelProgressStore?.levelsProgress!,
-      level.id,
-      this.props.packId,
-    );
+    this.countdownUpdated = this.countdownUpdated.bind(this);
 
     this.state = {
-      countdownRunning: levelProgress?.emptyLivesTimestamp !== null,
+      millisecondsLeft: gameConfig.coolDownMinutes * 60000,
     };
   }
 
@@ -73,6 +68,19 @@ export default class PlayButton extends Component<Props, State> {
         }}
       />
     );
+  }
+
+  countdownUpdated(millisecondsLeft: number) {
+    this.setState({millisecondsLeft});
+  }
+
+  calculatePrice(): number {
+    const maxPrice = gameConfig.freeCooldownPrice;
+    const maxTime = gameConfig.coolDownMinutes * 60000;
+    const currentTime = this.state.millisecondsLeft;
+    const price = (maxPrice / maxTime) * currentTime;
+
+    return Math.round((price + Number.EPSILON));
   }
 
   noLivesButton(timestamp: number) {
@@ -98,6 +106,7 @@ export default class PlayButton extends Component<Props, State> {
                     this.props.packId,
                   );
                 }}
+                onUpdate={this.countdownUpdated}
                 textStyle={styles.countdownText}
               />
             </View>
@@ -123,7 +132,7 @@ export default class PlayButton extends Component<Props, State> {
               </View>
               <View style={styles.countdownButtonLowerView}>
                 <Text style={styles.countdownButtonLowerText}>
-                  {gameConfig.freeCooldownPrice}
+                  {this.calculatePrice()}
                 </Text>
                 <Image
                   style={styles.countdownButtonLowerCoin}
