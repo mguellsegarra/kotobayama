@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import {ViewStyle, View, ImageBackground, Text} from 'react-native';
+import {ViewStyle, View, ImageBackground, Text, Platform} from 'react-native';
 import RectButton, {
   RectButtonEnum,
   defaultButtonSize,
 } from '@library/components/button/rectButton';
 import {strings} from '@library/services/i18nService';
 import R, {Images, Fonts} from '@res/R';
+import {isTablet} from 'react-native-device-info';
+
+const isIPad = Platform.OS === 'ios' && isTablet();
 
 type Props = {
   text?: string;
@@ -23,16 +26,22 @@ export default class RectButtonWatchAdd extends Component<Props> {
     const buttonHeightAdsK = 1.495495495495495;
     const buttonWidthAdsK = 1.034810126582278;
 
-    const widthForBoth = defaultButtonSize.width * buttonWidthAdsK;
-    const heightForBoth = defaultButtonSize.height * buttonHeightAdsK;
+    const propWidth: number = this.props.style?.width as number;
+    const width = propWidth | defaultButtonSize.width;
+    const propHeight: number = this.props.style?.height as number;
+    const height = propHeight | defaultButtonSize.height;
+
+    const widthForBoth = width * buttonWidthAdsK;
+    const heightForBoth = height * buttonHeightAdsK;
 
     const widthForMoscaK = 0.544303797468354;
     const ratioMoscaK = 0.505813953488372;
-    const widthForMosca = defaultButtonSize.width * widthForMoscaK;
+    const widthForMosca = width * widthForMoscaK;
     const heightForMosca = widthForMosca * ratioMoscaK;
 
     let viewStyle = Object.assign(
       {
+        height: heightForBoth,
         flexDirection: 'row',
         alignItems: 'flex-end',
         justifyContent: 'flex-start',
@@ -48,6 +57,7 @@ export default class RectButtonWatchAdd extends Component<Props> {
           type={RectButtonEnum.Yellow}
           text={this.props.text}
           onPress={this.props.onPress}
+          style={{width: viewStyle.width, height: viewStyle.height}}
         />
         <ImageBackground
           source={R.img(Images.watch_video_banner_for_button)}

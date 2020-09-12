@@ -178,15 +178,16 @@ const getStyles: any = () => {
       height: '100%',
       alignItems: 'center',
       justifyContent: 'center',
-      marginTop: isAndroid ? 0 : wikipediaImageWidth * 0.1,
+      marginTop: isAndroid ? 0 : wikipediaImageWidth * 0.2,
     },
     wikipediaLabelText: {
-      width: '90%',
+      width: '95%',
       textAlign: 'center',
       color: '#ffffffcc',
       fontSize: wikipediaButtonHeight * 0.38,
       fontFamily: Fonts.league,
       marginRight: wikipediaImageWidth * 0.5,
+      paddingLeft: wikipediaImageWidth * 0.2,
     },
     rewards: {
       width: wp('100%'),
@@ -228,13 +229,13 @@ const getStyles: any = () => {
     rewardsBottomImage: {
       width: coinRewardsWidth,
       height: coinRewardsHeight,
+      marginRight: wp('1%'),
     },
     rewardsBottomText: {
       marginTop: isAndroid ? 0 : hp('0.5%'),
       color: 'white',
       fontSize: hp('2%'),
       fontFamily: Fonts.league,
-      marginLeft: wp('2%'),
     },
     buttons: {
       width: wp('100%'),
@@ -254,10 +255,11 @@ const getStyles: any = () => {
       fontFamily: Fonts.josefin_light,
     },
     buttonLeft: {
-      marginRight: wp('1%'),
+      backgroundColor: 'yellow',
     },
     buttonRight: {
       marginLeft: wp('1%'),
+      backgroundColor: 'green',
     },
     starFlare: {
       position: 'absolute',
