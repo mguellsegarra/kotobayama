@@ -19,6 +19,7 @@ interface I18nInterface {
   translations: translationObject;
   locale: string;
   init: Function;
+  initialized: boolean;
 }
 
 const I18n: I18nInterface = {
@@ -29,13 +30,18 @@ const I18n: I18nInterface = {
     es,
   },
   locale: '',
+  initialized: false,
   init: () => {
+    if (I18n.initialized) {
+      return;
+    }
     let locale = RNLocalize.getLocales()[0].languageCode;
     if (I18n.supportedLocales.indexOf(I18n.locale.substring(0, 2)) === -1) {
       locale = I18n.defaultLocale;
     }
 
     I18n.locale = locale;
+    I18n.initialized = true;
   },
 };
 
