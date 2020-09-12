@@ -65,12 +65,12 @@ export default class LevelComplete extends Component<Props> {
   }
 
   async componentDidMount() {
+    this.starflareView.animate('fadeIn', 4000);
     await delayPromise(400);
     this.ribbonView.animate('fadeIn', 300);
     await delayPromise(400);
     this.firstStar.animate('fadeIn', 300);
     await delayPromise(400);
-    this.starflareView.animate('fadeIn', 300);
     this.secondStar.animate('fadeIn', 300);
     await delayPromise(400);
     this.thirdStar.animate('fadeIn', 300);

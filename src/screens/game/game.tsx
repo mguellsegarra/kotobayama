@@ -190,12 +190,7 @@ export default class Game extends Component<Props, State> {
             <View style={styles.navBarRight}>
               <CoinCounter
                 totalCoins={this.props.userStore.coins}
-                onPress={() => {
-                  this.props.navigation.navigate('LevelComplete', {
-                    level: this.level,
-                    pack: this.pack,
-                  });
-                }}
+                onPress={() => {}}
               />
             </View>
           </View>

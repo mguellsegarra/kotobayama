@@ -42,7 +42,7 @@ export default class UserStore {
 
   getCoinsToAddForLives = (levelProgress: LevelProgress) => {
     let coins = (3 - levelProgress?.investedLives!) * gameConfig.coinsPerLive;
-    if (coins < 0) {
+    if (coins <= 0) {
       coins = gameConfig.minCoinsLevelWin;
     }
     return coins;

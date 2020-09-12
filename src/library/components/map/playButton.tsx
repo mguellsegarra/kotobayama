@@ -77,7 +77,7 @@ export default class PlayButton extends Component<Props, State> {
   calculatePrice(): number {
     const maxPrice = gameConfig.freeCooldownPrice;
     const maxMinutes = gameConfig.coolDownMinutes;
-    const minutes = this.state.minutesLeft;
+    const minutes = this.state.minutesLeft + 1;
     const price = (maxPrice / maxMinutes) * minutes;
 
     return Math.round(price + Number.EPSILON);
