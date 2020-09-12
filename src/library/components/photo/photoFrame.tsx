@@ -1,8 +1,9 @@
 import React, {Component} from 'react';
-import {View, Image, ViewStyle} from 'react-native';
+import {View, Image, ViewStyle, Platform} from 'react-native';
 // @ts-ignore
 import {NoFlickerImage} from 'react-native-no-flicker-image';
 import {Level} from '@library/models/level';
+const isAndroid = Platform.OS === 'android';
 
 import R, {Images} from '@res/R';
 import {getStyles} from './photoFrame.style';
@@ -37,7 +38,7 @@ export default class PhotoFrame extends Component<Props> {
     if (this.props.size === PhotoFrameSize.small) {
       this.photoFrameWidth = isTablet() ? hp('35%') : wp('68%');
     } else {
-      this.photoFrameWidth = isTablet() ? wp('70%') : wp('85%');
+      this.photoFrameWidth = isTablet() ? wp('70%') : isAndroid ? wp('75%') : wp('85%');
     }
     this.photoFrameHeight = this.photoFrameWidth * photoFrameConstant;
   }
