@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {View, Image, Text, ImageBackground} from 'react-native';
+import {
+  View,
+  Image,
+  Text,
+  ImageBackground,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import {styles} from './levelComplete.style';
 import NoNotchView from '@library/components/common/noNotchView';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
@@ -76,21 +82,7 @@ export default class LevelComplete extends Component<Props> {
               <View style={styles.infoTop}>
                 <Text style={styles.titleText}>{level.title}</Text>
               </View>
-              <View style={styles.infoMiddle}>
-                <Text
-                  numberOfLines={6}
-                  adjustsFontSizeToFit
-                  style={styles.descriptionText}>
-                  El Refugi Joan Ventosa i Calvell és un refugi de muntanya
-                  propietat del Centre Excursionista de Catalunya , situat dins
-                  el municipi de la Vall de Boí (Alta Ribagorça), sobre l’Estany
-                  Negre, en la cota 2.214, al peu de les Agulles de Travessani
-                  en l'extrem oriental del Pletiu d'Estany Negre i dins dels
-                  límits del Parc Nacional d'Aigüestortes i Estany de Sant
-                  Maurici.
-                </Text>
-              </View>
-              <View style={styles.infoBottom}>
+              <TouchableWithoutFeedback onPress={() => {}}>
                 <View style={styles.wikipediaButton}>
                   <View style={styles.wikipediaImageContainer}>
                     <Image
@@ -107,9 +99,45 @@ export default class LevelComplete extends Component<Props> {
                     </Text>
                   </View>
                 </View>
+              </TouchableWithoutFeedback>
+              <View style={styles.infoMiddle}>
+                <Text
+                  numberOfLines={6}
+                  adjustsFontSizeToFit
+                  style={styles.descriptionText}>
+                  El Refugi Joan Ventosa i Calvell és un refugi de muntanya
+                  propietat del Centre Excursionista de Catalunya , situat dins
+                  el municipi de la Vall de Boí (Alta Ribagorça), sobre l’Estany
+                  Negre, en la cota 2.214, al peu de les Agulles de Travessani
+                  en l'extrem oriental del Pletiu d'Estany Negre i dins dels
+                  límits del Parc Nacional d'Aigüestortes i Estany de Sant
+                  Maurici.
+                </Text>
               </View>
             </View>
-            <View style={styles.rewards}></View>
+            <View style={styles.rewards}>
+              <View style={styles.rewardsTop}>
+                <ImageBackground
+                  source={R.img(Images.reward_separator)}
+                  style={styles.rewardsTopImage}>
+                  <View style={styles.rewardsTopImageContainer}>
+                    <Text
+                      numberOfLines={0}
+                      adjustsFontSizeToFit
+                      style={styles.rewardsTopImageText}>
+                      {strings('rewards').toUpperCase()}
+                    </Text>
+                  </View>
+                </ImageBackground>
+              </View>
+              <View style={styles.rewardsBottom}>
+                <Image
+                  source={R.img(Images.coin_reward)}
+                  style={styles.rewardsBottomImage}
+                />
+                <Text style={styles.rewardsBottomText}>100</Text>
+              </View>
+            </View>
             <View style={styles.buttons}>
               <RectButton
                 type={RectButtonEnum.Green}

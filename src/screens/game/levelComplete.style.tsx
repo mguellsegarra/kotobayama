@@ -29,6 +29,9 @@ const getStyles: any = () => {
   const wikipediaImageHeight = wikipediaButtonHeight * 0.5;
   const wikipediaImageConstant = 0.625;
   const wikipediaImageWidth = wikipediaImageHeight / wikipediaImageConstant;
+  const coinRewardsConstant = 124 / 120;
+  const coinRewardsHeight = hp('5%');
+  const coinRewardsWidth = coinRewardsHeight / coinRewardsConstant;
 
   return StyleSheet.create({
     background: {
@@ -115,7 +118,7 @@ const getStyles: any = () => {
       justifyContent: 'center',
     },
     infoTop: {
-      flex: 1,
+      flex: 0.8,
       width: '100%',
       flexDirection: 'row',
       alignItems: 'flex-end',
@@ -127,7 +130,6 @@ const getStyles: any = () => {
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      // backgroundColor: 'red'
     },
     titleText: {
       fontSize: hp('2%'),
@@ -146,22 +148,15 @@ const getStyles: any = () => {
       marginRight: wp('5%'),
       color: 'white',
     },
-    infoBottom: {
-      flex: 1,
-      width: '100%',
-      flexDirection: 'row',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
     wikipediaButton: {
       backgroundColor: Colors.darkGray,
       width: wikipediaButtonWidth,
       height: wikipediaButtonHeight,
       borderRadius: wikipediaButtonHeight,
-      marginBottom: hp('0.5%'),
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
+      marginTop: hp('1.5%'),
     },
     wikipediaImageContainer: {
       flex: 1,
@@ -189,7 +184,50 @@ const getStyles: any = () => {
     rewards: {
       width: wp('100%'),
       flex: 1,
-      backgroundColor: 'pink',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    rewardsTop: {
+      flex: 1,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    rewardsTopImage: {
+      height: '80%',
+      width: '100%',
+    },
+    rewardsTopImageContainer: {
+      flex: 1,
+      flexDirection: 'column',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    rewardsTopImageText: {
+      height: '100%',
+      color: Colors.gold,
+      fontSize: hp('2%'),
+      fontFamily: Fonts.alata,
+      textAlign: 'center',
+      marginBottom: isAndroid ? hp('0.2%') : hp('0.6%'),
+    },
+    rewardsBottom: {
+      flex: 2,
+      width: '100%',
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    rewardsBottomImage: {
+      width: coinRewardsWidth,
+      height: coinRewardsHeight,
+    },
+    rewardsBottomText: {
+      marginTop: isAndroid ? 0 : hp('0.5%'),
+      color: 'white',
+      fontSize: hp('2%'),
+      fontFamily: Fonts.league,
+      marginLeft: wp('2%'),
     },
     buttons: {
       width: wp('100%'),
