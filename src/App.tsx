@@ -9,11 +9,24 @@ import LevelMap from '@screens/levelMap/levelMap';
 import Splash from '@screens/splash/splash';
 import Home from '@screens/home/home';
 import Game from '@screens/game/game';
+import LevelComplete from '@screens/game/levelComplete';
 
 import stores from '@library/mobx/store';
 
 const Stack = createStackNavigator();
 
+const cardStyleInterpolator = (options: any) => {
+  const {current} = options;
+  const {progress} = current;
+  return {
+    cardStyle: {
+      opacity: progress,
+    },
+    overlayStyle: {
+      opacity: 0,
+    },
+  };
+};
 export default class App extends Component {
   componentDidMount() {
     if (!__DEV__) {
@@ -32,14 +45,7 @@ export default class App extends Component {
             screenOptions={{
               cardStyle: {backgroundColor: 'transparent'},
               cardOverlayEnabled: true,
-              cardStyleInterpolator: ({current: {progress}}) => ({
-                cardStyle: {
-                  opacity: progress,
-                },
-                overlayStyle: {
-                  opacity: progress,
-                },
-              }),
+              cardStyleInterpolator,
             }}>
             <Stack.Screen name="Splash" component={Splash} />
             <Stack.Screen name="Home" component={Home} />
@@ -48,10 +54,10 @@ export default class App extends Component {
               component={LevelMap}
               options={{
                 animationEnabled: false,
-                cardStyle: {backgroundColor: 'black'},
               }}
             />
             <Stack.Screen name="Game" component={Game} />
+            <Stack.Screen name="LevelComplete" component={LevelComplete} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>

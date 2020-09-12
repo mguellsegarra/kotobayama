@@ -52,7 +52,7 @@ type State = {};
 @inject('userStore')
 @inject('levelMapStore')
 @observer
-export default class LevelMap extends Component<Props, State> {
+export default class Game extends Component<Props, State> {
   mapLayer: any;
   solutionBar: SolutionBarElement | SolutionBar | null;
   lettersBar: LettersBarElement | LettersBar | null;
@@ -97,24 +97,26 @@ export default class LevelMap extends Component<Props, State> {
     }
 
     if (this.solutionBar?.isWordCorrect()) {
-      // TODO: Add coins
-      // TODO: Correct screen
+      this.solutionBar?.animateLetters('flash', 1000);
+      await delayPromise(1000);
+
+      this.props.navigation.navigate('LevelComplete', {
+        level,
+      });
+      // return;
+      // TOT AIXÔ DINS DE LEVELCOMPLETE
       this.props.userStore.incrementCoinsForLives(
         this.props.levelProgressStore?.getCurrentLives(level.id, this.pack.id),
       );
-
       this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
       this.props.levelProgressStore.calculateLevelStars(level.id, this.pack.id);
-
-      this.solutionBar?.animateLetters('flash', 1000);
-      await delayPromise(1000);
 
       this.props.levelMapStore.nextIncompleteLevelForPack(
         this.props.levelProgressStore.levelsProgress,
         this.pack,
       );
-
-      this.props.navigation.goBack();
+      // END - TOT AIXÔ DINS DE LEVELCOMPLETE
+      // --> CULPRIT! this.props.navigation.goBack();
     } else {
       Vibration.vibrate(1000);
       this.solutionBar?.animateLetters('shake', 1000);
@@ -137,7 +139,7 @@ export default class LevelMap extends Component<Props, State> {
       ) {
         await delayPromise(500);
         this.props.levelProgressStore.setLevelCooldown(level.id, this.pack.id);
-        
+
         this.props.navigation.goBack();
         return;
       }
@@ -198,7 +200,11 @@ export default class LevelMap extends Component<Props, State> {
             <View style={styles.navBarRight}>
               <CoinCounter
                 totalCoins={this.props.userStore.coins}
-                onPress={() => {}}
+                onPress={() => {
+                  this.props.navigation.navigate('LevelComplete', {
+                    level: this.level,
+                  });
+                }}
               />
             </View>
           </View>
