@@ -85,6 +85,20 @@ export default class PlayButton extends Component<Props, State> {
 
   noLivesButton(timestamp: number) {
     const level = this.props.levels[this.props.currentLevel];
+    const noLivesAction = () => {
+      if (this.props.userStore?.coins! < gameConfig.freeCooldownPrice) {
+        // TODO: Show no coins
+        return;
+      }
+
+      this.props.userStore?.decrementCoins(
+        gameConfig.freeCooldownPrice,
+      );
+      this.props.levelProgressStore?.unsetLevelCooldown(
+        level.id,
+        this.props.packId,
+      );
+    };
 
     return (
       <View style={styles.countdownContainer}>
@@ -115,20 +129,7 @@ export default class PlayButton extends Component<Props, State> {
         <View style={styles.countdownBottom}>
           <RectButton
             type={RectButtonEnum.Red}
-            onPress={() => {
-              if (this.props.userStore?.coins! < gameConfig.freeCooldownPrice) {
-                // TODO: Show no coins
-                return;
-              }
-
-              this.props.userStore?.decrementCoins(
-                gameConfig.freeCooldownPrice,
-              );
-              this.props.levelProgressStore?.unsetLevelCooldown(
-                level.id,
-                this.props.packId,
-              );
-            }}>
+            onPress={noLivesAction}>
             <View style={styles.countdownButton}>
               <View style={styles.countdownButtonUpperView}>
                 <Text style={styles.countdownButtonUpperText}>

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ViewStyle, View, ImageBackground, Text, Platform} from 'react-native';
+import {ViewStyle, View, ImageBackground, Text, Platform, TouchableWithoutFeedback} from 'react-native';
 import RectButton, {
   RectButtonEnum,
   defaultButtonSize,
@@ -7,8 +7,6 @@ import RectButton, {
 import {strings} from '@library/services/i18nService';
 import R, {Images, Fonts} from '@res/R';
 import {isTablet} from 'react-native-device-info';
-
-const isIPad = Platform.OS === 'ios' && isTablet();
 
 type Props = {
   text?: string;
@@ -58,29 +56,31 @@ export default class RectButtonWatchAdd extends Component<Props> {
           text={this.props.text}
           onPress={this.props.onPress}
         />
-        <ImageBackground
-          source={R.img(Images.watch_video_banner_for_button)}
-          style={{
-            position: 'absolute',
-            width: widthForMosca,
-            height: heightForMosca,
-            alignItems: 'flex-start',
-            justifyContent: 'flex-end',
-            right: 0,
-            top: 0,
-          }}>
-          <Text
+        <TouchableWithoutFeedback onPress={this.props.onPress}>
+          <ImageBackground
+            source={R.img(Images.watch_video_banner_for_button)}
             style={{
-              color: 'white',
-              zIndex: 2,
-              fontSize: widthForMosca * 0.1,
-              fontFamily: Fonts.alata,
-              marginBottom: heightForMosca * 0.2,
-              marginLeft: heightForMosca * 0.2,
+              position: 'absolute',
+              width: widthForMosca,
+              height: heightForMosca,
+              alignItems: 'flex-start',
+              justifyContent: 'flex-end',
+              right: 0,
+              top: 0,
             }}>
-            {strings('free').toUpperCase() + '!'}
-          </Text>
-        </ImageBackground>
+            <Text
+              style={{
+                color: 'white',
+                zIndex: 2,
+                fontSize: widthForMosca * 0.1,
+                fontFamily: Fonts.alata,
+                marginBottom: heightForMosca * 0.2,
+                marginLeft: heightForMosca * 0.2,
+              }}>
+              {strings('free').toUpperCase() + '!'}
+            </Text>
+          </ImageBackground>
+        </TouchableWithoutFeedback>
       </View>
     );
   }
