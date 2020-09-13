@@ -131,13 +131,13 @@ export default class PlayButton extends Component<Props, State> {
                 </Text>
               </View>
               <View style={styles.countdownButtonLowerView}>
-                <Text style={styles.countdownButtonLowerText}>
-                  {this.calculatePrice()}
-                </Text>
                 <Image
                   style={styles.countdownButtonLowerCoin}
                   source={R.img(Images.coin_small)}
                 />
+                <Text style={styles.countdownButtonLowerText}>
+                  {this.calculatePrice()}
+                </Text>
               </View>
             </View>
           </RectButton>

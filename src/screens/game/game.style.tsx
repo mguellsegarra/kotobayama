@@ -46,7 +46,9 @@ const getStyles: any = () => {
     },
     powerUpsBar: {
       flex: 2,
-      // backgroundColor: 'pink',
+      flexDirection: 'row',
+      justifyContent: 'center',
+      alignItems: 'center',
     },
     backButton: {
       width: backButtonSize,
@@ -73,7 +75,6 @@ const getStyles: any = () => {
     },
     solutionBar: {
       flex: 3,
-      // backgroundColor: 'green',
       justifyContent: 'center',
       alignItems: 'center',
       flexDirection: 'column',
@@ -89,7 +90,6 @@ const getStyles: any = () => {
     lettersBar: {
       flex: 3,
       flexDirection: 'column',
-      // backgroundColor: 'blue',
       justifyContent: 'center',
       alignItems: 'center',
     },

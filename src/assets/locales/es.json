@@ -10,5 +10,8 @@
   "claim": "Recoger",
   "readWikipedia": "Leer más en Wikipedia",
   "rewards": "Obtienes",
-  "free": "Gratis"
+  "free": "Gratis",
+  "solveLetter": "Soluciona una letra",
+  "destroyLetters": "Destruye letras inválidas",
+  "askFriend": "Pregunta a un amigo"
 }

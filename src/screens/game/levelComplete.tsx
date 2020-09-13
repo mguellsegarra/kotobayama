@@ -202,7 +202,7 @@ export default class LevelComplete extends Component<Props> {
                   <View style={styles.wikipediaLabel}>
                     <Text
                       adjustsFontSizeToFit
-                      numberOfLines={0}
+                      numberOfLines={1}
                       style={styles.wikipediaLabelText}>
                       {strings('readWikipedia')}
                     </Text>
@@ -235,7 +235,7 @@ export default class LevelComplete extends Component<Props> {
                   style={styles.rewardsTopImage}>
                   <View style={styles.rewardsTopImageContainer}>
                     <Text
-                      numberOfLines={0}
+                      numberOfLines={1}
                       adjustsFontSizeToFit
                       style={styles.rewardsTopImageText}>
                       {strings('rewards').toUpperCase()}

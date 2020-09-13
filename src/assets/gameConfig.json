@@ -2,5 +2,7 @@
   "coinsPerLive": 25,
   "coolDownMinutes": 30,
   "freeCooldownPrice": 100,
-  "minCoinsLevelWin": 5
+  "minCoinsLevelWin": 5,
+  "priceSolveLetter": 25,
+  "priceDestroyLetters": 100
 }

@@ -292,7 +292,7 @@ const getStyles: any = () => {
     },
     countdownButtonUpperText: {
       fontFamily: Fonts.league,
-      fontSize: defaultButtonSize.height * (isAndroid ? 0.23: 0.25),
+      fontSize: defaultButtonSize.height * (isAndroid ? 0.23 : 0.25),
       textAlign: 'center',
       color: Colors.redButtonText,
     },
@@ -309,12 +309,12 @@ const getStyles: any = () => {
       fontSize: defaultButtonSize.height * 0.23,
       textAlign: 'center',
       color: '#ffffff',
+      marginLeft: defaultButtonSize.height * 0.03,
     },
     countdownButtonLowerCoin: {
-      marginTop: defaultButtonSize.height * (isAndroid ? 0.09: 0.055),
+      marginTop: defaultButtonSize.height * (isAndroid ? 0.09 : 0.055),
       width: defaultButtonSize.height * 0.25,
       height: defaultButtonSize.height * 0.25,
-      marginLeft: defaultButtonSize.height * 0.03,
     },
   });
 };

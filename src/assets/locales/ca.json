@@ -10,5 +10,8 @@
   "claim": "Recollir",
   "readWikipedia": "Llegir més a Viquipèdia",
   "rewards": "Obtens",
-  "free": "Gratis"
+  "free": "Gratis",
+  "solveLetter": "Soluciona una lletra",
+  "destroyLetters": "Destrueix lletres invàlides",
+  "askFriend": "Pregunta a un amic"
 }

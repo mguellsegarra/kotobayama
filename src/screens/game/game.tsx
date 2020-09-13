@@ -13,6 +13,7 @@ import CoinCounter from '@library/components/game/coinCounter';
 import delayPromise from '@library/utils/delayPromise';
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
+import PowerUpsBar from '@library/components/game/powerUpsBar';
 
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
@@ -233,7 +234,9 @@ export default class Game extends Component<Props, State> {
               resizeMode="contain"
               source={R.img(Images.separator_line_up)}></Image>
           </View>
-          <View style={styles.powerUpsBar}></View>
+          <View style={styles.powerUpsBar}>
+            <PowerUpsBar />
+          </View>
           <LettersBar
             ref={(ref) => {
               this.lettersBar = ref;
