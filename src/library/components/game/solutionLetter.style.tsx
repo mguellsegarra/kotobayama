@@ -1,8 +1,9 @@
-import { StyleSheet } from 'react-native';
-import { isTablet } from 'react-native-device-info';
-import { Platform } from 'react-native';
+import {StyleSheet} from 'react-native';
+import {isTablet} from 'react-native-device-info';
+import {Platform} from 'react-native';
+import {Colors} from '@res/R';
 
-import { Fonts } from '@res/R';
+import {Fonts} from '@res/R';
 const isAndroid = Platform.OS === 'android';
 
 import {
@@ -37,7 +38,10 @@ const getStyles: any = (letterSize: number, margin: number) => {
       fontFamily: Fonts.league,
       fontSize: wp('6%'),
     },
+    characterGold: {
+      color: Colors.gold,
+    },
   });
 };
 
-export { getStyles };
+export {getStyles};

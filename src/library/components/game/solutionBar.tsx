@@ -47,6 +47,9 @@ export interface SolutionBarElement extends Element {
   removeAllLetters: Function;
   getAllAvailableLetterIds: Function;
   animateLetters: Function;
+  getFirstEmptySolutionLetterId: Function;
+  addLetterAtPosition: Function;
+  getBoughtLetters: Function;
 }
 
 @inject('levelProgressStore')
@@ -119,22 +122,23 @@ export default class SolutionBar extends Component<Props, State> {
     return letterLines;
   }
 
-  addLetter(character: string, availableLetterId: string) {
+  addLetterAtPosition(
+    character: string,
+    availableLetterId: string,
+    position: number,
+    state: SolutionLetterState,
+  ) {
     return new Promise((resolve, reject) => {
       if (isCharacterMapFull(this.state.charactersMap, this.props.word)) {
         return;
       }
 
-      const firstEmptyPos = getFirstCharacterMapEmptyPos(
-        this.state.charactersMap,
-      );
-
       const newCharacterMap = new Map(this.state.charactersMap);
 
-      newCharacterMap.set(firstEmptyPos.toString(), {
-        id: firstEmptyPos.toString(),
+      newCharacterMap.set(position.toString(), {
+        id: position.toString(),
         character: character,
-        letterState: SolutionLetterState.Filled,
+        letterState: state,
         availableLetterId,
       });
 
@@ -155,8 +159,33 @@ export default class SolutionBar extends Component<Props, State> {
     });
   }
 
+  addLetter(character: string, availableLetterId: string) {
+    if (isCharacterMapFull(this.state.charactersMap, this.props.word)) {
+      return;
+    }
+
+    const firstEmptyPos = getFirstCharacterMapEmptyPos(
+      this.state.charactersMap,
+    );
+
+    return this.addLetterAtPosition(
+      character,
+      availableLetterId,
+      firstEmptyPos,
+      SolutionLetterState.Filled,
+    );
+  }
+
   allLettersAreFull() {
     return isCharacterMapFull(this.state.charactersMap, this.props.word);
+  }
+
+  getBoughtLetters() {
+    return Array.from(this.state.charactersMap, ([key, value]) => {
+      return value;
+    }).filter((value) => {
+      return value.letterState === SolutionLetterState.Bought;
+    });
   }
 
   removeLetterWithId(id: string) {
@@ -191,12 +220,16 @@ export default class SolutionBar extends Component<Props, State> {
   }
 
   removeAllLetters() {
-    Array.from(this.state.charactersMap, ([name, value]) => name).forEach(
-      (letterId) => {
-        this.removeLetterWithId(letterId);
-      },
-    );
+    Array.from(this.state.charactersMap, ([key, value]) => {
+      return {key, value};
+    }).forEach(({key, value}) => {
+      if (value.letterState === SolutionLetterState.Filled) {
+        this.removeLetterWithId(key);
+      }
+    });
   }
+
+  getRandomPendingLetter() {}
 
   animateLetters(animationType: string, duration: number) {
     this.containerView.animate(animationType, duration);

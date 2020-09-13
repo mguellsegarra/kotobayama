@@ -15,6 +15,7 @@ import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 import PowerUpsBar from '@library/components/game/powerUpsBar';
 import ViewShot from 'react-native-view-shot';
+const gameConfig = require('@assets/gameConfig');
 
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
@@ -79,6 +80,10 @@ export default class Game extends Component<Props, State> {
     this.solutionLetterHasTapped = this.solutionLetterHasTapped.bind(this);
     this.getLevelProgress = this.getLevelProgress.bind(this);
 
+    this.onDestroyLettersPress = this.onDestroyLettersPress.bind(this);
+    this.onSolveLetterPress = this.onSolveLetterPress.bind(this);
+    this.onAskFriendPress = this.onAskFriendPress.bind(this);
+
     const {currentLevel, levels, packId} = this.props.route.params;
     this.level = levels[currentLevel];
     this.pack = LevelService.getPackWithId(packId);
@@ -86,16 +91,8 @@ export default class Game extends Component<Props, State> {
     this.totalLevels = levels.length;
   }
 
-  async availableLetterHasTapped(letter: AvailableLetterType) {
+  async checkResult() {
     const level: Level = this.level;
-
-    if (this.solutionBar?.allLettersAreFull()) {
-      return;
-    }
-
-    this.lettersBar?.setLetterState(letter.id, AvailableLetterState.Selected);
-
-    await this.solutionBar?.addLetter(letter.character, letter.id);
 
     if (!this.solutionBar?.allLettersAreFull()) {
       return;
@@ -139,7 +136,6 @@ export default class Game extends Component<Props, State> {
         return;
       }
 
-      // TODO: Restar coins
       await delayPromise(1000);
 
       const availableLetterIds = this.solutionBar?.getAllAvailableLetterIds();
@@ -149,6 +145,19 @@ export default class Game extends Component<Props, State> {
 
       this.solutionBar?.removeAllLetters();
     }
+  }
+
+  async availableLetterHasTapped(letter: AvailableLetterType) {
+    const level: Level = this.level;
+
+    if (this.solutionBar?.allLettersAreFull()) {
+      return;
+    }
+
+    this.lettersBar?.setLetterState(letter.id, AvailableLetterState.Selected);
+
+    await this.solutionBar?.addLetter(letter.character, letter.id);
+    await this.checkResult();
   }
 
   solutionLetterHasTapped(letter: SolutionLetterType) {
@@ -171,6 +180,81 @@ export default class Game extends Component<Props, State> {
       this.snapshot = uri;
     });
   }
+
+  async onSolveLetterPress() {
+    this.solutionBar?.removeAllLetters();
+    await delayPromise(300);
+
+    const word = this.level.word.replace(' ', '').toUpperCase();
+    const wordBoughtLetters: any = word.split('').map((character) => {
+      return {bought: false, character};
+    });
+
+    const boughtLetters: Array<SolutionLetterType> = this.solutionBar?.getBoughtLetters();
+
+    boughtLetters.forEach((boughtLetter) => {
+      wordBoughtLetters[boughtLetter.id] = {
+        bought: true,
+        character: boughtLetter.character,
+      };
+    });
+
+    const wordWithWildcards = word.split('');
+
+    const wordMinusBoughtLetters = wordBoughtLetters.filter(
+      (element: any, idx: number) => {
+        if (element.bought) {
+          wordWithWildcards[idx] = '*';
+        }
+        return !element.bought;
+      },
+    );
+
+    const randomIndex = Math.floor(
+      Math.random() * wordMinusBoughtLetters.length,
+    );
+    const randomLetter = wordMinusBoughtLetters[randomIndex].character;
+    const position = wordWithWildcards.indexOf(randomLetter); // <-- this is wrong, we have to replace bought letters before.
+
+    const availableLetterId = this.lettersBar?.getAvailableLetterWithChar(
+      randomLetter,
+    ).id;
+
+    this.solutionBar?.addLetterAtPosition(
+      randomLetter,
+      availableLetterId,
+      position,
+      SolutionLetterState.Bought,
+    );
+
+    this.lettersBar?.setLetterState(
+      availableLetterId,
+      AvailableLetterState.Bought,
+    );
+
+    this.props.userStore.decrementCoins(gameConfig.priceSolveLetter);
+    await this.checkResult();
+  }
+
+  async onDestroyLettersPress() {
+    this.solutionBar?.removeAllLetters();
+    await delayPromise(300);
+
+    this.lettersBar?.powerUpDestroyLetters();
+
+    this.props.userStore.decrementCoins(gameConfig.priceDestroyLetters);
+  }
+
+  async onAskFriendPress() {
+    if (this.snapshot) {
+      Share.open({
+        url: this.snapshot,
+        message: 'Tegami: Saps quina muntanya és?',
+        filename: 'guessMountain',
+      });
+    }
+  }
+
   render() {
     return (
       <LinearGradient
@@ -250,17 +334,9 @@ export default class Game extends Component<Props, State> {
           <View style={styles.powerUpsBar}>
             <PowerUpsBar
               bombDisabled={false}
-              onDestroyLettersPress={() => {}}
-              onSolveLetterPress={() => {}}
-              onAskFriendPress={async () => {
-                if (this.snapshot) {
-                  Share.open({
-                    url: this.snapshot,
-                    message: 'Tegami: Saps quina muntanya és?',
-                    filename: 'guessMountain',
-                  });
-                }
-              }}
+              onDestroyLettersPress={this.onDestroyLettersPress}
+              onSolveLetterPress={this.onSolveLetterPress}
+              onAskFriendPress={this.onAskFriendPress}
             />
           </View>
           <LettersBar

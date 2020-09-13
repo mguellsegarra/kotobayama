@@ -32,6 +32,8 @@ type State = {
 export interface LettersBarElement extends Element {
   restoreLetterWithId: Function;
   setLetterState: Function;
+  getAvailableLetterWithChar: Function;
+  powerUpDestroyLetters: Function;
 }
 
 @inject('levelProgressStore')
@@ -127,6 +129,22 @@ export default class LettersBar extends Component<Props, State> {
 
   restoreLetterWithId(id: string) {
     this.setLetterState(id, AvailableLetterState.Idle);
+  }
+
+  getAvailableLetterWithChar(character: string) {
+    return this.state.letters
+      .filter((item) => {
+        return item.letterState === AvailableLetterState.Idle;
+      })
+      .find((item) => {
+        return item!.character === character;
+      });
+  }
+
+  powerUpDestroyLetters() {
+    // return this.state.letters.filter((item) => {
+    //   return item.letterState === AvailableLetterState.Idle;
+    // });
   }
 
   render() {

@@ -43,7 +43,13 @@ export default class SolutionLetter extends Component<Props> {
             style={styles.letter}
             source={R.img(Images.solution_letter)}>
             <View style={styles.characterContainer}>
-              <Text style={styles.character}>
+              <Text
+                style={[
+                  styles.character,
+                  this.props.letterState === SolutionLetterState.Bought
+                    ? styles.characterGold
+                    : undefined,
+                ]}>
                 {this.props.letterState === SolutionLetterState.Empty
                   ? null
                   : this.props.character.toUpperCase()}
