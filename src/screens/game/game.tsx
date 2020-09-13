@@ -14,6 +14,7 @@ import delayPromise from '@library/utils/delayPromise';
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 import PowerUpsBar from '@library/components/game/powerUpsBar';
+import ViewShot from 'react-native-view-shot';
 
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore, {
@@ -39,6 +40,7 @@ import {
 import {strings} from '@library/services/i18nService';
 
 import LevelService from '@library/services/levelService';
+import Share from 'react-native-share';
 
 type Props = {
   navigation: any;
@@ -62,6 +64,8 @@ export default class Game extends Component<Props, State> {
   currentLevel: number;
   totalLevels: number;
   pack: Pack;
+  snapshot: any;
+  refs: any;
 
   state = {};
 
@@ -162,6 +166,11 @@ export default class Game extends Component<Props, State> {
     ).levelProgress;
   }
 
+  componentDidMount() {
+    this.refs.viewShot.capture().then((uri: string) => {
+      this.snapshot = uri;
+    });
+  }
   render() {
     return (
       <LinearGradient
@@ -209,7 +218,9 @@ export default class Game extends Component<Props, State> {
             />
           </View>
           <View style={styles.photoBar}>
-            <PhotoFrame size={PhotoFrameSize.big} level={this.level} />
+            <ViewShot ref="viewShot">
+              <PhotoFrame size={PhotoFrameSize.big} level={this.level} />
+            </ViewShot>
             <Text style={styles.sourceText}>
               {strings('sourcePhoto') + ': ' + this.level.sourcePhoto}
             </Text>
@@ -235,7 +246,20 @@ export default class Game extends Component<Props, State> {
               source={R.img(Images.separator_line_up)}></Image>
           </View>
           <View style={styles.powerUpsBar}>
-            <PowerUpsBar />
+            <PowerUpsBar
+              bombDisabled={false}
+              onDestroyLettersPress={() => {}}
+              onSolveLetterPress={() => {}}
+              onAskFriendPress={async () => {
+                if (this.snapshot) {
+                  Share.open({
+                    url: this.snapshot,
+                    message: 'Tegami: Saps quina muntanya és?',
+                    filename: 'guessMountain',
+                  });
+                }
+              }}
+            />
           </View>
           <LettersBar
             ref={(ref) => {

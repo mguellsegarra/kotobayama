@@ -5,6 +5,7 @@
   "scripts": {
     "android": "react-native run-android",
     "android:release": "react-native run-android --variant=release",
+    "pod-install": "cd ios && pod install && cd ../",
     "ios": "react-native run-ios",
     "ios:all": "npm run ios:se && npm run ios:ipad && npm run ios",
     "ios:se": "react-native run-ios --simulator=\"iPhone SE\"",
@@ -28,6 +29,7 @@
     "@react-navigation/native": "^5.7.3",
     "@react-navigation/stack": "^5.9.0",
     "@types/crypto-js": "^3.1.47",
+    "@types/react-native-share": "^3.3.0",
     "crypto-js": "3.3.0",
     "mobx": "^5.15.6",
     "mobx-react": "^6.3.0",
@@ -47,7 +49,9 @@
     "react-native-responsive-screen": "^1.4.1",
     "react-native-safe-area-context": "^3.1.7",
     "react-native-screens": "^2.10.1",
+    "react-native-share": "^3.7.1",
     "react-native-touchable-scale": "^2.1.1",
+    "react-native-view-shot": "^3.1.2",
     "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {
