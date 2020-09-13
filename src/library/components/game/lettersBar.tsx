@@ -147,6 +147,7 @@ export default class LettersBar extends Component<Props, State> {
     const availableLetters = this.state.letters.filter((item) => {
       return item.letterState === AvailableLetterState.Selected;
     });
+
     availableLetters.forEach((letter) => {
       this.restoreLetterWithId(letter.id);
     });
@@ -162,9 +163,16 @@ export default class LettersBar extends Component<Props, State> {
       .toUpperCase()
       .split('')
       .forEach((character) => {
-        const availableLetter = this.getAvailableLetterWithChar(character);
-        const index = availableLetters.indexOf(availableLetter!);
-        availableLetters.splice(index, 1);
+        let idx = 0;
+
+        availableLetters.forEach((letter, index) => {
+          const found = letter.character === character;
+          if (found) {
+            idx = index;
+          }
+        });
+
+        availableLetters.splice(idx, 1);
       });
 
     if (availableLetters.length > 3) {

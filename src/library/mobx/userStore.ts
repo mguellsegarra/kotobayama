@@ -5,7 +5,7 @@ const gameConfig = require('@assets/gameConfig');
 import {LevelProgress} from '@library/models/level';
 
 export default class UserStore {
-  @observable public coins: number = 200;
+  @observable public coins: number = gameConfig.initialCoins;
   @observable public mapTypeMode: MapTypeMode = MapTypeMode.Topo;
 
   @action

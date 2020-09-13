@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, Text, Vibration} from 'react-native';
+import {View, Image, Text} from 'react-native';
 import R, {Colors, Images} from '@res/R';
 
 import {styles} from './game.style';
@@ -91,6 +91,49 @@ export default class Game extends Component<Props, State> {
     this.totalLevels = levels.length;
   }
 
+  async correct(level: Level) {
+    this.solutionBar?.animateLetters('flash', 1000);
+    await delayPromise(1000);
+
+    this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
+    this.props.levelProgressStore.calculateLevelStars(level.id, this.pack.id);
+
+    this.props.navigation.navigate('LevelComplete', {
+      level,
+      pack: this.pack,
+    });
+  }
+
+  async incorrect(level: Level) {
+    this.solutionBar?.animateLetters('shake', 1000);
+
+    this.props.levelProgressStore.decrementLivesForLevel(
+      level.id,
+      this.pack.id,
+    );
+    this.props.levelProgressStore.incrementInvestedLivesForLevel(
+      level.id,
+      this.pack.id,
+    );
+
+    this.livesIndicator?.animate('tada', 1000);
+    await delayPromise(500);
+    const availableLetterIds = this.solutionBar?.getAllAvailableLetterIds();
+    availableLetterIds.forEach((letterId: string) => {
+      this.lettersBar?.restoreLetterWithId(letterId);
+    });
+
+    this.solutionBar?.removeAllLetters();
+
+    if (
+      this.props.levelProgressStore?.getCurrentLives(level.id, this.pack.id) ===
+      0
+    ) {
+      this.props.levelProgressStore.setLevelCooldown(level.id, this.pack.id);
+      this.props.navigation.goBack();
+    }
+  }
+
   async checkResult() {
     const level: Level = this.level;
 
@@ -99,57 +142,13 @@ export default class Game extends Component<Props, State> {
     }
 
     if (this.solutionBar?.isWordCorrect()) {
-      this.solutionBar?.animateLetters('flash', 1000);
-      await delayPromise(1000);
-
-      this.props.levelProgressStore.setLevelCompleted(level.id, this.pack.id);
-      this.props.levelProgressStore.calculateLevelStars(level.id, this.pack.id);
-
-      this.props.navigation.navigate('LevelComplete', {
-        level,
-        pack: this.pack,
-      });
+      await this.correct(level);
     } else {
-      Vibration.vibrate(1000);
-      this.solutionBar?.animateLetters('shake', 1000);
-
-      this.props.levelProgressStore.decrementLivesForLevel(
-        level.id,
-        this.pack.id,
-      );
-      this.props.levelProgressStore.incrementInvestedLivesForLevel(
-        level.id,
-        this.pack.id,
-      );
-      this.livesIndicator?.animate('tada', 1000);
-
-      if (
-        this.props.levelProgressStore?.getCurrentLives(
-          level.id,
-          this.pack.id,
-        ) === 0
-      ) {
-        await delayPromise(500);
-        this.props.levelProgressStore.setLevelCooldown(level.id, this.pack.id);
-
-        this.props.navigation.goBack();
-        return;
-      }
-
-      await delayPromise(1000);
-
-      const availableLetterIds = this.solutionBar?.getAllAvailableLetterIds();
-      availableLetterIds.forEach((letterId: string) => {
-        this.lettersBar?.restoreLetterWithId(letterId);
-      });
-
-      this.solutionBar?.removeAllLetters();
+      await this.incorrect(level);
     }
   }
 
   async availableLetterHasTapped(letter: AvailableLetterType) {
-    const level: Level = this.level;
-
     if (this.solutionBar?.allLettersAreFull()) {
       return;
     }
@@ -187,8 +186,14 @@ export default class Game extends Component<Props, State> {
       return;
     }
 
+    if (this.solutionBar?.allLettersAreFull()) {
+      return;
+    }
+
     this.solutionBar?.removeAllLetters();
-    await delayPromise(300);
+    this.lettersBar?.restoreNonBoughtLetters();
+
+    await delayPromise(50);
 
     const word = this.level.word.replace(' ', '').toUpperCase();
     const wordBoughtLetters: any = word.split('').map((character) => {
@@ -247,13 +252,18 @@ export default class Game extends Component<Props, State> {
       return;
     }
 
+    if (this.solutionBar?.allLettersAreFull()) {
+      return;
+    }
+
+    await this.solutionBar?.removeAllLetters();
+    await this.lettersBar?.restoreNonBoughtLetters();
+
     if (!this.lettersBar?.existsWrongLettersNotBought()) {
       return;
     }
 
-    this.solutionBar?.removeAllLetters();
-    this.lettersBar?.restoreNonBoughtLetters();
-    await delayPromise(300);
+    await delayPromise(50);
 
     this.lettersBar?.powerUpDestroyLetters();
 

@@ -1,12 +1,17 @@
 import React, {Component} from 'react';
-import {ViewStyle, View, ImageBackground, Text, Platform, TouchableWithoutFeedback} from 'react-native';
+import {
+  ViewStyle,
+  View,
+  ImageBackground,
+  Text,
+  TouchableWithoutFeedback,
+} from 'react-native';
 import RectButton, {
   RectButtonEnum,
   defaultButtonSize,
 } from '@library/components/button/rectButton';
 import {strings} from '@library/services/i18nService';
 import R, {Images, Fonts} from '@res/R';
-import {isTablet} from 'react-native-device-info';
 
 type Props = {
   text?: string;
@@ -56,7 +61,10 @@ export default class RectButtonWatchAdd extends Component<Props> {
           text={this.props.text}
           onPress={this.props.onPress}
         />
-        <TouchableWithoutFeedback onPress={this.props.onPress}>
+        <TouchableWithoutFeedback
+          onPress={() => {
+            this.props.onPress;
+          }}>
           <ImageBackground
             source={R.img(Images.watch_video_banner_for_button)}
             style={{
