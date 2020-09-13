@@ -182,6 +182,11 @@ export default class Game extends Component<Props, State> {
   }
 
   async onSolveLetterPress() {
+    if (this.props.userStore.coins < gameConfig.priceSolveLetter) {
+      // TODO: Show no coins
+      return;
+    }
+
     this.solutionBar?.removeAllLetters();
     await delayPromise(300);
 
@@ -237,7 +242,17 @@ export default class Game extends Component<Props, State> {
   }
 
   async onDestroyLettersPress() {
+    if (this.props.userStore.coins < gameConfig.priceDestroyLetters) {
+      // TODO: Show no coins
+      return;
+    }
+
+    if (!this.lettersBar?.existsWrongLettersNotBought()) {
+      return;
+    }
+
     this.solutionBar?.removeAllLetters();
+    this.lettersBar?.restoreNonBoughtLetters();
     await delayPromise(300);
 
     this.lettersBar?.powerUpDestroyLetters();

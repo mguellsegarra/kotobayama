@@ -4,5 +4,5 @@
   "freeCooldownPrice": 100,
   "minCoinsLevelWin": 5,
   "priceSolveLetter": 25,
-  "priceDestroyLetters": 100
+  "priceDestroyLetters": 1
 }

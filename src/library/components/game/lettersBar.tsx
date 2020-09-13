@@ -34,6 +34,8 @@ export interface LettersBarElement extends Element {
   setLetterState: Function;
   getAvailableLetterWithChar: Function;
   powerUpDestroyLetters: Function;
+  existsWrongLettersNotBought: Function;
+  restoreNonBoughtLetters: Function;
 }
 
 @inject('levelProgressStore')
@@ -141,10 +143,52 @@ export default class LettersBar extends Component<Props, State> {
       });
   }
 
+  restoreNonBoughtLetters() {
+    const availableLetters = this.state.letters.filter((item) => {
+      return item.letterState === AvailableLetterState.Selected;
+    });
+    availableLetters.forEach((letter) => {
+      this.restoreLetterWithId(letter.id);
+    });
+  }
+
   powerUpDestroyLetters() {
-    // return this.state.letters.filter((item) => {
-    //   return item.letterState === AvailableLetterState.Idle;
-    // });
+    const availableLetters = this.state.letters.filter((item) => {
+      return item.letterState === AvailableLetterState.Idle;
+    });
+
+    this.props.word
+      .replace(' ', '')
+      .toUpperCase()
+      .split('')
+      .forEach((character) => {
+        const availableLetter = this.getAvailableLetterWithChar(character);
+        const index = availableLetters.indexOf(availableLetter!);
+        availableLetters.splice(index, 1);
+      });
+
+    if (availableLetters.length > 3) {
+      availableLetters
+        .slice(0, availableLetters.length / 2)
+        .forEach((letter) => {
+          this.setLetterState(letter.id, AvailableLetterState.Bought);
+        });
+    } else {
+      availableLetters.forEach((letter) => {
+        this.setLetterState(letter.id, AvailableLetterState.Bought);
+      });
+    }
+  }
+
+  existsWrongLettersNotBought() {
+    const availableLetters = this.state.letters.filter((item) => {
+      return item.letterState !== AvailableLetterState.Bought;
+    });
+
+    const totalChars = this.props.word.replace(' ', '').toUpperCase().split('')
+      .length;
+
+    return availableLetters.length > totalChars;
   }
 
   render() {

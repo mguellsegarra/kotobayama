@@ -116,6 +116,11 @@ export default class PlayButton extends Component<Props, State> {
           <RectButton
             type={RectButtonEnum.Red}
             onPress={() => {
+              if (this.props.userStore?.coins! < gameConfig.freeCooldownPrice) {
+                // TODO: Show no coins
+                return;
+              }
+
               this.props.userStore?.decrementCoins(
                 gameConfig.freeCooldownPrice,
               );
