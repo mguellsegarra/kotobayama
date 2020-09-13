@@ -8,6 +8,10 @@ import {
 
 import R, {Images} from '@res/R';
 import {getStyles} from './solutionLetter.style';
+import {
+  SolutionLetterState,
+  SolutionLetterType,
+} from '@library/models/solutionLetter';
 
 type Props = {
   id: string;
@@ -19,18 +23,6 @@ type Props = {
   margin: number;
 };
 
-export enum SolutionLetterState {
-  Empty,
-  Filled,
-  Bought,
-}
-
-export type SolutionLetterType = {
-  id: string;
-  availableLetterId: string;
-  letterState: SolutionLetterState;
-};
-
 export default class SolutionLetter extends Component<Props> {
   render() {
     const styles = getStyles(this.props.letterSize, this.props.margin);
@@ -38,11 +30,13 @@ export default class SolutionLetter extends Component<Props> {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
-          this.props.onPress({
+          const letter: SolutionLetterType = {
             id: this.props.id,
-            availableLetterId: this.props.availableLetterId,
+            character: this.props.character,
+            availableLetterId: this.props.availableLetterId!,
             letterState: this.props.letterState,
-          });
+          };
+          this.props.onPress(letter);
         }}>
         <View>
           <ImageBackground

@@ -32,11 +32,11 @@ import SolutionBar, {
 import {
   AvailableLetterType,
   AvailableLetterState,
-} from '@library/components/game/availableLetter';
+} from '@library/models/availableLetter';
 import {
   SolutionLetterType,
   SolutionLetterState,
-} from '@library/components/game/solutionLetter';
+} from '@library/models/solutionLetter';
 import {strings} from '@library/services/i18nService';
 
 import LevelService from '@library/services/levelService';
@@ -154,7 +154,7 @@ export default class Game extends Component<Props, State> {
   solutionLetterHasTapped(letter: SolutionLetterType) {
     if (letter.letterState === SolutionLetterState.Filled) {
       this.solutionBar?.removeLetterWithId(letter.id);
-      this.lettersBar?.restoreLetterWithId(letter.availableLetterId);
+      this.lettersBar?.restoreLetterWithId(letter.availableLetterId!);
     }
   }
 
@@ -238,6 +238,8 @@ export default class Game extends Component<Props, State> {
                 onLetterPress={this.solutionLetterHasTapped}
                 style={styles.lettersBar}
                 word={this.level.word}
+                level={this.level}
+                pack={this.pack}
               />
             </View>
             <Image
@@ -268,6 +270,8 @@ export default class Game extends Component<Props, State> {
             style={styles.lettersBar}
             word={this.level.word}
             availableLetterHasTapped={this.availableLetterHasTapped}
+            level={this.level}
+            pack={this.pack}
           />
         </NoNotchView>
       </LinearGradient>

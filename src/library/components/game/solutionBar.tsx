@@ -3,7 +3,12 @@ import {ViewStyle} from 'react-native';
 import {styles, getLetterSizeOptionsForWordLines} from './solutionBar.style';
 import {View} from 'react-native-animatable';
 
-import SolutionLetter, {SolutionLetterState} from './solutionLetter';
+import SolutionLetter from './solutionLetter';
+import {
+  SolutionLetterState,
+  SolutionLetterType,
+} from '@library/models/solutionLetter';
+
 import {
   isCharacterMapFull,
   getFirstCharacterMapEmptyPos,
@@ -11,21 +16,24 @@ import {
   isWordCorrect,
 } from '@library/components/helpers/characterMapHelper';
 
+import {observer, inject} from 'mobx-react';
+
+import LevelProgressStore, {
+  getLevelProgress,
+} from '@library/mobx/levelProgressStore';
+import {Level} from '@library/models/level';
+import {Pack} from '@library/models/pack';
+
 type Props = {
   style: ViewStyle;
   word: string;
   onLetterPress: Function;
+  levelProgressStore?: LevelProgressStore;
+  level: Level;
+  pack: Pack;
 };
 
-export type CharactersMapObject = {
-  availableLetterId: string | null;
-  letterState: SolutionLetterState;
-  character: string;
-};
-
-export type CharactersMap = {
-  [index: string]: CharactersMapObject;
-};
+export type CharactersMap = Map<string, SolutionLetterType>;
 
 type State = {
   charactersMap: CharactersMap;
@@ -41,14 +49,34 @@ export interface SolutionBarElement extends Element {
   animateLetters: Function;
 }
 
+@inject('levelProgressStore')
+@observer
 export default class SolutionBar extends Component<Props, State> {
   containerView: any;
 
   constructor(props: Props) {
     super(props);
 
+    const {levelProgress} = getLevelProgress(
+      this.props.levelProgressStore?.levelsProgress!,
+      this.props.level.id,
+      this.props.pack.id,
+    );
+
+    let charactersMap;
+    if (levelProgress?.solutionLetters.size! > 0) {
+      charactersMap = levelProgress?.solutionLetters!;
+    } else {
+      charactersMap = getInitialCharacterMap(props.word);
+      this.props.levelProgressStore?.setSolutionLetters(
+        this.props.level.id,
+        this.props.pack.id,
+        charactersMap,
+      );
+    }
+
     this.state = {
-      charactersMap: getInitialCharacterMap(props.word),
+      charactersMap,
     };
 
     this.containerView = null;
@@ -69,12 +97,17 @@ export default class SolutionBar extends Component<Props, State> {
           <SolutionLetter
             key={charIdx.toString()}
             id={charIdx.toString()}
-            letterState={this.state.charactersMap[charIdx].letterState}
+            letterState={
+              this.state.charactersMap.get(charIdx.toString())!.letterState
+            }
             availableLetterId={
-              this.state.charactersMap[charIdx].availableLetterId
+              this.state.charactersMap.get(charIdx.toString())!
+                .availableLetterId
             }
             onPress={this.props.onLetterPress}
-            character={this.state.charactersMap[charIdx].character}
+            character={
+              this.state.charactersMap.get(charIdx.toString())!.character
+            }
             letterSize={letterSizeOptions.letterSize}
             margin={letterSizeOptions.margin}
           />,
@@ -96,13 +129,14 @@ export default class SolutionBar extends Component<Props, State> {
         this.state.charactersMap,
       );
 
-      const newCharacterMap = Object.assign({}, this.state.charactersMap);
+      const newCharacterMap = new Map(this.state.charactersMap);
 
-      newCharacterMap[firstEmptyPos] = {
+      newCharacterMap.set(firstEmptyPos.toString(), {
+        id: firstEmptyPos.toString(),
         character: character,
         letterState: SolutionLetterState.Filled,
         availableLetterId,
-      };
+      });
 
       this.setState(
         {
@@ -113,6 +147,11 @@ export default class SolutionBar extends Component<Props, State> {
           resolve();
         },
       );
+      this.props.levelProgressStore?.setSolutionLetters(
+        this.props.level.id,
+        this.props.pack.id,
+        newCharacterMap,
+      );
     });
   }
 
@@ -121,16 +160,22 @@ export default class SolutionBar extends Component<Props, State> {
   }
 
   removeLetterWithId(id: string) {
-    const newCharacterMap = Object.assign({}, this.state.charactersMap);
-    newCharacterMap[id] = {
+    const newCharacterMap = new Map(this.state.charactersMap);
+    newCharacterMap.set(id, {
+      id,
       character: '',
       letterState: SolutionLetterState.Empty,
       availableLetterId: null,
-    };
+    });
     this.setState({
       ...this.state,
       charactersMap: newCharacterMap,
     });
+    this.props.levelProgressStore?.setSolutionLetters(
+      this.props.level.id,
+      this.props.pack.id,
+      newCharacterMap,
+    );
   }
 
   isWordCorrect() {
@@ -138,15 +183,19 @@ export default class SolutionBar extends Component<Props, State> {
   }
 
   getAllAvailableLetterIds() {
-    return Object.values(this.state.charactersMap).map((mapObject) => {
-      return mapObject.availableLetterId;
-    });
+    return Array.from(this.state.charactersMap, ([name, value]) => value).map(
+      (mapObject) => {
+        return mapObject.availableLetterId;
+      },
+    );
   }
 
   removeAllLetters() {
-    Object.keys(this.state.charactersMap).forEach((letterId) => {
-      this.removeLetterWithId(letterId);
-    });
+    Array.from(this.state.charactersMap, ([name, value]) => name).forEach(
+      (letterId) => {
+        this.removeLetterWithId(letterId);
+      },
+    );
   }
 
   animateLetters(animationType: string, duration: number) {

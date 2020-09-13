@@ -4,6 +4,7 @@ import StorageService from '@library/services/storageService';
 import {toJS} from 'mobx';
 
 import RNFetchBlob from 'rn-fetch-blob';
+import {LevelProgress} from '@library/models/level';
 // RNFetchBlob.fetch(
 //   'GET',
 //   'https://tegami-mountains-content.s3-eu-west-1.amazonaws.com/levels.json',
@@ -55,6 +56,14 @@ const SyncService: SyncServiceType = {
     progress(0);
     return StorageService.read({key: 'levelProgress'})
       .then((parsedObject: any) => {
+        parsedObject = parsedObject.map((element: LevelProgress) => {
+          if (element.solutionLetters) {
+            element.solutionLetters = new Map(
+              Object.entries(element.solutionLetters),
+            );
+          }
+          return element;
+        });
         progress(70);
         store.fillLevelsProgress(parsedObject);
         progress(100);

@@ -1,19 +1,20 @@
+import {CharactersMap} from '@library/components/game/solutionBar';
 import {
-  CharactersMap,
-  CharactersMapObject,
-} from '@library/components/game/solutionBar';
-import {SolutionLetterState} from '@library/components/game/solutionLetter';
+  SolutionLetterState,
+  SolutionLetterType,
+} from '@library/models/solutionLetter';
 
 const getInitialCharacterMap = (word: string) => {
-  const characterMap: CharactersMap = {};
+  const characterMap: CharactersMap = new Map();
   let idx = 0;
 
   Array.from(word.replace(' ', '')).forEach((char: string) => {
-    characterMap[idx] = {
+    characterMap.set(idx.toString(), {
+      id: idx.toString(),
       character: '',
       availableLetterId: null,
       letterState: SolutionLetterState.Empty,
-    };
+    });
     idx += 1;
   });
 
@@ -22,8 +23,8 @@ const getInitialCharacterMap = (word: string) => {
 
 const isCharacterMapFull = (characterMap: CharactersMap, word: string) => {
   return (
-    Object.values(characterMap)
-      .map((element: CharactersMapObject) => {
+    Array.from(characterMap, ([name, value]) => (value))
+      .map((element: SolutionLetterType) => {
         return element.character;
       })
       .join('').length === word.replace(' ', '').length
@@ -32,8 +33,8 @@ const isCharacterMapFull = (characterMap: CharactersMap, word: string) => {
 
 const isWordCorrect = (characterMap: CharactersMap, word: string) => {
   return (
-    Object.values(characterMap)
-      .map((element: CharactersMapObject) => {
+    Array.from(characterMap, ([name, value]) => (value))
+      .map((element: SolutionLetterType) => {
         return element.character;
       })
       .join('')
@@ -46,13 +47,13 @@ const getFirstCharacterMapEmptyPos = (characterMap: CharactersMap) => {
     idx = 0,
     found = false;
 
-  Object.values(characterMap).forEach((element: CharactersMapObject) => {
+  for (let element of characterMap.values()) {
     if (element.character === '' && !found) {
       foundPos = idx;
       found = true;
     }
     idx += 1;
-  });
+  }
 
   return foundPos;
 };
@@ -61,5 +62,5 @@ export {
   isCharacterMapFull,
   getFirstCharacterMapEmptyPos,
   getInitialCharacterMap,
-  isWordCorrect
+  isWordCorrect,
 };

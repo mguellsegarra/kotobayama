@@ -5,6 +5,8 @@ import {LevelProgress} from '@library/models/level';
 import {getLevelProgress} from './helpers/levelProgressHelper';
 import moment from 'moment';
 import SyncService from '@library/services/syncService';
+import {AvailableLetterType} from '@library/models/availableLetter';
+import {SolutionLetterType} from '@library/models/solutionLetter';
 
 const gameConfig = require('@assets/gameConfig');
 
@@ -151,6 +153,42 @@ export default class LevelProgressStore {
     );
 
     this.restoreLevelCooldownAndLivesIfNeededForLevel(levelProgress!, idx!);
+    SyncService.persistLevelsProgress(this);
+  };
+
+  @action
+  setAvailableLetters = (
+    levelId: string,
+    packId: string,
+    letters: AvailableLetterType[],
+  ) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    levelProgress!.availableLetters = letters;
+
+    this.levelsProgress[idx as number] = levelProgress!;
+    SyncService.persistLevelsProgress(this);
+  };
+
+  @action
+  setSolutionLetters = (
+    levelId: string,
+    packId: string,
+    letters: Map<string, SolutionLetterType>,
+  ) => {
+    const {idx, levelProgress} = getLevelProgress(
+      this.levelsProgress,
+      levelId,
+      packId,
+    );
+
+    levelProgress!.solutionLetters = letters;
+
+    this.levelsProgress[idx as number] = levelProgress!;
     SyncService.persistLevelsProgress(this);
   };
 

@@ -8,6 +8,7 @@ import {
 
 import R, {Images} from '@res/R';
 import {styles} from './availableLetter.style';
+import {AvailableLetterState, AvailableLetterType} from '@library/models/availableLetter';
 
 type Props = {
   id: string;
@@ -15,18 +16,6 @@ type Props = {
   character: string;
   letterState: AvailableLetterState;
 };
-
-export type AvailableLetterType = {
-  id: string;
-  letterState: AvailableLetterState;
-  character: string;
-};
-
-export enum AvailableLetterState {
-  Idle,
-  Selected,
-  Bought,
-}
 
 export default class AvailableLetter extends Component<Props> {
   constructor(props: Props) {

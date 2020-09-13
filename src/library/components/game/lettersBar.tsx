@@ -3,20 +3,30 @@ import {View, ViewStyle} from 'react-native';
 
 import {getStyles} from './lettersBar.style';
 
-import AvailableLetter, {
+import AvailableLetter from './availableLetter';
+import {
   AvailableLetterType,
   AvailableLetterState,
-} from './availableLetter';
-import LevelService from '@library/services/levelService';
+} from '@library/models/availableLetter';
+import {observer, inject} from 'mobx-react';
+import LevelProgressStore, {
+  getLevelProgress,
+} from '@library/mobx/levelProgressStore';
+import {Level} from '@library/models/level';
+import {Pack} from '@library/models/pack';
+import WordHelper from '@library/components/helpers/wordHelper';
 
 type Props = {
   style: ViewStyle;
   word: string;
   availableLetterHasTapped: Function;
+  levelProgressStore?: LevelProgressStore;
+  level: Level;
+  pack: Pack;
 };
 
 type State = {
-  letters: Array<AvailableLetterType | undefined>;
+  letters: Array<AvailableLetterType>;
 };
 
 export interface LettersBarElement extends Element {
@@ -24,20 +34,39 @@ export interface LettersBarElement extends Element {
   setLetterState: Function;
 }
 
+@inject('levelProgressStore')
+@observer
 export default class LettersBar extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
     this.letterHasTapped = this.letterHasTapped.bind(this);
 
-    const stringLetters = LevelService.getLettersForWord(props.word);
-    const letters = stringLetters.map((char: string, idx: number) => {
-      return {
-        character: char,
-        id: idx.toString(),
-        letterState: AvailableLetterState.Idle,
-      };
-    });
-    this.state = {letters: letters};
+    const {levelProgress} = getLevelProgress(
+      this.props.levelProgressStore?.levelsProgress!,
+      this.props.level.id,
+      this.props.pack.id,
+    );
+
+    let letters: AvailableLetterType[] = [];
+    if (levelProgress?.availableLetters?.length! > 0) {
+      letters = levelProgress?.availableLetters!;
+    } else {
+      const stringLetters = WordHelper.getLettersForWord(props.word);
+      letters = stringLetters.map((char: string, idx: number) => {
+        return {
+          character: char,
+          id: idx.toString(),
+          letterState: AvailableLetterState.Idle,
+        };
+      });
+      this.props.levelProgressStore?.setAvailableLetters(
+        this.props.level.id,
+        this.props.pack.id,
+        letters,
+      );
+    }
+
+    this.state = {letters};
   }
 
   letterHasTapped(event: AvailableLetterType) {
@@ -54,7 +83,7 @@ export default class LettersBar extends Component<Props, State> {
 
     return this.state.letters
       .slice(startPos, endPos)
-      .map((element: AvailableLetterType | undefined) => {
+      .map((element: AvailableLetterType) => {
         return (
           <AvailableLetter
             id={element!.id}
@@ -87,8 +116,13 @@ export default class LettersBar extends Component<Props, State> {
     letter!.letterState = letterState;
 
     const newLetters = [...this.state.letters];
-    newLetters[position] = letter;
+    newLetters[position] = letter as AvailableLetterType;
     this.setState({...this.state, letters: newLetters});
+    this.props.levelProgressStore?.setAvailableLetters(
+      this.props.level.id,
+      this.props.pack.id,
+      this.state?.letters!,
+    );
   }
 
   restoreLetterWithId(id: string) {

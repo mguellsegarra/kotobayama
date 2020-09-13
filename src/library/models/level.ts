@@ -1,4 +1,6 @@
 import {LatLng} from 'react-native-maps';
+import {AvailableLetterType} from '@library/models/availableLetter';
+import {SolutionLetterType} from '@library/models/solutionLetter';
 
 export type LevelSource = {
   id: string;
@@ -28,6 +30,9 @@ export type LevelProgress = {
   stars: number;
   investedLives: number;
   emptyLivesTimestamp: number | null;
+  bombUsed: boolean;
+  availableLetters: Array<AvailableLetterType>;
+  solutionLetters: Map<string, SolutionLetterType>;
 };
 
 export const LevelProgressInitialState = {
@@ -36,4 +41,7 @@ export const LevelProgressInitialState = {
   stars: 0,
   investedLives: 0,
   emptyLivesTimestamp: null,
+  bombUsed: false,
+  availableLetters: [],
+  solutionLetters: new Map<string, SolutionLetterType>(),
 };
