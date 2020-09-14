@@ -51,6 +51,8 @@ export enum Images {
   'ondori_logo' = 'ondori_logo',
   'option_letter' = 'option_letter',
   'photo_frame' = 'photo_frame',
+  'popup_container' = 'popup_container',
+  'popup_ribbon' = 'popup_ribbon',
   'potion_red' = 'potion_red',
   'reward_separator' = 'reward_separator',
   'reward_stars_shadow' = 'reward_stars_shadow',

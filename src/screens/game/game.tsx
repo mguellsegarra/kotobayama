@@ -130,7 +130,10 @@ export default class Game extends Component<Props, State> {
       0
     ) {
       this.props.levelProgressStore.setLevelCooldown(level.id, this.pack.id);
-      this.props.navigation.goBack();
+      this.props.navigation.navigate('NoLives', {
+        level,
+        pack: this.pack,
+      });
     }
   }
 

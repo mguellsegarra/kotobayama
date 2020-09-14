@@ -17,6 +17,7 @@ import RectButton, {
 } from '@library/components/button/rectButton';
 
 import CountdownText from '@library/components/map/countdownText';
+import RestoreLivesButton from '@library/components/button/restoreLivesButton';
 
 import {styles} from '@screens/levelMap/levelMap.style';
 const gameConfig = require('@assets/gameConfig');
@@ -91,9 +92,7 @@ export default class PlayButton extends Component<Props, State> {
         return;
       }
 
-      this.props.userStore?.decrementCoins(
-        gameConfig.freeCooldownPrice,
-      );
+      this.props.userStore?.decrementCoins(gameConfig.freeCooldownPrice);
       this.props.levelProgressStore?.unsetLevelCooldown(
         level.id,
         this.props.packId,
@@ -127,26 +126,10 @@ export default class PlayButton extends Component<Props, State> {
           </View>
         </View>
         <View style={styles.countdownBottom}>
-          <RectButton
-            type={RectButtonEnum.Red}
-            onPress={noLivesAction}>
-            <View style={styles.countdownButton}>
-              <View style={styles.countdownButtonUpperView}>
-                <Text style={styles.countdownButtonUpperText}>
-                  {strings('restoreLives')}
-                </Text>
-              </View>
-              <View style={styles.countdownButtonLowerView}>
-                <Image
-                  style={styles.countdownButtonLowerCoin}
-                  source={R.img(Images.coin_small)}
-                />
-                <Text style={styles.countdownButtonLowerText}>
-                  {this.calculatePrice()}
-                </Text>
-              </View>
-            </View>
-          </RectButton>
+          <RestoreLivesButton
+            onPress={noLivesAction}
+            price={this.calculatePrice()}
+          />
         </View>
       </View>
     );

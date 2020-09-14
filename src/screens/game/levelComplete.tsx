@@ -69,13 +69,13 @@ export default class LevelComplete extends Component<Props> {
   }
 
   async componentDidMount() {
-    if (this.confettiView) {
-      this.confettiView.startConfetti();
-    }
     this.starflareView.animate('fadeIn', 4000);
     await delayPromise(400);
     this.ribbonView.animate('fadeIn', 300);
     await delayPromise(400);
+    if (this.confettiView) {
+      this.confettiView.startConfetti();
+    }npm
     this.firstStar.animate('fadeIn', 300);
     await delayPromise(400);
     this.secondStar.animate('fadeIn', 300);

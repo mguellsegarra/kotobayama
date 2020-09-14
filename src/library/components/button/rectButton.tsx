@@ -144,9 +144,13 @@ export default class RectButton extends Component<Props> {
             style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
             {this.props.text ? (
               <Text
+                numberOfLines={1}
+                adjustsFontSizeToFit
                 style={{
                   ...this.props.textStyle,
                   ...{
+                    marginLeft: '10%',
+                    marginRight: '10%',
                     marginBottom: buttonTextMarginBottom,
                     fontFamily: Fonts.lilita,
                     fontSize: buttonTextFontSize,
