@@ -269,6 +269,12 @@ const getStyles: any = () => {
       width: wp('100%'),
       height: hp('30%'),
     },
+    confettiView: {
+      position: 'absolute',
+      height: hp('100%'),
+      width: wp('100%'),
+      zIndex: 2,
+    },
   });
 };
 

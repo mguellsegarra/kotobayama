@@ -220,11 +220,7 @@ export default class LevelMap extends Component<Props, State> {
               <CircleButton
                 style={styles.backButton}
                 image={Images.back_button}
-                onPress={() => {
-                  // Force crash
-                  this.test.func();
-                  /*this.props.navigation.goBack*/
-                }}></CircleButton>
+                onPress={() => {}}></CircleButton>
             </View>
             <View style={styles.navBarMiddle}></View>
             <View style={styles.navBarRight}>

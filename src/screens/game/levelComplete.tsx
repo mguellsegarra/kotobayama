@@ -24,6 +24,9 @@ import UserStore from '@library/mobx/userStore';
 import {LevelProgress} from '@library/models/level';
 import delayPromise from '@library/utils/delayPromise';
 
+// @ts-ignore
+import Confetti from 'react-native-confetti';
+
 const kImagesForStars: any = {
   1: [
     Images.star_completed,
@@ -56,6 +59,7 @@ export default class LevelComplete extends Component<Props> {
   rewardsView: any;
   buttonsView: any;
   starflareView: any;
+  confettiView: any;
 
   constructor(props: Props) {
     super(props);
@@ -65,6 +69,9 @@ export default class LevelComplete extends Component<Props> {
   }
 
   async componentDidMount() {
+    if (this.confettiView) {
+      this.confettiView.startConfetti();
+    }
     this.starflareView.animate('fadeIn', 4000);
     await delayPromise(400);
     this.ribbonView.animate('fadeIn', 300);
@@ -125,6 +132,15 @@ export default class LevelComplete extends Component<Props> {
 
     return (
       <View style={styles.background}>
+        <View style={styles.confettiView} pointerEvents="none">
+          <Confetti
+            confettiCount={40}
+            duration={2000}
+            ref={(ref: any) => {
+              this.confettiView = ref;
+            }}
+          />
+        </View>
         <NoNotchView>
           <View style={styles.container}>
             <View
