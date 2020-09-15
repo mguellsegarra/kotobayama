@@ -36,7 +36,6 @@ import UserStore from '@library/mobx/userStore';
 
 type State = {
   mapNavigationMode: boolean;
-  mapLoaded: boolean;
 };
 
 type Props = {
@@ -91,7 +90,6 @@ export default class LevelMap extends Component<Props, State> {
 
     this.state = {
       mapNavigationMode: false,
-      mapLoaded: false,
     };
   }
 
