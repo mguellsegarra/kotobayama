@@ -14,6 +14,20 @@ const getStyles: any = () => {
     bottomMargin: {
       flex: 0.3,
     },
+    lettersBar: {
+      flex: 3,
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+    },
+    separator: {
+      flex: 1,
+      width: wp('100%'),
+    },
+    solutionView: {
+      flex: 4,
+      width: wp('100%'),
+    },
   });
 };
 

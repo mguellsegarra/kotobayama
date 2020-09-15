@@ -1,7 +1,9 @@
 import React, {Component} from 'react';
-import {ViewStyle} from 'react-native';
+import {ViewStyle, Image} from 'react-native';
 import {styles, getLetterSizeOptionsForWordLines} from './solutionBar.style';
 import {View} from 'react-native-animatable';
+
+import R, {Images} from '@res/R';
 
 import SolutionLetter from './solutionLetter';
 import {
@@ -239,16 +241,28 @@ export default class SolutionBar extends Component<Props, State> {
     const letterLines = this.getLetterLinesForWord(this.props.word);
 
     return (
-      <View
-        style={this.props.style}
-        ref={(ref) => {
-          this.containerView = ref;
-        }}>
-        <View style={styles.row}>{letterLines[0]}</View>
+      <View style={this.props.style}>
+        <Image
+          style={styles.separator}
+          resizeMode="contain"
+          source={R.img(Images.separator_line_down)}></Image>
+        <View style={styles.solutionView}>
+          <View
+            style={styles.lettersBar}
+            ref={(ref) => {
+              this.containerView = ref;
+            }}>
+            <View style={styles.row}>{letterLines[0]}</View>
 
-        {letterLines.length > 1 ? (
-          <View style={styles.row}>{letterLines[1]}</View>
-        ) : null}
+            {letterLines.length > 1 ? (
+              <View style={styles.row}>{letterLines[1]}</View>
+            ) : null}
+          </View>
+        </View>
+        <Image
+          style={styles.separator}
+          resizeMode="contain"
+          source={R.img(Images.separator_line_up)}></Image>
       </View>
     );
   }

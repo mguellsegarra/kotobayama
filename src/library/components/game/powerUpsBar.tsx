@@ -9,6 +9,7 @@ const gameConfig = require('@assets/gameConfig');
 import {strings} from '@library/services/i18nService';
 
 type Props = {
+  style: any;
   onSolveLetterPress: Function;
   onDestroyLettersPress: Function;
   onAskFriendPress: Function;
@@ -66,28 +67,30 @@ const PowerUpComponent = (
 export default class PowerUpsBar extends Component<Props> {
   render() {
     return (
-      <View style={styles.container}>
-        {PowerUpComponent(
-          Images.potion_red,
-          strings('solveLetter'),
-          gameConfig.priceSolveLetter.toString(),
-          false,
-          this.props.onSolveLetterPress,
-        )}
-        {PowerUpComponent(
-          Images.bomb,
-          strings('destroyLetters'),
-          gameConfig.priceDestroyLetters.toString(),
-          this.props.bombDisabled,
-          this.props.onDestroyLettersPress,
-        )}
-        {PowerUpComponent(
-          Images.scroll,
-          strings('askFriend'),
-          strings('free'),
-          false,
-          this.props.onAskFriendPress,
-        )}
+      <View style={this.props.style}>
+        <View style={styles.container}>
+          {PowerUpComponent(
+            Images.potion_red,
+            strings('solveLetter'),
+            gameConfig.priceSolveLetter.toString(),
+            false,
+            this.props.onSolveLetterPress,
+          )}
+          {PowerUpComponent(
+            Images.bomb,
+            strings('destroyLetters'),
+            gameConfig.priceDestroyLetters.toString(),
+            this.props.bombDisabled,
+            this.props.onDestroyLettersPress,
+          )}
+          {PowerUpComponent(
+            Images.scroll,
+            strings('askFriend'),
+            strings('free'),
+            false,
+            this.props.onAskFriendPress,
+          )}
+        </View>
       </View>
     );
   }
