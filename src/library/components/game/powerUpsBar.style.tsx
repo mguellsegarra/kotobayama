@@ -1,8 +1,6 @@
-import {StyleSheet, Platform} from 'react-native';
-import DeviceInfo, {isTablet} from 'react-native-device-info';
-const isAndroid = Platform.OS === 'android';
-import R, {Fonts} from '@res/R';
-const iOSandNotch = Platform.OS === 'ios' && DeviceInfo.hasNotch();
+import {StyleSheet} from 'react-native';
+import {Fonts} from '@res/R';
+import {isAndroid, isIosAndNotch} from '@library/services/deviceService';
 
 import {
   widthPercentageToDP as wp,
@@ -10,7 +8,7 @@ import {
 } from 'react-native-responsive-screen';
 
 const getStyles: any = () => {
-  const squareBgSize = hp('7%') - (iOSandNotch ? 3 : 0);
+  const squareBgSize = hp('7%') - (isIosAndNotch ? 3 : 0);
 
   return StyleSheet.create({
     container: {

@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
-import {View, Image, ViewStyle, Platform} from 'react-native';
+import {View, Image, ViewStyle} from 'react-native';
 // @ts-ignore
 import {NoFlickerImage} from 'react-native-no-flicker-image';
 import {Level} from '@library/models/level';
-const isAndroid = Platform.OS === 'android';
+import {isAndroid} from '@library/services/deviceService';
 
 import R, {Images} from '@res/R';
 import {styles} from './photoFrame.style';

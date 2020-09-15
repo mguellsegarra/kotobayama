@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
-import {Image, ImageBackground, Text, ViewStyle, Platform} from 'react-native';
+import {Image, ImageBackground, Text, ViewStyle} from 'react-native';
 import {View} from 'react-native-animatable';
-const isAndroid = Platform.OS === 'android';
+import {isAndroid} from '@library/services/deviceService';
 
 import {styles} from '@screens/levelMap/levelMap.style';
 

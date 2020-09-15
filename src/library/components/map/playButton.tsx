@@ -1,10 +1,11 @@
 import React, {Component} from 'react';
-import {Platform, Text, Image} from 'react-native';
+import {Image} from 'react-native';
 import {strings} from '@library/services/i18nService';
 import {Level} from '@library/models/level';
 import {observer, inject} from 'mobx-react';
 import {View} from 'react-native-animatable';
-const isAndroid = Platform.OS === 'android';
+
+import {isAndroid} from '@library/services/deviceService';
 import R, {Images} from '@res/R';
 
 import {getLevelProgress} from '@library/helpers/levelHelper';

@@ -1,9 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '@res/R';
-import {isTablet} from 'react-native-device-info';
-import {Platform} from 'react-native';
 
-const isAndroid = Platform.OS === 'android';
+import {isAndroid, isTablet} from '@library/services/deviceService';
 
 import {
   widthPercentageToDP as wp,

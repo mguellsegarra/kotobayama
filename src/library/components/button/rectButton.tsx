@@ -4,10 +4,9 @@ import {
   Text,
   ViewStyle,
   TextStyle,
-  Platform,
 } from 'react-native';
 import {View} from 'react-native-animatable';
-const isAndroid = Platform.OS === 'android';
+import {isAndroid} from '@library/services/deviceService';
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';

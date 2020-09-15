@@ -1,9 +1,7 @@
-import {StyleSheet, Platform} from 'react-native';
-import {Fonts, Colors} from '@res/R';
+import {StyleSheet} from 'react-native';
+import {Fonts} from '@res/R';
 
-const isAndroid = Platform.OS === 'android';
-import DeviceInfo, {isTablet} from 'react-native-device-info';
-const iOSandNotch = Platform.OS === 'ios' && DeviceInfo.hasNotch();
+import {isAndroid, isTablet} from '@library/services/deviceService';
 
 import {
   widthPercentageToDP as wp,

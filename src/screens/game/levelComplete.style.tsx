@@ -1,9 +1,7 @@
-import {StyleSheet, Platform} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Fonts, Colors} from '@res/R';
 
-const isAndroid = Platform.OS === 'android';
-import DeviceInfo, {isTablet} from 'react-native-device-info';
-const iOSandNotch = Platform.OS === 'ios' && DeviceInfo.hasNotch();
+import {isAndroid, isTablet, isIosAndNotch} from '@library/services/deviceService';
 
 import {
   widthPercentageToDP as wp,
@@ -34,7 +32,7 @@ const getStyles: any = () => {
   const coinRewardsHeight = hp('5%');
   const coinRewardsWidth = coinRewardsHeight / coinRewardsConstant;
 
-  let starFlareY = iOSandNotch ? 44 : 0;
+  let starFlareY = isIosAndNotch ? 44 : 0;
   starFlareY += hp('1%');
 
   return StyleSheet.create({

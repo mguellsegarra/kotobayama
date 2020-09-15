@@ -1,10 +1,8 @@
 import {StyleSheet} from 'react-native';
-import {isTablet} from 'react-native-device-info';
-import {Platform} from 'react-native';
 import {Colors} from '@res/R';
 
 import {Fonts} from '@res/R';
-const isAndroid = Platform.OS === 'android';
+import {isAndroid} from '@library/services/deviceService';
 
 import {
   widthPercentageToDP as wp,
@@ -12,9 +10,6 @@ import {
 } from 'react-native-responsive-screen';
 
 const getStyles: any = (letterSize: number, margin: number) => {
-  // const letterSize = isTablet() ? wp('9%') : wp('10%');
-  // margin: wp('0.7%'),
-
   return StyleSheet.create({
     container: {
       flex: 1,
