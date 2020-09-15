@@ -23,7 +23,7 @@ import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
 import PowerUpsBar from '@library/components/game/powerUpsBar';
-import ConfirmPopup from '@library/components/game/confirmPopup';
+// import ConfirmPopup from '@library/components/game/confirmPopup';
 
 import LevelService from '@library/services/levelService';
 import {getLevelProgress} from '@library/helpers/levelHelper';
@@ -231,7 +231,7 @@ export default class Game extends Component<Props, State> {
     this.props.userStore.decrementCoins(gameConfig.priceSolveLetter);
     await this.checkResult();
   }
-  
+
   async onDestroyLettersPress() {
     if (this.props.userStore.coins < gameConfig.priceDestroyLetters) {
       // TODO: Show no coins
@@ -361,7 +361,7 @@ export default class Game extends Component<Props, State> {
             pack={this.pack}
           />
         </NoNotchView>
-        {this.state.confirmPopupShown ? (
+        {/* {this.state.confirmPopupShown ? (
           <ConfirmPopup
             onConfirm={() => {
               this.confirmPopup.animate('fadeOut', 300);
@@ -379,7 +379,7 @@ export default class Game extends Component<Props, State> {
               this.confirmPopup = ref;
             }}
           />
-        ) : null}
+        ) : null} */}
       </LinearGradient>
     );
   }
