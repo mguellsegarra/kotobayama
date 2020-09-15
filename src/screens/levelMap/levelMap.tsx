@@ -98,8 +98,6 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   componentDidUpdate() {
-    this.loadingView.ensureHidden();
-
     const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack.get(
       this.pack.id,
     );
@@ -288,6 +286,7 @@ export default class LevelMap extends Component<Props, State> {
           ref={(ref: any) => {
             this.loadingView = ref;
           }}
+          devMode={__DEV__}
           image={Images.mountain_bg}
         />
       </View>
