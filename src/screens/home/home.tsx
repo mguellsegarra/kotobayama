@@ -9,8 +9,7 @@ import UserStore from '@library/mobx/userStore';
 import {observer, inject} from 'mobx-react';
 import SyncService from '@library/services/syncService';
 
-import {widthPercentageToDP as wp} from 'react-native-responsive-screen';
-import {isTablet} from 'react-native-device-info';
+import {wp, isTablet} from '@library/services/deviceService';
 
 type Props = {
   navigation: any;

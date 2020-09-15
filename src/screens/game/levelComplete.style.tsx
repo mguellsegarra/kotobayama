@@ -1,12 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Fonts, Colors} from '@res/R';
 
-import {isAndroid, isTablet, isIosAndNotch} from '@library/services/deviceService';
-
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {isAndroid, isTablet, isIosAndNotch, wp, hp} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   const photoFrameConstant = 0.626373626373626;

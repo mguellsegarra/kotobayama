@@ -2,11 +2,7 @@ import React, {Component} from 'react';
 import {ImageBackground, StyleSheet, Animated} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-
+import {wp, hp} from '@library/services/deviceService';
 import R from '@res/R';
 
 type Props = {

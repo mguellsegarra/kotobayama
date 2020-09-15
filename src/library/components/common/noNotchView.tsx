@@ -1,5 +1,5 @@
 import React, {PureComponent} from 'react';
-import DeviceInfo from 'react-native-device-info';
+import {isIosAndNotch} from '@library/services/deviceService';
 import {View, Platform, SafeAreaView} from 'react-native';
 
 class NoNotchView extends PureComponent {
@@ -13,7 +13,7 @@ class NoNotchView extends PureComponent {
   };
 
   componentDidMount = async () => {
-    if (Platform.OS === 'ios' && DeviceInfo.hasNotch()) {
+    if (isIosAndNotch) {
       this.setState({
         navbarHeight: 44,
         deviceHaveNotch: true,

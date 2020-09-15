@@ -6,18 +6,12 @@ import {
   TextStyle,
 } from 'react-native';
 import {View} from 'react-native-animatable';
-import {isAndroid} from '@library/services/deviceService';
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';
-import {isTablet} from 'react-native-device-info';
 
 import R, {Colors, Fonts, Images} from '@res/R';
-
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {wp, hp, isTablet, isAndroid} from '@library/services/deviceService';
 
 type Props = {
   text?: string;

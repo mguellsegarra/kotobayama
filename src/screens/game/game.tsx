@@ -17,12 +17,12 @@ import {styles} from './game.style';
 import {strings} from '@library/services/i18nService';
 
 import NoNotchView from '@library/components/common/noNotchView';
-import CircleButton from '@library/components/button/circleButton';
+import Navbar from '@library/components/game/navbar';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import LevelIndexNumber from '@library/components/common/levelIndexNumber';
-import LivesIndicator from '@library/components/game/livesIndicator';
-import CoinCounter from '@library/components/game/coinCounter';
 import PowerUpsBar from '@library/components/game/powerUpsBar';
+import LivesIndicator from '@library/components/game/livesIndicator';
+
 // import ConfirmPopup from '@library/components/game/confirmPopup';
 
 import LevelService from '@library/services/levelService';
@@ -272,33 +272,21 @@ export default class Game extends Component<Props, State> {
         colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
         style={styles.background}>
         <NoNotchView>
-          <View style={styles.navBar}>
-            <View style={styles.navBarLeft}>
-              <CircleButton
-                style={styles.backButton}
-                image={Images.back_button}
-                onPress={this.props.navigation.goBack}></CircleButton>
-            </View>
-            <View style={styles.navBarMiddle}>
-              <LivesIndicator
-                ref={(ref) => {
-                  this.livesIndicator = ref;
-                }}
-                lives={
-                  this.props.levelProgressStore?.getCurrentLives(
-                    this.getLevelProgress()?.id!,
-                    this.pack.id,
-                  )!
-                }
-              />
-            </View>
-            <View style={styles.navBarRight}>
-              <CoinCounter
-                totalCoins={this.props.userStore.coins}
-                onPress={() => {}}
-              />
-            </View>
-          </View>
+          <Navbar
+            style={styles.navBar}
+            onBackPress={this.props.navigation.goBack}
+            onCoinsTap={() => {}}
+            coins={this.props.userStore.coins}
+            lives={
+              this.props.levelProgressStore?.getCurrentLives(
+                this.getLevelProgress()?.id!,
+                this.pack.id,
+              )!
+            }
+            livesIndicatorRef={(ref: any) => {
+              this.livesIndicator = ref;
+            }}
+          />
           <View style={styles.titleBar}>
             <Text
               style={styles.titleText}

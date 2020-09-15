@@ -2,10 +2,7 @@ import {StyleSheet} from 'react-native';
 import {Fonts} from '@res/R';
 import {isAndroid, isIosAndNotch} from '@library/services/deviceService';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {wp, hp} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   const squareBgSize = hp('7%') - (isIosAndNotch ? 3 : 0);

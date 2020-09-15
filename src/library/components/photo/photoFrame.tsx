@@ -8,11 +8,7 @@ import {isAndroid} from '@library/services/deviceService';
 import R, {Images} from '@res/R';
 import {styles} from './photoFrame.style';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
-import {isTablet} from 'react-native-device-info';
+import {wp, hp, isTablet} from '@library/services/deviceService';
 
 type Props = {
   level: Level;

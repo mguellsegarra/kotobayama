@@ -2,12 +2,7 @@ import {StyleSheet} from 'react-native';
 import {Colors} from '@res/R';
 
 import {Fonts} from '@res/R';
-import {isAndroid} from '@library/services/deviceService';
-
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {wp, hp, isAndroid} from '@library/services/deviceService';
 
 const getStyles: any = (letterSize: number, margin: number) => {
   return StyleSheet.create({

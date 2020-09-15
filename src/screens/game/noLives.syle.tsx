@@ -1,12 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '@res/R';
 
-import {isAndroid, isTablet} from '@library/services/deviceService';
-
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {isAndroid, isTablet, wp, hp} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   return StyleSheet.create({

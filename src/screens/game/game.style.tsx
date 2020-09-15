@@ -1,13 +1,9 @@
 import {StyleSheet} from 'react-native';
-import R, {Fonts} from '@res/R';
+import {Fonts} from '@res/R';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {wp, hp} from '@library/services/deviceService';
 
 const getStyles: any = () => {
-  const backButtonSize = hp('5%');
 
   return StyleSheet.create({
     background: {
@@ -16,23 +12,6 @@ const getStyles: any = () => {
     navBar: {
       flex: 1,
       flexDirection: 'row',
-    },
-    navBarLeft: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-    },
-    navBarRight: {
-      flex: 1,
-      // backgroundColor: 'green',
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-    },
-    navBarMiddle: {
-      flex: 2,
-      // backgroundColor: 'blue',
-      justifyContent: 'center',
-      alignItems: 'center',
     },
     titleBar: {
       flex: 1.3,
@@ -49,11 +28,6 @@ const getStyles: any = () => {
       flexDirection: 'row',
       justifyContent: 'center',
       alignItems: 'center',
-    },
-    backButton: {
-      width: backButtonSize,
-      height: backButtonSize,
-      marginLeft: 4,
     },
     sourceText: {
       marginTop: hp('0.5%'),

@@ -1,10 +1,6 @@
-import { StyleSheet } from 'react-native';
-import { isTablet } from 'react-native-device-info';
+import {StyleSheet} from 'react-native';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {wp, isTablet} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   return StyleSheet.create({
@@ -33,14 +29,15 @@ const getLetterSizeOptionsForWordLines = (wordLines: Array<string>) => {
 
   const longestWordLength = longestWord.length;
 
-  const letterSize = (wp('90%') - (longestWordLength * margin)) / longestWordLength;
+  const letterSize =
+    (wp('90%') - longestWordLength * margin) / longestWordLength;
 
   return {
     letterSize: letterSize > maxLetterSize ? maxLetterSize : letterSize,
-    margin
-  }
-}
+    margin,
+  };
+};
 
 const styles = getStyles();
 
-export { styles, getStyles, getLetterSizeOptionsForWordLines };
+export {styles, getStyles, getLetterSizeOptionsForWordLines};
