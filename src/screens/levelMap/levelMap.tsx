@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Animated} from 'react-native';
-import {View as AnimatableView} from 'react-native-animatable';
 import {observer, inject} from 'mobx-react';
 
 import {styles} from './levelMap.style';
@@ -13,17 +12,17 @@ import {strings} from '@library/services/i18nService';
 
 import LevelService from '@library/services/levelService';
 
+import Navbar from '@library/components/map/navbar';
 import MapLayer from '@library/components/map/mapLayer';
 import MapTitleBanner from '@library/components/map/mapTitleBanner';
-import CoinCounter from '@library/components/game/coinCounter';
 import LevelChooser from '@library/components/map/levelChooser';
 import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
-import CircleButton from '@library/components/button/circleButton';
 import MapTypeButton from '@library/components/map/mapTypeButton';
 import LevelCompletedBanner from '@library/components/map/levelCompletedBanner';
 import PlayButton from '@library/components/map/playButton';
+import LoadingView from '@library/components/common/loadingView';
 
 import {
   getFirstIncompleteLevel,
@@ -196,27 +195,16 @@ export default class LevelMap extends Component<Props, State> {
             packId={this.packId}
           />
 
-          <AnimatableView
-            useNativeDriver
+          <Navbar
             style={styles.navBar}
-            ref={(ref) => {
+            animatedRef={(ref: any) => {
               this.navbar = ref;
             }}
-            pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}>
-            <View style={styles.navBarLeft}>
-              <CircleButton
-                style={styles.backButton}
-                image={Images.back_button}
-                onPress={() => {}}></CircleButton>
-            </View>
-            <View style={styles.navBarMiddle}></View>
-            <View style={styles.navBarRight}>
-              <CoinCounter
-                totalCoins={this.props.userStore.coins}
-                onPress={() => {}}
-              />
-            </View>
-          </AnimatableView>
+            totalCoins={this.props.userStore.coins}
+            onBack={() => {}}
+            onCoinTap={() => {}}
+            pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
+          />
 
           <MapTitleBanner
             ref={(ref) => {
@@ -230,14 +218,13 @@ export default class LevelMap extends Component<Props, State> {
             )}
           />
 
-          <View style={styles.mapTypeButtonContainer}>
-            <MapTypeButton
-              mapMode={this.props.userStore.mapTypeMode}
-              onPress={() => {
-                this.props.userStore.toggleMapTypeMode();
-              }}
-            />
-          </View>
+          <MapTypeButton
+            style={styles.mapTypeButtonContainer}
+            mapMode={this.props.userStore.mapTypeMode}
+            onPress={() => {
+              this.props.userStore.toggleMapTypeMode();
+            }}
+          />
 
           {levelProgress?.completed ? (
             <LevelCompletedBanner
@@ -298,18 +285,13 @@ export default class LevelMap extends Component<Props, State> {
             }}
           />
         </View>
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.overlayLoad,
-            {
-              opacity: this.state.fadeAnim,
-            },
-          ]}>
-          <ImageBackground
-            source={R.img(Images.mountain_bg)}
-            style={styles.overlayLoad}></ImageBackground>
-        </Animated.View>
+
+        <LoadingView
+          style={{
+            opacity: this.state.fadeAnim,
+          }}
+          image={Images.mountain_bg}
+        />
       </View>
     );
   }

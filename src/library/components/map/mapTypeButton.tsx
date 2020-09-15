@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
+import {ViewProps, View} from 'react-native';
+
+import {Images} from '@res/R';
+
 import CircleButton from '@library/components/button/circleButton';
 import {styles} from '@screens/levelMap/levelMap.style';
 import {MapTypeMode} from '@library/models/mapTypeMode';
 
-import {Images} from '@res/R';
-
 type Props = {
+  style: ViewProps;
   mapMode: MapTypeMode;
   onPress: Function;
 };
@@ -22,11 +25,13 @@ export default class MapTypeButton extends Component<Props> {
 
   render() {
     return (
-      <CircleButton
-        style={styles.mapButton}
-        image={imagesForMode.get(this.props.mapMode)!}
-        onPress={this.props.onPress}
-      />
+      <View style={this.props.style}>
+        <CircleButton
+          style={styles.mapButton}
+          image={imagesForMode.get(this.props.mapMode)!}
+          onPress={this.props.onPress}
+        />
+      </View>
     );
   }
 }

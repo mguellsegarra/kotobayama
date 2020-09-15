@@ -29,7 +29,6 @@ const getStyles: any = () => {
   const iOSandNotch = Platform.OS === 'ios' && DeviceInfo.hasNotch();
 
   const navbarHeight = iOSandNotch ? hp('5.90%') : hp('6.5%');
-  const backButtonSize = hp('5%');
   const navbarMarginTop = iOSandNotch ? 44 : 0;
 
   const playButtonOverlayBottomMargin = hp('2%');
@@ -68,23 +67,6 @@ const getStyles: any = () => {
       flex: 1,
       flexDirection: 'row',
     },
-    navBarLeft: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-    },
-    navBarRight: {
-      flex: 1,
-      // backgroundColor: 'green',
-      justifyContent: 'center',
-      alignItems: 'flex-end',
-    },
-    navBarMiddle: {
-      flex: 2,
-      // backgroundColor: 'blue',
-      justifyContent: 'center',
-      alignItems: 'center',
-    },
     mapTypeButtonContainer: {
       position: 'absolute',
       top: y,
@@ -104,20 +86,9 @@ const getStyles: any = () => {
       marginBottom: hp('5%'),
       bottom: 0,
     },
-    backButton: {
-      width: backButtonSize,
-      height: backButtonSize,
-      marginLeft: 4,
-    },
     mapButton: {
       width: hp('7%'),
       height: hp('7%'),
-    },
-    overlayLoad: {
-      zIndex: 2,
-      position: 'absolute',
-      width: wp('100%'),
-      height: hp('100%'),
     },
     titleOverlay: {
       position: 'absolute',
