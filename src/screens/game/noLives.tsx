@@ -84,7 +84,7 @@ export default class NoLives extends Component<Props> {
             />
 
             <RectButton
-              type={RectButtonEnum.Green}
+              type={RectButtonEnum.Red}
               text={strings('later')}
               onPress={() => {
                 this.props.navigation.navigate('LevelMap');

@@ -16,5 +16,9 @@
   "askFriend": "Pregunta a un amigo",
   "noLives": "No te quedan vidas",
   "later": "Más tarde",
-  "watchVideo": "Ver video"
+  "watchVideo": "Ver video",
+  "confirm": "Confirmar",
+  "cancel": "Cancelar",
+  "ok": "De acuerdo",
+  "usePowerup": "Utiliza una pista"
 }

@@ -1,12 +1,19 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '@res/R';
 
-import {wp, hp, isAndroid, isTablet} from '@library/services/deviceService';
+import {
+  wp,
+  hp,
+  isAndroid,
+  isTablet,
+  isIosAndNotch,
+} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   return StyleSheet.create({
     background: {
       position: 'absolute',
+      zIndex: 2,
       top: 0,
       left: 0,
       width: '100%',
@@ -15,13 +22,14 @@ const getStyles: any = () => {
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
+      opacity: 0,
     },
     top: {
       width: wp('100%'),
       flex: 1,
     },
     ribbon: {
-      width: wp('100%'),
+      width: wp('90%'),
       flex: 0.65,
       flexDirection: 'column',
       alignItems: 'center',
@@ -38,10 +46,14 @@ const getStyles: any = () => {
       marginLeft: '15%',
       marginRight: '15%',
       color: '#ffffff',
-      fontSize: isTablet() ? wp('2.3%') : isAndroid ? wp('3%') : wp('3.5%'),
+      fontSize: isTablet() ? wp('3.1%') : wp('3.5%'),
       textAlign: 'center',
       fontFamily: Fonts.league,
-      marginTop: isAndroid ? hp('0.5%') : hp('1.1%'),
+      marginTop: isAndroid
+        ? hp('1%')
+        : isTablet()
+        ? hp('1.8%')
+        : hp('2%') + (isIosAndNotch ? 2 : 0),
     },
     container: {
       flex: 2,
@@ -54,7 +66,6 @@ const getStyles: any = () => {
       alignSelf: 'stretch',
       width: undefined,
       height: undefined,
-      backgroundColor: 'red',
     },
     containerImageWrap: {
       flex: 1,
@@ -71,6 +82,50 @@ const getStyles: any = () => {
     bottom: {
       width: wp('100%'),
       flex: 2,
+    },
+    description: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
+      flexDirection: 'column',
+    },
+    coinPair: {
+      maxWidth: wp('15%'),
+      flexDirection: 'row',
+      flex: 1,
+      marginTop: hp('1%'),
+      alignItems: 'flex-start',
+      justifyContent: 'flex-end',
+    },
+    coinPairImage: {
+      marginRight: hp('1%'),
+      width: isTablet() ? wp('3%') : wp('4%'),
+      marginTop: hp('0.2%'),
+      height: isTablet() ? wp('3%') : wp('4%'),
+    },
+    coinPairText: {
+      // flex: 3,
+      textAlign: 'left',
+      fontFamily: Fonts.alata,
+      color: 'white',
+      fontSize: hp('1.5%'),
+      marginBottom: isAndroid ? hp('0.1%') : 0,
+    },
+    confirm: {
+      flex: 1,
+    },
+    cancel: {
+      flex: 1,
+    },
+    descriptionTextContainer: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'flex-end',
+    },
+    descriptionText: {
+      fontFamily: Fonts.alata,
+      color: '#ffffff88',
+      fontSize: isTablet() ? hp('2%') : hp('2.5%'),
     },
   });
 };

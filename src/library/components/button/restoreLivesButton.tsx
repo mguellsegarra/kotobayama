@@ -25,7 +25,7 @@ export default class RestoreLivesButton extends Component<Props> {
 
   render() {
     return (
-      <RectButton type={RectButtonEnum.Red} onPress={this.props.onPress}>
+      <RectButton type={RectButtonEnum.Green} onPress={this.props.onPress}>
         <View style={styles.countdownButton}>
           <View style={styles.countdownButtonUpperView}>
             <Text style={styles.countdownButtonUpperText}>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     fontFamily: Fonts.league,
     fontSize: defaultButtonSize.height * (isAndroid ? 0.23 : 0.25),
     textAlign: 'center',
-    color: Colors.redButtonText,
+    color: Colors.greenButtonText,
   },
   countdownButtonLowerView: {
     flex: 3,
@@ -80,6 +80,9 @@ const styles = StyleSheet.create({
     fontSize: defaultButtonSize.height * 0.23,
     textAlign: 'center',
     color: '#ffffff',
+    textShadowColor: 'rgba(0, 0, 0, 1)',
+    textShadowOffset: {width: -1, height: 1},
+    textShadowRadius: 5,
     marginLeft: defaultButtonSize.height * 0.03,
   },
   countdownButtonLowerCoin: {

@@ -19,6 +19,7 @@ import SolutionBar, {
 import LettersBar, {
   LettersBarElement,
 } from '@library/components/game/lettersBar';
+import Popup from '@library/components/common/popup';
 import {AvailableLetterType} from '@library/models/availableLetter';
 import {SolutionLetterType} from '@library/models/solutionLetter';
 
@@ -40,6 +41,7 @@ import {
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import UserStore from '@library/mobx/userStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
+import {strings} from '@library/services/i18nService';
 
 type Props = {
   navigation: any;
@@ -49,7 +51,7 @@ type Props = {
   levelMapStore: LevelMapStore;
 };
 type State = {
-  confirmPopupShown: boolean;
+  showPopup: boolean;
 };
 
 @inject('levelProgressStore')
@@ -68,7 +70,7 @@ export default class Game extends Component<Props, State> {
   mapLayer: any;
   confirmPopup: any;
 
-  state = {confirmPopupShown: false};
+  state = {showPopup: false};
 
   constructor(props: Props) {
     super(props);
@@ -84,6 +86,8 @@ export default class Game extends Component<Props, State> {
     this.onDestroyLettersPress = this.onDestroyLettersPress.bind(this);
     this.onSolveLetterPress = this.onSolveLetterPress.bind(this);
     this.onAskFriendPress = this.onAskFriendPress.bind(this);
+    this.popupCancel = this.popupCancel.bind(this);
+    this.popupConfirm = this.popupConfirm.bind(this);
 
     const {currentLevel, levels, packId} = this.props.route.params;
     this.level = levels[currentLevel];
@@ -109,12 +113,6 @@ export default class Game extends Component<Props, State> {
       pack,
     });
   }
-
-  // componentDidMount() {
-  // this.refs.viewShot.capture().then((uri: string) => {
-  //   this.snapshot = uri;
-  // });
-  // }
 
   async availableLetterHasTapped(letter: AvailableLetterType) {
     const {
@@ -171,6 +169,10 @@ export default class Game extends Component<Props, State> {
     } = this;
     const {levelProgressStore, userStore} = this.props;
 
+    // FIXME: TODO:
+    this.showPopup();
+    return;
+    // FIXME: TODO:
     handleOnSolveLetterPress({
       solutionBar,
       lettersBar,
@@ -193,6 +195,22 @@ export default class Game extends Component<Props, State> {
 
   async onAskFriendPress() {
     handleOnAskFriendPress();
+  }
+
+  showPopup() {
+    this.setState({...this.state, showPopup: true});
+    this.confirmPopup.animate('fadeIn', 300);
+  }
+
+  hidePopup() {
+    this.setState({...this.state, showPopup: false});
+    this.confirmPopup.animate('fadeOut', 300);
+  }
+
+  popupConfirm() {}
+
+  popupCancel() {
+    this.hidePopup();
   }
 
   render() {
@@ -251,6 +269,17 @@ export default class Game extends Component<Props, State> {
             pack={this.pack}
           />
         </NoNotchView>
+        <Popup
+          title={strings('usePowerup')}
+          pointerEvents={this.state.showPopup ? 'auto' : 'none'}
+          animatedRef={(ref: any) => {
+            this.confirmPopup = ref;
+          }}
+          amount={500}
+          showCancelButton
+          onConfirm={this.popupConfirm}
+          onCancel={this.popupCancel}
+        />
       </LinearGradient>
     );
   }
