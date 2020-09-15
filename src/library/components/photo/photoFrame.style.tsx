@@ -14,4 +14,6 @@ const getStyles: any = () => {
   });
 };
 
-export {getStyles};
+const styles = getStyles();
+
+export {styles};

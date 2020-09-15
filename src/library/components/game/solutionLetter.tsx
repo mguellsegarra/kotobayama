@@ -24,8 +24,15 @@ type Props = {
 };
 
 export default class SolutionLetter extends Component<Props> {
+  styles: any;
+
+  constructor(props: Props) {
+    super(props);
+    this.styles = getStyles(this.props.letterSize, this.props.margin);
+  }
+
   render() {
-    const styles = getStyles(this.props.letterSize, this.props.margin);
+    const {styles} = this;
 
     return (
       <TouchableWithoutFeedback

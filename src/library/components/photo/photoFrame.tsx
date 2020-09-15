@@ -6,7 +6,7 @@ import {Level} from '@library/models/level';
 const isAndroid = Platform.OS === 'android';
 
 import R, {Images} from '@res/R';
-import {getStyles} from './photoFrame.style';
+import {styles} from './photoFrame.style';
 
 import {
   widthPercentageToDP as wp,
@@ -44,7 +44,6 @@ export default class PhotoFrame extends Component<Props> {
   }
 
   render() {
-    const styles = getStyles();
     const pic = R.img('level_' + this.props.level.id.toString());
 
     return (

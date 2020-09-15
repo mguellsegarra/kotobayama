@@ -3,7 +3,7 @@ import {Image} from 'react-native';
 import {View} from 'react-native-animatable';
 
 import R, {Images} from '@res/R';
-import {getStyles} from './livesIndicator.style';
+import {styles} from './livesIndicator.style';
 
 type Props = {
   lives: number;
@@ -17,8 +17,6 @@ export default class LivesIndicator extends Component<Props> {
   }
 
   render() {
-    const styles = getStyles();
-
     const imagesForLifes: any = {
       0: {
         first: Images.heart_black_icon_details,

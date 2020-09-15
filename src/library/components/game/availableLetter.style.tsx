@@ -40,4 +40,4 @@ const getStyles: any = () => {
 
 const styles = getStyles();
 
-export {getStyles, styles};
+export {styles};

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {View, ViewStyle} from 'react-native';
 
-import {getStyles} from './lettersBar.style';
+import {styles} from './lettersBar.style';
 
 import AvailableLetter from './availableLetter';
 import {
@@ -200,8 +200,6 @@ export default class LettersBar extends Component<Props, State> {
   }
 
   render() {
-    const styles = getStyles();
-
     return (
       <View style={this.props.style}>
         <View style={styles.row}>{this.getAvailableLettersForLine(0)}</View>

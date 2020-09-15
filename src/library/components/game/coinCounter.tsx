@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {TouchableWithoutFeedback, Image, Text, View} from 'react-native';
 
 import R, {Images} from '@res/R';
-import {getStyles} from './coinCounter.style';
+import {styles} from './coinCounter.style';
 
 type Props = {
   totalCoins: number;
@@ -11,8 +11,6 @@ type Props = {
 
 export default class CoinCounter extends Component<Props> {
   render() {
-    const styles = getStyles();
-
     return (
       <TouchableWithoutFeedback
         onPress={() => {
