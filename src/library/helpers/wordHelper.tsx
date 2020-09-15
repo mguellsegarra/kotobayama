@@ -1,3 +1,5 @@
+import {SolutionLetterType} from '@library/models/solutionLetter';
+
 const vocals = 'AEIOU';
 const consonants = 'BCDFGHJKLMNPQRSTVWXYZ';
 
@@ -5,6 +7,7 @@ type WordServiceType = {
   shuffle: Function;
   getLettersForWord: Function;
   getRandomCharacter: Function;
+  getRandomSolveLetter: Function;
 };
 
 const WordService: WordServiceType = {
@@ -53,6 +56,48 @@ const WordService: WordServiceType = {
   },
   getRandomCharacter: (characters: string) => {
     return characters.charAt(Math.floor(Math.random() * characters.length));
+  },
+  getRandomSolveLetter: ({
+    word,
+    boughtLetters,
+    getAvailableLetterWithChar,
+  }: {
+    word: string;
+    boughtLetters: Array<SolutionLetterType>;
+    getAvailableLetterWithChar: Function;
+  }) => {
+    const cleanWord = word.replace(' ', '').toUpperCase();
+    const wordBoughtLetters: any = cleanWord.split('').map((character) => {
+      return {bought: false, character};
+    });
+
+    boughtLetters.forEach((boughtLetter) => {
+      wordBoughtLetters[boughtLetter.id] = {
+        bought: true,
+        character: boughtLetter.character,
+      };
+    });
+
+    const wordWithWildcards = cleanWord.split('');
+
+    const wordMinusBoughtLetters = wordBoughtLetters.filter(
+      (element: any, idx: number) => {
+        if (element.bought) {
+          wordWithWildcards[idx] = '*';
+        }
+        return !element.bought;
+      },
+    );
+
+    const randomIndex = Math.floor(
+      Math.random() * wordMinusBoughtLetters.length,
+    );
+    const randomLetter = wordMinusBoughtLetters[randomIndex].character;
+    const position = wordWithWildcards.indexOf(randomLetter);
+
+    const availableLetterId = getAvailableLetterWithChar(randomLetter).id;
+
+    return {randomLetter, position, availableLetterId};
   },
 };
 

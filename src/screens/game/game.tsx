@@ -1,25 +1,33 @@
 import React, {Component} from 'react';
 import {View, Image, Text} from 'react-native';
-import R, {Colors, Images} from '@res/R';
-
-import {styles} from './game.style';
-import NoNotchView from '@library/components/common/noNotchView';
 import LinearGradient from 'react-native-linear-gradient';
+import ViewShot from 'react-native-view-shot';
+import {observer, inject} from 'mobx-react';
+import Share from 'react-native-share';
+
+const gameConfig = require('@assets/gameConfig');
+
+import {Level} from '@library/models/level';
+import {Pack} from '@library/models/pack';
+
+import delayPromise from '@library/utils/delayPromise';
+
+import R, {Colors, Images} from '@res/R';
+import {styles} from './game.style';
+import {strings} from '@library/services/i18nService';
+
+import NoNotchView from '@library/components/common/noNotchView';
 import CircleButton from '@library/components/button/circleButton';
 import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import LevelIndexNumber from '@library/components/common/levelIndexNumber';
 import LivesIndicator from '@library/components/game/livesIndicator';
 import CoinCounter from '@library/components/game/coinCounter';
-import delayPromise from '@library/utils/delayPromise';
-import {Level} from '@library/models/level';
-import {Pack} from '@library/models/pack';
 import PowerUpsBar from '@library/components/game/powerUpsBar';
-import ViewShot from 'react-native-view-shot';
-const gameConfig = require('@assets/gameConfig');
+import ConfirmPopup from '@library/components/game/confirmPopup';
 
-import {observer, inject} from 'mobx-react';
-
+import LevelService from '@library/services/levelService';
 import {getLevelProgress} from '@library/helpers/levelHelper';
+import WordHelper from '@library/helpers/wordHelper';
 
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import UserStore from '@library/mobx/userStore';
@@ -39,11 +47,6 @@ import {
   SolutionLetterType,
   SolutionLetterState,
 } from '@library/models/solutionLetter';
-import {strings} from '@library/services/i18nService';
-
-import LevelService from '@library/services/levelService';
-import Share from 'react-native-share';
-import ConfirmPopup from '@library/components/game/confirmPopup';
 
 type Props = {
   navigation: any;
@@ -94,6 +97,12 @@ export default class Game extends Component<Props, State> {
     this.pack = LevelService.getPackWithId(packId);
     this.currentLevel = currentLevel;
     this.totalLevels = levels.length;
+  }
+
+  componentDidMount() {
+    this.refs.viewShot.capture().then((uri: string) => {
+      this.snapshot = uri;
+    });
   }
 
   async correct(level: Level) {
@@ -182,13 +191,7 @@ export default class Game extends Component<Props, State> {
     ).levelProgress;
   }
 
-  componentDidMount() {
-    this.refs.viewShot.capture().then((uri: string) => {
-      this.snapshot = uri;
-    });
-  }
-
-  async onSolveLetterPressConfirm() {
+  async onSolveLetterPress() {
     if (this.props.userStore.coins < gameConfig.priceSolveLetter) {
       // TODO: Show no coins
       return;
@@ -203,40 +206,15 @@ export default class Game extends Component<Props, State> {
 
     await delayPromise(50);
 
-    const word = this.level.word.replace(' ', '').toUpperCase();
-    const wordBoughtLetters: any = word.split('').map((character) => {
-      return {bought: false, character};
-    });
-
-    const boughtLetters: Array<SolutionLetterType> = this.solutionBar?.getBoughtLetters();
-
-    boughtLetters.forEach((boughtLetter) => {
-      wordBoughtLetters[boughtLetter.id] = {
-        bought: true,
-        character: boughtLetter.character,
-      };
-    });
-
-    const wordWithWildcards = word.split('');
-
-    const wordMinusBoughtLetters = wordBoughtLetters.filter(
-      (element: any, idx: number) => {
-        if (element.bought) {
-          wordWithWildcards[idx] = '*';
-        }
-        return !element.bought;
-      },
-    );
-
-    const randomIndex = Math.floor(
-      Math.random() * wordMinusBoughtLetters.length,
-    );
-    const randomLetter = wordMinusBoughtLetters[randomIndex].character;
-    const position = wordWithWildcards.indexOf(randomLetter); // <-- this is wrong, we have to replace bought letters before.
-
-    const availableLetterId = this.lettersBar?.getAvailableLetterWithChar(
+    const {
       randomLetter,
-    ).id;
+      availableLetterId,
+      position,
+    } = WordHelper.getRandomSolveLetter({
+      word: this.level.word,
+      boughtLetters: this.solutionBar?.getBoughtLetters(),
+      getAvailableLetterWithChar: this.lettersBar?.getAvailableLetterWithChar,
+    });
 
     this.solutionBar?.addLetterAtPosition(
       randomLetter,
@@ -253,17 +231,7 @@ export default class Game extends Component<Props, State> {
     this.props.userStore.decrementCoins(gameConfig.priceSolveLetter);
     await this.checkResult();
   }
-
-  onSolveLetterPress() {
-    this.setState({confirmPopupShown: true});
-    this.confirmPopup.animate('fadeIn', 300);
-
-    // this.props.navigation.navigate('ConfirmPopup', {
-    //   level: this.level,
-    //   pack: this.pack,
-    // });
-  }
-
+  
   async onDestroyLettersPress() {
     if (this.props.userStore.coins < gameConfig.priceDestroyLetters) {
       // TODO: Show no coins

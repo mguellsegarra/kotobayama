@@ -43,6 +43,9 @@ export interface LettersBarElement extends Element {
 export default class LettersBar extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
+    this.getAvailableLetterWithChar = this.getAvailableLetterWithChar.bind(
+      this,
+    );
     this.letterHasTapped = this.letterHasTapped.bind(this);
 
     const {levelProgress} = getLevelProgress(
