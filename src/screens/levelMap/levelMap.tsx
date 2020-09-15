@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Animated} from 'react-native';
+import {View} from 'react-native';
 import {observer, inject} from 'mobx-react';
 
 import {styles} from './levelMap.style';
@@ -7,7 +7,7 @@ import {styles} from './levelMap.style';
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
-import R, {Images} from '@res/R';
+import {Images} from '@res/R';
 import {strings} from '@library/services/i18nService';
 
 import LevelService from '@library/services/levelService';
@@ -36,7 +36,7 @@ import UserStore from '@library/mobx/userStore';
 
 type State = {
   mapNavigationMode: boolean;
-  fadeAnim: Animated.Value;
+  mapLoaded: boolean;
 };
 
 type Props = {
@@ -64,6 +64,7 @@ export default class LevelMap extends Component<Props, State> {
   playButton: any;
   closeMapButton: any;
   levelCompletedBanner: any;
+  loadingView: any;
 
   constructor(props: Props) {
     super(props);
@@ -90,20 +91,17 @@ export default class LevelMap extends Component<Props, State> {
 
     this.state = {
       mapNavigationMode: false,
-      fadeAnim: new Animated.Value(1),
+      mapLoaded: false,
     };
   }
 
   mapLoaded() {
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 0,
-      delay: 0,
-      duration: 800,
-      useNativeDriver: true,
-    }).start();
+    this.loadingView.fadeOut();
   }
 
   componentDidUpdate() {
+    this.loadingView.ensureHidden();
+
     const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack.get(
       this.pack.id,
     );
@@ -287,8 +285,8 @@ export default class LevelMap extends Component<Props, State> {
         </View>
 
         <LoadingView
-          style={{
-            opacity: this.state.fadeAnim,
+          ref={(ref: any) => {
+            this.loadingView = ref;
           }}
           image={Images.mountain_bg}
         />

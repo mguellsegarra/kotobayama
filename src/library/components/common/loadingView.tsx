@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {ImageBackground, StyleSheet, Animated} from 'react-native';
+import {View as AnimatableView} from 'react-native-animatable';
 
 import {
   widthPercentageToDP as wp,
@@ -9,7 +10,6 @@ import {
 import R from '@res/R';
 
 type Props = {
-  style: any;
   image: string;
 };
 
@@ -22,16 +22,52 @@ const style = StyleSheet.create({
   },
 });
 
-export default class LoadingView extends Component<Props> {
+type State = {
+  hide: boolean;
+};
+
+export default class LoadingView extends Component<Props, State> {
+  container: any;
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {hide: true};
+  }
+
+  fadeOut() {
+    if (this.container && this.container !== null) {
+      this.container.animate('fadeOut', 800);
+      this.setState({hide: true});
+    }
+  }
+
+  ensureHidden() {
+    if (!__DEV__) {
+      return;
+    }
+
+    if (this.container && this.container !== null) {
+      this.setState({hide: false});
+    }
+  }
+
   render() {
+    if (this.state.hide) {
+      return null;
+    }
+
     return (
-      <Animated.View
+      <AnimatableView
+        useNativeDriver
+        ref={(ref: any) => {
+          this.container = ref;
+        }}
         pointerEvents="none"
-        style={[style.overlayLoad, this.props.style]}>
+        style={style.overlayLoad}>
         <ImageBackground
           source={R.img(this.props.image)}
           style={style.overlayLoad}></ImageBackground>
-      </Animated.View>
+      </AnimatableView>
     );
   }
 }
