@@ -7,9 +7,9 @@ import {View} from 'react-native-animatable';
 const isAndroid = Platform.OS === 'android';
 import R, {Images} from '@res/R';
 
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 
 import UserStore from '@library/mobx/userStore';
 import RectButton, {

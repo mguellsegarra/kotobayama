@@ -18,9 +18,10 @@ import ViewShot from 'react-native-view-shot';
 const gameConfig = require('@assets/gameConfig');
 
 import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 import UserStore from '@library/mobx/userStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 

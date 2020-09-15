@@ -1,6 +1,64 @@
-import {LevelProgress, LevelProgressInitialState} from '@library/models/level';
+import {Level, LevelProgress, LevelProgressInitialState} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 import {toJS} from 'mobx';
+
+export const getFirstIncompleteLevel = ({
+  levels,
+  levelsProgress,
+  pack,
+}: {
+  levels: Array<Level>;
+  levelsProgress: LevelProgress[];
+  pack: Pack;
+}) => {
+  let levelIdx: number = 0;
+
+  const {levelId} = getFirstIncompleteLevelIdForPack({
+    levelsProgress: levelsProgress,
+    pack: pack,
+  });
+
+  const level = levels.find((lvl, lvlIdx) => {
+    const found = lvl.id === levelId;
+
+    if (found) {
+      levelIdx = lvlIdx;
+    }
+    return found;
+  });
+
+  return {idx: levelIdx, level};
+};
+
+export const getFirstIncompleteLevelIdForPack = ({
+  levelsProgress,
+  pack,
+}: {
+  levelsProgress: LevelProgress[];
+  pack: Pack;
+}) => {
+  let firstIncompleteLevel;
+  let found = false;
+  let lvlIdx = 0;
+
+  pack.levels.forEach((lvlId, idx) => {
+    if (found) {
+      return;
+    }
+
+    const level = toJS(levelsProgress).find((lvlProgress) => {
+      return lvlProgress.id === lvlId && lvlProgress.completed;
+    });
+
+    if (!level) {
+      firstIncompleteLevel = lvlId;
+      lvlIdx = idx;
+      found = true;
+    }
+  });
+  return {idx: lvlIdx, levelId: firstIncompleteLevel};
+};
+
 
 export const getLevelProgress = (
   levelsProgress: LevelProgress[],
@@ -42,32 +100,6 @@ export const getLevelsForPack = (
   return levelsProgress.filter((lvlProgress) => {
     return lvlProgress.packId === packId;
   });
-};
-
-export const getFirstIncompleteLevelIdForPack = (
-  levelsProgress: LevelProgress[],
-  pack: Pack,
-) => {
-  let firstIncompleteLevel;
-  let found = false;
-  let lvlIdx = 0;
-
-  pack.levels.forEach((lvlId, idx) => {
-    if (found) {
-      return;
-    }
-
-    const level = toJS(levelsProgress).find((lvlProgress) => {
-      return lvlProgress.id === lvlId && lvlProgress.completed;
-    });
-
-    if (!level) {
-      firstIncompleteLevel = lvlId;
-      lvlIdx = idx;
-      found = true;
-    }
-  });
-  return {idx: lvlIdx, levelId: firstIncompleteLevel};
 };
 
 export const areAllLevelsCompletedForPack = (

@@ -1,37 +1,39 @@
 import React, {Component} from 'react';
 import {View, ImageBackground, Animated} from 'react-native';
 import {View as AnimatableView} from 'react-native-animatable';
+import {observer, inject} from 'mobx-react';
 
 import {styles} from './levelMap.style';
-import R, {Images} from '@res/R';
-
-import {strings} from '@library/services/i18nService';
-import MapLayer from '@library/components/map/mapLayer';
-import MapTitleBanner from '@library/components/map/mapTitleBanner';
-import CoinCounter from '@library/components/game/coinCounter';
 
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
+import R, {Images} from '@res/R';
+import {strings} from '@library/services/i18nService';
+
+import LevelService from '@library/services/levelService';
+
+import MapLayer from '@library/components/map/mapLayer';
+import MapTitleBanner from '@library/components/map/mapTitleBanner';
+import CoinCounter from '@library/components/game/coinCounter';
 import LevelChooser from '@library/components/map/levelChooser';
 import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
 import CircleButton from '@library/components/button/circleButton';
 import MapTypeButton from '@library/components/map/mapTypeButton';
-
-import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getFirstIncompleteLevelIdForPack,
-  getProgressForPack,
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
-import LevelMapStore from '@library/mobx/levelMapStore';
-import UserStore from '@library/mobx/userStore';
-
-import LevelService from '@library/services/levelService';
 import LevelCompletedBanner from '@library/components/map/levelCompletedBanner';
 import PlayButton from '@library/components/map/playButton';
+
+import {
+  getFirstIncompleteLevel,
+  getProgressForPack,
+  getLevelProgress,
+} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
+import LevelMapStore from '@library/mobx/levelMapStore';
+import UserStore from '@library/mobx/userStore';
 
 type State = {
   mapNavigationMode: boolean;
@@ -51,11 +53,12 @@ type Props = {
 @inject('userStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
-  mapLayer: any;
   packId: string;
   pack: Pack;
   levels: Array<Level>;
   prevCurrentLevel: number;
+  // Views
+  mapLayer: any;
   levelChooser: any;
   navbar: any;
   mapTitleBanner: any;
@@ -65,10 +68,10 @@ export default class LevelMap extends Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
+
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
     this.mapLoaded = this.mapLoaded.bind(this);
     this.getCurrentLevel = this.getCurrentLevel.bind(this);
-
     this.handleAnimsForMapNavigationMode = this.handleAnimsForMapNavigationMode.bind(
       this,
     );
@@ -78,7 +81,11 @@ export default class LevelMap extends Component<Props, State> {
     this.pack = LevelService.getPackWithId(this.packId);
     this.levels = LevelService.getLevelsForPack(packId);
 
-    const {idx} = this.getFirstIncompleteLevel();
+    const {idx} = getFirstIncompleteLevel({
+      pack: this.pack,
+      levelsProgress: this.props.levelProgressStore.levelsProgress,
+      levels: this.levels,
+    });
     this.props.levelMapStore.setCurrentLevelForPack(idx, this.pack);
     this.prevCurrentLevel = idx;
 
@@ -158,26 +165,6 @@ export default class LevelMap extends Component<Props, State> {
         this.playButton.animate('fadeOut', 300);
       }
     }
-  }
-
-  getFirstIncompleteLevel() {
-    let levelIdx: number = 0;
-
-    const {levelId} = getFirstIncompleteLevelIdForPack(
-      this.props.levelProgressStore.levelsProgress,
-      this.pack,
-    );
-
-    const level = this.levels.find((lvl, lvlIdx) => {
-      const found = lvl.id === levelId;
-
-      if (found) {
-        levelIdx = lvlIdx;
-      }
-      return found;
-    });
-
-    return {idx: levelIdx, level};
   }
 
   getCurrentLevel() {

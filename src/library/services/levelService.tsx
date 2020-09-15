@@ -1,5 +1,5 @@
 import {LatLng} from 'react-native-maps';
-import WordHelper from '../components/helpers/wordHelper';
+import WordHelper from '../helpers/wordHelper';
 import {Level, LevelSource} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 

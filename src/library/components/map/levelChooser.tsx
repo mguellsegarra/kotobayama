@@ -15,9 +15,9 @@ import PhotoFrame, {PhotoFrameSize} from '@library/components/photo/photoFrame';
 import {observer, inject} from 'mobx-react';
 
 import {Level, LevelProgress} from '@library/models/level';
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 
 type Props = {
   levels: Array<Level>;

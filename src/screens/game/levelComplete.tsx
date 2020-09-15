@@ -16,9 +16,9 @@ import {Pack} from '@library/models/pack';
 
 import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
 import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
 import {LevelProgress} from '@library/models/level';

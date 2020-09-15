@@ -9,12 +9,12 @@ import {
   AvailableLetterState,
 } from '@library/models/availableLetter';
 import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
-import WordHelper from '@library/components/helpers/wordHelper';
+import WordHelper from '@library/helpers/wordHelper';
 
 type Props = {
   style: ViewStyle;

@@ -11,9 +11,9 @@ import {MapTypeMode} from '@library/models/mapTypeMode';
 
 import {observer, inject} from 'mobx-react';
 import UserStore from '@library/mobx/userStore';
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 
 type Props = {
   controlsEnabled: boolean;

@@ -14,13 +14,13 @@ import {
   getFirstCharacterMapEmptyPos,
   getInitialCharacterMap,
   isWordCorrect,
-} from '@library/components/helpers/characterMapHelper';
+} from '@library/helpers/characterMapHelper';
 
 import {observer, inject} from 'mobx-react';
 
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
