@@ -75,6 +75,7 @@ export const handleOnSolveLetterPress = async ({
   );
 
   lettersBar?.setLetterState(availableLetterId, AvailableLetterState.Bought);
+  lettersBar?.updateStore();
 
   userStore.decrementCoins(gameConfig.priceSolveLetter);
 

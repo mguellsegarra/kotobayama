@@ -36,6 +36,7 @@ export interface LettersBarElement extends Element {
   powerUpDestroyLetters: Function;
   existsWrongLettersNotBought: Function;
   restoreNonBoughtLetters: Function;
+  updateStore: Function;
 }
 
 @inject('levelProgressStore')
@@ -125,6 +126,9 @@ export default class LettersBar extends Component<Props, State> {
     const newLetters = [...this.state.letters];
     newLetters[position] = letter as AvailableLetterType;
     this.setState({...this.state, letters: newLetters});
+  }
+
+  updateStore() {
     this.props.levelProgressStore?.setAvailableLetters(
       this.props.level.id,
       this.props.pack.id,
@@ -154,6 +158,7 @@ export default class LettersBar extends Component<Props, State> {
     availableLetters.forEach((letter) => {
       this.restoreLetterWithId(letter.id);
     });
+    this.updateStore();
   }
 
   powerUpDestroyLetters() {
@@ -184,10 +189,12 @@ export default class LettersBar extends Component<Props, State> {
         .forEach((letter) => {
           this.setLetterState(letter.id, AvailableLetterState.Bought);
         });
+      this.updateStore();
     } else {
       availableLetters.forEach((letter) => {
         this.setLetterState(letter.id, AvailableLetterState.Bought);
       });
+      this.updateStore();
     }
   }
 

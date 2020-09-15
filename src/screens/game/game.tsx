@@ -186,7 +186,6 @@ export default class Game extends Component<Props, State> {
 
   async onDestroyLettersPress() {
     const {solutionBar, lettersBar} = this;
-
     const {userStore} = this.props;
 
     handleOnDestroyLettersPress({solutionBar, lettersBar, userStore});

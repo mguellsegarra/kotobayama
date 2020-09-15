@@ -52,6 +52,7 @@ export interface SolutionBarElement extends Element {
   getFirstEmptySolutionLetterId: Function;
   addLetterAtPosition: Function;
   getBoughtLetters: Function;
+  updateStore: Function;
 }
 
 @inject('levelProgressStore')
@@ -202,10 +203,13 @@ export default class SolutionBar extends Component<Props, State> {
       ...this.state,
       charactersMap: newCharacterMap,
     });
+  }
+
+  updateStore() {
     this.props.levelProgressStore?.setSolutionLetters(
       this.props.level.id,
       this.props.pack.id,
-      newCharacterMap,
+      this.state.charactersMap,
     );
   }
 
@@ -229,9 +233,8 @@ export default class SolutionBar extends Component<Props, State> {
         this.removeLetterWithId(key);
       }
     });
+    this.updateStore();
   }
-
-  getRandomPendingLetter() {}
 
   animateLetters(animationType: string, duration: number) {
     this.containerView.animate(animationType, duration);

@@ -29,8 +29,8 @@ export const checkResult = async ({
   lettersBar,
   onNoLives,
 }: {
-    solutionBar: SolutionBarElement | SolutionBar | null;
-    level: Level;
+  solutionBar: SolutionBarElement | SolutionBar | null;
+  level: Level;
   pack: Pack;
   levelProgressStore: LevelProgressStore;
   lettersBar: LettersBarElement | LettersBar | null;
@@ -115,7 +115,7 @@ const incorrect = async ({
   availableLetterIds.forEach((letterId: string) => {
     lettersBar?.restoreLetterWithId(letterId);
   });
-
+  lettersBar?.updateStore();
   solutionBar?.removeAllLetters();
 
   if (levelProgressStore?.getCurrentLives(level.id, pack.id) === 0) {
@@ -150,6 +150,7 @@ export const handleAvailableLetterHasTapped = async ({
   }
 
   lettersBar?.setLetterState(letter.id, AvailableLetterState.Selected);
+  lettersBar?.updateStore();
 
   await solutionBar?.addLetter(letter.character, letter.id);
   await checkResult({
@@ -175,6 +176,8 @@ export const handleSolutionLetterHasTapped = ({
 }) => {
   if (letter.letterState === SolutionLetterState.Filled) {
     solutionBar?.removeLetterWithId(letter.id);
+    solutionBar?.updateStore();
     lettersBar?.restoreLetterWithId(letter.availableLetterId!);
+    lettersBar?.updateStore();
   }
 };
