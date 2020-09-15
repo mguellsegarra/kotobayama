@@ -1,8 +1,11 @@
-import {StyleSheet, Platform} from 'react-native';
-import {Fonts, Colors} from '@res/R';
-import DeviceInfo, {isTablet} from 'react-native-device-info';
+import {StyleSheet} from 'react-native';
+import {Fonts} from '@res/R';
 import {defaultButtonSize} from '@library/components/button/rectButton';
-const isAndroid = Platform.OS === 'android';
+import {
+  isTablet,
+  isAndroid,
+  isIosAndNotch,
+} from '@library/services/deviceService';
 
 import {
   widthPercentageToDP as wp,
@@ -26,10 +29,8 @@ const getStyles: any = () => {
   const buttonRatioConstant = 0.3525;
   const buttonHeight = buttonWidth * buttonRatioConstant;
 
-  const iOSandNotch = Platform.OS === 'ios' && DeviceInfo.hasNotch();
-
-  const navbarHeight = iOSandNotch ? hp('5.90%') : hp('6.5%');
-  const navbarMarginTop = iOSandNotch ? 44 : 0;
+  const navbarHeight = isIosAndNotch ? hp('5.90%') : hp('6.5%');
+  const navbarMarginTop = isIosAndNotch ? 44 : 0;
 
   const playButtonOverlayBottomMargin = hp('2%');
   const yBackButton =
@@ -205,9 +206,6 @@ const getStyles: any = () => {
     },
     countdownTop: {
       flex: 1,
-      // backgroundColor: '#000000dd',
-      // borderRadius: defaultButtonSize.height * 0.2,
-      // backgroundColor: 'yellow',
       alignItems: 'center',
       justifyContent: 'center',
     },
@@ -221,7 +219,6 @@ const getStyles: any = () => {
       justifyContent: 'center',
     },
     stopwatchImageContainer: {
-      // backgroundColor: 'yellow',
       flex: 1.1,
       alignItems: 'center',
       justifyContent: 'center',
@@ -231,7 +228,6 @@ const getStyles: any = () => {
       height: defaultButtonSize.height * 0.3 * stopWatchConstant,
     },
     countdownTextContainer: {
-      // backgroundColor: 'pink',
       flex: 2,
       marginTop: defaultButtonSize.height * (isAndroid ? 0.01 : 0.08),
       marginLeft: defaultButtonSize.width * 0.05,
@@ -247,45 +243,6 @@ const getStyles: any = () => {
     countdownBottom: {
       height: defaultButtonSize.height,
       width: defaultButtonSize.width,
-    },
-    countdownButton: {
-      flexDirection: 'column',
-      justifyContent: 'flex-start',
-      alignItems: 'center',
-      marginTop: defaultButtonSize.height * 0.05,
-      marginBottom:
-        defaultButtonSize.marginBottom + defaultButtonSize.height * 0.08,
-    },
-    countdownButtonUpperView: {
-      flex: 2.5,
-      justifyContent: 'flex-end',
-      alignItems: 'center',
-    },
-    countdownButtonUpperText: {
-      fontFamily: Fonts.league,
-      fontSize: defaultButtonSize.height * (isAndroid ? 0.23 : 0.25),
-      textAlign: 'center',
-      color: Colors.redButtonText,
-    },
-    countdownButtonLowerView: {
-      flex: 3,
-      flexDirection: 'row',
-      justifyContent: 'center',
-      alignItems: 'flex-start',
-      maxHeight: defaultButtonSize.height * 0.4,
-      marginTop: -defaultButtonSize.height * 0.06,
-    },
-    countdownButtonLowerText: {
-      fontFamily: Fonts.alata,
-      fontSize: defaultButtonSize.height * 0.23,
-      textAlign: 'center',
-      color: '#ffffff',
-      marginLeft: defaultButtonSize.height * 0.03,
-    },
-    countdownButtonLowerCoin: {
-      marginTop: defaultButtonSize.height * (isAndroid ? 0.09 : 0.055),
-      width: defaultButtonSize.height * 0.25,
-      height: defaultButtonSize.height * 0.25,
     },
   });
 };

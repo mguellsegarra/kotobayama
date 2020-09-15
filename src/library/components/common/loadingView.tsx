@@ -13,15 +13,6 @@ type Props = {
   image: string;
 };
 
-const style = StyleSheet.create({
-  overlayLoad: {
-    zIndex: 2,
-    position: 'absolute',
-    width: wp('100%'),
-    height: hp('100%'),
-  },
-});
-
 type State = {
   hide: boolean;
 };
@@ -71,3 +62,12 @@ export default class LoadingView extends Component<Props, State> {
     );
   }
 }
+
+const style = StyleSheet.create({
+  overlayLoad: {
+    zIndex: 2,
+    position: 'absolute',
+    width: wp('100%'),
+    height: hp('100%'),
+  },
+});
