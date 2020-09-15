@@ -14,18 +14,12 @@ const getCoordinateFromLatLonString = (latLonString: string): LatLng => {
   };
 };
 
-export interface MemoryRandomLetters {
-  [index: string]: Array<Array<string>>;
-}
-
 type LevelServiceType = {
   levels: Array<Level>;
   packs: Array<Pack>;
   getPackWithId: Function;
   getLevelWithId: Function;
   getLevelsForPack: Function;
-  inMemoryRandomLetters: MemoryRandomLetters;
-  getLettersForWord: Function;
 };
 
 const LevelService: LevelServiceType = {
@@ -41,7 +35,6 @@ const LevelService: LevelServiceType = {
     };
   }),
   packs: packSource,
-  inMemoryRandomLetters: {},
   getPackWithId: (packId: string): Pack | undefined => {
     return packSource.find((pack: Pack) => {
       return pack?.id === packId;
@@ -57,16 +50,6 @@ const LevelService: LevelServiceType = {
     return pack.levels.map((levelId: string) => {
       return LevelService.getLevelWithId(levelId);
     });
-  },
-  getLettersForWord: (word: string) => {
-    if (LevelService.inMemoryRandomLetters[word]) {
-      return LevelService.inMemoryRandomLetters[word];
-    }
-
-    LevelService.inMemoryRandomLetters[word] = WordHelper.getLettersForWord(
-      word,
-    );
-    return LevelService.inMemoryRandomLetters[word];
   },
 };
 

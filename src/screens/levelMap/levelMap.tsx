@@ -98,19 +98,19 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   componentDidUpdate() {
-    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack[
-      this.pack.id
-    ];
+    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack.get(
+      this.pack.id,
+    );
     if (this.prevCurrentLevel !== actualCurrentLevel) {
       this.updateMapLayer();
-      this.prevCurrentLevel = actualCurrentLevel;
+      this.prevCurrentLevel = actualCurrentLevel!;
     }
   }
 
   updateMapLayer() {
-    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack[
-      this.pack.id
-    ];
+    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack.get(
+      this.pack.id,
+    );
     this.mapLayer.setCurrentLevel(actualCurrentLevel);
     this.mapLayer.resetToLevel();
   }
@@ -126,7 +126,7 @@ export default class LevelMap extends Component<Props, State> {
 
   handleAnimsForMapNavigationMode() {
     const currentLevelId = this.levels[
-      this.props.levelMapStore.currentLevelForPack[this.packId]
+      this.props.levelMapStore.currentLevelForPack.get(this.packId)!
     ].id;
 
     const {levelProgress} = getLevelProgress(
@@ -181,12 +181,12 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   getCurrentLevel() {
-    return this.props.levelMapStore.currentLevelForPack[this.packId];
+    return this.props.levelMapStore.currentLevelForPack.get(this.packId)!;
   }
 
   render() {
     const currentLevelId = this.levels[
-      this.props.levelMapStore.currentLevelForPack[this.packId]
+      this.props.levelMapStore.currentLevelForPack.get(this.packId)!
     ].id;
     const {levelProgress} = getLevelProgress(
       this.props.levelProgressStore.levelsProgress,
