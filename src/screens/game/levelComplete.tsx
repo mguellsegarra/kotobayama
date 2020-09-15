@@ -75,7 +75,7 @@ export default class LevelComplete extends Component<Props> {
     await delayPromise(400);
     if (this.confettiView) {
       this.confettiView.startConfetti();
-    }npm
+    }
     this.firstStar.animate('fadeIn', 300);
     await delayPromise(400);
     this.secondStar.animate('fadeIn', 300);

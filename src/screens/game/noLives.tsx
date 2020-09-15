@@ -10,15 +10,8 @@ import RestoreLivesButton from '@library/components/button/restoreLivesButton';
 const gameConfig = require('@assets/gameConfig');
 import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
 
-import {Level} from '@library/models/level';
-import {Pack} from '@library/models/pack';
-
 import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getFirstIncompleteLevelIdForPack,
-  getProgressForPack,
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
 

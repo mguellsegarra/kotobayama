@@ -13,8 +13,12 @@ import {
 const getStyles: any = () => {
   return StyleSheet.create({
     background: {
+      position: 'absolute',
+      top: 0,
+      left: 0,
+      width: '100%',
+      height: '100%',
       backgroundColor: '#000000cc',
-      flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',
@@ -47,13 +51,20 @@ const getStyles: any = () => {
       marginTop: isAndroid ? hp('0.5%') : hp('1.1%'),
     },
     container: {
-      flex: 4,
+      flex: 2,
       flexDirection: 'row',
-      alignItems: 'center',
+      alignItems: 'flex-start',
+      justifyContent: 'flex-start',
     },
     containerImage: {
-      width: '100%',
-      height: '100%',
+      flex: 1,
+      alignSelf: 'stretch',
+      width: undefined,
+      height: undefined,
+      backgroundColor: 'red',
+    },
+    containerImageWrap: {
+      flex: 1,
       flexDirection: 'column',
       alignItems: 'center',
       justifyContent: 'center',

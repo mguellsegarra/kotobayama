@@ -53,6 +53,7 @@ export enum Images {
   'photo_frame' = 'photo_frame',
   'popup_container' = 'popup_container',
   'popup_ribbon' = 'popup_ribbon',
+  'popup_square' = 'popup_square',
   'potion_red' = 'potion_red',
   'reward_separator' = 'reward_separator',
   'reward_stars_shadow' = 'reward_stars_shadow',

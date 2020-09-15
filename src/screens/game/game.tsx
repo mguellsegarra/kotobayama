@@ -42,6 +42,7 @@ import {strings} from '@library/services/i18nService';
 
 import LevelService from '@library/services/levelService';
 import Share from 'react-native-share';
+import ConfirmPopup from '@library/components/game/confirmPopup';
 
 type Props = {
   navigation: any;
@@ -50,7 +51,9 @@ type Props = {
   userStore: UserStore;
   levelMapStore: LevelMapStore;
 };
-type State = {};
+type State = {
+  confirmPopupShown: boolean;
+};
 
 @inject('levelProgressStore')
 @inject('userStore')
@@ -67,8 +70,9 @@ export default class Game extends Component<Props, State> {
   pack: Pack;
   snapshot: any;
   refs: any;
+  confirmPopup: any;
 
-  state = {};
+  state = {confirmPopupShown: false};
 
   constructor(props: Props) {
     super(props);
@@ -183,7 +187,7 @@ export default class Game extends Component<Props, State> {
     });
   }
 
-  async onSolveLetterPress() {
+  async onSolveLetterPressConfirm() {
     if (this.props.userStore.coins < gameConfig.priceSolveLetter) {
       // TODO: Show no coins
       return;
@@ -247,6 +251,16 @@ export default class Game extends Component<Props, State> {
 
     this.props.userStore.decrementCoins(gameConfig.priceSolveLetter);
     await this.checkResult();
+  }
+
+  onSolveLetterPress() {
+    this.setState({confirmPopupShown: true});
+    this.confirmPopup.animate('fadeIn', 300);
+
+    // this.props.navigation.navigate('ConfirmPopup', {
+    //   level: this.level,
+    //   pack: this.pack,
+    // });
   }
 
   async onDestroyLettersPress() {
@@ -378,6 +392,25 @@ export default class Game extends Component<Props, State> {
             pack={this.pack}
           />
         </NoNotchView>
+        {this.state.confirmPopupShown ? (
+          <ConfirmPopup
+            onConfirm={() => {
+              this.confirmPopup.animate('fadeOut', 300);
+              setTimeout(() => {
+                this.setState({confirmPopupShown: false});
+              }, 350);
+            }}
+            onCancel={() => {
+              this.confirmPopup.animate('fadeOut', 300);
+              setTimeout(() => {
+                this.setState({confirmPopupShown: false});
+              }, 350);
+            }}
+            animatedRef={(ref: any) => {
+              this.confirmPopup = ref;
+            }}
+          />
+        ) : null}
       </LinearGradient>
     );
   }
