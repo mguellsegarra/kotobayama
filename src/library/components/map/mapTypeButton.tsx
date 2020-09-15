@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
-import {ViewProps, View} from 'react-native';
+import {ViewProps, View, StyleSheet} from 'react-native';
 
 import {Images} from '@res/R';
 
 import CircleButton from '@library/components/button/circleButton';
-import {styles} from '@screens/levelMap/levelMap.style';
+import {hp} from '@library/services/deviceService';
 import {MapTypeMode} from '@library/models/mapTypeMode';
 
 type Props = {
@@ -17,6 +17,13 @@ const imagesForMode = new Map<string, string>([
   [MapTypeMode.Sat, Images.map_circle_green],
   [MapTypeMode.Topo, Images.map_circle_blue],
 ]);
+
+const styles = StyleSheet.create({
+  mapButton: {
+    width: hp('7%'),
+    height: hp('7%'),
+  },
+});
 
 export default class MapTypeButton extends Component<Props> {
   static defaultProps = {

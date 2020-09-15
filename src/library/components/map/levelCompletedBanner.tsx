@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
-import {Image, ImageBackground, Text, ViewStyle} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from 'react-native';
 import {View} from 'react-native-animatable';
-import {isAndroid} from '@library/services/deviceService';
+import {isAndroid, isTablet, wp, hp} from '@library/services/deviceService';
 
-import {styles} from '@screens/levelMap/levelMap.style';
-
-import R, {Images} from '@res/R';
+import R, {Images, Fonts} from '@res/R';
 
 type Props = {
   style: ViewStyle;
@@ -91,3 +95,69 @@ export default class LevelCompletedBanner extends Component<Props> {
     );
   }
 }
+
+const levelCompletedContainerWidth = isTablet() ? wp('40%') : wp('60%');
+const levelCompletedContainerConstant = 0.408829174664107;
+const levelCompletedContainerHeight =
+  levelCompletedContainerWidth * levelCompletedContainerConstant;
+
+const levelCompletedTickHeight = levelCompletedContainerHeight / 5;
+const levelCompletedTickConstant = 1.09375;
+const levelCompletedTickWidth =
+  levelCompletedTickHeight / levelCompletedTickConstant;
+
+const styles = StyleSheet.create({
+  levelCompletedImage: {
+    width: levelCompletedContainerWidth,
+    height: levelCompletedContainerHeight,
+  },
+  levelCompletedContainer: {
+    marginTop: levelCompletedContainerHeight * 0.09,
+    marginBottom: levelCompletedContainerHeight * 0.09,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  levelCompletedTop: {
+    width: '93%',
+    flex: 2,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  levelCompletedMiddle: {
+    width: '93%',
+    flex: 2,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: hp('1%'),
+  },
+  levelCompletedTick: {
+    marginTop: hp('1.5%'),
+    height: levelCompletedTickHeight,
+    width: levelCompletedTickWidth,
+  },
+  levelCompletedBottom: {
+    width: '93%',
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: hp('1%'),
+  },
+  levelCompletedStar: {
+    height: levelCompletedTickHeight,
+    width: levelCompletedTickWidth,
+    marginRight: wp('0.5%'),
+    marginLeft: wp('0.5%'),
+  },
+  levelCompletedTitle: {
+    width: '90%',
+    fontFamily: Fonts.league,
+    fontSize: wp('4%'),
+    color: 'white',
+    textAlign: 'center',
+  },
+});

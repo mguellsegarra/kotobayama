@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
-import {Image} from 'react-native';
+import {Image, StyleSheet} from 'react-native';
 import {strings} from '@library/services/i18nService';
 import {Level} from '@library/models/level';
 import {observer, inject} from 'mobx-react';
 import {View} from 'react-native-animatable';
 
 import {isAndroid} from '@library/services/deviceService';
-import R, {Images} from '@res/R';
+import R, {Images, Fonts} from '@res/R';
+import {defaultButtonSize} from '@library/components/button/rectButton';
 
 import {getLevelProgress} from '@library/helpers/levelHelper';
 
@@ -20,10 +21,10 @@ import RectButton, {
 import CountdownText from '@library/components/map/countdownText';
 import RestoreLivesButton from '@library/components/button/restoreLivesButton';
 
-import {styles} from '@screens/levelMap/levelMap.style';
 const gameConfig = require('@assets/gameConfig');
 
 type Props = {
+  style: any;
   levels: Array<Level>;
   packId: string;
   currentLevel: number;
@@ -152,7 +153,7 @@ export default class PlayButton extends Component<Props, State> {
 
     return (
       <View
-        style={styles.playButtonOverlay}
+        style={this.props.style}
         useNativeDriver={!isAndroid}
         ref={(ref) => {
           this.containerView = ref;
@@ -166,3 +167,52 @@ export default class PlayButton extends Component<Props, State> {
     );
   }
 }
+
+const stopWatchConstant = 1.276595744680851;
+
+const styles = StyleSheet.create({
+  countdownContainer: {
+    height: defaultButtonSize.height * 1.8,
+    width: defaultButtonSize.width,
+  },
+  countdownTop: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  countdownTopContainer: {
+    backgroundColor: '#000000bc',
+    borderRadius: defaultButtonSize.height * 0.1,
+    width: defaultButtonSize.width * 0.5,
+    height: defaultButtonSize.height * 0.5,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stopwatchImageContainer: {
+    flex: 1.1,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  stopwatchImage: {
+    width: defaultButtonSize.height * 0.3,
+    height: defaultButtonSize.height * 0.3 * stopWatchConstant,
+  },
+  countdownTextContainer: {
+    flex: 2,
+    marginTop: defaultButtonSize.height * (isAndroid ? 0.01 : 0.08),
+    marginLeft: defaultButtonSize.width * 0.05,
+    alignItems: 'flex-start',
+    justifyContent: 'center',
+  },
+  countdownText: {
+    fontFamily: Fonts.league,
+    fontSize: defaultButtonSize.height * 0.21,
+    textAlign: 'left',
+    color: '#ffffff',
+  },
+  countdownBottom: {
+    height: defaultButtonSize.height,
+    width: defaultButtonSize.width,
+  },
+});

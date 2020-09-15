@@ -203,6 +203,7 @@ export default class LevelMap extends Component<Props, State> {
           />
 
           <MapTitleBanner
+            style={styles.titleOverlay}
             ref={(ref) => {
               this.mapTitleBanner = ref;
             }}
@@ -234,6 +235,7 @@ export default class LevelMap extends Component<Props, State> {
             />
           ) : (
             <PlayButton
+              style={styles.playButtonOverlay}
               ref={(ref) => {
                 this.playButton = ref;
               }}
