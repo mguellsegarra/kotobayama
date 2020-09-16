@@ -3,6 +3,7 @@ import {View} from 'react-native';
 import {observer, inject} from 'mobx-react';
 
 import {styles} from './levelMap.style';
+const gameConfig = require('@assets/gameConfig');
 
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
@@ -11,6 +12,7 @@ import {Images} from '@res/R';
 import {strings} from '@library/services/i18nService';
 
 import LevelService from '@library/services/levelService';
+import delayPromise from '@library/utils/delayPromise';
 
 import Navbar from '@library/components/map/navbar';
 import MapLayer from '@library/components/map/mapLayer';
@@ -23,12 +25,14 @@ import MapTypeButton from '@library/components/map/mapTypeButton';
 import LevelCompletedBanner from '@library/components/map/levelCompletedBanner';
 import PlayButton from '@library/components/map/playButton';
 import LoadingView from '@library/components/common/loadingView';
+import Popup from '@library/components/common/popup';
 
 import {
   getFirstIncompleteLevel,
   getProgressForPack,
   getLevelProgress,
 } from '@library/helpers/levelHelper';
+import {checkIfEnoughCoins} from '@library/helpers/coinHelper';
 
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
@@ -36,6 +40,8 @@ import UserStore from '@library/mobx/userStore';
 
 type State = {
   mapNavigationMode: boolean;
+  showPopup: boolean;
+  popupAmount: number;
 };
 
 type Props = {
@@ -64,6 +70,7 @@ export default class LevelMap extends Component<Props, State> {
   closeMapButton: any;
   levelCompletedBanner: any;
   loadingView: any;
+  popup: any;
 
   constructor(props: Props) {
     super(props);
@@ -74,6 +81,10 @@ export default class LevelMap extends Component<Props, State> {
     this.handleAnimsForMapNavigationMode = this.handleAnimsForMapNavigationMode.bind(
       this,
     );
+    this.popupConfirm = this.popupConfirm.bind(this);
+    this.popupCancel = this.popupCancel.bind(this);
+    this.restoreLives = this.restoreLives.bind(this);
+    this.showPopup = this.showPopup.bind(this);
 
     const {packId} = this.props.route.params;
     this.packId = packId;
@@ -90,6 +101,8 @@ export default class LevelMap extends Component<Props, State> {
 
     this.state = {
       mapNavigationMode: false,
+      showPopup: false,
+      popupAmount: 0,
     };
   }
 
@@ -162,6 +175,42 @@ export default class LevelMap extends Component<Props, State> {
 
   getCurrentLevel() {
     return this.props.levelMapStore.currentLevelForPack.get(this.packId)!;
+  }
+
+  showPopup() {
+    const {userStore} = this.props;
+
+    if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
+      // TODO: PENDING SHOW BUY COINS
+      return;
+    }
+
+    this.setState({
+      showPopup: true,
+      popupAmount: this.playButton.calculatePrice(),
+    });
+    this.popup.animate('fadeIn', 300);
+  }
+
+  restoreLives() {
+    const level = this.levels[
+      this.props.levelMapStore.currentLevelForPack.get(this.packId)!
+    ];
+
+    this.props.userStore?.decrementCoins(this.playButton.calculatePrice());
+    this.props.levelProgressStore?.unsetLevelCooldown(level.id, this.packId);
+  }
+
+  async popupConfirm() {
+    this.setState({showPopup: false});
+    this.popup.animate('fadeOut', 300);
+    await delayPromise(300);
+    this.restoreLives();
+  }
+
+  popupCancel() {
+    this.setState({showPopup: false});
+    this.popup.animate('fadeOut', 300);
   }
 
   render() {
@@ -242,6 +291,7 @@ export default class LevelMap extends Component<Props, State> {
               levels={this.levels}
               currentLevel={this.getCurrentLevel()}
               packId={this.packId}
+              restoreLives={this.showPopup}
             />
           )}
 
@@ -288,6 +338,19 @@ export default class LevelMap extends Component<Props, State> {
           }}
           devMode={__DEV__}
           image={Images.mountain_bg}
+        />
+
+        <Popup
+          title={strings('restoreLives')}
+          pointerEvents={this.state.showPopup ? 'auto' : 'none'}
+          animatedRef={(ref: any) => {
+            this.popup = ref;
+          }}
+          mode={'buyLives'}
+          amount={this.state.popupAmount}
+          showCancelButton={true}
+          onConfirm={this.popupConfirm}
+          onCancel={this.popupCancel}
         />
       </View>
     );

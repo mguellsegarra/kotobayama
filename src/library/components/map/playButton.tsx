@@ -32,6 +32,7 @@ type Props = {
   pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
   levelProgressStore?: LevelProgressStore;
   userStore?: UserStore;
+  restoreLives: Function;
 };
 
 type State = {
@@ -88,18 +89,6 @@ export default class PlayButton extends Component<Props, State> {
 
   noLivesButton(timestamp: number) {
     const level = this.props.levels[this.props.currentLevel];
-    const noLivesAction = () => {
-      if (this.props.userStore?.coins! < gameConfig.freeCooldownPrice) {
-        // TODO: Show no coins
-        return;
-      }
-
-      this.props.userStore?.decrementCoins(gameConfig.freeCooldownPrice);
-      this.props.levelProgressStore?.unsetLevelCooldown(
-        level.id,
-        this.props.packId,
-      );
-    };
 
     return (
       <View style={styles.countdownContainer}>
@@ -129,7 +118,7 @@ export default class PlayButton extends Component<Props, State> {
         </View>
         <View style={styles.countdownBottom}>
           <RestoreLivesButton
-            onPress={noLivesAction}
+            onPress={this.props.restoreLives}
             price={this.calculatePrice()}
           />
         </View>
