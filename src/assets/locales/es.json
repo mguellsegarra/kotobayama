@@ -21,5 +21,8 @@
   "cancel": "Cancelar",
   "ok": "De acuerdo",
   "noMoreLettersToDestroy": "No hay más letras inválidas para destruir",
-  "costDescription": "Te va a costar"
+  "costDescription": "Te va a costar",
+  "shop": "Tienda",
+  "shopPopular": "Popular",
+  "shopBestOption": "Mejor opción"
 }

@@ -21,5 +21,8 @@
   "cancel": "Cancel·lar",
   "ok": "D'acord",
   "noMoreLettersToDestroy": "No hi ha més lletres invàlides per destruïr",
-  "costDescription": "Et costarà"
+  "costDescription": "Et costarà",
+  "shop": "Botiga",
+  "shopPopular": "Popular",
+  "shopBestOption": "Millor opció"
 }

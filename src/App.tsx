@@ -11,6 +11,7 @@ import Home from '@screens/home/home';
 import Game from '@screens/game/game';
 import LevelComplete from '@screens/game/levelComplete';
 import NoLives from '@screens/game/noLives';
+import AddCoins from '@screens/game/addCoins';
 
 import stores from '@library/mobx/store';
 
@@ -60,6 +61,7 @@ export default class App extends Component {
             <Stack.Screen name="Game" component={Game} />
             <Stack.Screen name="LevelComplete" component={LevelComplete} />
             <Stack.Screen name="NoLives" component={NoLives} />
+            <Stack.Screen name="AddCoins" component={AddCoins} />
           </Stack.Navigator>
         </NavigationContainer>
       </Provider>
