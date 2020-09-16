@@ -8,12 +8,15 @@ import RectButton, {
 } from '@library/components/button/rectButton';
 import RestoreLivesButton from '@library/components/button/restoreLivesButton';
 const gameConfig = require('@assets/gameConfig');
-import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
 
+import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
+import Popup from '@library/components/common/popup';
 import {observer, inject} from 'mobx-react';
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
+import {checkIfEnoughCoins} from '@library/helpers/coinHelper';
+import delayPromise from '@library/utils/delayPromise';
 
 type Props = {
   navigation: any;
@@ -23,18 +26,59 @@ type Props = {
   levelMapStore: LevelMapStore;
 };
 
+type State = {
+  showPopup: boolean;
+};
+
 @inject('levelProgressStore')
 @inject('userStore')
 @inject('levelMapStore')
 @observer
-export default class NoLives extends Component<Props> {
+export default class NoLives extends Component<Props, State> {
+  popup: any;
+
   constructor(props: Props) {
     super(props);
+    this.restoreLives = this.restoreLives.bind(this);
+    this.showPopup = this.showPopup.bind(this);
+    this.popupConfirm = this.popupConfirm.bind(this);
+    this.popupCancel = this.popupCancel.bind(this);
+    this.state = {showPopup: false};
+  }
+
+  showPopup() {
+    const {userStore} = this.props;
+
+    if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
+      // TODO: PENDING SHOW BUY COINS
+      return;
+    }
+
+    this.setState({showPopup: true});
+    this.popup.animate('fadeIn', 300);
+  }
+
+  restoreLives() {
+    const {level, pack} = this.props.route.params;
+
+    this.props.userStore?.decrementCoins(gameConfig.freeCooldownPrice);
+    this.props.levelProgressStore?.unsetLevelCooldown(level.id, pack.id);
+    this.props.navigation.goBack();
+  }
+
+  async popupConfirm() {
+    this.setState({showPopup: false});
+    this.popup.animate('fadeOut', 300);
+    await delayPromise(300);
+    this.restoreLives();
+  }
+
+  popupCancel() {
+    this.setState({showPopup: false});
+    this.popup.animate('fadeOut', 300);
   }
 
   render() {
-    const {level, pack} = this.props.route.params;
-
     return (
       <View style={styles.background}>
         <View style={styles.top}></View>
@@ -57,23 +101,7 @@ export default class NoLives extends Component<Props> {
             style={styles.containerImage}>
             <View style={styles.containerButtonTop}>
               <RestoreLivesButton
-                onPress={() => {
-                  if (
-                    this.props.userStore?.coins! < gameConfig.freeCooldownPrice
-                  ) {
-                    // TODO: Show no coins
-                    return;
-                  }
-
-                  this.props.userStore?.decrementCoins(
-                    gameConfig.freeCooldownPrice,
-                  );
-                  this.props.levelProgressStore?.unsetLevelCooldown(
-                    level.id,
-                    pack.id,
-                  );
-                  this.props.navigation.goBack();
-                }}
+                onPress={this.showPopup}
                 price={gameConfig.freeCooldownPrice}
               />
             </View>
@@ -94,6 +122,18 @@ export default class NoLives extends Component<Props> {
           </ImageBackground>
         </View>
         <View style={styles.bottom}></View>
+        <Popup
+          title={strings('restoreLives')}
+          pointerEvents={this.state.showPopup ? 'auto' : 'none'}
+          animatedRef={(ref: any) => {
+            this.popup = ref;
+          }}
+          mode={'buyLives'}
+          amount={gameConfig.freeCooldownPrice}
+          showCancelButton={true}
+          onConfirm={this.popupConfirm}
+          onCancel={this.popupCancel}
+        />
       </View>
     );
   }

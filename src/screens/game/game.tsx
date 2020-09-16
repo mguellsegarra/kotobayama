@@ -174,8 +174,8 @@ export default class Game extends Component<Props, State> {
 
   onSolveLetterPress() {
     const {userStore} = this.props;
-    if (checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
-      // PENDING SHOW BUY COINS
+    if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
+      // TODO: PENDING SHOW BUY COINS
       return;
     }
 
@@ -190,9 +190,9 @@ export default class Game extends Component<Props, State> {
   onDestroyLettersPress() {
     const {userStore} = this.props;
     if (
-      checkIfEnoughCoins({userStore, amount: gameConfig.priceDestroyLetters})
+      !checkIfEnoughCoins({userStore, amount: gameConfig.priceDestroyLetters})
     ) {
-      // PENDING SHOW BUY COINS
+      // TODO: PENDING SHOW BUY COINS
       return;
     }
 
