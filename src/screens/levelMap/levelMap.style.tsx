@@ -1,11 +1,7 @@
 import {StyleSheet} from 'react-native';
-import {
-  isTablet,
-  isIosAndNotch,
-  wp,
-  hp,
-} from '@library/services/deviceService';
+import {isTablet, isIosAndNotch, wp, hp} from '@library/services/deviceService';
 import {titleBannerOptions} from '@library/components/map/mapTitleBanner';
+import {defaultButtonSize} from '@library/components/button/rectButton';
 
 const getStyles: any = () => {
   const bottomHeight = hp('35%');
@@ -55,11 +51,14 @@ const getStyles: any = () => {
       position: 'absolute',
       marginBottom: bottomHeight + playButtonOverlayBottomMargin,
       bottom: 0,
+      width: defaultButtonSize.width,
     },
     closeMapButtonOverlay: {
       position: 'absolute',
       marginBottom: hp('5%'),
       bottom: 0,
+      width: defaultButtonSize.width,
+      height: defaultButtonSize.height,
     },
     titleOverlay: {
       position: 'absolute',
@@ -72,7 +71,6 @@ const getStyles: any = () => {
       marginBottom: bottomHeight + playButtonOverlayBottomMargin,
       bottom: 0,
     },
-
   });
 };
 

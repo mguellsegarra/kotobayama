@@ -1,10 +1,5 @@
 import React, {Component} from 'react';
-import {
-  ImageBackground,
-  Text,
-  ViewStyle,
-  TextStyle,
-} from 'react-native';
+import {ImageBackground, Text, ViewStyle, StyleSheet} from 'react-native';
 import {View} from 'react-native-animatable';
 
 // @ts-ignore
@@ -17,8 +12,6 @@ type Props = {
   text?: string;
   onPress?: Function;
   type: RectButtonEnum;
-  imageStyle?: ViewStyle;
-  textStyle?: TextStyle;
   style?: ViewStyle;
   delay?: number;
   pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
@@ -69,17 +62,11 @@ const rectButtonTypes = new Map<string, RectButtonType>([
 ]);
 
 const buttonRatioConstant = 0.3525;
-const buttonShadowBottomConstant = 0.063063063063063;
+const buttonWidth = isTablet() ? wp('30%') : wp('42%');
 
 export const defaultButtonSize = {
-  width: isTablet() ? wp('30%') : wp('42%'),
-  height: isTablet()
-    ? wp('30%') * buttonRatioConstant
-    : wp('42%') * buttonRatioConstant,
-  marginBottom:
-    (isTablet()
-      ? wp('30%') * buttonRatioConstant
-      : wp('42%') * buttonRatioConstant) * buttonShadowBottomConstant,
+  width: buttonWidth,
+  height: buttonWidth * buttonRatioConstant,
 };
 
 export default class RectButton extends Component<Props> {
@@ -101,63 +88,70 @@ export default class RectButton extends Component<Props> {
       rectButtonTypes.get(this.props.type) ||
       rectButtonTypes.get(RectButtonEnum.Yellow);
 
-    const buttonTextFontSize = hp('3%');
-
-    const defaultImageStyle: ViewStyle = {
-      flex: 1,
-      flexDirection: 'column',
-      width: defaultButtonSize.width,
-      justifyContent: 'center',
-      alignItems: 'center',
-    };
-
-    let viewStyle = Object.assign({}, this.props.style);
-    const width: number = this.props.style?.width as number;
-    viewStyle.width = width | defaultButtonSize.width;
-    viewStyle.height = viewStyle.width * buttonRatioConstant;
-    const buttonTextMarginBottom =
-      viewStyle.height * buttonShadowBottomConstant;
+    const rootViewStyle = this.props.style?.width
+      ? {
+          width: this.props.style?.width || defaultButtonSize.width,
+          height: this.props.style?.height || defaultButtonSize.height,
+        }
+      : styles.viewStyle;
 
     return (
-      <View
-        useNativeDriver={!isAndroid}
-        ref={(ref) => {
-          this.containerView = ref;
-        }}
-        pointerEvents={this.props.pointerEvents}
-        style={Object.assign({opacity: this.props.visible ? 1 : 0}, viewStyle)}>
-        <TouchableScale
-          style={Object.assign(defaultImageStyle, this.props.imageStyle)}
-          onPress={() => {
-            setTimeout(this.props.onPress, this.props.delay);
-          }}>
-          <ImageBackground
-            resizeMode="contain"
-            source={R.img(rectButtonConfig!.image)}
-            style={Object.assign(defaultImageStyle, this.props.imageStyle)}>
-            {this.props.text ? (
-              <Text
-                numberOfLines={1}
-                adjustsFontSizeToFit
-                style={{
-                  ...this.props.textStyle,
-                  ...{
-                    marginLeft: '10%',
-                    marginRight: '10%',
-                    marginBottom: buttonTextMarginBottom,
-                    fontFamily: Fonts.lilita,
-                    fontSize: buttonTextFontSize,
-                    color: rectButtonConfig!.textColor,
-                  },
-                }}>
-                {this.props.text}
-              </Text>
-            ) : (
-              this.props.children
-            )}
-          </ImageBackground>
-        </TouchableScale>
+      <View style={[rootViewStyle as any, this.props.style]}>
+        <View
+          useNativeDriver={!isAndroid}
+          ref={(ref) => {
+            this.containerView = ref;
+          }}
+          pointerEvents={this.props.pointerEvents}
+          style={[
+            styles.viewStyle,
+            {
+              opacity: this.props.visible ? 1 : 0,
+            },
+          ]}>
+          <TouchableScale
+            style={styles.viewStyle}
+            onPress={() => {
+              setTimeout(this.props.onPress, this.props.delay);
+            }}>
+            <ImageBackground
+              resizeMode="contain"
+              source={R.img(rectButtonConfig!.image)}
+              style={styles.viewStyle}>
+              {this.props.text ? (
+                <Text
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  style={[
+                    styles.text,
+                    {
+                      color: rectButtonConfig!.textColor,
+                    },
+                  ]}>
+                  {this.props.text}
+                </Text>
+              ) : (
+                this.props.children
+              )}
+            </ImageBackground>
+          </TouchableScale>
+        </View>
       </View>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  viewStyle: {
+    flex: 1,
+    width: '100%',
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  text: {
+    marginBottom: '2%',
+    fontFamily: Fonts.lilita,
+    fontSize: hp('3%'),
+  },
+});

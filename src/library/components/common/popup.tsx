@@ -87,6 +87,7 @@ export default class Popup extends Component<Props> {
               </View>
               <View style={styles.confirm}>
                 <RectButton
+                  style={styles.button}
                   type={RectButtonEnum.Green}
                   text={this.props.confirmLabel}
                   onPress={() => {
@@ -98,6 +99,7 @@ export default class Popup extends Component<Props> {
               {this.props.showCancelButton ? (
                 <View style={styles.cancel}>
                   <RectButton
+                    style={styles.button}
                     type={RectButtonEnum.Yellow}
                     text={strings('cancel')}
                     onPress={this.props.onCancel}

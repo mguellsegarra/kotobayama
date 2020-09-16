@@ -107,6 +107,7 @@ export default class NoLives extends Component<Props, State> {
             </View>
 
             <RectButtonWatchAdd
+              style={styles.watchAdButton}
               text={strings('watchVideo')}
               onPress={() => {}}
             />

@@ -1,5 +1,6 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '@res/R';
+import {defaultButtonSize} from '@library/components/button/rectButton';
 
 import {
   wp,
@@ -142,6 +143,10 @@ const getStyles: any = () => {
       color: '#ffffff88',
       fontSize: isTablet() ? hp('2%') : hp('2.5%'),
     },
+    button: {
+      width: defaultButtonSize.width,
+      height: defaultButtonSize.height
+    }
   });
 };
 

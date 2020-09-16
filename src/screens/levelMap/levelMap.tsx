@@ -245,7 +245,9 @@ export default class LevelMap extends Component<Props, State> {
             }}
             totalCoins={this.props.userStore.coins}
             onBack={() => {}}
-            onCoinTap={() => {}}
+            onCoinTap={() => {
+              this.props.navigation.navigate('AddCoins');
+            }}
             pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
           />
 

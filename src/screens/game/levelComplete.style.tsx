@@ -1,7 +1,14 @@
 import {StyleSheet} from 'react-native';
 import {Fonts, Colors} from '@res/R';
 
-import {isAndroid, isTablet, isIosAndNotch, wp, hp} from '@library/services/deviceService';
+import {
+  isAndroid,
+  isTablet,
+  isIosAndNotch,
+  wp,
+  hp,
+} from '@library/services/deviceService';
+import {defaultButtonSize} from '@library/components/button/rectButton';
 
 const getStyles: any = () => {
   const photoFrameConstant = 0.626373626373626;
@@ -249,6 +256,8 @@ const getStyles: any = () => {
     },
     buttonLeft: {
       marginRight: wp('1%'),
+      width: defaultButtonSize.width * 0.99,
+      height: defaultButtonSize.height * 0.99,
     },
     buttonRight: {
       marginLeft: wp('1%'),

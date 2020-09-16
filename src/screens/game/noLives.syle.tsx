@@ -1,5 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '@res/R';
+import {defaultButtonSize} from '@library/components/button/rectButton';
+import {watchAddConstant} from '@library/components/button/rectButtonWatchAd';
 
 import {isAndroid, isTablet, wp, hp} from '@library/services/deviceService';
 
@@ -53,9 +55,17 @@ const getStyles: any = () => {
     },
     containerButtonTop: {
       marginBottom: '5%',
+      width: defaultButtonSize.width,
+      height: defaultButtonSize.height,
     },
     containerButtonBottom: {
       marginTop: '10%',
+      width: defaultButtonSize.width,
+      height: defaultButtonSize.height,
+    },
+    watchAdButton: {
+      width: defaultButtonSize.width,
+      height: defaultButtonSize.height,
     },
     bottom: {
       width: wp('100%'),

@@ -62,6 +62,7 @@ export default class PlayButton extends Component<Props, State> {
     return (
       <RectButton
         type={RectButtonEnum.Yellow}
+        style={styles.playButton}
         text={strings('play')}
         onPress={() => {
           this.props.navigation.navigate('Game', {
@@ -148,9 +149,11 @@ export default class PlayButton extends Component<Props, State> {
           this.containerView = ref;
         }}
         pointerEvents={this.props.pointerEvents}>
-        {lives === 0 && levelProgress?.emptyLivesTimestamp! !== null
-          ? this.noLivesButton(levelProgress?.emptyLivesTimestamp!)
-          : this.playButton()}
+        <View style={styles.container}>
+          {lives === 0 && levelProgress?.emptyLivesTimestamp! !== null
+            ? this.noLivesButton(levelProgress?.emptyLivesTimestamp!)
+            : this.playButton()}
+        </View>
         <View key={levelProgress?.lives} />
       </View>
     );
@@ -160,6 +163,12 @@ export default class PlayButton extends Component<Props, State> {
 const stopWatchConstant = 1.276595744680851;
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   countdownContainer: {
     height: defaultButtonSize.height * 1.8,
     width: defaultButtonSize.width,
@@ -203,5 +212,8 @@ const styles = StyleSheet.create({
   countdownBottom: {
     height: defaultButtonSize.height,
     width: defaultButtonSize.width,
+  },
+  playButton: {
+    height: defaultButtonSize.height,
   },
 });

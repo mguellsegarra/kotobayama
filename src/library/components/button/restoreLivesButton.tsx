@@ -53,8 +53,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
     marginTop: defaultButtonSize.height * 0.05,
-    marginBottom:
-      defaultButtonSize.marginBottom + defaultButtonSize.height * 0.08,
+    marginBottom: '6%',
   },
   countdownButtonUpperView: {
     flex: 2.5,
