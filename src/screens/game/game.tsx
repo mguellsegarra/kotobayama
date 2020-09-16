@@ -7,6 +7,7 @@ import {Pack} from '@library/models/pack';
 
 import {Colors} from '@res/R';
 import {styles} from './game.style';
+const gameConfig = require('@assets/gameConfig');
 
 import NoNotchView from '@library/components/common/noNotchView';
 import Navbar from '@library/components/game/navbar';
@@ -31,6 +32,7 @@ import {
   handleAvailableLetterHasTapped,
   handleSolutionLetterHasTapped,
 } from '@library/helpers/gameHelper';
+import {checkIfEnoughCoins} from '@library/helpers/coinHelper';
 
 import {
   handleOnAskFriendPress,
@@ -42,6 +44,7 @@ import LevelProgressStore from '@library/mobx/levelProgressStore';
 import UserStore from '@library/mobx/userStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import {strings} from '@library/services/i18nService';
+import delayPromise from '@library/utils/delayPromise';
 
 type Props = {
   navigation: any;
@@ -52,6 +55,11 @@ type Props = {
 };
 type State = {
   showPopup: boolean;
+  popupTitle: string;
+  popupDescription: string | undefined;
+  popupAmount: number | undefined;
+  popupShowCancelButton: boolean;
+  popupMode: string;
 };
 
 @inject('levelProgressStore')
@@ -68,9 +76,16 @@ export default class Game extends Component<Props, State> {
   lettersBar: LettersBarElement | LettersBar | null;
   livesIndicator: LivesIndicator | null;
   mapLayer: any;
-  confirmPopup: any;
+  popup: any;
 
-  state = {showPopup: false};
+  state = {
+    showPopup: false,
+    popupTitle: '',
+    popupDescription: '',
+    popupAmount: 0,
+    popupShowCancelButton: false,
+    popupMode: '',
+  };
 
   constructor(props: Props) {
     super(props);
@@ -157,7 +172,83 @@ export default class Game extends Component<Props, State> {
     ).levelProgress;
   }
 
-  async onSolveLetterPress() {
+  onSolveLetterPress() {
+    const {userStore} = this.props;
+    if (checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
+      // PENDING SHOW BUY COINS
+      return;
+    }
+
+    this.showPopup({
+      popupTitle: strings('solveLetter'),
+      popupAmount: gameConfig.priceSolveLetter,
+      popupShowCancelButton: true,
+      popupMode: 'solveLetter',
+    });
+  }
+
+  onDestroyLettersPress() {
+    const {userStore} = this.props;
+    if (
+      checkIfEnoughCoins({userStore, amount: gameConfig.priceDestroyLetters})
+    ) {
+      // PENDING SHOW BUY COINS
+      return;
+    }
+
+    if (!this.lettersBar?.existsWrongLettersNotBought()) {
+      this.showPopup({
+        popupTitle: strings('destroyLetters'),
+        popupDescription: strings('noMoreLettersToDestroy'),
+        popupShowCancelButton: false,
+        popupMode: 'existsWrongLettersNotBought',
+      });
+      return;
+    }
+
+    this.showPopup({
+      popupTitle: strings('destroyLetters'),
+      popupAmount: gameConfig.priceDestroyLetters,
+      popupShowCancelButton: true,
+      popupMode: 'destroyLetters',
+    });
+  }
+
+  async onAskFriendPress() {
+    handleOnAskFriendPress();
+  }
+
+  showPopup({
+    popupTitle,
+    popupDescription,
+    popupAmount,
+    popupShowCancelButton,
+    popupMode,
+  }: {
+    popupTitle: string;
+    popupDescription?: string;
+    popupAmount?: number;
+    popupShowCancelButton: boolean;
+    popupMode: string;
+  }) {
+    this.setState({
+      ...this.state,
+      showPopup: true,
+      popupTitle,
+      popupDescription,
+      popupAmount,
+      popupShowCancelButton,
+      popupMode,
+    });
+    this.popup.animate('fadeIn', 300);
+  }
+
+  hidePopup() {
+    this.setState({...this.state, showPopup: false});
+    this.popup.animate('fadeOut', 300);
+  }
+
+  async popupConfirm(mode: string) {
     const {
       solutionBar,
       lettersBar,
@@ -169,45 +260,37 @@ export default class Game extends Component<Props, State> {
     } = this;
     const {levelProgressStore, userStore} = this.props;
 
-    // FIXME: TODO:
-    this.showPopup();
-    return;
-    // FIXME: TODO:
-    handleOnSolveLetterPress({
-      solutionBar,
-      lettersBar,
-      level,
-      pack,
-      levelProgressStore,
-      userStore,
-      livesIndicator,
-      onLevelComplete,
-      onNoLives,
-    });
+    switch (mode) {
+      case 'solveLetter': {
+        this.hidePopup();
+        await delayPromise(500);
+        handleOnSolveLetterPress({
+          solutionBar,
+          lettersBar,
+          level,
+          pack,
+          levelProgressStore,
+          userStore,
+          livesIndicator,
+          onLevelComplete,
+          onNoLives,
+        });
+
+        break;
+      }
+      case 'destroyLetters': {
+        this.hidePopup();
+        await delayPromise(500);
+        handleOnDestroyLettersPress({solutionBar, lettersBar, userStore});
+        break;
+      }
+
+      default: {
+        this.hidePopup();
+        break;
+      }
+    }
   }
-
-  async onDestroyLettersPress() {
-    const {solutionBar, lettersBar} = this;
-    const {userStore} = this.props;
-
-    handleOnDestroyLettersPress({solutionBar, lettersBar, userStore});
-  }
-
-  async onAskFriendPress() {
-    handleOnAskFriendPress();
-  }
-
-  showPopup() {
-    this.setState({...this.state, showPopup: true});
-    this.confirmPopup.animate('fadeIn', 300);
-  }
-
-  hidePopup() {
-    this.setState({...this.state, showPopup: false});
-    this.confirmPopup.animate('fadeOut', 300);
-  }
-
-  popupConfirm() {}
 
   popupCancel() {
     this.hidePopup();
@@ -270,13 +353,15 @@ export default class Game extends Component<Props, State> {
           />
         </NoNotchView>
         <Popup
-          title={strings('usePowerup')}
+          title={this.state.popupTitle}
           pointerEvents={this.state.showPopup ? 'auto' : 'none'}
           animatedRef={(ref: any) => {
-            this.confirmPopup = ref;
+            this.popup = ref;
           }}
-          amount={500}
-          showCancelButton
+          description={this.state.popupDescription}
+          mode={this.state.popupMode}
+          amount={this.state.popupAmount}
+          showCancelButton={this.state.popupShowCancelButton}
           onConfirm={this.popupConfirm}
           onCancel={this.popupCancel}
         />

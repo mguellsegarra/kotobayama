@@ -104,7 +104,6 @@ const getStyles: any = () => {
       height: isTablet() ? wp('3%') : wp('4%'),
     },
     coinPairText: {
-      // flex: 3,
       textAlign: 'left',
       fontFamily: Fonts.alata,
       color: 'white',
@@ -113,17 +112,33 @@ const getStyles: any = () => {
     },
     confirm: {
       flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     cancel: {
       flex: 1,
     },
-    descriptionTextContainer: {
+    amountTextContainer: {
       flex: 1,
       alignItems: 'center',
       justifyContent: 'flex-end',
     },
-    descriptionText: {
+    amountText: {
       fontFamily: Fonts.alata,
+      textAlign: 'center',
+      color: '#ffffff88',
+      fontSize: isTablet() ? hp('2%') : hp('2.5%'),
+    },
+    descriptionTextContainer: {
+      flex: 1,
+      flexDirection: 'row',
+      alignItems: 'center',
+      justifyContent: 'center',
+    },
+    descriptionText: {
+      width: '50%',
+      fontFamily: Fonts.alata,
+      textAlign: 'center',
       color: '#ffffff88',
       fontSize: isTablet() ? hp('2%') : hp('2.5%'),
     },

@@ -20,5 +20,6 @@
   "confirm": "Confirmar",
   "cancel": "Cancelar",
   "ok": "De acuerdo",
-  "usePowerup": "Utiliza una pista"
+  "noMoreLettersToDestroy": "No hay más letras inválidas para destruir",
+  "costDescription": "Te va a costar"
 }

@@ -18,6 +18,7 @@ type Props = {
   confirmLabel?: string;
   onConfirm: Function;
   onCancel?: Function;
+  mode: string;
 };
 
 export default class Popup extends Component<Props> {
@@ -55,9 +56,21 @@ export default class Popup extends Component<Props> {
             style={styles.containerImage}>
             <View style={styles.containerImageWrap}>
               <View style={styles.description}>
-                <View style={styles.descriptionTextContainer}>
-                  <Text style={styles.descriptionText}>Et costarà:</Text>
-                </View>
+                {this.props.amount ? (
+                  <View style={styles.amountTextContainer}>
+                    <Text style={styles.amountText}>
+                      {strings('costDescription')}:
+                    </Text>
+                  </View>
+                ) : null}
+
+                {this.props.description ? (
+                  <View style={styles.descriptionTextContainer}>
+                    <Text style={styles.descriptionText}>
+                      {this.props.description}
+                    </Text>
+                  </View>
+                ) : null}
 
                 {this.props.amount ? (
                   <View style={styles.coinPair}>
@@ -76,7 +89,9 @@ export default class Popup extends Component<Props> {
                 <RectButton
                   type={RectButtonEnum.Green}
                   text={this.props.confirmLabel}
-                  onPress={this.props.onConfirm}
+                  onPress={() => {
+                    this.props.onConfirm(this.props.mode);
+                  }}
                 />
               </View>
 

@@ -183,19 +183,10 @@ export default class LettersBar extends Component<Props, State> {
         availableLetters.splice(idx, 1);
       });
 
-    if (availableLetters.length > 3) {
-      availableLetters
-        .slice(0, availableLetters.length / 2)
-        .forEach((letter) => {
-          this.setLetterState(letter.id, AvailableLetterState.Bought);
-        });
-      this.updateStore();
-    } else {
-      availableLetters.forEach((letter) => {
-        this.setLetterState(letter.id, AvailableLetterState.Bought);
-      });
-      this.updateStore();
-    }
+    availableLetters.forEach((letter) => {
+      this.setLetterState(letter.id, AvailableLetterState.Bought);
+    });
+    this.updateStore();
   }
 
   existsWrongLettersNotBought() {

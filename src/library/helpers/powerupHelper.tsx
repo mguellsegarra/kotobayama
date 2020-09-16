@@ -43,11 +43,6 @@ export const handleOnSolveLetterPress = async ({
   onNoLives: Function;
   livesIndicator: LivesIndicator | null;
 }) => {
-  if (userStore.coins < gameConfig.priceSolveLetter) {
-    // TODO: Show no coins
-    return;
-  }
-
   if (solutionBar?.allLettersAreFull()) {
     return;
   }
@@ -100,21 +95,12 @@ export const handleOnDestroyLettersPress = async ({
   lettersBar: LettersBarElement | LettersBar | null;
   userStore: UserStore;
 }) => {
-  if (userStore.coins < gameConfig.priceDestroyLetters) {
-    // TODO: Show no coins
-    return;
-  }
-
   if (solutionBar?.allLettersAreFull()) {
     return;
   }
 
   await solutionBar?.removeAllLetters();
   await lettersBar?.restoreNonBoughtLetters();
-
-  if (!lettersBar?.existsWrongLettersNotBought()) {
-    return;
-  }
 
   await delayPromise(50);
 
