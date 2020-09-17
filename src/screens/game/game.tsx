@@ -173,12 +173,6 @@ export default class Game extends Component<Props, State> {
   }
 
   onSolveLetterPress() {
-    const {userStore} = this.props;
-    if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
-      // TODO: PENDING SHOW BUY COINS
-      return;
-    }
-
     this.showPopup({
       popupTitle: strings('solveLetter'),
       popupAmount: gameConfig.priceSolveLetter,
@@ -188,14 +182,6 @@ export default class Game extends Component<Props, State> {
   }
 
   onDestroyLettersPress() {
-    const {userStore} = this.props;
-    if (
-      !checkIfEnoughCoins({userStore, amount: gameConfig.priceDestroyLetters})
-    ) {
-      // TODO: PENDING SHOW BUY COINS
-      return;
-    }
-
     if (!this.lettersBar?.existsWrongLettersNotBought()) {
       this.showPopup({
         popupTitle: strings('destroyLetters'),
@@ -262,6 +248,18 @@ export default class Game extends Component<Props, State> {
 
     switch (mode) {
       case 'solveLetter': {
+        const {userStore} = this.props;
+
+        if (
+          !checkIfEnoughCoins({
+            userStore,
+            amount: gameConfig.priceDestroyLetters,
+          })
+        ) {
+          this.props.navigation.navigate('AddCoins', {noCoins: true});
+          return;
+        }
+
         this.hidePopup();
         await delayPromise(500);
         handleOnSolveLetterPress({
@@ -279,6 +277,18 @@ export default class Game extends Component<Props, State> {
         break;
       }
       case 'destroyLetters': {
+        const {userStore} = this.props;
+
+        if (
+          !checkIfEnoughCoins({
+            userStore,
+            amount: gameConfig.priceDestroyLetters,
+          })
+        ) {
+          this.props.navigation.navigate('AddCoins', {noCoins: true});
+          return;
+        }
+
         this.hidePopup();
         await delayPromise(500);
         handleOnDestroyLettersPress({solutionBar, lettersBar, userStore});

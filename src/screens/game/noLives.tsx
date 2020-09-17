@@ -50,7 +50,7 @@ export default class NoLives extends Component<Props, State> {
     const {userStore} = this.props;
 
     if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
-      // TODO: PENDING SHOW BUY COINS
+      this.props.navigation.navigate('AddCoins', {noCoins: true});
       return;
     }
 

@@ -1,6 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Fonts, Colors} from '@res/R';
-import {watchAddConstant} from '@library/components/button/rectButtonWatchAd';
+import {Fonts, } from '@res/R';
 
 import {
   isAndroid,
@@ -12,8 +11,6 @@ import {
 
 const getStyles: any = () => {
   const containerK = 1.780913978494624;
-  // const containerWidth = wp('80%');
-  // const containerHeight = containerWidth * containerK;
   const containerHeight = hp('68%');
   const containerWidth = containerHeight / containerK;
 

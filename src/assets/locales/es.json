@@ -26,5 +26,6 @@
   "shopPopular": "Popular",
   "shopBestOption": "Mejor opción",
   "coins": "monedas",
-  "removeAds": "Eliminar publicidad"
+  "removeAds": "Eliminar publicidad",
+  "noCoins": "No tienes suficientes monedas"
 }

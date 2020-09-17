@@ -178,13 +178,6 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   showPopup() {
-    const {userStore} = this.props;
-
-    if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
-      // TODO: PENDING SHOW BUY COINS
-      return;
-    }
-
     this.setState({
       showPopup: true,
       popupAmount: this.playButton.calculatePrice(),
@@ -202,6 +195,13 @@ export default class LevelMap extends Component<Props, State> {
   }
 
   async popupConfirm() {
+    const {userStore} = this.props;
+
+    if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
+      this.props.navigation.navigate('AddCoins', {noCoins: true});
+      return;
+    }
+
     this.setState({showPopup: false});
     this.popup.animate('fadeOut', 300);
     await delayPromise(300);

@@ -26,5 +26,6 @@
   "shopPopular": "Popular",
   "shopBestOption": "Millor opció",
   "coins": "monedes",
-  "removeAds": "Eliminar publicitat"
+  "removeAds": "Eliminar publicitat",
+  "noCoins": "No tens prou monedes"
 }

@@ -1,11 +1,11 @@
 import UserStore from '@library/mobx/userStore';
 
-export const checkIfEnoughCoins = async ({
+export const checkIfEnoughCoins = ({
   userStore,
   amount,
 }: {
   userStore: UserStore;
   amount: number;
 }) => {
-  return userStore.coins < amount;
+  return userStore.coins >= amount;
 };

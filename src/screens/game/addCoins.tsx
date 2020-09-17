@@ -30,6 +30,8 @@ export default class AddCoins extends Component<Props> {
   }
 
   render() {
+    const {noCoins} = this.props.route.params;
+
     return (
       <View style={styles.background}>
         <View style={styles.top}></View>
@@ -40,7 +42,9 @@ export default class AddCoins extends Component<Props> {
               source={R.img(Images.popup_ribbon)}
               style={styles.ribbonImage}>
               <Text style={styles.ribbonText}>
-                {strings('shop').toUpperCase()}
+                {noCoins
+                  ? strings('noCoins').toUpperCase()
+                  : strings('shop').toUpperCase()}
               </Text>
             </ImageBackground>
           </View>
@@ -50,10 +54,19 @@ export default class AddCoins extends Component<Props> {
             resizeMode="contain"
             source={R.img(Images.popup_big)}
             style={styles.containerImage}>
-            <AddCoinsCell style={styles.cell} type={PurchasePacksType.WatchVideo} />
-            <AddCoinsCell style={styles.cell} type={PurchasePacksType.Tier1UnlockAds} />
+            <AddCoinsCell
+              style={styles.cell}
+              type={PurchasePacksType.WatchVideo}
+            />
+            <AddCoinsCell
+              style={styles.cell}
+              type={PurchasePacksType.Tier1UnlockAds}
+            />
             <AddCoinsCell style={styles.cell} type={PurchasePacksType.Tier2} />
-            <AddCoinsCell style={[styles.cell, styles.lastCell]} type={PurchasePacksType.Tier3} />
+            <AddCoinsCell
+              style={[styles.cell, styles.lastCell]}
+              type={PurchasePacksType.Tier3}
+            />
           </ImageBackground>
         </View>
         <View style={styles.bottom}>
