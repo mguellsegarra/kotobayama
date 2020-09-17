@@ -14,6 +14,7 @@ export enum Images {
   'button_blue' = 'button_blue',
   'button_green' = 'button_green',
   'button_red' = 'button_red',
+  'button_watch_ad' = 'button_watch_ad',
   'button_yellow' = 'button_yellow',
   'coin_pack1' = 'coin_pack1',
   'coin_pack2' = 'coin_pack2',

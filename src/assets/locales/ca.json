@@ -24,5 +24,7 @@
   "costDescription": "Et costarà",
   "shop": "Botiga",
   "shopPopular": "Popular",
-  "shopBestOption": "Millor opció"
+  "shopBestOption": "Millor opció",
+  "coins": "monedes",
+  "removeAds": "Eliminar publicitat"
 }

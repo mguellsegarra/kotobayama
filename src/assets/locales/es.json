@@ -24,5 +24,7 @@
   "costDescription": "Te va a costar",
   "shop": "Tienda",
   "shopPopular": "Popular",
-  "shopBestOption": "Mejor opción"
+  "shopBestOption": "Mejor opción",
+  "coins": "monedas",
+  "removeAds": "Eliminar publicidad"
 }

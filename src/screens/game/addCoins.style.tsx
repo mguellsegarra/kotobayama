@@ -16,8 +16,6 @@ const getStyles: any = () => {
   // const containerHeight = containerWidth * containerK;
   const containerHeight = hp('68%');
   const containerWidth = containerHeight / containerK;
-  const watchAddButtonWidth = wp('2%');
-  const watchAddButtonHeight = watchAddConstant * watchAddButtonWidth;
 
   return StyleSheet.create({
     background: {
@@ -91,21 +89,6 @@ const getStyles: any = () => {
     lastCell: {
       marginBottom: 0,
     },
-    cellLeft: {
-      flex: 1.5,
-      height: '100%',
-    },
-    cellLeftImage: {
-      height: '100%',
-      width: '100%',
-    },
-    cellRight: {
-      flex: 2,
-      height: '100%',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
     bottom: {
       width: wp('100%'),
       flex: 2,
@@ -114,46 +97,6 @@ const getStyles: any = () => {
     },
     bottomButton: {
       width: wp('40%'),
-    },
-    cellRightTop: {
-      flex: 1.5,
-      width: '100%',
-    },
-    cellRightTopImage: {
-      height: '100%',
-      width: '100%',
-      flexDirection: 'row',
-      alignItems: 'flex-start',
-      justifyContent: 'center',
-      marginTop: -4,
-    },
-    cellRightTopImageText: {
-      fontFamily: Fonts.alata,
-      fontSize: hp('1.5%'),
-      marginTop: hp('0.3%'),
-    },
-    cellRightTopImageTextRed: {
-      color: Colors.ribbonRedText,
-    },
-    cellRightTopImageTextBlue: {
-      color: Colors.ribbonBlueText,
-    },
-    cellRightMid: {
-      flex: 2,
-      width: '100%',
-      backgroundColor: 'red',
-    },
-    cellRightBottom: {
-      flex: 2,
-      width: '100%',
-      backgroundColor: 'pink',
-      flexDirection: 'column',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-    watchAddButtonText: {
-      fontSize: hp('2%'),
-      // width: watchAddButtonWidth,
     },
   });
 };

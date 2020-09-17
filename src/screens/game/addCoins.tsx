@@ -7,6 +7,10 @@ import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
 
+import AddCoinsCell, {
+  PurchasePacksType,
+} from '@library/components/addCoins/addCoinsCell';
+
 const gameConfig = require('@assets/gameConfig');
 
 import {observer, inject} from 'mobx-react';
@@ -46,76 +50,10 @@ export default class AddCoins extends Component<Props> {
             resizeMode="contain"
             source={R.img(Images.popup_big)}
             style={styles.containerImage}>
-            <View style={styles.cell}>
-              <View style={styles.cellLeft}>
-                <Image
-                  source={R.img(Images.coin_pack1)}
-                  resizeMode={'contain'}
-                  style={styles.cellLeftImage}
-                />
-              </View>
-              <View style={styles.cellRight}>
-                <View style={styles.cellRightTop}>
-                  <ImageBackground
-                    source={R.img(Images.ribbon_red_cell_coins)}
-                    resizeMode={'contain'}
-                    style={styles.cellRightTopImage}>
-                    <Text
-                      style={[
-                        styles.cellRightTopImageText,
-                        styles.cellRightTopImageTextRed,
-                      ]}>
-                      {strings('shopPopular').toUpperCase()}
-                    </Text>
-                  </ImageBackground>
-                </View>
-                <View style={styles.cellRightMid}></View>
-                <View style={styles.cellRightBottom}>
-                  <RectButton
-                    type={RectButtonEnum.Yellow}
-                    text={strings('watchVideo')}
-                    textStyle={styles.watchAddButtonText}
-                    onPress={() => {}}
-                  />
-                </View>
-              </View>
-            </View>
-            <View style={styles.cell}>
-              <View style={styles.cellLeft}>
-                <Image
-                  source={R.img(Images.coin_pack2)}
-                  resizeMode={'contain'}
-                  style={styles.cellLeftImage}
-                />
-              </View>
-              <View style={styles.cellRight}></View>
-            </View>
-            <View style={styles.cell}>
-              <View style={styles.cellLeft}>
-                <Image
-                  source={R.img(Images.coin_pack3)}
-                  resizeMode={'contain'}
-                  style={styles.cellLeftImage}
-                />
-              </View>
-              <View style={styles.cellRight}></View>
-            </View>
-            <View style={[styles.cell, styles.lastCell]}>
-              <View style={styles.cellLeft}>
-                <Image
-                  source={R.img(Images.coin_pack4)}
-                  resizeMode={'contain'}
-                  style={styles.cellLeftImage}
-                />
-              </View>
-              <View style={styles.cellRight}>
-                <RectButton
-                  type={RectButtonEnum.Blue}
-                  text={strings('back')}
-                  onPress={() => {}}
-                />
-              </View>
-            </View>
+            <AddCoinsCell style={styles.cell} type={PurchasePacksType.WatchVideo} />
+            <AddCoinsCell style={styles.cell} type={PurchasePacksType.Tier1UnlockAds} />
+            <AddCoinsCell style={styles.cell} type={PurchasePacksType.Tier2} />
+            <AddCoinsCell style={[styles.cell, styles.lastCell]} type={PurchasePacksType.Tier3} />
           </ImageBackground>
         </View>
         <View style={styles.bottom}>
