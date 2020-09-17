@@ -7,11 +7,7 @@ import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
 
-import NextButton from '@library/components/button/rectButton';
-
 const gameConfig = require('@assets/gameConfig');
-
-import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
 
 import {observer, inject} from 'mobx-react';
 import UserStore from '@library/mobx/userStore';
@@ -75,9 +71,10 @@ export default class AddCoins extends Component<Props> {
                 </View>
                 <View style={styles.cellRightMid}></View>
                 <View style={styles.cellRightBottom}>
-                  <NextButton
-                    type={RectButtonEnum.Blue}
-                    text={strings('back')}
+                  <RectButton
+                    type={RectButtonEnum.Yellow}
+                    text={strings('watchVideo')}
+                    textStyle={styles.watchAddButtonText}
                     onPress={() => {}}
                   />
                 </View>
@@ -111,12 +108,18 @@ export default class AddCoins extends Component<Props> {
                   style={styles.cellLeftImage}
                 />
               </View>
-              <View style={styles.cellRight}></View>
+              <View style={styles.cellRight}>
+                <RectButton
+                  type={RectButtonEnum.Blue}
+                  text={strings('back')}
+                  onPress={() => {}}
+                />
+              </View>
             </View>
           </ImageBackground>
         </View>
         <View style={styles.bottom}>
-          <NextButton
+          <RectButton
             type={RectButtonEnum.Blue}
             text={strings('back')}
             style={styles.bottomButton}

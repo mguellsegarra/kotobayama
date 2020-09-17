@@ -151,8 +151,8 @@ const getStyles: any = () => {
       alignItems: 'center',
       justifyContent: 'center',
     },
-    watchAddButton: {
-      width: wp('1%'),
+    watchAddButtonText: {
+      fontSize: hp('2%'),
       // width: watchAddButtonWidth,
     },
   });

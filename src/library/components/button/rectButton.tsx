@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {ImageBackground, Text, ViewStyle, StyleSheet} from 'react-native';
+import {
+  ImageBackground,
+  Text,
+  ViewStyle,
+  StyleSheet,
+  TextStyle,
+} from 'react-native';
 import {View} from 'react-native-animatable';
 
 // @ts-ignore
@@ -13,6 +19,7 @@ type Props = {
   onPress?: Function;
   type: RectButtonEnum;
   style?: ViewStyle;
+  textStyle?: TextStyle;
   delay?: number;
   pointerEvents?: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
   visible?: boolean;
@@ -127,6 +134,7 @@ export default class RectButton extends Component<Props> {
                     {
                       color: rectButtonConfig!.textColor,
                     },
+                    this.props.textStyle,
                   ]}>
                   {this.props.text}
                 </Text>
