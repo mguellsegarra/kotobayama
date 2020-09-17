@@ -91,6 +91,13 @@ const getStyles: any = () => {
       width: hp('9%'),
       height: hp('9%') * 0.272727272727273,
     },
+    mapcreditsText: {
+      position: 'absolute',
+      zIndex: 2,
+      width: wp('100%'),
+      height: hp('2%'),
+      bottom: hp('35%'),
+    },
   });
 };
 

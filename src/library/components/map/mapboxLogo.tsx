@@ -9,7 +9,7 @@ type Props = {
 
 const mapboxUrl = 'https://www.mapbox.com/about/maps/';
 
-export default class PackProgress extends Component<Props> {
+export default class MapboxLogo extends Component<Props> {
   async onPress() {
     const supported = await Linking.canOpenURL(mapboxUrl);
     if (!supported) return;

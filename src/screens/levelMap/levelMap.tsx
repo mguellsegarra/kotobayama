@@ -27,6 +27,7 @@ import PlayButton from '@library/components/map/playButton';
 import LoadingView from '@library/components/common/loadingView';
 import Popup from '@library/components/common/popup';
 import MapboxLogo from '@library/components/map/mapboxLogo';
+import MapboxCreditsText from '@library/components/map/mapcreditsText';
 
 import {
   getFirstIncompleteLevel,
@@ -73,6 +74,7 @@ export default class LevelMap extends Component<Props, State> {
   levelCompletedBanner: any;
   loadingView: any;
   popup: any;
+  mapCreditsText: any;
 
   constructor(props: Props) {
     super(props);
@@ -155,6 +157,7 @@ export default class LevelMap extends Component<Props, State> {
       this.navbar.animate('fadeIn', 300);
       this.mapTitleBanner.animate('fadeIn', 300);
       this.levelChooser.animate('fadeIn', 300);
+      this.mapCreditsText.animate('fadeIn', 300);
 
       if (levelProgress?.completed) {
         this.levelCompletedBanner?.animate('fadeIn', 300);
@@ -166,6 +169,7 @@ export default class LevelMap extends Component<Props, State> {
       this.navbar.animate('fadeOut', 300);
       this.mapTitleBanner?.animate('fadeOut', 300);
       this.levelChooser.animate('fadeOut', 300);
+      this.mapCreditsText.animate('fadeOut', 300);
 
       if (levelProgress?.completed) {
         this.levelCompletedBanner?.animate('fadeOut', 300);
@@ -322,6 +326,14 @@ export default class LevelMap extends Component<Props, State> {
                 this.mapLayer.resetToLevel();
               }, 200);
             }}
+          />
+
+          <MapboxCreditsText
+            animatedRef={(ref) => {
+              this.mapCreditsText = ref;
+            }}
+            style={styles.mapcreditsText}
+            mode={this.props.userStore.mapTypeMode}
           />
 
           <LevelChooser
