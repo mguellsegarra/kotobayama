@@ -244,7 +244,7 @@ export default class Game extends Component<Props, State> {
       onLevelComplete,
       onNoLives,
     } = this;
-    const {levelProgressStore, userStore} = this.props;
+    const {levelProgressStore} = this.props;
 
     switch (mode) {
       case 'solveLetter': {

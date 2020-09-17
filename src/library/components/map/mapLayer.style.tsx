@@ -4,6 +4,7 @@ const getStyles = () => {
   return StyleSheet.create({
     map: {
       ...StyleSheet.absoluteFillObject,
+      zIndex: 1,
     },
   });
 };

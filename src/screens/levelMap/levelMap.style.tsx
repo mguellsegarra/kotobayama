@@ -1,5 +1,11 @@
 import {StyleSheet} from 'react-native';
-import {isTablet, isIosAndNotch, wp, hp} from '@library/services/deviceService';
+import {
+  isTablet,
+  isIosAndNotch,
+  isAndroid,
+  wp,
+  hp,
+} from '@library/services/deviceService';
 import {titleBannerOptions} from '@library/components/map/mapTitleBanner';
 import {defaultButtonSize} from '@library/components/button/rectButton';
 
@@ -37,10 +43,12 @@ const getStyles: any = () => {
       width: wp('100%'),
       flex: 1,
       flexDirection: 'row',
+      zIndex: 2,
     },
     mapTypeButtonContainer: {
       position: 'absolute',
       top: y,
+      zIndex: 2,
       right: 0,
       backgroundColor: '#000000CC',
       padding: 7,
@@ -52,6 +60,7 @@ const getStyles: any = () => {
       marginBottom: bottomHeight + playButtonOverlayBottomMargin,
       bottom: 0,
       width: defaultButtonSize.width,
+      zIndex: 2,
     },
     closeMapButtonOverlay: {
       position: 'absolute',
@@ -59,17 +68,28 @@ const getStyles: any = () => {
       bottom: 0,
       width: defaultButtonSize.width,
       height: defaultButtonSize.height,
+      zIndex: 2,
     },
     titleOverlay: {
       position: 'absolute',
+      zIndex: 2,
       top: navbarHeight + navbarMarginTop + hp('2%'),
       width: titleBannerOptions.width,
       height: titleBannerOptions.height,
     },
     levelCompletedBanner: {
+      zIndex: 2,
       position: 'absolute',
       marginBottom: bottomHeight + playButtonOverlayBottomMargin,
       bottom: 0,
+    },
+    mapboxLogo: {
+      position: 'absolute',
+      bottom: isIosAndNotch ? wp('10%') : isAndroid ? wp('3%') : wp('4%'),
+      right: wp('2%'),
+      zIndex: 1,
+      width: hp('9%'),
+      height: hp('9%') * 0.272727272727273,
     },
   });
 };

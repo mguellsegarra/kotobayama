@@ -26,6 +26,7 @@ import LevelCompletedBanner from '@library/components/map/levelCompletedBanner';
 import PlayButton from '@library/components/map/playButton';
 import LoadingView from '@library/components/common/loadingView';
 import Popup from '@library/components/common/popup';
+import MapboxLogo from '@library/components/map/mapboxLogo';
 
 import {
   getFirstIncompleteLevel,
@@ -37,6 +38,7 @@ import {checkIfEnoughCoins} from '@library/helpers/coinHelper';
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
+import {MapTypeMode} from '@library/models/mapTypeMode';
 
 type State = {
   mapNavigationMode: boolean;
@@ -236,6 +238,11 @@ export default class LevelMap extends Component<Props, State> {
             onPanDrag={this.onMapPanDrag}
             onMapLoaded={this.mapLoaded}
             packId={this.packId}
+          />
+
+          <MapboxLogo
+            style={styles.mapboxLogo}
+            show={this.props.userStore.mapTypeMode === MapTypeMode.Topo}
           />
 
           <Navbar

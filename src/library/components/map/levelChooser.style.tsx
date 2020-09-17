@@ -14,6 +14,7 @@ const getStyles: any = () => {
       width: wp('100%'),
       height: bottomHeight,
       backgroundColor: 'black',
+      zIndex: 2,
     },
     levelBar: {
       flex: 1,

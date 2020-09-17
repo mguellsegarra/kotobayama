@@ -34,6 +34,7 @@ export enum Images {
   'map_circle_blue' = 'map_circle_blue',
   'map_circle_green' = 'map_circle_green',
   'map_title_container' = 'map_title_container',
+  'mapbox_logo' = 'mapbox_logo',
   'marker_1' = 'marker_1',
   'marker_1_green' = 'marker_1_green',
   'marker_2' = 'marker_2',
