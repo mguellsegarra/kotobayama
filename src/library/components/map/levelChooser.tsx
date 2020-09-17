@@ -80,10 +80,10 @@ export default class LevelChooser extends Component<Props> {
           <View style={styles.levelDetailsRightCell}>
             <Image
               style={styles.detailRightCellImage}
-              source={R.img(poiTypes[level.type].image)}
+              source={R.img(poiTypes[level.type]?.image)}
             />
             <Text style={styles.detailRightText}>
-              {strings(poiTypes[level.type].label)}
+              {strings(poiTypes[level.type]?.label)}
             </Text>
           </View>
           <View style={styles.levelDetailsRightCell}>

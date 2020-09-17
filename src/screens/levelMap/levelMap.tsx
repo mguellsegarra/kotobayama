@@ -286,6 +286,7 @@ export default class LevelMap extends Component<Props, State> {
           {levelProgress?.completed ? (
             <LevelCompletedBanner
               style={styles.levelCompletedBanner}
+              type={this.levels[this.getCurrentLevel()].type}
               ref={(ref) => {
                 this.levelCompletedBanner = ref;
               }}

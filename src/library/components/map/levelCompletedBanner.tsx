@@ -8,6 +8,7 @@ import {
 } from 'react-native';
 import {View} from 'react-native-animatable';
 import {isAndroid, isTablet, wp, hp} from '@library/services/deviceService';
+const poiTypes = require('@assets/poiTypes');
 
 import R, {Images, Fonts} from '@res/R';
 
@@ -15,6 +16,7 @@ type Props = {
   style: ViewStyle;
   title: string;
   stars: number;
+  type: string;
   visible?: boolean;
   pointerEvents: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
 };
@@ -60,7 +62,7 @@ export default class LevelCompletedBanner extends Component<Props> {
             <View style={styles.levelCompletedTop}>
               <Image
                 resizeMode={'contain'}
-                source={R.img(Images.tick)}
+                source={R.img(poiTypes[this.props.type]?.image)}
                 style={styles.levelCompletedTick}
               />
             </View>
@@ -135,9 +137,9 @@ const styles = StyleSheet.create({
     marginTop: hp('1%'),
   },
   levelCompletedTick: {
-    marginTop: hp('1.5%'),
-    height: levelCompletedTickHeight,
-    width: levelCompletedTickWidth,
+    marginBottom: hp('1.5%'),
+    height: hp('5%'),
+    width: hp('5%'),
   },
   levelCompletedBottom: {
     width: '93%',
