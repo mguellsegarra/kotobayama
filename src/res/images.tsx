@@ -23,6 +23,8 @@ export enum Images {
   'coin_reward' = 'coin_reward',
   'coin_small' = 'coin_small',
   'coins' = 'coins',
+  'flag_icon_details' = 'flag_icon_details',
+  'gem_icon_details' = 'gem_icon_details',
   'heart_black_icon_details' = 'heart_black_icon_details',
   'heart_icon_details' = 'heart_icon_details',
   'left_arrow' = 'left_arrow',

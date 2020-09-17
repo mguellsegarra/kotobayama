@@ -6,7 +6,8 @@
     "latlon": "42.6053217,0.8774010999999999",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El Refugi Joan Ventosa i Calvell és un refugi de muntanya propietat del Centre Excursionista de Catalunya , situat dins el municipi de la Vall de Boí (Alta Ribagorça), sobre l’Estany Negre, en la cota 2.214, al peu de les Agulles de Travessani en l'extrem oriental del Pletiu d'Estany Negre i dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Joan_Ventosa_i_Calvell"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Joan_Ventosa_i_Calvell",
+    "type": "hut"
   },
   {
     "id": "10002",
@@ -15,7 +16,8 @@
     "latlon": "42.572580099999996,0.9423785000000002",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El Refugi d'Estany Llong és un refugi de muntanya situat dins del terme municipals de la Vall de Boí, a la comarca de l'Alta Ribagorça, i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici. Es troba emplaçat a 1.985 m d'altitud, situat a l'oest del desguàs de l’Estany Llong i al nord-est dels Prats d'Aiguadassi.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Estany_Llong"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Estany_Llong",
+    "type": "hut"
   },
   {
     "id": "10003",
@@ -24,7 +26,8 @@
     "latlon": "42.5194579,1.0012462000000002",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El Refugi de Colomina, situat a la capçalera de la Vall Fosca (Pallars Jussà) a 2.395 m d'altitud, fou construït als voltants de l'any 1917 i es coneixia com la \"casa Keller\", nom de l'enginyer suís Albert Keller, que hi habitava i des d'on dirigia el que fou la primera obra hidroelèctrica de l'estat espanyol.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomina"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomina",
+    "type": "hut"
   },
   {
     "id": "10004",
@@ -33,7 +36,8 @@
     "latlon": "42.545736399999996,1.0442265000000002",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El Refugi Josep Maria Blanc és un refugi de muntanya situat a la vall de Peguera, dintre del terme municipal d'Espot, a la comarca del Pallars Sobirà. Es troba a 2.350 metres d'altitud, a la dreta de l'Estany Tort de Peguera, dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici. ",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Josep_Maria_Blanc"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Josep_Maria_Blanc",
+    "type": "hut"
   },
   {
     "id": "10005",
@@ -42,7 +46,8 @@
     "latlon": "42.5788505,1.0090162",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El refugi Ernest Mallafré o de Sant Maurici és un refugi de muntanya del terme municipal d'Espot, a la comarca del Pallars Sobirà. Està situat a 1.893 m d'altitud, prop de la presa de l'Estany de Sant Maurici, als peus dels Encantats i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Ernest_Mallafr%C3%A9"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Ernest_Mallafr%C3%A9",
+    "type": "hut"
   },
   {
     "id": "10006",
@@ -51,7 +56,8 @@
     "latlon": "42.5966578,0.9846691000000002",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El Refugi d'Amitges és un refugi de muntanya del terme municipal d'Espot, a la comarca del Pallars Sobirà. Està situat a 2.365 m d'altitud, al sud-oest de l'Estany Gran d'Amitges i dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Amitges"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Amitges",
+    "type": "hut"
   },
   {
     "id": "10007",
@@ -69,7 +75,8 @@
     "latlon": "42.6266246,0.9218230000000001",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El refugi de Colomers és un refugi de muntanya que es troba dins el municipi de Naut Aran (Vall d'Aran) a 2.135 m d'altitud i situat al costat de l'Estany Major de Colomers al Circ de Colomèrs i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici. El refugi, de nova construcció, és totalment operatiu des de l'any 2008. En són els propietaris la FEEC i el Conselh Generau d'Aran. ",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomers"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomers",
+    "type": "hut"
   },
   {
     "id": "10009",
@@ -78,6 +85,7 @@
     "latlon": "42.634715199999995,0.8546499999999998",
     "sourcePhoto": "pirineosconninos.es",
     "wikipediaExcerpt": "El refugi de la Restanca és un refugi de muntanya que es troba dins el municipi de Naut Aran (Vall d'Aran) a 2.010 m d'altitud i situat al costat dret de l'estany de la Restanca, embassament creat per la presa dels Llacs Val d'Aran, en el Circ de Restanca. Està dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_la_Restanca"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_la_Restanca",
+    "type": "hut"
   }
 ]

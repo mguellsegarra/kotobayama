@@ -32,6 +32,7 @@ const LevelService: LevelServiceType = {
       sourcePhoto: lvl.sourcePhoto,
       wikipediaExcerpt: lvl.wikipediaExcerpt,
       wikipediaLink: lvl.wikipediaLink,
+      type: lvl.type,
     };
   }),
   packs: packSource,

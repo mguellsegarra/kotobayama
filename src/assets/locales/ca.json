@@ -2,7 +2,6 @@
   "play": "Jugar",
   "closeMap": "Tancar mapa",
   "back": "Tornar",
-  "hut": "Refugi",
   "letters": "lletres",
   "restoreLives": "Restaura les vides",
   "sourcePhoto": "Font fotografia",
@@ -27,5 +26,8 @@
   "shopBestOption": "Millor opció",
   "coins": "monedes",
   "removeAds": "Eliminar publicitat",
-  "noCoins": "No tens prou monedes"
+  "noCoins": "No tens prou monedes",
+  "hut": "Refugi",
+  "lake": "Llac",
+  "summit": "Cim"
 }

@@ -2,7 +2,6 @@
   "play": "Jugar",
   "closeMap": "Cerrar mapa",
   "back": "Volver",
-  "hut": "Refugio",
   "letters": "letras",
   "restoreLives": "Restaura las vidas",
   "sourcePhoto": "Fuente fotografía",
@@ -27,5 +26,8 @@
   "shopBestOption": "Mejor opción",
   "coins": "monedas",
   "removeAds": "Eliminar publicidad",
-  "noCoins": "No tienes suficientes monedas"
+  "noCoins": "No tienes suficientes monedas",
+  "hut": "Refugio",
+  "lake": "Lago",
+  "summit": "Summit"
 }

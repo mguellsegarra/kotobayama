@@ -5,6 +5,8 @@ import {View} from 'react-native-animatable';
 // @ts-ignore
 import LinearGradient from 'react-native-linear-gradient';
 
+const poiTypes = require('@assets/poiTypes');
+
 import R, {Images, Colors} from '@res/R';
 import {styles} from './levelChooser.style';
 import CircleButton from '@library/components/button/circleButton';
@@ -57,6 +59,8 @@ export default class LevelChooser extends Component<Props> {
   }
 
   incompleteLevel(levelProgress: LevelProgress) {
+    const level = this.props.levels[this.props.currentLevel];
+
     return (
       <LinearGradient
         colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
@@ -76,9 +80,11 @@ export default class LevelChooser extends Component<Props> {
           <View style={styles.levelDetailsRightCell}>
             <Image
               style={styles.detailRightCellImage}
-              source={R.img(Images.boot_icon_details)}
+              source={R.img(poiTypes[level.type].image)}
             />
-            <Text style={styles.detailRightText}>{strings('hut')}</Text>
+            <Text style={styles.detailRightText}>
+              {strings(poiTypes[level.type].label)}
+            </Text>
           </View>
           <View style={styles.levelDetailsRightCell}>
             <Image

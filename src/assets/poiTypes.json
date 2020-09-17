@@ -1,0 +1,14 @@
+{
+  "hut": {
+    "image": "boot_icon_details",
+    "label": "hut"
+  },
+  "lake": {
+    "image": "gem_icon_details",
+    "label": "lake"
+  },
+  "summit": {
+    "image": "flag_icon_details",
+    "label": "summit"
+  }
+}
