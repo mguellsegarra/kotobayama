@@ -59,6 +59,7 @@ export enum Images {
   'map_title_container' = 'map_title_container',
   'mapbox_logo' = 'mapbox_logo',
   'marker_10' = 'marker_10',
+  'marker_10_green' = 'marker_10_green',
   'marker_11' = 'marker_11',
   'marker_11_green' = 'marker_11_green',
   'marker_12' = 'marker_12',
