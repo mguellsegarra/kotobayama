@@ -7,6 +7,10 @@
     "image": "gem_icon_details",
     "label": "lake"
   },
+  "stany": {
+    "image": "gem_icon_details",
+    "label": "stany"
+  },
   "summit": {
     "image": "flag_icon_details",
     "label": "summit"
