@@ -52,7 +52,9 @@ export default class LevelChooser extends Component<Props> {
         <Text style={styles.sourceText}>
           {strings('sourcePhoto') +
             ': ' +
-            this.props.levels[this.props.currentLevel].sourcePhoto}
+            (__DEV__
+              ? this.props.levels[this.props.currentLevel].id
+              : this.props.levels[this.props.currentLevel].sourcePhoto)}
         </Text>
       </LinearGradient>
     );
@@ -73,7 +75,9 @@ export default class LevelChooser extends Component<Props> {
           <Text style={styles.sourceText}>
             {strings('sourcePhoto') +
               ': ' +
-              this.props.levels[this.props.currentLevel].sourcePhoto}
+              (__DEV__
+                ? this.props.levels[this.props.currentLevel].id
+                : this.props.levels[this.props.currentLevel].sourcePhoto)}
           </Text>
         </View>
         <View style={styles.levelDetailsRight}>

@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-import {wp, isTablet} from '@library/services/deviceService';
+import {wp, isTablet, hp} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   return StyleSheet.create({
@@ -10,6 +10,9 @@ const getStyles: any = () => {
       width: wp('100%'),
       justifyContent: 'center',
       alignItems: 'center',
+    },
+    lastRow: {
+      marginTop: hp('1%'),
     },
     bottomMargin: {
       flex: 0.3,
@@ -33,7 +36,7 @@ const getStyles: any = () => {
 
 const getLetterSizeOptionsForWordLines = (wordLines: Array<string>) => {
   const maxLetterSize = isTablet() ? wp('10%') : wp('12%');
-  const margin = wp('0.7%');
+  const margin = wp('1%');
 
   let longestWord = wordLines[0];
 

@@ -23,10 +23,10 @@ const getStyles: any = (letterSize: number, margin: number) => {
     },
     character: {
       color: 'white',
-      marginTop: isAndroid ? 0 : hp('1%'),
+      marginTop: isAndroid ? 0 : hp('0.7%'),
       textAlign: 'center',
       fontFamily: Fonts.league,
-      fontSize: wp('6%'),
+      fontSize: letterSize * 0.5,
     },
     characterGold: {
       color: Colors.gold,

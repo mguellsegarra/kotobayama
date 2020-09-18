@@ -43,7 +43,7 @@
     "word": "Blanc",
     "title": "Refugi Josep Maria Blanc",
     "latlon": "42.545736399999996,1.0442265000000002",
-    "sourcePhoto": "ca.wikipedia.org",
+    "sourcePhoto": "enciclopedia.cat",
     "wikipediaExcerpt": "El Refugi Josep Maria Blanc és un refugi de muntanya situat a la vall de Peguera, dintre del terme municipal d'Espot, a la comarca del Pallars Sobirà.Es troba a 2.350 metres d'altitud, a la dreta de l'Estany Tort de Peguera, dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Josep_Maria_Blanc",
     "type": "hut",
@@ -55,7 +55,7 @@
     "id": "10005",
     "word": "Mallafre",
     "title": "Refugi Ernest Mallafré",
-    "latlon": "41.858149350000005,1.3583589",
+    "latlon": "42.5788505,1.0090162",
     "sourcePhoto": "ca.wikipedia.org",
     "wikipediaExcerpt": "El refugi Ernest Mallafré o de Sant Maurici és un refugi de muntanya del terme municipal d'Espot, a la comarca del Pallars Sobirà.Està situat a 1.893 m d'altitud, prop de la presa de l'Estany de Sant Maurici, als peus dels Encantats i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Ernest_Mallafr%C3%A9",
@@ -146,9 +146,9 @@
     "id": "10012",
     "word": "Estany Llong",
     "title": "Estany Llong",
-    "latlon": "42.5730745,0.9501147999999999",
+    "latlon": "42.57311,0.94946",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "L'Estany Llong és un llac d'origen glacial, de 7,43 hectàrees i 12 m de fondària màxima, que es troba dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici, a 1.999 m d'altitud, al terme municipal de la Vall de Boí, a l'Alta Ribagorça..",
+    "wikipediaExcerpt": "L'Estany Llong és un llac d'origen glacial, de 7,43 hectàrees i 12 m de fondària màxima, que es troba dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici, a 1.999 m d'altitud, al terme municipal de la Vall de Boí, a l'Alta Ribagorça.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Estany_Llong_(la_Vall_de_Bo%C3%AD)",
     "type": "stany",
     "packs": [
@@ -161,7 +161,7 @@
     "title": "Pic de Contraix",
     "latlon": "42.5851693,0.9068791",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "El Pic de Contraix és una muntanya que es troba en el terme municipal de la Vall de Boí, a la comarca de l’Alta Ribagorça, i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici..",
+    "wikipediaExcerpt": "El Pic de Contraix és una muntanya que es troba en el terme municipal de la Vall de Boí, a la comarca de l’Alta Ribagorça, i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Pic_de_Contraix",
     "type": "summit",
     "packs": [
@@ -174,7 +174,7 @@
     "title": "Punta Alta de Comalesbienes",
     "latlon": "42.585738, 0.880313",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "La Punta Alta de Comalesbienes és una muntanya que es troba en el terme municipal de la Vall de Boí, a la comarca de l'Alta Ribagorça, i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici..",
+    "wikipediaExcerpt": "La Punta Alta de Comalesbienes és una muntanya que es troba en el terme municipal de la Vall de Boí, a la comarca de l'Alta Ribagorça, i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Punta_Alta_de_Comalesbienes",
     "type": "summit",
     "packs": [
@@ -187,7 +187,7 @@
     "title": "Montardo d'Aran",
     "latlon": "42.6332852,0.8753278",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "El Montardo o Montardo d'Aran és un pic dels Pirineus centrals, a la comarca de la Vall d'Aran. Té una alçada de 2.833,2 metres i per la seva vistositat i situació és una de les muntanyes més conegudes d'aquella comarca i de tot el Pirineu. Freqüentment és anomenat també Montarto..",
+    "wikipediaExcerpt": "El Montardo o Montardo d'Aran és un pic dels Pirineus centrals, a la comarca de la Vall d'Aran. Té una alçada de 2.833,2 metres i per la seva vistositat i situació és una de les muntanyes més conegudes d'aquella comarca i de tot el Pirineu. Freqüentment és anomenat també Montarto.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Montardo",
     "type": "summit",
     "packs": [
@@ -226,7 +226,7 @@
     "title": "Pic de Peguera",
     "latlon": "42.54037100000001,1.005252",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "El Pic de Peguera és una muntanya de 2.982,7 metres enclavada al Parc Nacional d'Aigüestortes i Estany de Sant Maurici entre les comarques del Pallars Sobirà i el Pallars Jussà. Pertany als termes municipals de la Torre de Cabdella, dins del seu terme primigeni, i Espot..",
+    "wikipediaExcerpt": "El Pic de Peguera és una muntanya de 2.982,7 metres enclavada al Parc Nacional d'Aigüestortes i Estany de Sant Maurici entre les comarques del Pallars Sobirà i el Pallars Jussà. Pertany als termes municipals de la Torre de Cabdella, dins del seu terme primigeni, i Espot.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Pic_de_Peguera",
     "type": "summit",
     "packs": [
@@ -278,7 +278,7 @@
     "title": "Agulles d'Amitges",
     "latlon": "42.6072731,0.976879",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "Les Agulles d'Amitges són unes agulles al municipi d'Espot, al Pallars Sobirà, dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.Estan situades a la vall de Ratera sobre l'estany Gran d'Amitges a 2.661 m d'altitud.Estan situades a la vall de Ratera sobre l'estany Gran d'Amitges a 2.661 m d'altitud..",
+    "wikipediaExcerpt": "Les Agulles d'Amitges són unes agulles al municipi d'Espot, al Pallars Sobirà, dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.Estan situades a la vall de Ratera sobre l'estany Gran d'Amitges a 2.661 m d'altitud.Estan situades a la vall de Ratera sobre l'estany Gran d'Amitges a 2.661 m d'altitud.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Agulles_d%27Amitges",
     "type": "summit",
     "packs": [
@@ -291,7 +291,7 @@
     "title": "Besiberri Nord",
     "latlon": "42.6052205,0.8262824",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "El Besiberri Nord és una muntanya que es troba en el punt on coincideixen els termes municipals de la Vall de Boí i Vilaller, tots dos a l'Alta Ribagorça, i Naut Aran, pertanyent a la Vall d'Aran; situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica..",
+    "wikipediaExcerpt": "El Besiberri Nord és una muntanya que es troba en el punt on coincideixen els termes municipals de la Vall de Boí i Vilaller, tots dos a l'Alta Ribagorça, i Naut Aran, pertanyent a la Vall d'Aran; situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Besiberri_Nord",
     "type": "summit",
     "packs": [
@@ -317,7 +317,7 @@
     "title": "Comaloforno",
     "latlon": "42.5913096,0.8277772999999999",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "El Comaloforno és una muntanya que es troba en el terme municipal de la Vall de Boí, a l'Alta Ribagorça; i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici..",
+    "wikipediaExcerpt": "El Comaloforno és una muntanya que es troba en el terme municipal de la Vall de Boí, a l'Alta Ribagorça; i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Pic_de_Comaloforno",
     "type": "summit",
     "packs": [
@@ -343,7 +343,7 @@
     "title": "Tumenèia",
     "latlon": "42.6164766,0.8490907999999999",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "El Tumeneia, o Tuc dera Humenèja en occità, és una muntanya que es troba en límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i de Naut Aran (Vall d'Aran), situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica..",
+    "wikipediaExcerpt": "El Tumeneia, o Tuc dera Humenèja en occità, és una muntanya que es troba en límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i de Naut Aran (Vall d'Aran), situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/Tumeneia",
     "type": "summit",
     "packs": [
@@ -356,7 +356,7 @@
     "title": "Pa de Sucre",
     "latlon": "42.613769,0.8468555999999999",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "El Pa de Sucre, o Tumeneia Central, és una muntanya que es troba en el límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i de Naut Aran (Vall d'Aran), situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica..",
+    "wikipediaExcerpt": "El Pa de Sucre, o Tumeneia Central, és una muntanya que es troba en el límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i de Naut Aran (Vall d'Aran), situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/El_Pa_de_Sucre",
     "type": "summit",
     "packs": [
@@ -382,7 +382,7 @@
     "title": "Creu de Colomers",
     "latlon": "42.5929641,0.9175133",
     "sourcePhoto": "ca.wikipedia.org",
-    "wikipediaExcerpt": "La Creu de Colomèrs és una muntanya que es troba en el límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i Naut Aran (Vall d'Aran), dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici..",
+    "wikipediaExcerpt": "La Creu de Colomèrs és una muntanya que es troba en el límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i Naut Aran (Vall d'Aran), dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
     "wikipediaLink": "https://ca.wikipedia.org/wiki/La_Creu_de_Colom%C3%A8rs",
     "type": "summit",
     "packs": [

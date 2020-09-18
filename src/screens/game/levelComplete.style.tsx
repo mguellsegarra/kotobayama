@@ -143,7 +143,8 @@ const getStyles: any = () => {
       color: 'white',
     },
     descriptionText: {
-      fontSize: hp('10%'),
+      width: '90%',
+      fontSize: hp('20%'),
       textAlign: 'center',
       fontFamily: Fonts.alata,
       marginLeft: wp('5%'),

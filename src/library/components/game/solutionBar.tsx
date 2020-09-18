@@ -258,7 +258,7 @@ export default class SolutionBar extends Component<Props, State> {
             <View style={styles.row}>{letterLines[0]}</View>
 
             {letterLines.length > 1 ? (
-              <View style={styles.row}>{letterLines[1]}</View>
+              <View style={[styles.lastRow, styles.row]}>{letterLines[1]}</View>
             ) : null}
           </View>
         </View>
