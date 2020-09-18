@@ -49,8 +49,16 @@ const getLetterSizeOptionsForWordLines = (wordLines: Array<string>) => {
   const letterSize =
     (wp('90%') - longestWordLength * margin) / longestWordLength;
 
+  let width;
+
+  if (wordLines.length > 1 && letterSize > maxLetterSize) {
+    width = maxLetterSize * 0.85;
+  } else {
+    width = letterSize > maxLetterSize ? maxLetterSize : letterSize;
+  }
+
   return {
-    letterSize: letterSize > maxLetterSize ? maxLetterSize : letterSize,
+    letterSize: width,
     margin,
   };
 };
