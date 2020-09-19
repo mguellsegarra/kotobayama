@@ -1,4 +1,6 @@
 import {StyleSheet} from 'react-native';
+import {Colors} from '@res/R';
+import {hp} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   return StyleSheet.create({
@@ -6,10 +8,10 @@ const getStyles: any = () => {
       zIndex: 2,
     },
     levelDetailsImagePic: {
-      position: 'absolute',
-      zIndex: 1,
-      borderRadius: 20,
+      borderRadius: hp('1%'),
       overflow: 'hidden',
+      borderWidth: hp('0.3%'),
+      borderColor: 'white',
     },
   });
 };

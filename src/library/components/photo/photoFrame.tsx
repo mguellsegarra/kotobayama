@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Image, ViewStyle} from 'react-native';
+import {View, ViewStyle} from 'react-native';
 // @ts-ignore
 import {NoFlickerImage} from 'react-native-no-flicker-image';
 import {Level} from '@library/models/level';
@@ -57,16 +57,6 @@ export default class PhotoFrame extends Component<Props> {
             styles.levelDetailsImagePic,
           )}
           source={pic}
-        />
-        <Image
-          style={Object.assign(
-            {
-              width: this.photoFrameWidth,
-              height: this.photoFrameHeight,
-            },
-            styles.levelDetailsImageFrame,
-          )}
-          source={R.img(Images.photo_frame)}
         />
       </View>
     );
