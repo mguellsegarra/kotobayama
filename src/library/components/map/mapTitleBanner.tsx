@@ -33,22 +33,11 @@ export default class MapTitleBanner extends Component<Props> {
         <ImageBackground
           source={R.img(Images.map_title_container)}
           style={styles.mapTitleContainerImage}>
-          <View style={styles.progressBarBottomSpace} />
-
-          <View style={styles.containerTop}>
-            <Text
-              adjustsFontSizeToFit
-              numberOfLines={2}
-              style={styles.mapTitleText}>
-              {this.props.title}
-            </Text>
-          </View>
-          <View style={styles.containerBottom}>
-            <PackProgress
-              width={progressBarWidth}
-              progress={this.props.progress}
-            />
-          </View>
+          <Text style={styles.mapTitleText}>{this.props.title}</Text>
+          <PackProgress
+            width={progressBarWidth}
+            progress={this.props.progress}
+          />
           <View style={styles.progressBarBottomSpace} />
         </ImageBackground>
       </View>
@@ -79,26 +68,16 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   mapTitleText: {
-    width: titleBannerWidth - titleMarginSides * 2,
     fontFamily: Fonts.league,
     fontSize: titleFont,
     color: 'white',
     textAlign: 'center',
+    marginLeft: titleMarginSides,
+    marginRight: titleMarginSides,
+    marginTop: hp('2%'),
     lineHeight: titleLineHeight,
   },
   progressBarBottomSpace: {
     height: hp('2%'),
-  },
-  containerTop: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  containerBottom: {
-    flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
 });
