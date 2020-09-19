@@ -36,7 +36,6 @@ const getStyles: any = () => {
 
 const getLetterSizeOptionsForWordLines = (wordLines: Array<string>) => {
   const maxLetterSize = isTablet() ? wp('10%') : wp('12%');
-  const margin = wp('1%');
 
   let longestWord = wordLines[0];
 
@@ -45,6 +44,8 @@ const getLetterSizeOptionsForWordLines = (wordLines: Array<string>) => {
   }
 
   const longestWordLength = longestWord.length;
+
+  const margin = wp('1%') - (longestWordLength * 0.25);
 
   const letterSize =
     (wp('90%') - longestWordLength * margin) / longestWordLength;
