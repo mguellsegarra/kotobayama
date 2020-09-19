@@ -14,7 +14,7 @@ import RectButton, {
 } from '@library/components/button/rectButton';
 import WatchAdButton from '@library/components/button/watchAdButton';
 
-import {wp, hp} from '@library/services/deviceService';
+import {hp, isAndroid} from '@library/services/deviceService';
 
 type Props = {
   style: ViewProps | ViewProps[];
@@ -247,7 +247,7 @@ const styles = StyleSheet.create({
   cellRightTopImageText: {
     fontFamily: Fonts.alata,
     fontSize: hp('1.5%'),
-    marginTop: hp('0.3%'),
+    marginTop: isAndroid ? 0 : hp('0.3%'),
   },
   cellRightTopImageTextRed: {
     color: Colors.ribbonRedText,

@@ -11,8 +11,6 @@ import AddCoinsCell, {
   PurchasePacksType,
 } from '@library/components/addCoins/addCoinsCell';
 
-const gameConfig = require('@assets/gameConfig');
-
 import {observer, inject} from 'mobx-react';
 import UserStore from '@library/mobx/userStore';
 

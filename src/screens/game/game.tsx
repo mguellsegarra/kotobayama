@@ -315,7 +315,9 @@ export default class Game extends Component<Props, State> {
           <Navbar
             style={styles.navBar}
             onBackPress={this.props.navigation.goBack}
-            onCoinsTap={() => {}}
+            onCoinsTap={() => {
+              this.props.navigation.navigate('AddCoins', {noCoins: false});
+            }}
             coins={this.props.userStore.coins}
             lives={
               this.props.levelProgressStore?.getCurrentLives(

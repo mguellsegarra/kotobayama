@@ -24,6 +24,7 @@ type Props = {
   initialLevel: number;
   userStore?: UserStore;
   levelProgressStore?: LevelProgressStore;
+  onMarkerPress: Function;
 };
 
 type State = {
@@ -94,6 +95,7 @@ export default class MapLayer extends Component<Props, State> {
     });
     return markers;
   }
+
   render() {
     const that = this;
     const markers = this.getMarkers();
@@ -104,6 +106,12 @@ export default class MapLayer extends Component<Props, State> {
         provider={PROVIDER_GOOGLE}
         ref={(ref) => {
           this.map = ref;
+        }}
+        onMarkerPress={(marker) => {
+          if (marker === null) {
+            return;
+          }
+          this.props.onMarkerPress(marker.nativeEvent);
         }}
         initialCamera={{
           center: {
@@ -128,7 +136,7 @@ export default class MapLayer extends Component<Props, State> {
         pitchEnabled={false}
         scrollEnabled={true}
         zoomEnabled={this.props.controlsEnabled}
-        moveOnMarkerPress={this.props.controlsEnabled}
+        moveOnMarkerPress={false}
         onPress={() => {
           this.props.onPanDrag();
         }}

@@ -89,6 +89,7 @@ export default class LevelMap extends Component<Props, State> {
     this.popupCancel = this.popupCancel.bind(this);
     this.restoreLives = this.restoreLives.bind(this);
     this.showPopup = this.showPopup.bind(this);
+    this.onMarkerPress = this.onMarkerPress.bind(this);
 
     const {packId} = this.props.route.params;
     this.packId = packId;
@@ -219,6 +220,20 @@ export default class LevelMap extends Component<Props, State> {
     this.popup.animate('fadeOut', 300);
   }
 
+  onMarkerPress(marker: any) {
+    let idx = 0;
+
+    this.levels.find((level: Level, index: number) => {
+      const found = level.id === marker.id;
+      if (found) {
+        idx = index;
+      }
+      return level.id === marker.id;
+    });
+
+    this.props.levelMapStore.setCurrentLevelForPack(idx, this.pack);
+  }
+
   render() {
     const currentLevelId = this.levels[
       this.props.levelMapStore.currentLevelForPack.get(this.packId)!
@@ -242,6 +257,7 @@ export default class LevelMap extends Component<Props, State> {
             onPanDrag={this.onMapPanDrag}
             onMapLoaded={this.mapLoaded}
             packId={this.packId}
+            onMarkerPress={this.onMarkerPress}
           />
 
           <MapboxLogo
@@ -257,7 +273,7 @@ export default class LevelMap extends Component<Props, State> {
             totalCoins={this.props.userStore.coins}
             onBack={() => {}}
             onCoinTap={() => {
-              this.props.navigation.navigate('AddCoins');
+              this.props.navigation.navigate('AddCoins', {noCoins: false});
             }}
             pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
           />
