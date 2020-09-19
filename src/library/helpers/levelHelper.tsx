@@ -1,4 +1,8 @@
-import {Level, LevelProgress, LevelProgressInitialState} from '@library/models/level';
+import {
+  Level,
+  LevelProgress,
+  LevelProgressInitialState,
+} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 import {toJS} from 'mobx';
 
@@ -59,6 +63,41 @@ export const getFirstIncompleteLevelIdForPack = ({
   return {idx: lvlIdx, levelId: firstIncompleteLevel};
 };
 
+export const getNextIncompleteLevelIdForPack = ({
+  currentLevelIdx,
+  levelsProgress,
+  pack,
+}: {
+  currentLevelIdx: number;
+  levelsProgress: LevelProgress[];
+  pack: Pack;
+}) => {
+  let firstIncompleteLevel;
+  let found = false;
+  let lvlIdx = 0;
+
+  pack.levels.forEach((lvlId, idx) => {
+    if (found) {
+      return;
+    }
+
+    const level = toJS(levelsProgress).find((lvlProgress) => {
+      return lvlProgress.id === lvlId && lvlProgress.completed;
+    });
+
+    if (!level && idx > currentLevelIdx) {
+      firstIncompleteLevel = lvlId;
+      lvlIdx = idx;
+      found = true;
+    }
+  });
+
+  if (lvlIdx === 0) {
+    return getFirstIncompleteLevelIdForPack({levelsProgress, pack});
+  }
+
+  return {idx: lvlIdx, levelId: firstIncompleteLevel};
+};
 
 export const getLevelProgress = (
   levelsProgress: LevelProgress[],

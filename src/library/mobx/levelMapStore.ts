@@ -1,6 +1,6 @@
 import {observable, action} from 'mobx';
 import {Pack} from '@library/models/pack';
-import {getFirstIncompleteLevelIdForPack} from '@library/helpers/levelHelper';
+import {getNextIncompleteLevelIdForPack} from '@library/helpers/levelHelper';
 import {LevelProgress} from '@library/models/level';
 
 export default class LevelMapStore {
@@ -40,8 +40,15 @@ export default class LevelMapStore {
   };
 
   @action
-  nextIncompleteLevelForPack = (levelsProgress: LevelProgress[], pack: Pack) => {
-    const {idx} = getFirstIncompleteLevelIdForPack({levelsProgress, pack});
+  nextIncompleteLevelForPack = (
+    levelsProgress: LevelProgress[],
+    pack: Pack,
+  ) => {
+    const {idx} = getNextIncompleteLevelIdForPack({
+      currentLevelIdx: this.currentLevelForPack.get(pack.id),
+      levelsProgress,
+      pack,
+    });
     this.setCurrentLevelForPack(idx, pack);
   };
 }

@@ -68,6 +68,7 @@ const styles = StyleSheet.create({
     width: '100%',
   },
   mapTitleText: {
+    height: '40%',
     fontFamily: Fonts.league,
     fontSize: titleFont,
     color: 'white',
@@ -76,6 +77,7 @@ const styles = StyleSheet.create({
     marginRight: titleMarginSides,
     marginTop: hp('2%'),
     lineHeight: titleLineHeight,
+    textAlignVertical: 'center',
   },
   progressBarBottomSpace: {
     height: hp('2%'),
