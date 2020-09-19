@@ -163,7 +163,7 @@ export default class LevelMap extends Component<Props, State> {
       if (levelProgress?.completed) {
         this.levelCompletedBanner?.animate('fadeIn', 300);
       } else {
-        this.playButton.animate('fadeIn', 300);
+        this.playButton?.animate('fadeIn', 300);
       }
     } else {
       this.closeMapButton.animate('fadeIn', 300);
@@ -175,7 +175,7 @@ export default class LevelMap extends Component<Props, State> {
       if (levelProgress?.completed) {
         this.levelCompletedBanner?.animate('fadeOut', 300);
       } else {
-        this.playButton.animate('fadeOut', 300);
+        this.playButton?.animate('fadeOut', 300);
       }
     }
   }
@@ -299,7 +299,7 @@ export default class LevelMap extends Component<Props, State> {
             }}
           />
 
-          {levelProgress?.completed ? (
+          {levelProgress?.completed && !this.state.mapNavigationMode ? (
             <LevelCompletedBanner
               style={styles.levelCompletedBanner}
               type={this.levels[this.getCurrentLevel()].type}
@@ -310,7 +310,7 @@ export default class LevelMap extends Component<Props, State> {
               title={this.levels[this.getCurrentLevel()].title}
               stars={levelProgress?.stars!}
             />
-          ) : (
+          ) : !this.state.mapNavigationMode ? (
             <PlayButton
               style={styles.playButtonOverlay}
               ref={(ref) => {
@@ -323,7 +323,7 @@ export default class LevelMap extends Component<Props, State> {
               packId={this.packId}
               restoreLives={this.showPopup}
             />
-          )}
+          ) : null}
 
           <RectButton
             ref={(ref) => {
@@ -346,7 +346,7 @@ export default class LevelMap extends Component<Props, State> {
           />
 
           <MapboxCreditsText
-            animatedRef={(ref) => {
+            animatedRef={(ref: any) => {
               this.mapCreditsText = ref;
             }}
             style={styles.mapcreditsText}

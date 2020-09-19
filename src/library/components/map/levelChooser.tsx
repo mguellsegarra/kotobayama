@@ -1,5 +1,11 @@
 import React, {Component} from 'react';
-import {Image, Text} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  Linking,
+} from 'react-native';
 import {View} from 'react-native-animatable';
 
 // @ts-ignore
@@ -40,23 +46,64 @@ export default class LevelChooser extends Component<Props> {
     hide: false,
   };
 
+  constructor(props: Props) {
+    super(props);
+    this.handleWikipediaLink = this.handleWikipediaLink.bind(this);
+  }
+
+  async handleWikipediaLink() {
+    const level = this.props.levels[this.props.currentLevel];
+
+    const supported = await Linking.canOpenURL(level.wikipediaLink);
+    if (!supported) return;
+    await Linking.openURL(level.wikipediaLink);
+  }
+
   completedLevel() {
+    const level = this.props.levels[this.props.currentLevel];
+
+    const pic = R.img('level_' + level.id);
+
     return (
-      <LinearGradient
-        colors={[Colors.purpleGradientStart, Colors.purpleGradientEnd]}
-        style={styles.levelDetailsComplete}>
-        <PhotoFrame
-          size={PhotoFrameSize.small}
-          level={this.props.levels[this.props.currentLevel]}
-        />
-        <Text style={styles.sourceText}>
-          {strings('sourcePhoto') +
-            ': ' +
-            (__DEV__
-              ? this.props.levels[this.props.currentLevel].id
-              : this.props.levels[this.props.currentLevel].sourcePhoto)}
-        </Text>
-      </LinearGradient>
+      <View style={styles.levelDetailsComplete}>
+        <ImageBackground
+          resizeMode="cover"
+          style={{width: '100%', height: '100%'}}
+          source={pic}>
+          <LinearGradient
+            colors={['#00000099', '#000000dd']}
+            style={styles.levelDetailsComplete}>
+            <View style={styles.completeCell1}></View>
+            <View style={styles.completeCell2}>
+              <TouchableOpacity onPress={this.handleWikipediaLink}>
+                <View style={styles.wikipediaButton}>
+                  <View style={styles.wikipediaImageContainer}>
+                    <Image
+                      source={R.img(Images.wikipedia_icon)}
+                      style={styles.wikipediaImage}
+                    />
+                  </View>
+                  <View style={styles.wikipediaLabel}>
+                    <Text
+                      adjustsFontSizeToFit
+                      numberOfLines={0}
+                      style={styles.wikipediaLabelText}>
+                      {strings('readWikipedia')}
+                    </Text>
+                  </View>
+                </View>
+              </TouchableOpacity>
+              <Text
+                numberOfLines={6}
+                adjustsFontSizeToFit
+                style={styles.descriptionText}>
+                {level.wikipediaExcerpt}
+              </Text>
+            </View>
+            <View style={styles.completeCell1}></View>
+          </LinearGradient>
+        </ImageBackground>
+      </View>
     );
   }
 
