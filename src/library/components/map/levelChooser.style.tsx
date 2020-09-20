@@ -115,7 +115,7 @@ const getStyles: any = () => {
       textShadowRadius: 5,
     },
     wikipediaButton: {
-      backgroundColor: 'black',
+      backgroundColor: Colors.darkGray,
       width: wikipediaButtonWidth,
       height: wikipediaButtonHeight,
       borderRadius: wikipediaButtonHeight,

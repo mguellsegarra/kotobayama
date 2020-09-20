@@ -7,8 +7,9 @@ import {
   Image,
   Text,
 } from 'react-native';
-// @ts-ignore
-import {NoFlickerImage} from 'react-native-no-flicker-image';
+
+import RemoteImage from '@library/components/common/remoteImage';
+
 import {Level} from '@library/models/level';
 import {isAndroid} from '@library/services/deviceService';
 
@@ -57,24 +58,38 @@ export default class PhotoFrame extends Component<Props, State> {
     this.state = {modalVisible: false};
   }
 
+  getComponentForImage(pic: any) {
+    return (
+      <RemoteImage
+        style={Object.assign(
+          {
+            width: this.photoFrameWidth * photoFramePicResizeConstant,
+            height: this.photoFrameHeight * photoFramePicResizeConstant,
+          },
+          styles.levelDetailsImagePic,
+        )}
+        source={pic}
+      />
+    );
+  }
+
   render() {
-    const pic = R.img('level_' + this.props.level.id.toString());
+    const picName = 'level_' + this.props.level.id.toString();
+
+    const pic = {
+      uri:
+        'https://tegami-mountains-content.s3-eu-west-1.amazonaws.com/' +
+        picName +
+        '@2x.jpg',
+    };
+
     const width = wp('100%');
     const constant = 0.626373626373626;
     const height = width * constant;
 
     return (
       <View style={this.props.style}>
-        <NoFlickerImage
-          style={Object.assign(
-            {
-              width: this.photoFrameWidth * photoFramePicResizeConstant,
-              height: this.photoFrameHeight * photoFramePicResizeConstant,
-            },
-            styles.levelDetailsImagePic,
-          )}
-          source={pic}
-        />
+        {this.getComponentForImage(pic)}
         <TouchableWithoutFeedback
           onPress={() => {
             this.setState({modalVisible: true});

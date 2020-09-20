@@ -1,11 +1,5 @@
 import React, {Component} from 'react';
-import {
-  Image,
-  ImageBackground,
-  Text,
-  TouchableOpacity,
-  Linking,
-} from 'react-native';
+import {Image, Text, TouchableOpacity, Linking} from 'react-native';
 import {View} from 'react-native-animatable';
 
 // @ts-ignore
@@ -26,6 +20,7 @@ import {Level, LevelProgress} from '@library/models/level';
 import {getLevelProgress} from '@library/helpers/levelHelper';
 
 import LevelProgressStore from '@library/mobx/levelProgressStore';
+import RemoteImage from '@library/components/common/remoteImage';
 
 type Props = {
   levels: Array<Level>;
@@ -62,11 +57,18 @@ export default class LevelChooser extends Component<Props> {
   completedLevel() {
     const level = this.props.levels[this.props.currentLevel];
 
-    const pic = R.img('level_' + level.id);
+    const picName = 'level_' + level.id.toString();
+
+    const pic = {
+      uri:
+        'https://tegami-mountains-content.s3-eu-west-1.amazonaws.com/' +
+        picName +
+        '@2x.jpg',
+    };
 
     return (
       <View style={styles.levelDetailsComplete}>
-        <ImageBackground
+        <RemoteImage
           resizeMode="cover"
           style={{width: '100%', height: '100%'}}
           source={pic}>
@@ -102,7 +104,7 @@ export default class LevelChooser extends Component<Props> {
             </View>
             <View style={styles.completeCell1}></View>
           </LinearGradient>
-        </ImageBackground>
+        </RemoteImage>
       </View>
     );
   }
