@@ -20,7 +20,7 @@ import {Level, LevelProgress} from '@library/models/level';
 import {getLevelProgress} from '@library/helpers/levelHelper';
 
 import LevelProgressStore from '@library/mobx/levelProgressStore';
-import RemoteImage from '@library/components/common/remoteImage';
+import RemoteImageBackground from '@library/components/common/remoteImageBackground';
 
 type Props = {
   levels: Array<Level>;
@@ -68,7 +68,7 @@ export default class LevelChooser extends Component<Props> {
 
     return (
       <View style={styles.levelDetailsComplete}>
-        <RemoteImage
+        <RemoteImageBackground
           resizeMode="cover"
           style={{width: '100%', height: '100%'}}
           source={pic}>
@@ -104,7 +104,7 @@ export default class LevelChooser extends Component<Props> {
             </View>
             <View style={styles.completeCell1}></View>
           </LinearGradient>
-        </RemoteImage>
+        </RemoteImageBackground>
       </View>
     );
   }

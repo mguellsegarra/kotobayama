@@ -58,21 +58,6 @@ export default class PhotoFrame extends Component<Props, State> {
     this.state = {modalVisible: false};
   }
 
-  getComponentForImage(pic: any) {
-    return (
-      <RemoteImage
-        style={Object.assign(
-          {
-            width: this.photoFrameWidth * photoFramePicResizeConstant,
-            height: this.photoFrameHeight * photoFramePicResizeConstant,
-          },
-          styles.levelDetailsImagePic,
-        )}
-        source={pic}
-      />
-    );
-  }
-
   render() {
     const picName = 'level_' + this.props.level.id.toString();
 
@@ -89,7 +74,16 @@ export default class PhotoFrame extends Component<Props, State> {
 
     return (
       <View style={this.props.style}>
-        {this.getComponentForImage(pic)}
+        <RemoteImage
+          style={Object.assign(
+            {
+              width: this.photoFrameWidth * photoFramePicResizeConstant,
+              height: this.photoFrameHeight * photoFramePicResizeConstant,
+            },
+            styles.levelDetailsImagePic,
+          )}
+          source={pic}
+        />
         <TouchableWithoutFeedback
           onPress={() => {
             this.setState({modalVisible: true});
@@ -131,13 +125,7 @@ export default class PhotoFrame extends Component<Props, State> {
               cropHeight={hp('100%')}
               imageWidth={width}
               imageHeight={height}>
-              <Image
-                style={{
-                  width,
-                  height,
-                }}
-                source={pic}
-              />
+              <RemoteImage style={{width, height}} source={pic} />
             </ImageZoom>
           </View>
         </Modal>

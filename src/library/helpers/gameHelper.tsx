@@ -110,13 +110,6 @@ const incorrect = async ({
   livesIndicator?.animate('tada', 1000);
 
   await delayPromise(500);
-  // const availableLetterIds = solutionBar?.getAllAvailableLetterIds();
-
-  // availableLetterIds.forEach((letterId: string) => {
-  //   lettersBar?.restoreLetterWithId(letterId);
-  // });
-  // lettersBar?.updateStore();
-  // solutionBar?.removeAllLetters();
 
   if (levelProgressStore?.getCurrentLives(level.id, pack.id) === 0) {
     levelProgressStore.setLevelCooldown(level.id, pack.id);
