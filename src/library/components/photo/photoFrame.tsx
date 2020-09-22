@@ -83,6 +83,7 @@ export default class PhotoFrame extends Component<Props, State> {
             styles.levelDetailsImagePic,
           )}
           source={pic}
+          showNativeIndicator={false}
         />
         <TouchableWithoutFeedback
           onPress={() => {
@@ -125,7 +126,11 @@ export default class PhotoFrame extends Component<Props, State> {
               cropHeight={hp('100%')}
               imageWidth={width}
               imageHeight={height}>
-              <RemoteImage style={{width, height}} source={pic} />
+              <RemoteImage
+                style={{width, height}}
+                source={pic}
+                showNativeIndicator={true}
+              />
             </ImageZoom>
           </View>
         </Modal>

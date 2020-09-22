@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {ActivityIndicator, View} from 'react-native';
+import {View} from 'react-native';
 import CachedImage from 'react-native-image-cache-wrapper';
 
 type Props = {
@@ -18,7 +18,15 @@ export default class RemoteImageBackground extends Component<Props> {
           style={this.props.style}
           source={this.props.source}
         />
-        <View style={{position: 'absolute', bottom: 0, left: 0, right: 0, top: 0, zIndex: 5}}>
+        <View
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            left: 0,
+            right: 0,
+            top: 0,
+            zIndex: 5,
+          }}>
           {this.props.children}
         </View>
       </View>
