@@ -25,6 +25,7 @@ import {getLevelProgress} from '@library/helpers/levelHelper';
 import LevelProgressStore from '@library/mobx/levelProgressStore';
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
+import delayPromise from '@library/utils/delayPromise';
 
 type Props = {
   style: ViewStyle;
@@ -53,12 +54,15 @@ export interface SolutionBarElement extends Element {
   addLetterAtPosition: Function;
   getBoughtLetters: Function;
   updateStore: Function;
+  zoomOutLetterWithId: Function;
+  zoomInLetterWithId: Function;
 }
 
 @inject('levelProgressStore')
 @observer
 export default class SolutionBar extends Component<Props, State> {
   containerView: any;
+  letterObjects: any;
 
   constructor(props: Props) {
     super(props);
@@ -88,6 +92,20 @@ export default class SolutionBar extends Component<Props, State> {
     this.containerView = null;
   }
 
+  zoomOutLetterWithId(id: string) {
+    const letterObject = this.letterObjects.find((item: any) => {
+      return item.id === id;
+    });
+    letterObject?.zoomOut(100);
+  }
+
+  zoomInLetterWithId(id: string) {
+    const letterObject = this.letterObjects.find((item: any) => {
+      return item.id === id;
+    });
+    letterObject?.zoomIn(100);
+  }
+
   getLetterLinesForWord(word: string) {
     const wordLines = word.split(' ');
     const letterLines: any = [];
@@ -95,12 +113,17 @@ export default class SolutionBar extends Component<Props, State> {
 
     let charIdx = 0;
 
+    const that = this;
+
     wordLines.forEach((word) => {
       const line = [];
 
       for (let i = 0; i < word.length; i += 1) {
         line.push(
           <SolutionLetter
+            animatedRef={(ref: any) => {
+              that.letterObjects.push(ref);
+            }}
             key={charIdx.toString()}
             id={charIdx.toString()}
             letterState={
@@ -154,6 +177,9 @@ export default class SolutionBar extends Component<Props, State> {
           resolve();
         },
       );
+
+      this.zoomInLetterWithId(position.toString());
+
       this.props.levelProgressStore?.setSolutionLetters(
         this.props.level.id,
         this.props.pack.id,
@@ -191,17 +217,27 @@ export default class SolutionBar extends Component<Props, State> {
     });
   }
 
-  removeLetterWithId(id: string) {
-    const newCharacterMap = new Map(this.state.charactersMap);
-    newCharacterMap.set(id, {
-      id,
-      character: '',
-      letterState: SolutionLetterState.Empty,
-      availableLetterId: null,
-    });
-    this.setState({
-      ...this.state,
-      charactersMap: newCharacterMap,
+  async removeLetterWithId(id: string) {
+    return new Promise((resolve) => {
+      const newCharacterMap = new Map(this.state.charactersMap);
+      newCharacterMap.set(id, {
+        id,
+        character: '',
+        letterState: SolutionLetterState.Empty,
+        availableLetterId: null,
+      });
+      this.zoomOutLetterWithId(id);
+      return delayPromise(100).then(() => {
+        this.setState(
+          {
+            ...this.state,
+            charactersMap: newCharacterMap,
+          },
+          () => {
+            resolve();
+          },
+        );
+      });
     });
   }
 
@@ -225,13 +261,25 @@ export default class SolutionBar extends Component<Props, State> {
     );
   }
 
-  removeAllLetters() {
+  async removeAllLetters() {
+    const newCharacterMap = new Map(this.state.charactersMap);
+
     Array.from(this.state.charactersMap, ([key, value]) => {
       return {key, value};
     }).forEach(({key, value}) => {
-      if (value.letterState === SolutionLetterState.Filled) {
-        this.removeLetterWithId(key);
-      }
+      newCharacterMap.set(key, {
+        id: key,
+        character: '',
+        letterState: SolutionLetterState.Empty,
+        availableLetterId: null,
+      });
+      this.zoomOutLetterWithId(key);
+    });
+
+    await delayPromise(100);
+    this.setState({
+      ...this.state,
+      charactersMap: newCharacterMap,
     });
     this.updateStore();
   }
@@ -241,6 +289,7 @@ export default class SolutionBar extends Component<Props, State> {
   }
 
   render() {
+    this.letterObjects = [];
     const letterLines = this.getLetterLinesForWord(this.props.word);
 
     return (

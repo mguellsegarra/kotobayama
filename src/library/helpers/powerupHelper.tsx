@@ -69,6 +69,8 @@ export const handleOnSolveLetterPress = async ({
     SolutionLetterState.Bought,
   );
 
+  lettersBar?.zoomOutLetterWithId(availableLetterId);
+  await delayPromise(100);
   lettersBar?.setLetterState(availableLetterId, AvailableLetterState.Bought);
   lettersBar?.updateStore();
 
@@ -95,10 +97,6 @@ export const handleOnDestroyLettersPress = async ({
   lettersBar: LettersBarElement | LettersBar | null;
   userStore: UserStore;
 }) => {
-  if (solutionBar?.allLettersAreFull()) {
-    return;
-  }
-
   await solutionBar?.removeAllLetters();
   await lettersBar?.restoreNonBoughtLetters();
 

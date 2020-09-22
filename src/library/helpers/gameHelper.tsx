@@ -142,7 +142,10 @@ export const handleAvailableLetterHasTapped = async ({
     return;
   }
 
+  lettersBar?.zoomOutLetterWithId(letter.id);
+  await delayPromise(90);
   lettersBar?.setLetterState(letter.id, AvailableLetterState.Selected);
+
   lettersBar?.updateStore();
 
   await solutionBar?.addLetter(letter.character, letter.id);
@@ -158,7 +161,7 @@ export const handleAvailableLetterHasTapped = async ({
   });
 };
 
-export const handleSolutionLetterHasTapped = ({
+export const handleSolutionLetterHasTapped = async ({
   letter,
   solutionBar,
   lettersBar,
@@ -168,9 +171,11 @@ export const handleSolutionLetterHasTapped = ({
   lettersBar: LettersBarElement | LettersBar | null;
 }) => {
   if (letter.letterState === SolutionLetterState.Filled) {
-    solutionBar?.removeLetterWithId(letter.id);
+    await solutionBar?.removeLetterWithId(letter.id);
     solutionBar?.updateStore();
+
     lettersBar?.restoreLetterWithId(letter.availableLetterId!);
+
     lettersBar?.updateStore();
   }
 };

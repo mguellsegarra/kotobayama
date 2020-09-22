@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import {
-  TouchableWithoutFeedback,
-  Text,
-  ImageBackground,
-  View,
-} from 'react-native';
+import {TouchableWithoutFeedback, ImageBackground, View} from 'react-native';
+import {Text} from 'react-native-animatable';
 
 import R, {Images} from '@res/R';
 import {getStyles} from './solutionLetter.style';
@@ -21,6 +17,7 @@ type Props = {
   onPress: Function;
   letterSize: number;
   margin: number;
+  animatedRef: Function;
 };
 
 export default class SolutionLetter extends Component<Props> {
@@ -51,6 +48,12 @@ export default class SolutionLetter extends Component<Props> {
             source={R.img(Images.solution_letter)}>
             <View style={styles.characterContainer}>
               <Text
+                useNativeDriver
+                ref={(ref: any) => {
+                  if (ref && ref !== null) {
+                    this.props.animatedRef({...ref, id: this.props.id});
+                  }
+                }}
                 style={[
                   styles.character,
                   this.props.letterState === SolutionLetterState.Bought

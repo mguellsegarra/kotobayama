@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, ViewStyle} from 'react-native';
+import delayPromise from '@library/utils/delayPromise';
 
 import {styles} from './lettersBar.style';
 
@@ -37,11 +38,16 @@ export interface LettersBarElement extends Element {
   existsWrongLettersNotBought: Function;
   restoreNonBoughtLetters: Function;
   updateStore: Function;
+  zoomOutLetterWithId: Function;
+  restoreZoomLetterWithId: Function;
+  zoomInLetterWithId: Function;
 }
 
 @inject('levelProgressStore')
 @observer
 export default class LettersBar extends Component<Props, State> {
+  letterObjects: any;
+
   constructor(props: Props) {
     super(props);
     this.getAvailableLetterWithChar = this.getAvailableLetterWithChar.bind(
@@ -99,6 +105,9 @@ export default class LettersBar extends Component<Props, State> {
             letterState={element!.letterState}
             onPress={this.letterHasTapped}
             character={element!.character}
+            animatedRef={(ref: any) => {
+              this.letterObjects.push(ref);
+            }}
           />
         );
       });
@@ -128,6 +137,20 @@ export default class LettersBar extends Component<Props, State> {
     this.setState({...this.state, letters: newLetters});
   }
 
+  zoomOutLetterWithId(id: string) {
+    const letterObject = this.letterObjects.find((item: any) => {
+      return item.id === id;
+    });
+    letterObject?.zoomOut(100);
+  }
+
+  zoomInLetterWithId(id: string) {
+    const letterObject = this.letterObjects.find((item: any) => {
+      return item.id === id;
+    });
+    letterObject?.zoomIn(100);
+  }
+
   updateStore() {
     this.props.levelProgressStore?.setAvailableLetters(
       this.props.level.id,
@@ -138,6 +161,7 @@ export default class LettersBar extends Component<Props, State> {
 
   restoreLetterWithId(id: string) {
     this.setLetterState(id, AvailableLetterState.Idle);
+    this.zoomInLetterWithId(id);
   }
 
   getAvailableLetterWithChar(character: string) {
@@ -183,7 +207,9 @@ export default class LettersBar extends Component<Props, State> {
         availableLetters.splice(idx, 1);
       });
 
-    availableLetters.forEach((letter) => {
+    availableLetters.forEach(async (letter) => {
+      this.zoomOutLetterWithId(letter.id);
+      await delayPromise(100);
       this.setLetterState(letter.id, AvailableLetterState.Bought);
     });
     this.updateStore();
@@ -201,6 +227,8 @@ export default class LettersBar extends Component<Props, State> {
   }
 
   render() {
+    this.letterObjects = [];
+
     return (
       <View style={this.props.style}>
         <View style={styles.row}>{this.getAvailableLettersForLine(0)}</View>
