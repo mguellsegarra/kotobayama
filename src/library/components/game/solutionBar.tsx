@@ -148,7 +148,7 @@ export default class SolutionBar extends Component<Props, State> {
     return letterLines;
   }
 
-  addLetterAtPosition(
+  async addLetterAtPosition(
     character: string,
     availableLetterId: string,
     position: number,
@@ -174,16 +174,16 @@ export default class SolutionBar extends Component<Props, State> {
           charactersMap: newCharacterMap,
         },
         () => {
+          this.zoomInLetterWithId(position.toString());
+
+          this.props.levelProgressStore?.setSolutionLetters(
+            this.props.level.id,
+            this.props.pack.id,
+            newCharacterMap,
+          );
+
           resolve();
         },
-      );
-
-      this.zoomInLetterWithId(position.toString());
-
-      this.props.levelProgressStore?.setSolutionLetters(
-        this.props.level.id,
-        this.props.pack.id,
-        newCharacterMap,
       );
     });
   }
@@ -262,26 +262,37 @@ export default class SolutionBar extends Component<Props, State> {
   }
 
   async removeAllLetters() {
-    const newCharacterMap = new Map(this.state.charactersMap);
+    return new Promise((resolve, reject) => {
+      const newCharacterMap = new Map(this.state.charactersMap);
 
-    Array.from(this.state.charactersMap, ([key, value]) => {
-      return {key, value};
-    }).forEach(({key, value}) => {
-      newCharacterMap.set(key, {
-        id: key,
-        character: '',
-        letterState: SolutionLetterState.Empty,
-        availableLetterId: null,
+      Array.from(this.state.charactersMap, ([key, value]) => {
+        return {key, value};
+      }).forEach(({key, value}) => {
+        if (value.letterState !== SolutionLetterState.Filled) {
+          return;
+        }
+        newCharacterMap.set(key, {
+          id: key,
+          character: '',
+          letterState: SolutionLetterState.Empty,
+          availableLetterId: null,
+        });
+        this.zoomOutLetterWithId(key);
       });
-      this.zoomOutLetterWithId(key);
-    });
 
-    await delayPromise(100);
-    this.setState({
-      ...this.state,
-      charactersMap: newCharacterMap,
+      delayPromise(100).then(() => {
+        this.setState(
+          {
+            ...this.state,
+            charactersMap: newCharacterMap,
+          },
+          () => {
+            this.updateStore();
+            resolve();
+          },
+        );
+      });
     });
-    this.updateStore();
   }
 
   animateLetters(animationType: string, duration: number) {

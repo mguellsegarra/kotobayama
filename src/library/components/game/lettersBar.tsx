@@ -186,44 +186,43 @@ export default class LettersBar extends Component<Props, State> {
   }
 
   powerUpDestroyLetters() {
-    const availableLetters = this.state.letters.filter((item) => {
-      return item.letterState === AvailableLetterState.Idle;
+    const allLetters = this.state.letters.filter((letter) => {
+      return letter.letterState === AvailableLetterState.Idle;
     });
 
-    this.props.word
-      .replace(' ', '')
-      .toUpperCase()
-      .split('')
-      .forEach((character) => {
-        let idx = 0;
+    let availableLetters = this.state.letters.map((item) => {
+      return item.character;
+    });
 
-        availableLetters.forEach((letter, index) => {
-          const found = letter.character === character;
-          if (found) {
-            idx = index;
-          }
-        });
+    let totalChars = this.props.word.replace(' ', '').toUpperCase().split('');
 
-        availableLetters.splice(idx, 1);
+    totalChars.forEach((letter: string) => {
+      availableLetters.splice(availableLetters.indexOf(letter), 1);
+    });
+
+    availableLetters.forEach(async (letterString) => {
+      const letter = allLetters.find((letterObject) => {
+        return letterObject.character === letterString;
       });
-
-    availableLetters.forEach(async (letter) => {
-      this.zoomOutLetterWithId(letter.id);
+      this.zoomOutLetterWithId(letter!.id);
       await delayPromise(100);
-      this.setLetterState(letter.id, AvailableLetterState.Bought);
+      this.setLetterState(letter!.id, AvailableLetterState.Bought);
     });
     this.updateStore();
   }
 
   existsWrongLettersNotBought() {
-    const availableLetters = this.state.letters.filter((item) => {
-      return item.letterState !== AvailableLetterState.Bought;
+    let availableLetters = this.state.letters.map((item) => {
+      return item.character;
     });
 
-    const totalChars = this.props.word.replace(' ', '').toUpperCase().split('')
-      .length;
+    let totalChars = this.props.word.replace(' ', '').toUpperCase().split('');
 
-    return availableLetters.length > totalChars;
+    totalChars.forEach((letter: string) => {
+      availableLetters.splice(availableLetters.indexOf(letter), 1);
+    });
+
+    return availableLetters.length > 0;
   }
 
   render() {

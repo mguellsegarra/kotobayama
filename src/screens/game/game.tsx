@@ -253,7 +253,7 @@ export default class Game extends Component<Props, State> {
         if (
           !checkIfEnoughCoins({
             userStore,
-            amount: gameConfig.priceDestroyLetters,
+            amount: gameConfig.priceSolveLetter,
           })
         ) {
           this.props.navigation.navigate('AddCoins', {noCoins: true});

@@ -43,11 +43,7 @@ export const handleOnSolveLetterPress = async ({
   onNoLives: Function;
   livesIndicator: LivesIndicator | null;
 }) => {
-  if (solutionBar?.allLettersAreFull()) {
-    return;
-  }
-
-  solutionBar?.removeAllLetters();
+  await solutionBar?.removeAllLetters();
   lettersBar?.restoreNonBoughtLetters();
 
   await delayPromise(50);
@@ -62,7 +58,7 @@ export const handleOnSolveLetterPress = async ({
     getAvailableLetterWithChar: lettersBar?.getAvailableLetterWithChar,
   });
 
-  solutionBar?.addLetterAtPosition(
+  await solutionBar?.addLetterAtPosition(
     randomLetter,
     availableLetterId,
     position,
