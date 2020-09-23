@@ -5,6 +5,7 @@ import {styles} from './coinCounter.style';
 
 type Props = {
   coins: number;
+  onAnimation: Function;
 };
 
 type State = {
@@ -21,6 +22,12 @@ export default class CoinCounterText extends Component<Props, State> {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps: Props) {
+    if (this.props.coins !== nextProps.coins) {
+      this.props.onAnimation();
+    }
+
+    const timeForStep = Math.abs(this.props.coins - nextProps.coins) / 1000;
+
     this.left = setInterval(() => {
       if (this.state.currentCoins === this.props.coins) {
         clearInterval(this.left!);
@@ -32,7 +39,7 @@ export default class CoinCounterText extends Component<Props, State> {
           this.state.currentCoins +
           (this.state.currentCoins > this.props.coins ? -1 : +1),
       });
-    }, 10);
+    }, timeForStep);
   }
 
   render() {
