@@ -91,7 +91,6 @@ export default class LevelComplete extends Component<Props> {
 
   handleClaim(pack: Pack, levelProgress: LevelProgress) {
     const coins = this.props.userStore.getCoinsToAddForLives(levelProgress!);
-    this.props.userStore.incrementCoins(coins);
 
     this.props.levelMapStore.nextIncompleteLevelForPack(
       this.props.levelProgressStore.levelsProgress,
@@ -99,6 +98,7 @@ export default class LevelComplete extends Component<Props> {
     );
 
     this.props.navigation.navigate('LevelMap');
+    this.props.userStore.incrementCoins(coins);
   }
 
   handleClaimx2(pack: Pack, levelProgress: LevelProgress) {

@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {TouchableWithoutFeedback, Image, Text, View} from 'react-native';
+import CoinCounterText from './coinCounterText';
 
 import R, {Images} from '@res/R';
 import {styles} from './coinCounter.style';
@@ -22,9 +23,8 @@ export default class CoinCounter extends Component<Props> {
             style={styles.image}
             source={R.img(Images.coins)}
           />
-          <Text adjustsFontSizeToFit style={styles.text}>
-            {this.props.totalCoins}
-          </Text>
+
+          <CoinCounterText coins={this.props.totalCoins} />
           <Text adjustsFontSizeToFit style={styles.plus}>
             +
           </Text>
