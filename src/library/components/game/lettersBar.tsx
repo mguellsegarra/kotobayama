@@ -186,13 +186,17 @@ export default class LettersBar extends Component<Props, State> {
   }
 
   powerUpDestroyLetters() {
-    const allLetters = this.state.letters.filter((letter) => {
-      return letter.letterState === AvailableLetterState.Idle;
+    let allLetters = this.state.letters.filter((letter) => {
+      return letter.letterState !== AvailableLetterState.Bought;
     });
 
-    let availableLetters = this.state.letters.map((item) => {
-      return item.character;
-    });
+    let availableLetters = this.state.letters
+      .filter((letter) => {
+        return letter.letterState !== AvailableLetterState.Bought;
+      })
+      .map((item) => {
+        return item.character;
+      });
 
     let totalChars = this.props.word.replace(' ', '').toUpperCase().split('');
 
@@ -204,6 +208,7 @@ export default class LettersBar extends Component<Props, State> {
       const letter = allLetters.find((letterObject) => {
         return letterObject.character === letterString;
       });
+      allLetters.splice(allLetters.indexOf(letter!), 1);
       this.zoomOutLetterWithId(letter!.id);
       await delayPromise(100);
       this.setLetterState(letter!.id, AvailableLetterState.Bought);
@@ -212,9 +217,13 @@ export default class LettersBar extends Component<Props, State> {
   }
 
   existsWrongLettersNotBought() {
-    let availableLetters = this.state.letters.map((item) => {
-      return item.character;
-    });
+    let availableLetters = this.state.letters
+      .filter((letter) => {
+        return letter.letterState !== AvailableLetterState.Bought;
+      })
+      .map((item) => {
+        return item.character;
+      });
 
     let totalChars = this.props.word.replace(' ', '').toUpperCase().split('');
 
