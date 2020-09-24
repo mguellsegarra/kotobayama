@@ -41,7 +41,7 @@ const getStyles: any = () => {
       width: '100%',
       flexDirection: 'column',
       alignItems: 'center',
-      justifyContent: 'flex-start',
+      justifyContent: 'center',
     },
     ribbonText: {
       marginLeft: '15%',
@@ -50,11 +50,7 @@ const getStyles: any = () => {
       fontSize: isTablet() ? wp('3.1%') : wp('3.5%'),
       textAlign: 'center',
       fontFamily: Fonts.league,
-      marginTop: isAndroid
-        ? hp('1%')
-        : isTablet()
-        ? hp('1.8%')
-        : hp('2%') + (isIosAndNotch ? 2 : 0),
+      marginBottom: isAndroid ? hp('1.5%') : hp('1%'),
     },
     container: {
       flex: 2,
@@ -145,8 +141,8 @@ const getStyles: any = () => {
     },
     button: {
       width: defaultButtonSize.width,
-      height: defaultButtonSize.height
-    }
+      height: defaultButtonSize.height,
+    },
   });
 };
 
