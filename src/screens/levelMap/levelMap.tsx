@@ -271,7 +271,9 @@ export default class LevelMap extends Component<Props, State> {
               this.navbar = ref;
             }}
             totalCoins={this.props.userStore.coins}
-            onBack={() => {}}
+            onBack={() => {
+              this.props.navigation.goBack();
+            }}
             onCoinTap={() => {
               this.props.navigation.navigate('AddCoins', {noCoins: false});
             }}
