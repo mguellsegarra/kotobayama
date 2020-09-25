@@ -33,7 +33,7 @@ const getStyles = () => {
       flexDirection: 'row',
     },
     top: {
-      flex: 0.2,
+      flex: 0.28,
       width: wp('100%'),
       justifyContent: 'center',
       alignItems: 'center',
