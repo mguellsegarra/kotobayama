@@ -39,6 +39,15 @@ In this demo version there is a level for guessing huts, summits and lakes from 
 
 ## TODO
 
+- Implement in-app purchases with [RevenueCat](https://www.revenuecat.com/)
+- Create more levels
+- Level selection screen
+- Level localization and language support
+- Sounds, FX, and music
+
 ## Credits
+
+- Art and UI: 
+- Fonts: [Midorima](https://www.1001fonts.com/midorima-personal-use-font.html)
 
 ## License
