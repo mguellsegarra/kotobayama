@@ -45,9 +45,14 @@ In this demo version there is a level for guessing huts, summits and lakes from 
 - Level localization and language support
 - Sounds, FX, and music
 
-## Credits
+## Credits and attribution
 
-- Art and UI: 
-- Fonts: [Midorima](https://www.1001fonts.com/midorima-personal-use-font.html)
+- Art and UI: [GUI PRO Kit Fantasy RPG](https://assetstore.unity.com/packages/2d/gui/gui-pro-kit-fantasy-rpg-170168) - Paid. **IMPORTANT**. Please contact the [author](http://www.layerlab.io/) before using or distributing.
+- Fonts: [Midorima](https://www.1001fonts.com/midorima-personal-use-font.html) and few Google Fonts.
 
 ## License
+
+Licensed under the incredibly permissive MIT license
+
+Copyright © 2020 Marc Güell Segarra
+
