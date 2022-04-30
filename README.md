@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="https://github.com/mguellsegarra/kotobayama/blob/master/src/res/images/ui/logo_and_ribbon@2x.png?raw=true" alt="kotobayama" width="537" height="380" />
+  <img src="https://github.com/mguellsegarra/kotobayama/blob/master/src/res/images/ui/logo_and_ribbon@2x.png?raw=true" alt="kotobayama" style="width: 537px; height: 380px" />
 </p>
 
 # 🏔🀄️ kotobayama
