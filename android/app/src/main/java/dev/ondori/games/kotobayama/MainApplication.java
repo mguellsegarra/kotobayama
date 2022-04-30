@@ -1,4 +1,4 @@
-package dev.ondori.games.tegami_mountains;
+package dev.ondori.games.kotobayama;
 
 import android.app.Application;
 import android.content.Context;
@@ -67,7 +67,7 @@ public class MainApplication extends MultiDexApplication implements ReactApplica
          We use reflection here to pick up the class that initializes Flipper,
         since Flipper library is not available in release mode
         */
-        Class<?> aClass = Class.forName("dev.ondori.games.tegami_mountains.ReactNativeFlipper");
+        Class<?> aClass = Class.forName("dev.ondori.games.kotobayama.ReactNativeFlipper");
         aClass
             .getMethod("initializeFlipper", Context.class, ReactInstanceManager.class)
             .invoke(null, context, reactInstanceManager);

@@ -1,4 +1,4 @@
-package dev.ondori.games.tegami_mountains;
+package dev.ondori.games.kotobayama;
 
 import com.facebook.react.ReactActivity;
 import android.content.pm.ActivityInfo;
@@ -18,6 +18,6 @@ public class MainActivity extends ReactActivity {
    */
   @Override
   protected String getMainComponentName() {
-    return "tegami_mountains";
+    return "kotobayama";
   }
 }

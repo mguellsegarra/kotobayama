@@ -11,6 +11,6 @@
 #endif
 
 
-FOUNDATION_EXPORT double Pods_tegami_mountainsVersionNumber;
-FOUNDATION_EXPORT const unsigned char Pods_tegami_mountainsVersionString[];
+FOUNDATION_EXPORT double Pods_kotobayamaVersionNumber;
+FOUNDATION_EXPORT const unsigned char Pods_kotobayamaVersionString[];
 
