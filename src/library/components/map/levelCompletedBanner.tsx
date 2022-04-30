@@ -1,16 +1,22 @@
 import React, {Component} from 'react';
-import {Image, ImageBackground, Text, ViewStyle, Platform} from 'react-native';
+import {
+  Image,
+  ImageBackground,
+  StyleSheet,
+  Text,
+  ViewStyle,
+} from 'react-native';
 import {View} from 'react-native-animatable';
-const isAndroid = Platform.OS === 'android';
+import {isAndroid, isTablet, wp, hp} from '@library/services/deviceService';
+const poiTypes = require('@assets/poiTypes');
 
-import {styles} from '@screens/levelMap/levelMap.style';
-
-import R, {Images} from '@res/R';
+import R, {Images, Fonts} from '@res/R';
 
 type Props = {
   style: ViewStyle;
   title: string;
   stars: number;
+  type: string;
   visible?: boolean;
   pointerEvents: 'box-none' | 'none' | 'box-only' | 'auto' | undefined;
 };
@@ -56,7 +62,7 @@ export default class LevelCompletedBanner extends Component<Props> {
             <View style={styles.levelCompletedTop}>
               <Image
                 resizeMode={'contain'}
-                source={R.img(Images.tick)}
+                source={R.img(poiTypes[this.props.type]?.image)}
                 style={styles.levelCompletedTick}
               />
             </View>
@@ -91,3 +97,69 @@ export default class LevelCompletedBanner extends Component<Props> {
     );
   }
 }
+
+const levelCompletedContainerWidth = isTablet() ? wp('40%') : wp('60%');
+const levelCompletedContainerConstant = 0.408829174664107;
+const levelCompletedContainerHeight =
+  levelCompletedContainerWidth * levelCompletedContainerConstant;
+
+const levelCompletedTickHeight = levelCompletedContainerHeight / 5;
+const levelCompletedTickConstant = 1.09375;
+const levelCompletedTickWidth =
+  levelCompletedTickHeight / levelCompletedTickConstant;
+
+const styles = StyleSheet.create({
+  levelCompletedImage: {
+    width: levelCompletedContainerWidth,
+    height: levelCompletedContainerHeight,
+  },
+  levelCompletedContainer: {
+    marginTop: levelCompletedContainerHeight * 0.09,
+    marginBottom: levelCompletedContainerHeight * 0.09,
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  levelCompletedTop: {
+    width: '93%',
+    flex: 2,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  levelCompletedMiddle: {
+    width: '93%',
+    flex: 2,
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: hp('1%'),
+  },
+  levelCompletedTick: {
+    marginBottom: hp('1.5%'),
+    height: hp('5%'),
+    width: hp('5%'),
+  },
+  levelCompletedBottom: {
+    width: '93%',
+    flex: 2,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: hp('1%'),
+  },
+  levelCompletedStar: {
+    height: levelCompletedTickHeight,
+    width: levelCompletedTickWidth,
+    marginRight: wp('0.5%'),
+    marginLeft: wp('0.5%'),
+  },
+  levelCompletedTitle: {
+    width: '90%',
+    fontFamily: Fonts.league,
+    fontSize: wp('4%'),
+    color: 'white',
+    textAlign: 'center',
+  },
+});

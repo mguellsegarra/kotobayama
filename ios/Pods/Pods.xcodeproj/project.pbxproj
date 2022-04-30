@@ -336,7 +336,7 @@
 		1DF05E1FC262491C34E85AB1A6CC5FBB /* Instance.cpp in Sources */ = {isa = PBXBuildFile; fileRef = CE8BC4FDC22697FC3394C80B49A11513 /* Instance.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -Wno-comma -Wno-shorten-64-to-32 -Wno-documentation"; }; };
 		1DFF7137315CCD2CAC08A768B94B4DC1 /* RCTImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = FE160280C90DF7AF2D662564C9DBB1CF /* RCTImageCache.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1E010889383A4C1B22D6E3F84E396B9D /* GLog.h in Headers */ = {isa = PBXBuildFile; fileRef = D15CE82C3E2A7C36F4FFF43501E03AC8 /* GLog.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		1E07B1BC3CF2D71D92882A8E8A539C3B /* Pods-tegami_mountains-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F68C0760EB4D6E1E434B131036A9A5B /* Pods-tegami_mountains-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
+		1E07B1BC3CF2D71D92882A8E8A539C3B /* Pods-kotobayama-umbrella.h in Headers */ = {isa = PBXBuildFile; fileRef = 3F68C0760EB4D6E1E434B131036A9A5B /* Pods-kotobayama-umbrella.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1E349A7C4FE8DFC68ECCE9739D7A2E5A /* ScopedEventBaseThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 04925FEBA8207EE07F3204F1FA9CF801 /* ScopedEventBaseThread.cpp */; settings = {COMPILER_FLAGS = "-DFOLLY_HAVE_PTHREAD=1 -DFOLLY_NO_CONFIG -DFOLLY_MOBILE=1 -DFOLLY_USE_LIBCPP=1 -DFOLLY_HAVE_LIBGFLAGS=0 -DFOLLY_HAVE_LIBJEMALLOC=0 -DFOLLY_HAVE_PREADV=0 -DFOLLY_HAVE_PWRITEV=0 -DFOLLY_HAVE_TFO=0 -DFOLLY_USE_SYMBOLIZER=0\n    -frtti\n    -fexceptions\n    -std=c++14\n    -Wno-error\n    -Wno-unused-local-typedefs\n    -Wno-unused-variable\n    -Wno-sign-compare\n    -Wno-comment\n    -Wno-return-type\n    -Wno-global-constructors"; }; };
 		1E58FCCA02D71B64A59A16E8482ADCDF /* SysTime.h in Headers */ = {isa = PBXBuildFile; fileRef = DE80871013E0097A6186D856FF909D66 /* SysTime.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		1E8207546CF82ACA95542E9292A57028 /* EventBaseLocal.h in Headers */ = {isa = PBXBuildFile; fileRef = 60988933D3D651B09099E56A3747ED69 /* EventBaseLocal.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -2280,7 +2280,7 @@
 		FE672C43F5340FD528F5348CA51D29A0 /* GlobalShutdownSocketSet.h in Headers */ = {isa = PBXBuildFile; fileRef = 0800FBC7D6F0A065AA6A84CF323F7C39 /* GlobalShutdownSocketSet.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FE8683E5E6D3173B4654BAC76C8A707C /* GFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = 09D0F834060D36F52B01C4C14DB90F53 /* GFlags.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FE87ED68A9A42215D54F6958AF727559 /* RCTDivisionAnimatedNode.h in Headers */ = {isa = PBXBuildFile; fileRef = 6714D3A1A59832E17E888C723C7E4C38 /* RCTDivisionAnimatedNode.h */; settings = {ATTRIBUTES = (Project, ); }; };
-		FEA9471F16C0CE201F35196023C5EB95 /* Pods-tegami_mountains-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A39B60D7023F25AEA87E0B71828C6EC /* Pods-tegami_mountains-dummy.m */; };
+		FEA9471F16C0CE201F35196023C5EB95 /* Pods-kotobayama-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A39B60D7023F25AEA87E0B71828C6EC /* Pods-kotobayama-dummy.m */; };
 		FEAB83D9B599FEF1704868692B7A5B4C /* RNShare.m in Sources */ = {isa = PBXBuildFile; fileRef = EB5C7F08DE9B304C3DFA1464D99533F7 /* RNShare.m */; };
 		FEAEFCC2F15EF7DADC5123B470240B14 /* RCTMultilineTextInputViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = FBAB14369B533A29FD3636E9960010B9 /* RCTMultilineTextInputViewManager.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		FF05F03ADE9E4E3A94989F8350DA1841 /* FlipperRSocketResponder.h in Headers */ = {isa = PBXBuildFile; fileRef = AC577749F1114BA9CA10B4546D303242 /* FlipperRSocketResponder.h */; settings = {ATTRIBUTES = (Project, ); }; };
@@ -3758,7 +3758,7 @@
 		0DD24F402E363942F2054CD60BF53BE5 /* RCTBridge+Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "RCTBridge+Private.h"; sourceTree = "<group>"; };
 		0DDBEF741594A9DD6E134CAD386D338F /* RCTScrollEvent.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTScrollEvent.m; sourceTree = "<group>"; };
 		0E03F9595B24A5518A5F32196CBC3046 /* HHWheelTimer.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = HHWheelTimer.cpp; path = folly/io/async/HHWheelTimer.cpp; sourceTree = "<group>"; };
-		0E231D12101EB996E3CB27087D6883C7 /* libPods-tegami_mountains.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-tegami_mountains.a"; path = "libPods-tegami_mountains.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		0E231D12101EB996E3CB27087D6883C7 /* libPods-kotobayama.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libPods-kotobayama.a"; path = "libPods-kotobayama.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0E3D05C20882C8DB8459E613C7FE7942 /* fixed-dtoa.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "fixed-dtoa.h"; path = "double-conversion/fixed-dtoa.h"; sourceTree = "<group>"; };
 		0E6282CED929AAEB77F2A1296C8B7C9C /* RCTLayoutAnimationGroup.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTLayoutAnimationGroup.m; sourceTree = "<group>"; };
 		0E66F281DEBBC418DC95D349DDCBC5D5 /* RCTRequired.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = RCTRequired.release.xcconfig; sourceTree = "<group>"; };
@@ -3940,7 +3940,7 @@
 		1F4DE4A7EE4B6C5B96D32C8E3E9D0262 /* AtomicSharedPtr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AtomicSharedPtr.h; path = folly/concurrency/AtomicSharedPtr.h; sourceTree = "<group>"; };
 		1F6ECD2745130A5D0E77F957CEBEE92C /* RCTBaseTextInputShadowView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTBaseTextInputShadowView.m; sourceTree = "<group>"; };
 		1F7E5BA3B7BF4CE3ACF5D80B88E23F72 /* RCTTouchEvent.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = RCTTouchEvent.h; sourceTree = "<group>"; };
-		1F96D6A372ECD90FE2C256C907BF70F3 /* Pods-tegami_mountains.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-tegami_mountains.debug.xcconfig"; sourceTree = "<group>"; };
+		1F96D6A372ECD90FE2C256C907BF70F3 /* Pods-kotobayama.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-kotobayama.debug.xcconfig"; sourceTree = "<group>"; };
 		1FCB631F64694E9CEB8401872342FB09 /* Try.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Try.h; path = folly/Try.h; sourceTree = "<group>"; };
 		1FECE69AEF2E064E97BDE7CF698DCE1F /* CompactValue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = CompactValue.h; path = yoga/CompactValue.h; sourceTree = "<group>"; };
 		201AD3FD419EF58862FA52E5D0019B02 /* SKStateUpdateCPPWrapper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SKStateUpdateCPPWrapper.h; path = iOS/FlipperKit/SKStateUpdateCPPWrapper.h; sourceTree = "<group>"; };
@@ -4064,7 +4064,7 @@
 		2B2F3B5C2F37DAB9B9B65047EFB2CCE2 /* BSG_KSCrashSentry_User.c */ = {isa = PBXFileReference; includeInIndex = 1; path = BSG_KSCrashSentry_User.c; sourceTree = "<group>"; };
 		2B3B1906A6086B04DB33A8C32CE197F1 /* RNFetchBlobConst.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RNFetchBlobConst.m; path = ios/RNFetchBlobConst.m; sourceTree = "<group>"; };
 		2B701A95B08CA127F6D6AAA283DD3775 /* Bugsnag.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Bugsnag.h; sourceTree = "<group>"; };
-		2BA4959364FC8D3BD46539A14C92FAD1 /* Pods-tegami_mountains.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-tegami_mountains.release.xcconfig"; sourceTree = "<group>"; };
+		2BA4959364FC8D3BD46539A14C92FAD1 /* Pods-kotobayama.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-kotobayama.release.xcconfig"; sourceTree = "<group>"; };
 		2BE9900E56CFC9EEBE26BDB71B22CCED /* JsArgumentHelpers.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JsArgumentHelpers.h; sourceTree = "<group>"; };
 		2BE9D0DE312DA5956B5D9D715B7BF0F9 /* AtomicUtil.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AtomicUtil.h; path = folly/synchronization/AtomicUtil.h; sourceTree = "<group>"; };
 		2BF3BE222583C07F8B80B07E61FE08B1 /* UnboundedBlockingQueue.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = UnboundedBlockingQueue.h; path = folly/executors/task_queue/UnboundedBlockingQueue.h; sourceTree = "<group>"; };
@@ -4189,7 +4189,7 @@
 		37CBB8137BE6FEE9AA9C9F61CE445C05 /* vlog_is_on.cc */ = {isa = PBXFileReference; includeInIndex = 1; name = vlog_is_on.cc; path = src/vlog_is_on.cc; sourceTree = "<group>"; };
 		37E5A0A1429A2813FB4AE7B6F6BA2089 /* WaitOptions.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = WaitOptions.h; path = folly/synchronization/WaitOptions.h; sourceTree = "<group>"; };
 		37E6BB1C569BB3AC515CDD1CC3E6440E /* RCTConvertHelpers.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = RCTConvertHelpers.mm; sourceTree = "<group>"; };
-		37E99F89417B6B2CAA872C58C66CBDC2 /* Pods-tegami_mountains-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-tegami_mountains-resources.sh"; sourceTree = "<group>"; };
+		37E99F89417B6B2CAA872C58C66CBDC2 /* Pods-kotobayama-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-kotobayama-resources.sh"; sourceTree = "<group>"; };
 		3805B8ACE6C083017CEB6F7CA90D2B39 /* EventBaseManager.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = EventBaseManager.cpp; path = folly/io/async/EventBaseManager.cpp; sourceTree = "<group>"; };
 		383F8A348AE28B36D1E8EAA04F344B83 /* bignum.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = bignum.h; path = "double-conversion/bignum.h"; sourceTree = "<group>"; };
 		386F91BF867D083E35C8CA3BBB35808B /* Futex-inl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Futex-inl.h"; path = "folly/detail/Futex-inl.h"; sourceTree = "<group>"; };
@@ -4253,7 +4253,7 @@
 		3F2FFD86E2688006C76D4E61924C8A06 /* RCTModalHostViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTModalHostViewManager.m; sourceTree = "<group>"; };
 		3F30D5AF183CC3FB36615D057472F46D /* DiscriminatedPtrDetail.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = DiscriminatedPtrDetail.h; path = folly/detail/DiscriminatedPtrDetail.h; sourceTree = "<group>"; };
 		3F365D71507A8FADA357E777D06A90A9 /* MemoryMapping.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = MemoryMapping.h; path = folly/system/MemoryMapping.h; sourceTree = "<group>"; };
-		3F68C0760EB4D6E1E434B131036A9A5B /* Pods-tegami_mountains-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-tegami_mountains-umbrella.h"; sourceTree = "<group>"; };
+		3F68C0760EB4D6E1E434B131036A9A5B /* Pods-kotobayama-umbrella.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pods-kotobayama-umbrella.h"; sourceTree = "<group>"; };
 		3FA1174FACDBF6934AB16E7A67DAB1FF /* GMUStaticCluster.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GMUStaticCluster.m; path = src/Clustering/GMUStaticCluster.m; sourceTree = "<group>"; };
 		3FCABDE45C433860919B82324AC4D073 /* ConcurrentSkipList-inl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "ConcurrentSkipList-inl.h"; path = "folly/ConcurrentSkipList-inl.h"; sourceTree = "<group>"; };
 		4006621EBD5AF938FA0FC1899830688F /* RCTImageLoaderWithAttributionProtocol.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RCTImageLoaderWithAttributionProtocol.h; path = Libraries/Image/RCTImageLoaderWithAttributionProtocol.h; sourceTree = "<group>"; };
@@ -5011,7 +5011,7 @@
 		89E685D25C6824883E81BA28464DBFE8 /* Assume-inl.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "Assume-inl.h"; path = "folly/lang/Assume-inl.h"; sourceTree = "<group>"; };
 		89FE6EEC723E4E381E560AA7097FB8C1 /* react-native-maps.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "react-native-maps.debug.xcconfig"; sourceTree = "<group>"; };
 		8A12B5731E40A4361FC1A5344D0A36A4 /* YGEnums.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = YGEnums.cpp; path = yoga/YGEnums.cpp; sourceTree = "<group>"; };
-		8A39B60D7023F25AEA87E0B71828C6EC /* Pods-tegami_mountains-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-tegami_mountains-dummy.m"; sourceTree = "<group>"; };
+		8A39B60D7023F25AEA87E0B71828C6EC /* Pods-kotobayama-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-kotobayama-dummy.m"; sourceTree = "<group>"; };
 		8A4392151B00F6D94A572FFA159A7B9B /* ConnectionFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ConnectionFactory.h; path = rsocket/ConnectionFactory.h; sourceTree = "<group>"; };
 		8A585443957F2E53FC48DFAB3B3BBA3C /* BugsnagHandledState.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = BugsnagHandledState.m; sourceTree = "<group>"; };
 		8A67C585B91A02E644DC62D448BFE7A7 /* GMUWeightedLatLng.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = GMUWeightedLatLng.m; path = src/Heatmap/GMUWeightedLatLng.m; sourceTree = "<group>"; };
@@ -5407,7 +5407,7 @@
 		B19355D1387BAFE5D0C58F017CBAC40B /* Memory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = Memory.h; path = folly/portability/Memory.h; sourceTree = "<group>"; };
 		B1A1051201CFB56A483A6EF18C7DCA3A /* PTChannel.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = PTChannel.h; path = peertalk/PTChannel.h; sourceTree = "<group>"; };
 		B1AE0405B385F66005588FEF3F9EACD4 /* GMUSimpleClusterAlgorithm.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = GMUSimpleClusterAlgorithm.h; path = src/Clustering/Algo/GMUSimpleClusterAlgorithm.h; sourceTree = "<group>"; };
-		B1B49453AD1CAAF4A01FB2B9C1B7058A /* Pods-tegami_mountains-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-tegami_mountains-acknowledgements.plist"; sourceTree = "<group>"; };
+		B1B49453AD1CAAF4A01FB2B9C1B7058A /* Pods-kotobayama-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-kotobayama-acknowledgements.plist"; sourceTree = "<group>"; };
 		B1B49DDDFEBE5EE701FC438F5E920581 /* StreamThroughputMemory.cpp */ = {isa = PBXFileReference; includeInIndex = 1; name = StreamThroughputMemory.cpp; path = rsocket/benchmarks/StreamThroughputMemory.cpp; sourceTree = "<group>"; };
 		B1BCB116913AC2622364494F981702D4 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; path = README.md; sourceTree = "<group>"; };
 		B1D1AD848AF735198EE737D6B3E5E71B /* RCTPlatform.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = RCTPlatform.h; path = React/CoreModules/RCTPlatform.h; sourceTree = "<group>"; };
@@ -5602,7 +5602,7 @@
 		C5C5BEC7DDA42FE7C6915BD04F0A0A47 /* RNGestureHandlerRegistry.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = RNGestureHandlerRegistry.m; path = ios/RNGestureHandlerRegistry.m; sourceTree = "<group>"; };
 		C5D9172591A30643E100FFA4282A07A8 /* ChannelResponder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = ChannelResponder.h; path = rsocket/statemachine/ChannelResponder.h; sourceTree = "<group>"; };
 		C5F8A17FA82A71D7138A28A3A14D05F2 /* SynchronizedPtr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = SynchronizedPtr.h; path = folly/SynchronizedPtr.h; sourceTree = "<group>"; };
-		C65F4095431D636EB788AC7545BEFF6B /* Pods-tegami_mountains.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-tegami_mountains.modulemap"; sourceTree = "<group>"; };
+		C65F4095431D636EB788AC7545BEFF6B /* Pods-kotobayama.modulemap */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.module; path = "Pods-kotobayama.modulemap"; sourceTree = "<group>"; };
 		C68A3330AF0F0321BE235F6327377BDF /* FlipperConnection.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = FlipperConnection.h; path = xplat/Flipper/FlipperConnection.h; sourceTree = "<group>"; };
 		C69C1E065ECFEFAA0805D27C1BDFBB6E /* JSIndexedRAMBundle.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = JSIndexedRAMBundle.h; sourceTree = "<group>"; };
 		C6BF6724D74B3027214E3C543A11CFD0 /* MessageQueueThread.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = MessageQueueThread.h; sourceTree = "<group>"; };
@@ -6081,7 +6081,7 @@
 		F7C93F04E5618D5E414897F4BAC35D64 /* File.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = File.h; path = folly/File.h; sourceTree = "<group>"; };
 		F7D4CFD8007E1491802305A2021EB56D /* libreact-native-google-maps.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; name = "libreact-native-google-maps.a"; path = "libreact-native-google-maps.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F7E0912E052E56D5F46CA7567C62EAF7 /* RCTTextViewManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RCTTextViewManager.m; sourceTree = "<group>"; };
-		F804A08260978F978D881EF0A48AE865 /* Pods-tegami_mountains-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-tegami_mountains-acknowledgements.markdown"; sourceTree = "<group>"; };
+		F804A08260978F978D881EF0A48AE865 /* Pods-kotobayama-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-kotobayama-acknowledgements.markdown"; sourceTree = "<group>"; };
 		F8076BB668C29338B41BEF80A4D6A15D /* AtomicReadMostlyMainPtr.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = AtomicReadMostlyMainPtr.h; path = folly/experimental/AtomicReadMostlyMainPtr.h; sourceTree = "<group>"; };
 		F81F92B06BBAA79A1A098145F5EDEB09 /* RCTTypedModuleConstants.mm */ = {isa = PBXFileReference; includeInIndex = 1; path = RCTTypedModuleConstants.mm; sourceTree = "<group>"; };
 		F82DA07C430A134E4BA086DE8450B2F3 /* RNRotationHandler.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = RNRotationHandler.m; sourceTree = "<group>"; };
@@ -7263,7 +7263,7 @@
 		2A3DB2ACF40404F33FC788192922E7AC /* Targets Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				AC5337192CE7E7BEEC30DB470604FD85 /* Pods-tegami_mountains */,
+				AC5337192CE7E7BEEC30DB470604FD85 /* Pods-kotobayama */,
 			);
 			name = "Targets Support Files";
 			sourceTree = "<group>";
@@ -9750,20 +9750,20 @@
 			name = FlipperKitLayoutTextSearchable;
 			sourceTree = "<group>";
 		};
-		AC5337192CE7E7BEEC30DB470604FD85 /* Pods-tegami_mountains */ = {
+		AC5337192CE7E7BEEC30DB470604FD85 /* Pods-kotobayama */ = {
 			isa = PBXGroup;
 			children = (
-				C65F4095431D636EB788AC7545BEFF6B /* Pods-tegami_mountains.modulemap */,
-				F804A08260978F978D881EF0A48AE865 /* Pods-tegami_mountains-acknowledgements.markdown */,
-				B1B49453AD1CAAF4A01FB2B9C1B7058A /* Pods-tegami_mountains-acknowledgements.plist */,
-				8A39B60D7023F25AEA87E0B71828C6EC /* Pods-tegami_mountains-dummy.m */,
-				37E99F89417B6B2CAA872C58C66CBDC2 /* Pods-tegami_mountains-resources.sh */,
-				3F68C0760EB4D6E1E434B131036A9A5B /* Pods-tegami_mountains-umbrella.h */,
-				1F96D6A372ECD90FE2C256C907BF70F3 /* Pods-tegami_mountains.debug.xcconfig */,
-				2BA4959364FC8D3BD46539A14C92FAD1 /* Pods-tegami_mountains.release.xcconfig */,
+				C65F4095431D636EB788AC7545BEFF6B /* Pods-kotobayama.modulemap */,
+				F804A08260978F978D881EF0A48AE865 /* Pods-kotobayama-acknowledgements.markdown */,
+				B1B49453AD1CAAF4A01FB2B9C1B7058A /* Pods-kotobayama-acknowledgements.plist */,
+				8A39B60D7023F25AEA87E0B71828C6EC /* Pods-kotobayama-dummy.m */,
+				37E99F89417B6B2CAA872C58C66CBDC2 /* Pods-kotobayama-resources.sh */,
+				3F68C0760EB4D6E1E434B131036A9A5B /* Pods-kotobayama-umbrella.h */,
+				1F96D6A372ECD90FE2C256C907BF70F3 /* Pods-kotobayama.debug.xcconfig */,
+				2BA4959364FC8D3BD46539A14C92FAD1 /* Pods-kotobayama.release.xcconfig */,
 			);
-			name = "Pods-tegami_mountains";
-			path = "Target Support Files/Pods-tegami_mountains";
+			name = "Pods-kotobayama";
+			path = "Target Support Files/Pods-kotobayama";
 			sourceTree = "<group>";
 		};
 		AD53AC408B21FC4404EED9785B687C6F /* Pod */ = {
@@ -10283,7 +10283,7 @@
 				06489499588BFA8FD5E63DD6375CD533 /* libFolly.a */,
 				3CA7A9404CCDD6BA22C97F8348CE3209 /* libglog.a */,
 				5CA9E6FE438CE79CD76FA3B34CC95836 /* libGoogle-Maps-iOS-Utils.a */,
-				0E231D12101EB996E3CB27087D6883C7 /* libPods-tegami_mountains.a */,
+				0E231D12101EB996E3CB27087D6883C7 /* libPods-kotobayama.a */,
 				F958876A082BF810B342435CE3FB5AF6 /* libRCTTypeSafety.a */,
 				BD71E2539823621820F84384064C253A /* libReact-Core.a */,
 				6771D231F4C8C5976470A369C474B32E /* libReact-CoreModules.a */,
@@ -12109,7 +12109,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E07B1BC3CF2D71D92882A8E8A539C3B /* Pods-tegami_mountains-umbrella.h in Headers */,
+				1E07B1BC3CF2D71D92882A8E8A539C3B /* Pods-kotobayama-umbrella.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -13134,9 +13134,9 @@
 			productReference = 5B3357A1CE67C0BF4AE31936A1BE6888 /* libYogaKit.a */;
 			productType = "com.apple.product-type.library.static";
 		};
-		3F9232726517A9900D01B41892E8C6DA /* Pods-tegami_mountains */ = {
+		3F9232726517A9900D01B41892E8C6DA /* Pods-kotobayama */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2CA073EFB7D174017B83EE7606446CB2 /* Build configuration list for PBXNativeTarget "Pods-tegami_mountains" */;
+			buildConfigurationList = 2CA073EFB7D174017B83EE7606446CB2 /* Build configuration list for PBXNativeTarget "Pods-kotobayama" */;
 			buildPhases = (
 				4CE8AC9CB4ECD19A685B11DAD3CCCD90 /* Headers */,
 				C8C38BF95C5DF8729E5764C99DBAAFAE /* Sources */,
@@ -13201,9 +13201,9 @@
 				1C920283A14BF17DA5A4402684F3E480 /* PBXTargetDependency */,
 				97CA157BB1EB47D660EC4CC623673671 /* PBXTargetDependency */,
 			);
-			name = "Pods-tegami_mountains";
-			productName = "Pods-tegami_mountains";
-			productReference = 0E231D12101EB996E3CB27087D6883C7 /* libPods-tegami_mountains.a */;
+			name = "Pods-kotobayama";
+			productName = "Pods-kotobayama";
+			productReference = 0E231D12101EB996E3CB27087D6883C7 /* libPods-kotobayama.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 		463F41A7E8B252F8AC5024DA1F4AF6DA /* React-cxxreact */ = {
@@ -14008,7 +14008,7 @@
 				A5EEC7C2AA5BC7C67CFA2C7578AB62C7 /* Google-Maps-iOS-Utils */,
 				E5B4BBC6DD552AC8943C7E22772FC1D3 /* GoogleMaps */,
 				B9ED5194E665042005069EF06C82A050 /* OpenSSL-Universal */,
-				3F9232726517A9900D01B41892E8C6DA /* Pods-tegami_mountains */,
+				3F9232726517A9900D01B41892E8C6DA /* Pods-kotobayama */,
 				E7E7CE52C8C68B17224FF8C262D80ABF /* RCTRequired */,
 				D20469A9A1E5CFB26045EAEBE3F88E5E /* RCTTypeSafety */,
 				1BEE828C124E6416179B904A9F66D794 /* React */,
@@ -15103,7 +15103,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FEA9471F16C0CE201F35196023C5EB95 /* Pods-tegami_mountains-dummy.m in Sources */,
+				FEA9471F16C0CE201F35196023C5EB95 /* Pods-kotobayama-dummy.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -16439,7 +16439,7 @@
 /* Begin XCBuildConfiguration section */
 		01E2DF135DC1DC6D0727CA3383D87F89 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 1F96D6A372ECD90FE2C256C907BF70F3 /* Pods-tegami_mountains.debug.xcconfig */;
+			baseConfigurationReference = 1F96D6A372ECD90FE2C256C907BF70F3 /* Pods-kotobayama.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -16449,7 +16449,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-tegami_mountains/Pods-tegami_mountains.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-kotobayama/Pods-kotobayama.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -18398,7 +18398,7 @@
 		};
 		B13F9B21139D20ADBED4AFB68AC25E84 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 2BA4959364FC8D3BD46539A14C92FAD1 /* Pods-tegami_mountains.release.xcconfig */;
+			baseConfigurationReference = 2BA4959364FC8D3BD46539A14C92FAD1 /* Pods-kotobayama.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = NO;
 				CLANG_ENABLE_OBJC_WEAK = NO;
@@ -18408,7 +18408,7 @@
 				"CODE_SIGN_IDENTITY[sdk=watchos*]" = "";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MACH_O_TYPE = staticlib;
-				MODULEMAP_FILE = "Target Support Files/Pods-tegami_mountains/Pods-tegami_mountains.modulemap";
+				MODULEMAP_FILE = "Target Support Files/Pods-kotobayama/Pods-kotobayama.modulemap";
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
 				PODS_ROOT = "$(SRCROOT)";
@@ -19272,7 +19272,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2CA073EFB7D174017B83EE7606446CB2 /* Build configuration list for PBXNativeTarget "Pods-tegami_mountains" */ = {
+		2CA073EFB7D174017B83EE7606446CB2 /* Build configuration list for PBXNativeTarget "Pods-kotobayama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				01E2DF135DC1DC6D0727CA3383D87F89 /* Debug */,

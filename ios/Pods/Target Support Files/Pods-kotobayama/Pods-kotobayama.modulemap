@@ -1,0 +1,6 @@
+module Pods_kotobayama {
+  umbrella header "Pods-kotobayama-umbrella.h"
+
+  export *
+  module * { export * }
+}

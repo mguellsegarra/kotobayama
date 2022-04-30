@@ -4,80 +4,389 @@
     "word": "Ventosa",
     "title": "Refugi Ventosa i Calvell",
     "latlon": "42.6053217,0.8774010999999999",
-    "sourcePhoto": "pirineosconninos.es",
-    "wikipediaExcerpt": "El Refugi Joan Ventosa i Calvell és un refugi de muntanya propietat del Centre Excursionista de Catalunya , situat dins el municipi de la Vall de Boí (Alta Ribagorça), sobre l’Estany Negre, en la cota 2.214, al peu de les Agulles de Travessani en l'extrem oriental del Pletiu d'Estany Negre i dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Joan_Ventosa_i_Calvell"
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Refugi Joan Ventosa i Calvell és un refugi de muntanya propietat del Centre Excursionista de Catalunya,situat dins el municipi de la Vall de Boí (Alta Ribagorça), sobre l’Estany Negre, en la cota 2.214, al peu de les Agulles de Travessani en l'extrem oriental del Pletiu d'Estany Negre i dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Joan_Ventosa_i_Calvell",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10002",
     "word": "Llong",
-    "title": "Refugi d'Estany Long",
+    "title": "Refugi d'Estany Llong",
     "latlon": "42.572580099999996,0.9423785000000002",
-    "sourcePhoto": "pirineosconninos.es",
+    "sourcePhoto": "ca.wikipedia.org",
     "wikipediaExcerpt": "El Refugi d'Estany Llong és un refugi de muntanya situat dins del terme municipals de la Vall de Boí, a la comarca de l'Alta Ribagorça, i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici. Es troba emplaçat a 1.985 m d'altitud, situat a l'oest del desguàs de l’Estany Llong i al nord-est dels Prats d'Aiguadassi.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Estany_Llong"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Estany_Llong",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10003",
     "word": "Colomina",
     "title": "Refugi de Colomina",
     "latlon": "42.5194579,1.0012462000000002",
-    "sourcePhoto": "pirineosconninos.es",
+    "sourcePhoto": "ca.wikipedia.org",
     "wikipediaExcerpt": "El Refugi de Colomina, situat a la capçalera de la Vall Fosca (Pallars Jussà) a 2.395 m d'altitud, fou construït als voltants de l'any 1917 i es coneixia com la \"casa Keller\", nom de l'enginyer suís Albert Keller, que hi habitava i des d'on dirigia el que fou la primera obra hidroelèctrica de l'estat espanyol.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomina"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomina",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10004",
     "word": "Blanc",
-    "title": "Refugi Josep M. Blanc",
+    "title": "Refugi Josep Maria Blanc",
     "latlon": "42.545736399999996,1.0442265000000002",
-    "sourcePhoto": "pirineosconninos.es",
-    "wikipediaExcerpt": "El Refugi Josep Maria Blanc és un refugi de muntanya situat a la vall de Peguera, dintre del terme municipal d'Espot, a la comarca del Pallars Sobirà. Es troba a 2.350 metres d'altitud, a la dreta de l'Estany Tort de Peguera, dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici. ",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Josep_Maria_Blanc"
+    "sourcePhoto": "enciclopedia.cat",
+    "wikipediaExcerpt": "El Refugi Josep Maria Blanc és un refugi de muntanya situat a la vall de Peguera, dintre del terme municipal d'Espot, a la comarca del Pallars Sobirà. Es troba a 2.350 metres d'altitud, a la dreta de l'Estany Tort de Peguera, dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Josep_Maria_Blanc",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10005",
     "word": "Mallafre",
     "title": "Refugi Ernest Mallafré",
     "latlon": "42.5788505,1.0090162",
-    "sourcePhoto": "pirineosconninos.es",
+    "sourcePhoto": "ca.wikipedia.org",
     "wikipediaExcerpt": "El refugi Ernest Mallafré o de Sant Maurici és un refugi de muntanya del terme municipal d'Espot, a la comarca del Pallars Sobirà. Està situat a 1.893 m d'altitud, prop de la presa de l'Estany de Sant Maurici, als peus dels Encantats i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Ernest_Mallafr%C3%A9"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_Ernest_Mallafr%C3%A9",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10006",
-    "title": "Refugi d'Amitges",
     "word": "Amitges",
+    "title": "Refugi d'Amitges",
     "latlon": "42.5966578,0.9846691000000002",
-    "sourcePhoto": "pirineosconninos.es",
+    "sourcePhoto": "ca.wikipedia.org",
     "wikipediaExcerpt": "El Refugi d'Amitges és un refugi de muntanya del terme municipal d'Espot, a la comarca del Pallars Sobirà. Està situat a 2.365 m d'altitud, al sud-oest de l'Estany Gran d'Amitges i dins dels límits del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Amitges"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_d%27Amitges",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10007",
     "word": "Saboredo",
-    "title": "Refugi de Saboredo",
+    "title": "Refugi Saboredo",
     "latlon": "42.6210461,0.9632940999999999",
-    "sourcePhoto": "pirineosconninos.es",
+    "sourcePhoto": "ca.wikipedia.org",
     "wikipediaExcerpt": "El Refugi de Saboredo és un refugi de muntanya al municipi d'Alt Àneu, a 2.298 m d'altitud i situat al costat del Lac de Baish, al Circ de Saboredo i dins de la zona perifèrica de protecció del Parc Nacional d'Aigüestortes i Estany de Sant Maurici. En són els propietaris i gestors la FEEC i el Conselh Generau d'Aran.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Saboredo"
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Saboredo",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10008",
     "word": "Colomers",
     "title": "Refugi de Colomers",
     "latlon": "42.6266246,0.9218230000000001",
-    "sourcePhoto": "pirineosconninos.es",
-    "wikipediaExcerpt": "El refugi de Colomers és un refugi de muntanya que es troba dins el municipi de Naut Aran (Vall d'Aran) a 2.135 m d'altitud i situat al costat de l'Estany Major de Colomers al Circ de Colomèrs i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici. El refugi, de nova construcció, és totalment operatiu des de l'any 2008. En són els propietaris la FEEC i el Conselh Generau d'Aran. ",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomers"
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El refugi de Colomers és un refugi de muntanya que es troba dins el municipi de Naut Aran (Vall d'Aran) a 2.135 m d'altitud i situat al costat de l'Estany Major de Colomers al Circ de Colomèrs i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_Colomers",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
   },
   {
     "id": "10009",
     "word": "Restanca",
-    "title": "Refugi dera Restanca",
+    "title": "Refugi de la Restanca",
     "latlon": "42.634715199999995,0.8546499999999998",
-    "sourcePhoto": "pirineosconninos.es",
-    "wikipediaExcerpt": "El refugi de la Restanca és un refugi de muntanya que es troba dins el municipi de Naut Aran (Vall d'Aran) a 2.010 m d'altitud i situat al costat dret de l'estany de la Restanca, embassament creat per la presa dels Llacs Val d'Aran, en el Circ de Restanca. Està dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
-    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_la_Restanca"
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El refugi de la Restanca és un refugi de muntanya que es troba dins el municipi de Naut Aran (Vall d'Aran) a 2.010 m d'altitud i situat al costat dret de l'estany de la Restanca, embassament creat per la presa dels Llacs Val d'Aran, en el Circ de Restanca.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Refugi_de_la_Restanca",
+    "type": "hut",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10010",
+    "word": "Estany Negre",
+    "title": "Estany Negre",
+    "latlon": "42.6033767,0.8740677000000001",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "L'Estany Negre, també anomenat Negre de Caldes, és un llac que es troba en el terme municipal de la Vall de Boí, a la comarca de l'Alta Ribagorça, i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Estany_Negre_(la_Vall_de_Bo%C3%AD)",
+    "type": "stany",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10011",
+    "word": "Cavallers",
+    "title": "Estany de Cavallers",
+    "latlon": "42.5906494,0.8567905",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El pantà de Cavallers o dels Estanys de Tor és un embassament que pertany al riu Noguera de Tor (conca del riu Noguera Ribagorçana), creat per una presa situada al municipi de la Vall de Boí, a la comarca de l'Alta Ribagorça. L'embassament fou construït l’any 1960.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Pant%C3%A0_de_Cavallers",
+    "type": "stany",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10012",
+    "word": "Estany Llong",
+    "title": "Estany Llong",
+    "latlon": "42.57311,0.94946",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "L'Estany Llong és un llac d'origen glacial, de 7,43 hectàrees i 12 m de fondària màxima, que es troba dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici, a 1.999 m d'altitud, al terme municipal de la Vall de Boí, a l'Alta Ribagorça. Orientat est est-nord-est, el nom li ve de la seva forma.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Estany_Llong_(la_Vall_de_Bo%C3%AD)",
+    "type": "stany",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10013",
+    "word": "Pic Contraix",
+    "title": "Pic de Contraix",
+    "latlon": "42.5851693,0.9068791",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Pic de Contraix és una muntanya que es troba en el terme municipal de la Vall de Boí, a la comarca de l’Alta Ribagorça, i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Pic_de_Contraix",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10014",
+    "word": "Punta Alta",
+    "title": "Punta Alta de Comalesbienes",
+    "latlon": "42.585738, 0.880313",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "La Punta Alta de Comalesbienes és una muntanya que es troba en el terme municipal de la Vall de Boí, a la comarca de l'Alta Ribagorça, i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Punta_Alta_de_Comalesbienes",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10015",
+    "word": "Montardo Aran",
+    "title": "Montardo d'Aran",
+    "latlon": "42.6332852,0.8753278",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Montardo o Montardo d'Aran és un pic dels Pirineus centrals, a la comarca de la Vall d'Aran Té una alçada de 2.833,2 metres i per la seva vistositat i situació és una de les muntanyes més conegudes d'aquella comarca i de tot el Pirineu. Freqüentment és anomenat també Montarto.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Montardo",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10016",
+    "word": "Llebreta",
+    "title": "Estany de Llebreta",
+    "latlon": "42.5496516,0.8892926",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "L'Estany de Llebreta és un llac d'origen glacial, de 8 hectàrees i 12 m de fondària màxima, que es troba dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici, a 1.619 m d'altitud, en el terme municipal de la Vall de Boí, a l'Alta Ribagorça.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Estany_de_Llebreta",
+    "type": "stany",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10017",
+    "word": "Sant Maurici",
+    "title": "Estany de Sant Maurici",
+    "latlon": "42.58150639999999,1.0029834",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "L'estany de Sant Maurici és un llac pirinenc situat al terme del municipi d'Espot, dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Estany_de_Sant_Maurici",
+    "type": "stany",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10018",
+    "word": "Peguera",
+    "title": "Pic de Peguera",
+    "latlon": "42.54037100000001,1.005252",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Pic de Peguera és una muntanya de 2.982,7 metres enclavada al Parc Nacional d'Aigüestortes i Estany de Sant Maurici entre les comarques del Pallars Sobirà i el Pallars Jussà Pertany als termes municipals de la Torre de Cabdella, dins del seu terme primigeni, i Espot.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Pic_de_Peguera",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10019",
+    "word": "Estany Tort",
+    "title": "Estany Tort",
+    "latlon": "42.5252984,0.9838591999999999",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "L'Estany Tort és un llac d'origen glacial que es troba a 2.293 m d'altitud, a la capçalera de la vall Fosca, al Pallars Jussà, al nord-est del poble de Cabdella, en el terme municipal de la Torre de Cabdella.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Estany_Tort",
+    "type": "stany",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10020",
+    "word": "Encantats",
+    "title": "Els Encantats",
+    "latlon": "42.5684626,1.0148461",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "Els Encantats són dues agulles –o dues puntes– d'una famosa muntanya situada als Pirineus, al sud de l'estany de Sant Maurici, a la riba dreta del riu Escrita, en sentit orogràfic.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Els_Encantats",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10021",
+    "word": "Estany Ratera",
+    "title": "Estany de Ratera",
+    "latlon": "42.589859,0.9931213999999999",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "L'estany de Ratera és un estany pirinenc del terme municipal d'Espot, dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici Està situat a 2.130 m d'altitud, entre l'estany de la Cabana i el de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Estany_de_Ratera",
+    "type": "stany",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10022",
+    "word": "Agulles Amitges",
+    "title": "Agulles d'Amitges",
+    "latlon": "42.6072731,0.976879",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "Les Agulles d'Amitges són unes agulles al municipi d'Espot, al Pallars Sobirà, dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici. Estan situades a la vall de Ratera sobre l'estany Gran d'Amitges a 2.661 m. d'altitud.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Agulles_d%27Amitges",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10023",
+    "word": "Besiberri Nord",
+    "title": "Besiberri Nord",
+    "latlon": "42.6052205,0.8262824",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Besiberri Nord és una muntanya que es troba en el punt on coincideixen els termes municipals de la Vall de Boí i Vilaller, tots dos a l'Alta Ribagorça, i Naut Aran, pertanyent a la Vall d'Aran; situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Besiberri_Nord",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10024",
+    "word": "Besiberri Sud",
+    "title": "Besiberri Sud",
+    "latlon": "42.593742049999996,0.8259745",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Besiberri Sud és una muntanya que es troba en límit dels termes municipals de la Vall de Boí i de Vilaller, a l'Alta Ribagorça; situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica. «El seu nom prové del basc \"base-be erri\", contrada sota l'espadat.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Besiberri_Sud",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10025",
+    "word": "Comaloforno",
+    "title": "Comaloforno",
+    "latlon": "42.5913096,0.8277772999999999",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Comaloforno és una muntanya que es troba en el terme municipal de la Vall de Boí, a l'Alta Ribagorça; i dins el Parc Nacional d'Aigüestortes i Estany de Sant Maurici. «Coma-lo-forno és coma de la forna.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Pic_de_Comaloforno",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10026",
+    "word": "Travessani",
+    "title": "Agulles de Travessani",
+    "latlon": "42.6100229,0.8887849999999999",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "Les Agulles de Travessani, la més alta de 2.733,0 metres d'altura, són un conjunt de roques agudes, d'aquí el nom d'agulles, que es troben en el terme municipal de la Vall de Boí (Alta Ribagorça), i dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Agulles_de_Travessani",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10027",
+    "word": "Tumeneia",
+    "title": "Tumenèia",
+    "latlon": "42.6164766,0.8490907999999999",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Tumeneia, o Tuc dera Humenèja en occità, és una muntanya que es troba en límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i de Naut Aran (Vall d'Aran), situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Tumeneia",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10028",
+    "word": "Pa Sucre",
+    "title": "Pa de Sucre",
+    "latlon": "42.613769,0.8468555999999999",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "El Pa de Sucre, o Tumeneia Central, és una muntanya que es troba en el límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i de Naut Aran (Vall d'Aran), situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/El_Pa_de_Sucre",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10029",
+    "word": "Punta Harle",
+    "title": "Punta Harlé",
+    "latlon": "42.61046899999999,0.8437756",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "La Punta d'Harlé, o Tumeneia Sud, és una muntanya que es troba en límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i de Naut Aran (Vall d'Aran), situada en el límit del Parc Nacional d'Aigüestortes i Estany de Sant Maurici i la seva zona perifèrica.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/Punta_d%27Harl%C3%A9",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
+  },
+  {
+    "id": "10030",
+    "word": "Creu Colomers",
+    "title": "Creu de Colomers",
+    "latlon": "42.5929641,0.9175133",
+    "sourcePhoto": "ca.wikipedia.org",
+    "wikipediaExcerpt": "La Creu de Colomèrs és una muntanya que es troba en el límit dels termes municipals de la Vall de Boí (Alta Ribagorça) i Naut Aran (Vall d'Aran), dins del Parc Nacional d'Aigüestortes i Estany de Sant Maurici.",
+    "wikipediaLink": "https://ca.wikipedia.org/wiki/La_Creu_de_Colom%C3%A8rs",
+    "type": "summit",
+    "packs": [
+      "1"
+    ]
   }
 ]

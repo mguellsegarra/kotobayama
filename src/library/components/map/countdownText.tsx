@@ -5,7 +5,7 @@ import moment from 'moment';
 type Props = {
   finishTime: number;
   format: string;
-  textStyle?: TextProps;
+  textStyle: any;
   onFinish: Function;
   onUpdate: Function;
 };

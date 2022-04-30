@@ -1,6 +1,0 @@
-module Pods_tegami_mountains {
-  umbrella header "Pods-tegami_mountains-umbrella.h"
-
-  export *
-  module * { export * }
-}

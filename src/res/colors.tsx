@@ -6,5 +6,7 @@ export enum Colors {
   redButtonText = '#680b0c',
   greenButtonText = '#045a39',
   darkGray = '#494949',
-  gold = '#f4d487'
+  gold = '#f4d487',
+  ribbonRedText = '#ffc69c',
+  ribbonBlueText = '#b6f5ff',
 }

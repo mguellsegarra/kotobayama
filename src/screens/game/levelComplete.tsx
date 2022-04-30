@@ -16,9 +16,9 @@ import {Pack} from '@library/models/pack';
 
 import RectButtonWatchAdd from '@library/components/button/rectButtonWatchAd';
 import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 import LevelMapStore from '@library/mobx/levelMapStore';
 import UserStore from '@library/mobx/userStore';
 import {LevelProgress} from '@library/models/level';
@@ -69,13 +69,13 @@ export default class LevelComplete extends Component<Props> {
   }
 
   async componentDidMount() {
-    if (this.confettiView) {
-      this.confettiView.startConfetti();
-    }
     this.starflareView.animate('fadeIn', 4000);
     await delayPromise(400);
     this.ribbonView.animate('fadeIn', 300);
     await delayPromise(400);
+    if (this.confettiView) {
+      this.confettiView.startConfetti();
+    }
     this.firstStar.animate('fadeIn', 300);
     await delayPromise(400);
     this.secondStar.animate('fadeIn', 300);
@@ -91,7 +91,6 @@ export default class LevelComplete extends Component<Props> {
 
   handleClaim(pack: Pack, levelProgress: LevelProgress) {
     const coins = this.props.userStore.getCoinsToAddForLives(levelProgress!);
-    this.props.userStore.incrementCoins(coins);
 
     this.props.levelMapStore.nextIncompleteLevelForPack(
       this.props.levelProgressStore.levelsProgress,
@@ -99,6 +98,7 @@ export default class LevelComplete extends Component<Props> {
     );
 
     this.props.navigation.navigate('LevelMap');
+    this.props.userStore.incrementCoins(coins);
   }
 
   handleClaimx2(pack: Pack, levelProgress: LevelProgress) {

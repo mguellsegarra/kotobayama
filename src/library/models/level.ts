@@ -10,6 +10,7 @@ export type LevelSource = {
   sourcePhoto: string;
   wikipediaExcerpt: string;
   wikipediaLink: string;
+  type: string;
 };
 
 export type Level = {
@@ -20,6 +21,7 @@ export type Level = {
   sourcePhoto: string;
   wikipediaExcerpt: string;
   wikipediaLink: string;
+  type: string;
 };
 
 export type LevelProgress = {

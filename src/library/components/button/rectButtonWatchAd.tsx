@@ -19,6 +19,8 @@ type Props = {
   style?: ViewStyle;
 };
 
+export const watchAddConstant = 0.507645259938838;
+
 export default class RectButtonWatchAdd extends Component<Props> {
   static defaultProps = {
     onPress: () => {},
@@ -57,6 +59,7 @@ export default class RectButtonWatchAdd extends Component<Props> {
     return (
       <View style={viewStyle}>
         <RectButton
+          style={{marginTop: heightForMosca / 1.5}}
           type={RectButtonEnum.Yellow}
           text={this.props.text}
           onPress={this.props.onPress}

@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View, ViewStyle} from 'react-native';
+import delayPromise from '@library/utils/delayPromise';
 
-import {getStyles} from './lettersBar.style';
+import {styles} from './lettersBar.style';
 
 import AvailableLetter from './availableLetter';
 import {
@@ -9,12 +10,12 @@ import {
   AvailableLetterState,
 } from '@library/models/availableLetter';
 import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
+import {getLevelProgress} from '@library/helpers/levelHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
-import WordHelper from '@library/components/helpers/wordHelper';
+import WordHelper from '@library/helpers/wordHelper';
 
 type Props = {
   style: ViewStyle;
@@ -36,13 +37,22 @@ export interface LettersBarElement extends Element {
   powerUpDestroyLetters: Function;
   existsWrongLettersNotBought: Function;
   restoreNonBoughtLetters: Function;
+  updateStore: Function;
+  zoomOutLetterWithId: Function;
+  restoreZoomLetterWithId: Function;
+  zoomInLetterWithId: Function;
 }
 
 @inject('levelProgressStore')
 @observer
 export default class LettersBar extends Component<Props, State> {
+  letterObjects: any;
+
   constructor(props: Props) {
     super(props);
+    this.getAvailableLetterWithChar = this.getAvailableLetterWithChar.bind(
+      this,
+    );
     this.letterHasTapped = this.letterHasTapped.bind(this);
 
     const {levelProgress} = getLevelProgress(
@@ -95,6 +105,9 @@ export default class LettersBar extends Component<Props, State> {
             letterState={element!.letterState}
             onPress={this.letterHasTapped}
             character={element!.character}
+            animatedRef={(ref: any) => {
+              this.letterObjects.push(ref);
+            }}
           />
         );
       });
@@ -122,6 +135,23 @@ export default class LettersBar extends Component<Props, State> {
     const newLetters = [...this.state.letters];
     newLetters[position] = letter as AvailableLetterType;
     this.setState({...this.state, letters: newLetters});
+  }
+
+  zoomOutLetterWithId(id: string) {
+    const letterObject = this.letterObjects.find((item: any) => {
+      return item.id === id;
+    });
+    letterObject?.zoomOut(100);
+  }
+
+  zoomInLetterWithId(id: string) {
+    const letterObject = this.letterObjects.find((item: any) => {
+      return item.id === id;
+    });
+    letterObject?.zoomIn(100);
+  }
+
+  updateStore() {
     this.props.levelProgressStore?.setAvailableLetters(
       this.props.level.id,
       this.props.pack.id,
@@ -131,6 +161,7 @@ export default class LettersBar extends Component<Props, State> {
 
   restoreLetterWithId(id: string) {
     this.setLetterState(id, AvailableLetterState.Idle);
+    this.zoomInLetterWithId(id);
   }
 
   getAvailableLetterWithChar(character: string) {
@@ -151,56 +182,60 @@ export default class LettersBar extends Component<Props, State> {
     availableLetters.forEach((letter) => {
       this.restoreLetterWithId(letter.id);
     });
+    this.updateStore();
   }
 
   powerUpDestroyLetters() {
-    const availableLetters = this.state.letters.filter((item) => {
-      return item.letterState === AvailableLetterState.Idle;
+    let allLetters = this.state.letters.filter((letter) => {
+      return letter.letterState !== AvailableLetterState.Bought;
     });
 
-    this.props.word
-      .replace(' ', '')
-      .toUpperCase()
-      .split('')
-      .forEach((character) => {
-        let idx = 0;
-
-        availableLetters.forEach((letter, index) => {
-          const found = letter.character === character;
-          if (found) {
-            idx = index;
-          }
-        });
-
-        availableLetters.splice(idx, 1);
+    let availableLetters = this.state.letters
+      .filter((letter) => {
+        return letter.letterState !== AvailableLetterState.Bought;
+      })
+      .map((item) => {
+        return item.character;
       });
 
-    if (availableLetters.length > 3) {
-      availableLetters
-        .slice(0, availableLetters.length / 2)
-        .forEach((letter) => {
-          this.setLetterState(letter.id, AvailableLetterState.Bought);
-        });
-    } else {
-      availableLetters.forEach((letter) => {
-        this.setLetterState(letter.id, AvailableLetterState.Bought);
+    let totalChars = this.props.word.replace(' ', '').toUpperCase().split('');
+
+    totalChars.forEach((letter: string) => {
+      availableLetters.splice(availableLetters.indexOf(letter), 1);
+    });
+
+    availableLetters.forEach(async (letterString) => {
+      const letter = allLetters.find((letterObject) => {
+        return letterObject.character === letterString;
       });
-    }
+      allLetters.splice(allLetters.indexOf(letter!), 1);
+      this.zoomOutLetterWithId(letter!.id);
+      await delayPromise(100);
+      this.setLetterState(letter!.id, AvailableLetterState.Bought);
+    });
+    this.updateStore();
   }
 
   existsWrongLettersNotBought() {
-    const availableLetters = this.state.letters.filter((item) => {
-      return item.letterState !== AvailableLetterState.Bought;
+    let availableLetters = this.state.letters
+      .filter((letter) => {
+        return letter.letterState !== AvailableLetterState.Bought;
+      })
+      .map((item) => {
+        return item.character;
+      });
+
+    let totalChars = this.props.word.replace(' ', '').toUpperCase().split('');
+
+    totalChars.forEach((letter: string) => {
+      availableLetters.splice(availableLetters.indexOf(letter), 1);
     });
 
-    const totalChars = this.props.word.replace(' ', '').toUpperCase().split('')
-      .length;
-
-    return availableLetters.length > totalChars;
+    return availableLetters.length > 0;
   }
 
   render() {
-    const styles = getStyles();
+    this.letterObjects = [];
 
     return (
       <View style={this.props.style}>

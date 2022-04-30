@@ -5,16 +5,21 @@ import {
   ImageBackground,
   View,
 } from 'react-native';
+import {View as AnimatedView} from 'react-native-animatable';
 
 import R, {Images} from '@res/R';
 import {styles} from './availableLetter.style';
-import {AvailableLetterState, AvailableLetterType} from '@library/models/availableLetter';
+import {
+  AvailableLetterState,
+  AvailableLetterType,
+} from '@library/models/availableLetter';
 
 type Props = {
   id: string;
   onPress: Function;
   character: string;
   letterState: AvailableLetterState;
+  animatedRef: Function;
 };
 
 export default class AvailableLetter extends Component<Props> {
@@ -35,7 +40,13 @@ export default class AvailableLetter extends Component<Props> {
             this.props.onPress(letterTapped);
           }
         }}>
-        <View>
+        <AnimatedView
+          useNativeDriver
+          ref={(ref) => {
+            if (ref && ref !== null) {
+              this.props.animatedRef({...ref, id: this.props.id});
+            }
+          }}>
           <ImageBackground
             style={{
               ...styles.letter,
@@ -49,7 +60,7 @@ export default class AvailableLetter extends Component<Props> {
               </Text>
             </View>
           </ImageBackground>
-        </View>
+        </AnimatedView>
       </TouchableWithoutFeedback>
     );
   }

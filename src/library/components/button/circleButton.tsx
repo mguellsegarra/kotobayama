@@ -1,10 +1,7 @@
 import React, {Component} from 'react';
 import {View, Image, ViewStyle, ImageStyle} from 'react-native';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {hp} from '@library/services/deviceService';
 
 // @ts-ignore
 import TouchableScale from 'react-native-touchable-scale';

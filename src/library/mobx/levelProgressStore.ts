@@ -2,7 +2,7 @@ import {observable, action} from 'mobx';
 import {computedFn} from 'mobx-utils';
 
 import {LevelProgress} from '@library/models/level';
-import {getLevelProgress} from './helpers/levelProgressHelper';
+import {getLevelProgress} from '@library/helpers/levelHelper';
 import moment from 'moment';
 import SyncService from '@library/services/syncService';
 import {AvailableLetterType} from '@library/models/availableLetter';
@@ -212,5 +212,3 @@ export default class LevelProgressStore {
     this.levelsProgress = content;
   };
 }
-
-export * from './helpers/levelProgressHelper';

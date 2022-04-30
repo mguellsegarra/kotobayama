@@ -1,14 +1,7 @@
 import {StyleSheet} from 'react-native';
 import {Fonts} from '@res/R';
-import {isTablet} from 'react-native-device-info';
-import {Platform} from 'react-native';
 
-const isAndroid = Platform.OS === 'android';
-
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {wp, hp, isAndroid, isTablet} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   const imageSize = hp('2%');
@@ -53,4 +46,6 @@ const getStyles: any = () => {
   });
 };
 
-export {getStyles};
+const styles = getStyles();
+
+export {styles};

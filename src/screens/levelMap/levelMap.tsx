@@ -1,41 +1,50 @@
 import React, {Component} from 'react';
-import {View, ImageBackground, Animated} from 'react-native';
-import {View as AnimatableView} from 'react-native-animatable';
+import {View} from 'react-native';
+import {observer, inject} from 'mobx-react';
 
 import {styles} from './levelMap.style';
-import R, {Images} from '@res/R';
-
-import {strings} from '@library/services/i18nService';
-import MapLayer from '@library/components/map/mapLayer';
-import MapTitleBanner from '@library/components/map/mapTitleBanner';
-import CoinCounter from '@library/components/game/coinCounter';
+const gameConfig = require('@assets/gameConfig');
 
 import {Level} from '@library/models/level';
 import {Pack} from '@library/models/pack';
 
+import {Images} from '@res/R';
+import {strings} from '@library/services/i18nService';
+
+import LevelService from '@library/services/levelService';
+import delayPromise from '@library/utils/delayPromise';
+
+import Navbar from '@library/components/map/navbar';
+import MapLayer from '@library/components/map/mapLayer';
+import MapTitleBanner from '@library/components/map/mapTitleBanner';
 import LevelChooser from '@library/components/map/levelChooser';
 import RectButton, {
   RectButtonEnum,
 } from '@library/components/button/rectButton';
-import CircleButton from '@library/components/button/circleButton';
 import MapTypeButton from '@library/components/map/mapTypeButton';
-
-import {observer, inject} from 'mobx-react';
-import LevelProgressStore, {
-  getFirstIncompleteLevelIdForPack,
-  getProgressForPack,
-  getLevelProgress,
-} from '@library/mobx/levelProgressStore';
-import LevelMapStore from '@library/mobx/levelMapStore';
-import UserStore from '@library/mobx/userStore';
-
-import LevelService from '@library/services/levelService';
 import LevelCompletedBanner from '@library/components/map/levelCompletedBanner';
 import PlayButton from '@library/components/map/playButton';
+import LoadingView from '@library/components/common/loadingView';
+import Popup from '@library/components/common/popup';
+import MapboxLogo from '@library/components/map/mapboxLogo';
+import MapboxCreditsText from '@library/components/map/mapcreditsText';
+
+import {
+  getFirstIncompleteLevel,
+  getProgressForPack,
+  getLevelProgress,
+} from '@library/helpers/levelHelper';
+import {checkIfEnoughCoins} from '@library/helpers/coinHelper';
+
+import LevelProgressStore from '@library/mobx/levelProgressStore';
+import LevelMapStore from '@library/mobx/levelMapStore';
+import UserStore from '@library/mobx/userStore';
+import {MapTypeMode} from '@library/models/mapTypeMode';
 
 type State = {
   mapNavigationMode: boolean;
-  fadeAnim: Animated.Value;
+  showPopup: boolean;
+  popupAmount: number;
 };
 
 type Props = {
@@ -51,66 +60,75 @@ type Props = {
 @inject('userStore')
 @observer
 export default class LevelMap extends Component<Props, State> {
-  mapLayer: any;
   packId: string;
   pack: Pack;
   levels: Array<Level>;
   prevCurrentLevel: number;
+  // Views
+  mapLayer: any;
   levelChooser: any;
   navbar: any;
   mapTitleBanner: any;
   playButton: any;
   closeMapButton: any;
   levelCompletedBanner: any;
+  loadingView: any;
+  popup: any;
+  mapCreditsText: any;
 
   constructor(props: Props) {
     super(props);
+
     this.onMapPanDrag = this.onMapPanDrag.bind(this);
     this.mapLoaded = this.mapLoaded.bind(this);
     this.getCurrentLevel = this.getCurrentLevel.bind(this);
-
     this.handleAnimsForMapNavigationMode = this.handleAnimsForMapNavigationMode.bind(
       this,
     );
+    this.popupConfirm = this.popupConfirm.bind(this);
+    this.popupCancel = this.popupCancel.bind(this);
+    this.restoreLives = this.restoreLives.bind(this);
+    this.showPopup = this.showPopup.bind(this);
+    this.onMarkerPress = this.onMarkerPress.bind(this);
 
     const {packId} = this.props.route.params;
     this.packId = packId;
     this.pack = LevelService.getPackWithId(this.packId);
     this.levels = LevelService.getLevelsForPack(packId);
 
-    const {idx} = this.getFirstIncompleteLevel();
+    const {idx} = getFirstIncompleteLevel({
+      pack: this.pack,
+      levelsProgress: this.props.levelProgressStore.levelsProgress,
+      levels: this.levels,
+    });
     this.props.levelMapStore.setCurrentLevelForPack(idx, this.pack);
     this.prevCurrentLevel = idx;
 
     this.state = {
       mapNavigationMode: false,
-      fadeAnim: new Animated.Value(1),
+      showPopup: false,
+      popupAmount: 0,
     };
   }
 
   mapLoaded() {
-    Animated.timing(this.state.fadeAnim, {
-      toValue: 0,
-      delay: 0,
-      duration: 800,
-      useNativeDriver: true,
-    }).start();
+    this.loadingView.fadeOut();
   }
 
   componentDidUpdate() {
-    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack[
-      this.pack.id
-    ];
+    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack.get(
+      this.pack.id,
+    );
     if (this.prevCurrentLevel !== actualCurrentLevel) {
       this.updateMapLayer();
-      this.prevCurrentLevel = actualCurrentLevel;
+      this.prevCurrentLevel = actualCurrentLevel!;
     }
   }
 
   updateMapLayer() {
-    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack[
-      this.pack.id
-    ];
+    const actualCurrentLevel = this.props.levelMapStore.currentLevelForPack.get(
+      this.pack.id,
+    );
     this.mapLayer.setCurrentLevel(actualCurrentLevel);
     this.mapLayer.resetToLevel();
   }
@@ -126,7 +144,7 @@ export default class LevelMap extends Component<Props, State> {
 
   handleAnimsForMapNavigationMode() {
     const currentLevelId = this.levels[
-      this.props.levelMapStore.currentLevelForPack[this.packId]
+      this.props.levelMapStore.currentLevelForPack.get(this.packId)!
     ].id;
 
     const {levelProgress} = getLevelProgress(
@@ -140,53 +158,85 @@ export default class LevelMap extends Component<Props, State> {
       this.navbar.animate('fadeIn', 300);
       this.mapTitleBanner.animate('fadeIn', 300);
       this.levelChooser.animate('fadeIn', 300);
+      this.mapCreditsText.animate('fadeIn', 300);
 
       if (levelProgress?.completed) {
         this.levelCompletedBanner?.animate('fadeIn', 300);
       } else {
-        this.playButton.animate('fadeIn', 300);
+        this.playButton?.animate('fadeIn', 300);
       }
     } else {
       this.closeMapButton.animate('fadeIn', 300);
       this.navbar.animate('fadeOut', 300);
       this.mapTitleBanner?.animate('fadeOut', 300);
       this.levelChooser.animate('fadeOut', 300);
+      this.mapCreditsText.animate('fadeOut', 300);
 
       if (levelProgress?.completed) {
         this.levelCompletedBanner?.animate('fadeOut', 300);
       } else {
-        this.playButton.animate('fadeOut', 300);
+        this.playButton?.animate('fadeOut', 300);
       }
     }
   }
 
-  getFirstIncompleteLevel() {
-    let levelIdx: number = 0;
-
-    const {levelId} = getFirstIncompleteLevelIdForPack(
-      this.props.levelProgressStore.levelsProgress,
-      this.pack,
-    );
-
-    const level = this.levels.find((lvl, lvlIdx) => {
-      const found = lvl.id === levelId;
-
-      if (found) {
-        levelIdx = lvlIdx;
-      }
-      return found;
-    });
-
-    return {idx: levelIdx, level};
+  getCurrentLevel() {
+    return this.props.levelMapStore.currentLevelForPack.get(this.packId)!;
   }
 
-  getCurrentLevel() {
-    return this.props.levelMapStore.currentLevelForPack[this.packId];
+  showPopup() {
+    this.setState({
+      showPopup: true,
+      popupAmount: this.playButton.calculatePrice(),
+    });
+    this.popup.animate('fadeIn', 300);
+  }
+
+  restoreLives() {
+    const level = this.levels[
+      this.props.levelMapStore.currentLevelForPack.get(this.packId)!
+    ];
+
+    this.props.userStore?.decrementCoins(this.playButton.calculatePrice());
+    this.props.levelProgressStore?.unsetLevelCooldown(level.id, this.packId);
+  }
+
+  async popupConfirm() {
+    const {userStore} = this.props;
+
+    if (!checkIfEnoughCoins({userStore, amount: gameConfig.priceSolveLetter})) {
+      this.props.navigation.navigate('AddCoins', {noCoins: true});
+      return;
+    }
+
+    this.setState({showPopup: false});
+    this.popup.animate('fadeOut', 300);
+    await delayPromise(300);
+    this.restoreLives();
+  }
+
+  popupCancel() {
+    this.setState({showPopup: false});
+    this.popup.animate('fadeOut', 300);
+  }
+
+  onMarkerPress(marker: any) {
+    let idx = 0;
+
+    this.levels.find((level: Level, index: number) => {
+      const found = level.id === marker.id;
+      if (found) {
+        idx = index;
+      }
+      return level.id === marker.id;
+    });
+
+    this.props.levelMapStore.setCurrentLevelForPack(idx, this.pack);
   }
 
   render() {
     const currentLevelId = this.levels[
-      this.props.levelMapStore.currentLevelForPack[this.packId]
+      this.props.levelMapStore.currentLevelForPack.get(this.packId)!
     ].id;
     const {levelProgress} = getLevelProgress(
       this.props.levelProgressStore.levelsProgress,
@@ -207,31 +257,31 @@ export default class LevelMap extends Component<Props, State> {
             onPanDrag={this.onMapPanDrag}
             onMapLoaded={this.mapLoaded}
             packId={this.packId}
+            onMarkerPress={this.onMarkerPress}
           />
 
-          <AnimatableView
-            useNativeDriver
+          <MapboxLogo
+            style={styles.mapboxLogo}
+            show={this.props.userStore.mapTypeMode === MapTypeMode.Topo}
+          />
+
+          <Navbar
             style={styles.navBar}
-            ref={(ref) => {
+            animatedRef={(ref: any) => {
               this.navbar = ref;
             }}
-            pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}>
-            <View style={styles.navBarLeft}>
-              <CircleButton
-                style={styles.backButton}
-                image={Images.back_button}
-                onPress={() => {}}></CircleButton>
-            </View>
-            <View style={styles.navBarMiddle}></View>
-            <View style={styles.navBarRight}>
-              <CoinCounter
-                totalCoins={this.props.userStore.coins}
-                onPress={() => {}}
-              />
-            </View>
-          </AnimatableView>
+            totalCoins={this.props.userStore.coins}
+            onBack={() => {
+              this.props.navigation.goBack();
+            }}
+            onCoinTap={() => {
+              this.props.navigation.navigate('AddCoins', {noCoins: false});
+            }}
+            pointerEvents={this.state.mapNavigationMode ? 'none' : 'auto'}
+          />
 
           <MapTitleBanner
+            style={styles.titleOverlay}
             ref={(ref) => {
               this.mapTitleBanner = ref;
             }}
@@ -243,18 +293,18 @@ export default class LevelMap extends Component<Props, State> {
             )}
           />
 
-          <View style={styles.mapTypeButtonContainer}>
-            <MapTypeButton
-              mapMode={this.props.userStore.mapTypeMode}
-              onPress={() => {
-                this.props.userStore.toggleMapTypeMode();
-              }}
-            />
-          </View>
+          <MapTypeButton
+            style={styles.mapTypeButtonContainer}
+            mapMode={this.props.userStore.mapTypeMode}
+            onPress={() => {
+              this.props.userStore.toggleMapTypeMode();
+            }}
+          />
 
-          {levelProgress?.completed ? (
+          {levelProgress?.completed && !this.state.mapNavigationMode ? (
             <LevelCompletedBanner
               style={styles.levelCompletedBanner}
+              type={this.levels[this.getCurrentLevel()].type}
               ref={(ref) => {
                 this.levelCompletedBanner = ref;
               }}
@@ -262,8 +312,9 @@ export default class LevelMap extends Component<Props, State> {
               title={this.levels[this.getCurrentLevel()].title}
               stars={levelProgress?.stars!}
             />
-          ) : (
+          ) : !this.state.mapNavigationMode ? (
             <PlayButton
+              style={styles.playButtonOverlay}
               ref={(ref) => {
                 this.playButton = ref;
               }}
@@ -272,8 +323,9 @@ export default class LevelMap extends Component<Props, State> {
               levels={this.levels}
               currentLevel={this.getCurrentLevel()}
               packId={this.packId}
+              restoreLives={this.showPopup}
             />
-          )}
+          ) : null}
 
           <RectButton
             ref={(ref) => {
@@ -295,6 +347,14 @@ export default class LevelMap extends Component<Props, State> {
             }}
           />
 
+          <MapboxCreditsText
+            animatedRef={(ref: any) => {
+              this.mapCreditsText = ref;
+            }}
+            style={styles.mapcreditsText}
+            mode={this.props.userStore.mapTypeMode}
+          />
+
           <LevelChooser
             ref={(ref) => {
               this.levelChooser = ref;
@@ -311,18 +371,27 @@ export default class LevelMap extends Component<Props, State> {
             }}
           />
         </View>
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.overlayLoad,
-            {
-              opacity: this.state.fadeAnim,
-            },
-          ]}>
-          <ImageBackground
-            source={R.img(Images.mountain_bg)}
-            style={styles.overlayLoad}></ImageBackground>
-        </Animated.View>
+
+        <LoadingView
+          ref={(ref: any) => {
+            this.loadingView = ref;
+          }}
+          devMode={__DEV__}
+          image={Images.mountain_bg}
+        />
+
+        <Popup
+          title={strings('restoreLives')}
+          pointerEvents={this.state.showPopup ? 'auto' : 'none'}
+          animatedRef={(ref: any) => {
+            this.popup = ref;
+          }}
+          mode={'buyLives'}
+          amount={this.state.popupAmount}
+          showCancelButton={true}
+          onConfirm={this.popupConfirm}
+          onCancel={this.popupCancel}
+        />
       </View>
     );
   }

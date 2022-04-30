@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {ImageBackground, Text} from 'react-native';
 
 import R, {Images} from '@res/R';
-import {getStyles} from './levelIndexNumber.style';
+import {styles} from './levelIndexNumber.style';
 
 type Props = {
   totalLevels: number;
@@ -11,8 +11,6 @@ type Props = {
 
 export default class LevelIndexNumber extends Component<Props> {
   render() {
-    const styles = getStyles();
-
     return (
       <ImageBackground
         source={R.img(Images.level_number_container)}

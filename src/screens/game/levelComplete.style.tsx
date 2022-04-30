@@ -1,14 +1,14 @@
-import {StyleSheet, Platform} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Fonts, Colors} from '@res/R';
 
-const isAndroid = Platform.OS === 'android';
-import DeviceInfo, {isTablet} from 'react-native-device-info';
-const iOSandNotch = Platform.OS === 'ios' && DeviceInfo.hasNotch();
-
 import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+  isAndroid,
+  isTablet,
+  isIosAndNotch,
+  wp,
+  hp,
+} from '@library/services/deviceService';
+import {defaultButtonSize} from '@library/components/button/rectButton';
 
 const getStyles: any = () => {
   const photoFrameConstant = 0.626373626373626;
@@ -34,7 +34,7 @@ const getStyles: any = () => {
   const coinRewardsHeight = hp('5%');
   const coinRewardsWidth = coinRewardsHeight / coinRewardsConstant;
 
-  let starFlareY = iOSandNotch ? 44 : 0;
+  let starFlareY = isIosAndNotch ? 44 : 0;
   starFlareY += hp('1%');
 
   return StyleSheet.create({
@@ -143,7 +143,8 @@ const getStyles: any = () => {
       color: 'white',
     },
     descriptionText: {
-      fontSize: hp('10%'),
+      width: '90%',
+      fontSize: hp('20%'),
       textAlign: 'center',
       fontFamily: Fonts.alata,
       marginLeft: wp('5%'),
@@ -256,6 +257,8 @@ const getStyles: any = () => {
     },
     buttonLeft: {
       marginRight: wp('1%'),
+      width: defaultButtonSize.width * 0.99,
+      height: defaultButtonSize.height * 0.99,
     },
     buttonRight: {
       marginLeft: wp('1%'),

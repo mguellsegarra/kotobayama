@@ -2442,7 +2442,7 @@ cross-spawn@^7.0.0:
     shebang-command "^2.0.0"
     which "^2.0.1"
 
-crypto-js@3.3.0:
+crypto-js@3.3.0, crypto-js@^3.1.9-1:
   version "3.3.0"
   resolved "https://registry.yarnpkg.com/crypto-js/-/crypto-js-3.3.0.tgz#846dd1cce2f68aacfa156c8578f926a609b7976b"
   integrity sha512-DIT51nX0dCfKltpRiXV+/TVZq+Qq2NgF4644+K7Ttnla7zEzqc+kjJyiB96BHNyUTBxyjzRcZYpUdZa+QAqi6Q==
@@ -5906,6 +5906,18 @@ react-native-gesture-handler@^1.7.0:
     hoist-non-react-statics "^2.3.1"
     invariant "^2.2.4"
     prop-types "^15.7.2"
+
+react-native-image-cache-wrapper@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-image-cache-wrapper/-/react-native-image-cache-wrapper-1.0.7.tgz#f7e40947ee8b849fe3beccfa15604beb5cf58ded"
+  integrity sha512-CQX/KvtMudd8g2NW3d2k2KD9vzIhZnns5jEH0eD5/xEeFwCApr80zzJZQ6MQ5k0MpEe/y67GQJHRTYhdQqcUxw==
+  dependencies:
+    crypto-js "^3.1.9-1"
+
+react-native-image-pan-zoom@^2.1.12:
+  version "2.1.12"
+  resolved "https://registry.yarnpkg.com/react-native-image-pan-zoom/-/react-native-image-pan-zoom-2.1.12.tgz#eb98bf56fb5610379bdbfdb63219cc1baca98fd2"
+  integrity sha512-BF66XeP6dzuANsPmmFsJshM2Jyh/Mo1t8FsGc1L9Q9/sVP8MJULDabB1hms+eAoqgtyhMr5BuXV3E1hJ5U5H6Q==
 
 react-native-iphone-x-helper@^1.2.1:
   version "1.2.1"

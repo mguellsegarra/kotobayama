@@ -1,14 +1,10 @@
 import {StyleSheet} from 'react-native';
-import {isTablet} from 'react-native-device-info';
 import {Platform} from 'react-native';
 
 import {Fonts} from '@res/R';
-const isAndroid = Platform.OS === 'android';
+import {isAndroid, isTablet} from '@library/services/deviceService';
 
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
+import {wp, hp} from '@library/services/deviceService';
 
 const getStyles: any = () => {
   const letterSize = isTablet() ? wp('11%') : wp('12%');
@@ -40,4 +36,4 @@ const getStyles: any = () => {
 
 const styles = getStyles();
 
-export {getStyles, styles};
+export {styles};

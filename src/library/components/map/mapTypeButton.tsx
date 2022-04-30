@@ -1,11 +1,14 @@
 import React, {Component} from 'react';
-import CircleButton from '@library/components/button/circleButton';
-import {styles} from '@screens/levelMap/levelMap.style';
-import {MapTypeMode} from '@library/models/mapTypeMode';
+import {ViewProps, View, StyleSheet} from 'react-native';
 
 import {Images} from '@res/R';
 
+import CircleButton from '@library/components/button/circleButton';
+import {hp} from '@library/services/deviceService';
+import {MapTypeMode} from '@library/models/mapTypeMode';
+
 type Props = {
+  style: ViewProps;
   mapMode: MapTypeMode;
   onPress: Function;
 };
@@ -15,6 +18,13 @@ const imagesForMode = new Map<string, string>([
   [MapTypeMode.Topo, Images.map_circle_blue],
 ]);
 
+const styles = StyleSheet.create({
+  mapButton: {
+    width: hp('7%'),
+    height: hp('7%'),
+  },
+});
+
 export default class MapTypeButton extends Component<Props> {
   static defaultProps = {
     mode: MapTypeMode.Sat,
@@ -22,11 +32,13 @@ export default class MapTypeButton extends Component<Props> {
 
   render() {
     return (
-      <CircleButton
-        style={styles.mapButton}
-        image={imagesForMode.get(this.props.mapMode)!}
-        onPress={this.props.onPress}
-      />
+      <View style={this.props.style}>
+        <CircleButton
+          style={styles.mapButton}
+          image={imagesForMode.get(this.props.mapMode)!}
+          onPress={this.props.onPress}
+        />
+      </View>
     );
   }
 }

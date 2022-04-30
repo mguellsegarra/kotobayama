@@ -1,8 +1,11 @@
 import React, {Component} from 'react';
-import {TouchableWithoutFeedback, Image, Text, View} from 'react-native';
+import {TouchableWithoutFeedback, Image, Text} from 'react-native';
+import {View} from 'react-native-animatable';
+
+import CoinCounterText from './coinCounterText';
 
 import R, {Images} from '@res/R';
-import {getStyles} from './coinCounter.style';
+import {styles} from './coinCounter.style';
 
 type Props = {
   totalCoins: number;
@@ -10,23 +13,41 @@ type Props = {
 };
 
 export default class CoinCounter extends Component<Props> {
-  render() {
-    const styles = getStyles();
+  container: any;
 
+  constructor(props: Props) {
+    super(props);
+    this.tadaAnimate = this.tadaAnimate.bind(this);
+  }
+
+  tadaAnimate() {
+    this.container.animate('tada', 2000);
+  }
+
+  render() {
     return (
       <TouchableWithoutFeedback
         onPress={() => {
           this.props.onPress();
         }}>
-        <View style={styles.container}>
+        <View
+          useNativeDriver
+          ref={(ref) => {
+            this.container = ref;
+          }}
+          style={styles.container}>
           <Image
             resizeMode="contain"
             style={styles.image}
             source={R.img(Images.coins)}
           />
-          <Text adjustsFontSizeToFit style={styles.text}>
-            {this.props.totalCoins}
-          </Text>
+
+          <CoinCounterText
+            coins={this.props.totalCoins}
+            onAnimation={() => {
+              this.tadaAnimate();
+            }}
+          />
           <Text adjustsFontSizeToFit style={styles.plus}>
             +
           </Text>
