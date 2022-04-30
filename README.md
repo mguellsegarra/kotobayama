@@ -18,22 +18,24 @@ In this demo version there is a level for guessing huts, summits and lakes from 
 
 - Android and iOS support
 - TypeScript
-- React Navigation
-- MobX state management
-- Bugsnag error reporting
-- Localization and i18n - react-native-localize
-- Linear gradient backgrounds - 
-- Remote images fetching and caching - react-native-image-cache-wrapper
-- Progress bars - react-native-progress
-- Animations with Animated API, react-native-reanimated and react-native-touchable-scale
-- Custom maps using Mapbox and Google Maps API
-- Custom screenshot for sharing and asking questions to friends - react-native-view-shot + react-native-share
-- Fancy confetti effect - react-native-confetti
-- Loading images asyncronously without flickering - 
-- Pan and zoom images - react-native-image-pan-zoom
+- [React Navigation](https://reactnavigation.org/)
+- [MobX](https://mobx.js.org/) for state management
+- [Bugsnag](https://www.bugsnag.com/) error monitoring with sourcemap support
+- Localization and i18n - [react-native-localize](https://github.com/zoontek/react-native-localize)
+- Linear gradient backgrounds - [react-native-linear-gradient](https://github.com/react-native-linear-gradient/react-native-linear-gradient)
+- Remote images fetching and caching - [react-native-image-cache-wrapper](https://github.com/wonday/react-native-image-cache-wrapper)
+- Progress bars - [react-native-progress](https://github.com/oblador/react-native-progress)
+- Animations with [Animated API](https://reactnative.dev/docs/animated), [react-native-reanimated](https://github.com/software-mansion/react-native-reanimated) and [react-native-touchable-scale](https://github.com/kohver/react-native-touchable-scale)
+- Custom maps using [Mapbox](https://www.mapbox.com/) and Google Maps API - [react-native-maps](https://github.com/react-native-maps/react-native-maps)
+- Custom screenshot for sharing and asking questions to friends - [react-native-view-shot](https://github.com/gre/react-native-view-shot) + [react-native-share](https://github.com/react-native-share/react-native-share)
+- Fancy confetti effect - [react-native-confetti](https://github.com/hyperjumptech/react-native-confetti)
+- Pan and zoom images - [react-native-image-pan-zoom](https://github.com/ascoders/react-native-image-zoom)
 - [Handy script](https://github.com/mguellsegarra/kotobayama/blob/master/scripts/images.js) for resizing and preparing images for both iOS and Android platforms
 
 ## Building
+
+- Replace your Google Maps API keys in `android/app/src/main/AndroidManifest.xml` and `ios/kotobayama/AppDelegate.m`.
+- Run as usually with `npm run ios` - `npm run android`.
 
 ## TODO
 
